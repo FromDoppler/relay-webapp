@@ -1,0 +1,161 @@
+// *************************************
+//
+//   Header
+//
+// *************************************
+
+
+
+header{
+  p{font-size: $font-size-small;display: inline;}
+  h4{cursor:pointer;}
+  h4{font-size: $headers_h5-font-size;}
+  .section--wrapper{padding: toem(40px) 0;display: flex; justify-content: center;align-items: center;
+    a{align-items: center;}
+    nav{background:none; display: flex;}
+    nav:last-of-type{justify-content: flex-end;
+        a:last-of-type{margin-left: toem(20px); font-size: $font-size-small}
+        a:first-of-type{margin-left: toem(12px)}
+        p{color: $suit-font-color-light;}
+      }
+  }
+  .login{
+    background-color: $suit-background-default;
+  }
+  .logged{
+    background-color: $suit-background-dark;
+    .section--wrapper{padding: toem(25px) 0}
+    .header--log-out{cursor: pointer;}
+    nav{align-items: center;}
+    a{color:$suit-accent-color; font-size: $headers_h5-font-size; margin-right: toem(15px);}
+    a:last-of-type{margin-right:0;}
+    h4{color:#FCF8F1; text-transform: uppercase;letter-spacing: 0;}
+    p{color: $suit-background-bright !important; cursor: default;}
+  }
+  .icon--config-menu{
+    display: inline-block;
+    margin-left: .5rem;
+    margin-bottom: 1px;
+  }
+  .shapped--arrow-up{
+    border-bottom-color: $suit-accent-color !important;
+  }
+  .shapped--arrow-down{
+    border-top-color: $suit-accent-color !important;
+  }
+  .header--config-menu{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 5rem;
+    background: $suit-background-bright;
+    padding: 0.7rem;
+    z-index: 9999;
+    width: 320px;
+    height: 215px;
+    box-shadow: 0 1px 10px $suit-main-color;
+    @extend .transition--default;
+    &.show{
+      visibility: visible;
+      opacity: 1;
+    }
+    p{
+      color: $suit-main-color !important;
+    }
+    .first-container{
+      border-bottom: 1px solid $suit-font-color-lighter;
+      display: flex;
+      justify-content: space-between;
+      div:last-of-type{padding-top: 0.8em; width: 68%;}
+      p,a{display: inline-block;width: 100%;}
+      p{font-weight: 600; }
+      a:last-of-type{ margin-left: 0 !important; cursor: default;}
+      .header--config-avatar{
+        position: relative;
+        display: inline-block;
+        width: 4em;
+        height: 4em;
+        background: $suit-accent-color;
+        border-radius: 3px;
+        margin-bottom: 1.5em;
+        span{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          color: $suit-background-default;
+          text-transform: uppercase;
+          max-width: 70%;
+          overflow: hidden;
+        }
+      }
+    }
+    .second-container{
+      a, span {
+        margin: 0 !important;
+        color: inherit;
+        cursor: pointer;
+      }
+      ul{
+        list-style-type: none;
+        color: $suit-font-color-lighter;
+        text-transform: uppercase;
+        li{
+          display: inline-block;
+          font-size: $font-size-small;
+          width: 100%;
+          margin-left: 0.5em;
+          cursor: default;
+        }
+        a:hover,span:hover{
+          color:$suit-accent-color;
+        }
+        li:first-of-type{
+          margin: 20px 0 20px 0.5em;
+        }
+        li:last-of-type{
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+  }
+  .sub-menu{
+    height: 0;
+    padding: 0 !important;
+    overflow: hidden;
+    @extend .transition--default;
+    &.show{
+      height: 1.7rem;
+    }
+    &.section--wrapper{
+      nav {
+        justify-content:flex-start;
+        margin-left: torem(55px);
+        a.active{border-bottom: 3px solid #E78224;}
+        h4{text-transform: none;}
+      }
+    }
+  }
+  p.header--config-menu-trigger{
+      cursor: pointer !important;
+  }
+}
+
+@media screen and (max-height: 750px){
+    header{
+      .section--wrapper{
+        a:first-child{margin-left: toem(4px)}
+        div{
+          a:first-of-type{margin-left: 1.2em;margin-right: 0.52em;}
+        }
+      }
+
+      .header--flags{ p{display: none;} a{cursor:pointer;} }
+    }
+}
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------

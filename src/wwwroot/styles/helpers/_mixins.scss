@@ -1,0 +1,224 @@
+// *************************************
+//
+//   Mixins
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------
+
+@mixin debug-layout() {
+	* { outline: 1px dotted red; }
+	* * { outline: 1px dotted green; }
+	* * * { outline: 1px dotted orange; }
+	* * * * { outline: 1px dotted blue; }
+	* * * * * { outline: 1px solid red; }
+	* * * * * * { outline: 1px solid green; }
+	* * * * * * * { outline: 1px solid orange; }
+	* * * * * * * * { outline: 1px solid blue; }
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}
+}
+
+/// Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/// Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color}
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+/// Compute the maximum depth of a map
+/// @param {Map} $map
+/// @return {Number} max depth of `$map`
+@function map-depth($map) {
+  $level: 1;
+
+  @each $key, $value in $map {
+    @if type-of($value) == 'map' {
+      $level: max(map-depth($value) + 1, $level);
+    }
+  }
+
+  @return $level;
+}
+
+
+/// Media query merger
+/// Create a single media condition out of a map of queries
+/// @param {Map} $queries - Map of media queries
+@mixin media($queries) {
+  @if length($queries) == 0 {
+    @content;
+  } @else {
+    $first-key: nth(map-keys($queries), 1);
+
+    @media ($first-key: map-get($queries, $first-key)) {
+      $queries: map-remove($queries, $first-key);
+
+      @include media($queries) {
+        @content;
+      }
+    }
+  }
+}
+
+
+@mixin respond-to($breakpoint) {
+  // Get the query map for $breakpoints map
+  $queries: map-get($breakpoints, $breakpoint);
+
+  // If there is no query called $breakpoint in map, throw an error
+  @if not $queries {
+    @error "No value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints` map.";
+  }
+
+  // Include the media mixin with $queries
+  @include media($queries) {
+    @content;
+  }
+}
+
+@mixin center-block($orientation: all) {
+  position: relative;
+
+  @if ($orientation == all) {
+    top: 50%;
+    left: 50%;
+    @include translate(-50%, -50%);
+  }
+  @elseif ($orientation == vertical) {
+    top: 50%;
+    left: auto;
+    @include translate(0, -50%);
+  }
+  @elseif ($orientation == horizontal) {
+    top: auto;
+    left: 50%;
+    @include translate(-50%, 0);
+  }
+}
+
+
+@mixin do-button($type: all, $background: #CCCFD4, $color: #fff, $border-color: #CCCFD4, $inverted: false) {
+  padding: 10px;
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  height: toem(65px);
+  transition: all .15s ease;
+
+  &:before,
+  &:after {
+    @include center-block(vertical);
+
+    display: block;
+    height: calc(100% - 26px);
+    width: 0;
+    position: absolute;
+    content: "";
+    border-left:  1px solid $border-color;
+    transition: all .15s ease;
+  }
+
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
+  }
+
+  span {
+    display: inline-block;
+    padding: 0 30px;
+
+    line-height: 45px;
+    font-size: toem(13px);
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+    transition: all .15s ease;
+    background-color: $background;
+
+    @if($inverted == false) {
+      color: #fff;
+    } @else {
+      color: $color;
+    }
+
+    &:before,
+    &:after {
+      display: block;
+      width: calc(100% - 40px);
+      height: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      content: "";
+      border-top: 1px solid $border-color;
+      transition: all .15s ease;
+    }
+
+    &:before {
+      top: 0;
+    }
+
+    &:after {
+      bottom: 0;
+    }
+  }
+
+  &:hover {
+    padding: 0;
+    z-index: 10;
+
+    &:before,
+    &:after {
+      opacity: 0;
+    }
+
+    span {
+      padding: 10px 40px;
+
+      @if($inverted == false) {
+        background-color: shade($background, 10%);
+      } @else {
+        background-color: tint($border-color, 70%);
+      }
+
+      &:before,
+      &:after {
+        opacity: 0;
+      }
+    }
+  }
+
+  & + & {
+    margin-left: -5px;
+  }
+}

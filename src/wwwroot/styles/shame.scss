@@ -1,0 +1,54 @@
+// *************************************
+//
+//   SHAME CSS
+//
+//   -> This file is full with quick and AWFUL fixes that should be refactorized ASAP.
+//
+// *************************************
+
+form div.validation-error {
+  position: absolute;
+  margin: 0 0 0 0;
+  padding-left: 0.875rem;
+  font-size: .875em;
+  padding-top: .35rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #EF3747;
+}
+
+/* It is to match validation-error directive behavior */
+form .ng-invalid-strength {
+  background-color: #FCEDEC !important;
+  border-color: #EF3747 !important;
+}
+.ms-relay .confirmation--password-container .input--error{
+  margin-right: 1em;
+}
+
+form .ng-invalid.ng-touched.ng-dirty.error,
+form .ng-invalid.ng-touched.ng-dirty.ng-invalid-required,
+form .ng-invalid.ng-touched.ng-dirty.error:focus,
+form .ng-invalid-pattern.ng-dirty,
+form .ng-invalid-pattern.ng-dirty:focus,
+form .ng-invalid-same.ng-dirty,
+form .ng-invalid-same.ng-dirty:focus,
+form.ng-submitted .ng-invalid,
+form.ng-submitted .ng-invalid:focus {
+  background-color: #FCEDEC;
+  border-color: #EF3747;
+}
+
+/* Sadly I cannot confirm that it will work fine in other pages, but it should be general */
+.templates--information,
+.templates--edition {
+  label {
+    padding-left: 0.875em;
+  }
+
+  .input {
+    /* Ugly patch to add a space between the label and the input, adding padding bottom to the label did not work */
+    margin-top: .35em;
+  }
+}

@@ -1,0 +1,9 @@
+.sass-cache/
+node_modules/
+bower_components/
+**/dev/css/**
+**/dev/fonts/**
+**/dev/js/vendor/**
+**/assets/styles/libs/compass/**
+**/assets/styles/libs/normalize/**
+**/assets/styles/libs/jeet/**

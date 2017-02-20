@@ -1,0 +1,33 @@
+// *************************************
+//
+//   Forms
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------
+c3chart{display: block}
+.c3-xgrid, .c3-ygrid{
+  stroke-dasharray: 0 !important;
+}
+.c3-grid line {
+    stroke: #eee !important;
+}
+.c3 .c3-axis-x path, .c3 .c3-axis-x line {
+    stroke: #888 !important;
+}
+.c3 .c3-axis-y path, .c3 .c3-axis-y line {
+    stroke: #888 !important;
+}
+.c3 text {
+  fill: #888 !important;
+}
+.c3 svg {
+    font: 400 10px "Proxima-Nova", sans-serif !important;
+}

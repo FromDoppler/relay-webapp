@@ -1,0 +1,54 @@
+// *************************************
+//
+//   Forms
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+// -------------------------------------
+//   Base
+// -------------------------------------
+.modal--wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,.7);
+  z-index: 9999;
+  .error-container{
+    p:first-of-type {
+      margin-bottom: 0;
+    }
+  }
+  .modal--outter {
+    width: 50%;
+    background: $suit-background-default;
+    left: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 4em;
+    span{
+      font-size: 1.5em;
+      color: $suit-accent-color;
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      cursor: pointer;
+    }
+    h3 {
+      padding: 0 2em 0 2em;
+    }
+    p {
+      color: $suit-font-color-light;
+      a{ color: $suit-accent-color;}
+    }
+    h3,p {
+      margin-bottom: 2rem;
+    }
+  }
+}

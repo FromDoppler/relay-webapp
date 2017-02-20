@@ -1,0 +1,73 @@
+﻿<div ng-if="loadInProgress" class="section--wrapper templates--waiting">
+  <!-- Asking server for data -->
+  <spinner class="spinner padded" ng-show="loadInProgress"></spinner>
+</div>
+<form novalidate name="form" ng-show="!loadInProgress" ng-submit="save()">
+  <section class="templates--information">
+    <div class="section--wrapper">
+      <h2>{{'templates_information_title' | translate}}</h2>
+      <h4 ng-show="template.id">{{'templates_information_subtitle' | translate}}{{template.id}}</h4>
+      <div class="information-fields">
+        <label for="uName">{{'templates_information_template_name_placeholder' | translate}}</label>
+        <input id="uName"
+               name="uName"
+               ng-model="template.name"
+               required
+               ng-maxlength="100"
+               validation-errors
+               class="input width--full" />
+      </div>
+      <div class="information-fields">
+        <label for="uFromEmail">{{'templates_information_email_placeholder' | translate}}</label>
+        <input id="uFromEmail"
+               name="uFromEmail"
+               ng-model="template.fromEmail"
+               required
+               ng-maxlength="256"
+               type="email"
+               validation-errors
+               email-format-validation
+               class="input width--full" />
+      </div>
+      <div class="information-fields">
+        <label for="uFromName">{{'templates_information_name_placeholder' | translate}}</label>
+        <input id="uFromName"
+               name="uFromName"
+               ng-model="template.fromName"
+               ng-maxlength="100"
+               validation-errors
+               class="input width--full" />
+      </div>
+      <div class="information-fields">
+        <label for="uSubject">{{'templates_information_subject_placeholder' | translate}}</label>
+        <input id="uSubject"
+               name="uSubject"
+               ng-maxlength="256"
+               ng-model="template.subject"
+               validation-errors
+               class="input width--full" />
+      </div>
+    </div>
+  </section>
+  <section class="templates--edition">
+    <div class="section--wrapper">
+      <h2>{{'templates_edition_title' | translate}}</h2>
+      <div class="flex flex--between">
+        <label for="uContent">{{'templates_edition_subtitle' | translate}}</label>
+      </div>
+      <textarea id="uContent"
+                name="uContent"
+                required
+                validation-errors
+                ng-model="template.content"
+                class="input width--full"></textarea>
+      <div class="section--wrapper text--center">
+        <input type="submit"
+               class="button button--medium"
+               ng-class="!saveInProgress ? '' : 'button--disabled'"
+               ng-disabled="saveInProgress"
+               value="{{'templates_save_button' | translate}}" />
+      </div>
+    </div>
+  </section>
+</form>

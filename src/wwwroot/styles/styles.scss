@@ -1,0 +1,45 @@
+/* ============================================================================================ */
+
+/* =====    PROJECT Making Sense's website
+
+/* ============================================================================================ */
+
+/*
+
+	Project:    Making Sense's website
+	Company:    makingsense.com
+	Version:    1.0
+	Author:     UI/UX Design/Dev Team :)
+
+
+
+// ****************************************************
+//
+//   IMPORTS
+//
+//   -> Compass Framework
+//		- Main framework. All the magic happens here.
+//
+//   -> Core
+//		- Main styles. Core content.
+//
+//   -> Helpers
+//		- Collection of custom SASS Functions, Mixins, placeholders, extends and helper classes.
+//
+//   -> Modules
+//		- Every modular/reusable element has its styles defined here.
+//
+//   -> Shame CSS
+//		- Yeah, we should be ashamed of this. MUST fix these in the near future.
+//
+//
+// ****************************************************
+
+*/
+
+@import "./wwwroot/lib/compass-mixins/lib/_compass.scss";
+@import "iconfont";
+@import "helpers";
+@import "core";
+@import "modules";
+@import "shame";

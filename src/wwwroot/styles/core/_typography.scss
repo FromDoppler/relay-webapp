@@ -1,0 +1,60 @@
+// *************************************
+//
+//   Typography
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+@import "./settings";
+
+$headers_h1-font-size: 				torem(52px);
+$headers_h2-font-size: 				torem(40px);
+$headers_h3-font-size: 				torem(30px);
+$headers_h4-font-size: 				torem(22px);
+$headers_h5-font-size: 				torem(16px);
+
+
+$font-size-big:						torem(22px);
+$p-font-size-normal:			torem(16px);
+$font-size-small:					torem(14px);
+$font-size-tiny:					torem(12px);
+
+
+// -------------------------------------
+//   Helper classes
+// -------------------------------------
+
+%text--small {font-size: 80%}
+%text--left {text-align: left}
+%text--right {text-align: right}
+%text--center {text-align: center}
+%text--light {font-weight: $suit-font-weight-light}
+%text--semibold {font-weight: $suit-font-weight-semibold}
+%text--bold {font-weight: $suit-font-weight-bold}
+%text--regular {font-weight: $suit-font-weight-regular}
+%text--uppercase {text-transform: uppercase}
+
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------
+
+html, button {-webkit-font-smoothing: antialiased;}
+p,
+h1, h2,
+h3, h4,
+h5, h6, {margin: 0;}
+
+h1, h2 {font-weight: 600; letter-spacing: -1px}
+h3, h4 {font-weight: 400; letter-spacing: -1px}
+	h1 {font-size: $headers_h1-font-size; line-height: 1em}
+	h2 {font-size: $headers_h2-font-size; line-height: 1.1em}
+	h3 {font-size: $headers_h3-font-size; line-height: 1.2em}
+	h4 {font-size: $headers_h4-font-size; line-height: 1.5em}
+	h5 {font-size: $headers_h5-font-size; line-height: 1.5em}
+	p	 {font-size: $p-font-size-normal; font-weight: 400; line-height: 1.6em}
+	.special{font-weight: 600;line-height: 1.6em}

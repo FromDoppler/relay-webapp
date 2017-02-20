@@ -1,0 +1,41 @@
+// *************************************
+//
+//   Functions
+//
+// *************************************
+
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+$base_font-size: 							16px;
+
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------
+
+// ----- Convert to EMs function ----- //
+@function toem($target, $context: $base_font-size) {
+   @if $target == 0 { @return 0 }
+   @return $target / $context + 0em;
+}
+
+// ----- Convert to REMs function ----- //
+@function torem($target, $context: $base_font-size) {
+   @if $target == 0 { @return 0 }
+   @return $target / $context + 0rem;
+}
+
+// ----- Remove unit from value ----- //
+@function strip-unit($value) {
+	@return $value / ($value * 0 + 1);
+}
+
+// ----- Recalculate responsive breakpoints ----- //
+@function bp-calculation($breakpoint, $type){
+  @if($type == "up") {@return $breakpoint + 1}
+  @elseif($type == "down") {@return $breakpoint - 1}
+}

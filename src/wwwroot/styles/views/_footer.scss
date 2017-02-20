@@ -1,0 +1,32 @@
+// *************************************
+//
+//   Footer
+//
+// *************************************
+
+
+// -------------------------------------
+//   Base
+// -------------------------------------
+/* Footer */
+.footer{
+
+  color: $suit-main-color;
+  background-color: #FFFFFF;
+  a{display: inline; color:$suit-accent-color;}
+  p{font-size: $suit-main-color;}
+  position:relative;
+  border-top: $suit-border-default;
+  .section--wrapper{padding: torem(40px) 0; text-align: center;}
+  img{position: relative;top:0.32em;right: toem(1px);height: 16px;}
+  svg{position: relative;top:2px;height: 16px;}
+}
+@media screen and (max-height: 750px) {
+  .footer{
+      img{height: 16px;top:toem(3px);}
+      a{display: inline-block;}
+      .section--wrapper{padding: 1.2em 0;}
+  }
+}
+
+/* End Footer */

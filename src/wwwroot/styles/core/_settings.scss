@@ -1,0 +1,98 @@
+// *************************************
+//
+//   Settings
+//   -> Fonts, Variables
+//
+// *************************************
+
+@import '../libs/jeet/index';
+
+// Uncomment the following line to debug layout's box model.
+// @include edit();
+// @include debug-layout();
+
+// -------------------------------------
+//   @font-face
+// -------------------------------------
+
+$suit-font-size: 					16px !default;
+$suit-font-weight: 					400;
+$suit-font-family: 					"Proxima-Nova", sans-serif;
+$suit-font-family-special: 			"JosefinSlab";
+$suit-font: 						$suit-font-weight toem($suit-font-size) $suit-font-family;
+
+
+$suit-font-weight-light: 		    300;
+$suit-font-weight-regular: 	    	$suit-font-weight;
+$suit-font-weight-semibold: 	  	600;
+$suit-font-weight-bold: 			700;
+
+$suit-font-special: 				$suit-font-weight-semibold toem($suit-font-size) $suit-font-family-special;
+
+// -------------------------------------
+//   Colors
+// -------------------------------------
+
+$suit-main-color:				        #312416;
+$suit-accent-color:				      #E78224;
+$suit-accent-color-light:		    #EC9941;
+$suit-font-color-bright: 		    #fff;
+$suit-color-bright:             #F5F1F1;
+
+
+$suit-font-color-border-grey:   #D5D2CF;
+$suit-color-grey-line:			    #EAE9E7;
+
+$suit-font-color-light:         #7F7972;
+$suit-font-color-lighter:       #98918A;
+$suit-font-color-placeholder:   $suit-font-color-light;
+$suit-font-color-link:          $suit-accent-color;
+
+$suit-color-status-green:       #6DCAAD;
+$suit-color-status-draft:       $suit-accent-color;
+$suit-color-overlay:            #372714;
+
+
+
+
+// -------------------------------------
+//   Backgrounds
+// -------------------------------------
+
+$suit-background-default:		$suit-color-bright;
+$suit-background-bright:		$suit-font-color-bright;
+$suit-background-dark:          $suit-main-color;
+$suit-background-grey:          $suit-main-color;
+
+
+// -------------------------------------
+//   Borders & Hr default
+// -------------------------------------
+$suit-border-default:           1px solid $suit-font-color-border-grey;
+$suit-border-error:             1px solid #DF3434;
+
+$suit-hr-default-color:         #D0D3D7;
+
+
+
+// -------------------------------------
+//   Wrappers
+// -------------------------------------
+
+$suit-wrapper-width:           75%;
+$suit-wrapper-login-width:     60%;
+$suit-section-width:           100%;
+$suit-vp-min-width: 					  torem(980px);
+$suit-content-max-width: 				torem(1280px);
+
+
+/// Breakpoints map
+/// @type Map
+$breakpoints: (
+  'mini': (max-width: 320px),
+  'mini-x': (max-width: 480px),
+  'small': (max-width: 600px),
+  'small-x': (max-width: 768px),
+  'medium': (max-width: 1024px),
+  'large': (max-width: 1280px)
+);

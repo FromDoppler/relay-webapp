@@ -1,0 +1,130 @@
+<section class="filter--section">
+  <div class="filter section--wrapper">
+    <label>{{'reports_filter_label' | translate}}</label>
+      <div class="relay-dropdown dropdown--light dropdown--medium">
+        <input date-range-picker class="form-control date-picker" type="text" name="dateRange" ng-model="dateRange" options="opts" readonly/>
+        <svg class="icon arrow-grey"><use xlink:href="images/sprite.svg#doppler-icon-arrowgray"></use></svg>
+      </div>
+  </div>
+</section>
+<section class="reports--chart">
+  <div class="section--wrapper">
+    <h2>{{'reports_volume_title' | translate}}</h2>
+    <div class="long-box">
+      <div class="square"></div>
+      <c3chart class="long-box first-chart" graphdata="dataFirstGraph" ng-class="{true: 'loadInProgress'}[loadInProgressVolume]"></c3chart>
+    </div>
+    <spinner class="spinner section--wrapper" ng-show="loadInProgressVolume"></spinner>
+    <p class="reports--error-graph" ng-show="showRequestErrorVolume">{{'reload_page' | translate}}</p>
+  </div>
+  <div class="reports--send-data section--wrapper">
+    <div class="box separator-left">
+      <h1>{{deliveriesSummary.qEmails | number | numberFormat}}</h1>
+      <p>{{'reports_volume_data' | translate}}</p>
+    </div>
+    <div class="box separator-left">
+      <h1>{{deliveriesSummary.qEmailsDelivered | number | numberFormat}}</h1>
+      <p>{{'reports_volume_data2' | translate}}</p>
+    </div>
+    <div class="box separator-left separator-right">
+      <h1>{{deliveriesSummary.qEmailDeliverability | number:2 | numberFormat: '%'}}</h1>
+      <p>{{'reports_volume_data3' | translate}}</p>
+    </div>
+  </div>
+  <div class="reports--send-data section--wrapper">
+    <div class="box box-small">
+      <h4>{{deliveriesSummary.qEmailAverageSendDaily | number:0 | numberFormat}}</h4>
+      <p>{{'reports_volume_sub_data' | translate}}</p>
+    </div>
+    <div class="box box-small">
+      <div class="mini-box">
+        <h4>{{deliveriesSummary.qEmailsSoft | number | numberFormat}}</h4>
+        <p>{{'reports_volume_sub_data2_1' | translate}}</p>
+      </div>
+      <div class="mini-box">
+        <h4>{{deliveriesSummary.qEmailsHard | number | numberFormat}}</h4>
+        <p>{{'reports_volume_sub_data2_2' | translate}}</p>
+      </div>
+    </div>
+    <div class="box box-small">
+      <h4>{{deliveriesSummary.qEmailsDropped | number | numberFormat}}</h4>
+      <p>{{'reports_volume_sub_data4' | translate}}</p>
+    </div>
+      <!--TODO:This section is commented because we still need to add this data
+      <div class="box box-small">
+      <h4>{{deliveriesSummary.qEmailSpamComplaints | number | numberFormat}}</h4>
+      <p>{{'reports_volume_sub_data3' | translate}}</p>
+    </div>-->
+  </div>
+</section>
+
+<section class="reports--chart">
+  <div class="section--wrapper">
+    <h2>{{'reports_opens_clicks_title' | translate}}</h2>
+    <div class="long-box">
+      <c3chart class="long-box second-chart" graphdata="dataSecondGraph" ng-class="{true: 'loadInProgress'}[loadInProgressOpensClicks]"></c3chart>
+    </div>
+    <spinner class="spinner section--wrapper" ng-show="loadInProgressOpensClicks"></spinner>
+    <p class="reports--error-graph" ng-show="showRequestErrorOpensClicks">{{'reload_page' | translate}}</p>
+  </div>
+  <div class="section--wrapper reports--send-data">
+    <div class="box four-columns separator-left">
+      <h1>{{deliveriesSummary.qEmailOpenedRate | number:2 | numberFormat: '%'}}</h1>
+      <p>{{'reports_opens_clicks_data' | translate}}</p>
+    </div>
+    <div class="box four-columns separator-left separator-right">
+      <h1>{{deliveriesSummary.qEmailClickedRate | number:2 | numberFormat: '%'}}</h1>
+      <p>{{'reports_opens_clicks_data2' | translate}}</p>
+    </div>
+    <div class="box four-columns separator-right">
+      <h1>{{eventsSummary.qEmailAverageOpensDaily | number:2 | numberFormat}}</h1>
+      <p>{{'reports_opens_clicks_data3' | translate}}</p>
+    </div>
+    <div class="box four-columns separator-right">
+      <h1>{{eventsSummary.qEmailAverageClicksDaily | number:2 | numberFormat}}</h1>
+      <p>{{'reports_opens_clicks_data4' | translate}}</p>
+    </div>
+  </div>
+</section>
+<section class="reports--grid">
+  <div class="section--wrapper section--table">
+    <div class="activity--title-container"><h2>{{'reports_activity_period_title' | translate}}</h2><p>{{ currentFullDateFilter.startDate | amUtc | amDateFormat:'MMM' | translate}} {{ currentFullDateFilter.startDate | amUtc | amDateFormat:'DD, YYYY' }}  {{moreThanOneDay ? "- " + (currentFullDateFilter.endDate | amUtc | amDateFormat:'MMM'| translate) : ""}} {{ moreThanOneDay ? (currentFullDateFilter.endDate | amUtc | amDateFormat:'DD, YYYY') : ""}}</p></div>
+    <div class="long-box" ng-class="{true: 'searching'}[expandSearch]">
+      <input class="button button--large button--right" type="submit" value="{{'reports_activity_period_download_report' | translate}}" ng-click="generateReport()">
+      <input class="input input--large" maxlength="100" ng-class="{true: 'error'}[submitted && loginform.searchTable.$invalid]" id="searchTable" type="text" name="searchTable" ng-model="searchTable" enter="searchResultsUpdate()" placeholder="{{'reports_activity_period_search_placeholder' | translate}}" ng-keyup="updateCanSearch()" required />
+      <svg class="icon m-glass" ng-show="!searchInProgress" ng-class="canSearch ? '' : 'disabled'" ng-click="searchResultsUpdate()"><use xlink:href="/images/sprite.svg#doppler-icon-magnifierGlass"></use></svg>
+      <spinner class="spinner" ng-show="searchInProgress"></spinner>
+    </div>
+    <div class="table--container">
+      <table>
+        <tr>
+          <th class="column-medium">{{'reports_activity_period_table_th' | translate}}</th>
+          <th class="column-large">{{'reports_activity_period_table_th2' | translate}}</th>
+          <th class="column-large">{{'reports_activity_period_table_th3' | translate}}</th>
+          <th class="column-medium">{{'reports_activity_period_table_th4' | translate}}</th>
+          <th class="column-small">{{'reports_activity_period_table_th5' | translate}}</th>
+          <th class="column-small">{{'reports_activity_period_table_th6' | translate}}</th>
+          <th class="column-small">{{'reports_activity_period_table_th7' | translate}}</th>
+        </tr>
+        <div>
+          <tr class="column--date" ng-repeat-start="r in (records | orderBy: r.date) track by $index" ng-if="dateChanged(r.date, records[$index-1].date)">
+            <td colspan="7">{{r.date | date:'MMM' | translate}} {{r.date | date:'dd, yyyy'}}</td>
+          </tr>
+          <tr class="column-records" ng-repeat-end>
+            <td>{{r.subject}}</td>
+            <td>{{r.senderAddress}}</td>
+            <td>{{r.recipientAddress}}</td>
+            <td title="{{ 'date_filter_slash'|translate:{date:r.date} }} {{'utc' | translate}}">{{ 'date_filter_slash'|translate:{date:r.date} }}</td>
+            <td class="table--status" ng-class="{true: 'table--status-fail'}[statusIsFailed(r)]" title="{{getStatusKey(r.status, r.bounceType) | translate}}">{{getStatusKey(r.status, r.bounceType) | translate}}</td>
+            <td>{{r.opens}}</td>
+            <td>{{r.clicks}}</td>
+            <!--<td><a>{{r.results}}</a></td> TODO: Resend action-->
+          </tr>
+        </div>
+      </table>
+    </div>
+    <div class="column-full">
+      <input class="button button--large" ng-class="hasMoreRecords ? 'button--white' : 'button--disabled'" type="button" value="{{'reports_activity_period_more_records_button' | translate}}" ng-click="getMoreRecords(currentFilter)">
+    </div>
+  </div>
+</section>
