@@ -1,0 +1,59 @@
+// *************************************
+//
+//   Modals
+//
+// *************************************
+// -------------------------------------
+//   Variables
+// -------------------------------------
+$suit-search-color-title:           #7F7972;
+$suit-search-color:                 #301F13;
+$suit-background-hover:             #F8DCBE;
+// -------------------------------------
+//   Base
+// -------------------------------------
+.search--container{
+  -webkit-transition: all .25s ease;
+  -moz-transition: all .25s ease;
+  -ms-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+  max-height: 230px;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  width: calc(100% - 347px);
+  background-color: #fff;
+  border: $suit-border-default;
+  @include border-bottom-radius(5px);
+  label{display:block; color:$suit-search-color-title; padding: 0.8rem 0 0 1rem;}
+  ul{margin-top: toem(4px);padding-left:0;}
+  li{font-size: $headers_h5-font-size;color:$suit-search-color;list-style: none;padding:toem(7.5px) 0 toem(7.5px) toem(52px)}
+  li:hover{background:$suit-background-hover; }
+  &.search--empty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: toem(10px) 0 toem(10px) 0;
+    ul{margin: 0}
+    li{background: none;cursor: default;padding: 0;}
+    li:hover{background: none;cursor: default;}
+  }
+}
+.search--container.ng-hide {
+    max-height:0;
+}
+.search--container.ng-hide-add, .search--container.ng-hide-remove {
+    /* ensure visibility during the transition */
+    display: block !important; /* yes, important */
+}
+.searching{
+  .search--container{
+    opacity: 1;
+    visibility: visible;
+    border-top: 0;
+    li{cursor: pointer;}
+  }
+  input.input{@include border-bottom-radius(0px);}
+}

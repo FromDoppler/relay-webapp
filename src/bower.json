@@ -1,0 +1,31 @@
+{
+  "name": "dopplerrelay",
+  "description": "Doppler Relay app",
+  "version": "0.1.0",
+  "homepage": "https://github.com/DopplerRelay/relay-webapp",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.5.8",
+    "angular-animate": "~1.5.8",
+    "angular-click-outside": "^2.10.1",
+    "angular-jwt": "~0.0.9",
+    "angular-mocks": "~1.5.8",
+    "angular-modal-service": "~0.10.1",
+    "angular-route": "~1.5.8",
+    "angular-sanitize": "~1.5.8",
+    "angular-translate": "~2.13.0",
+    "angular-translate-loader-static-files": "~2.13.0",
+    "autofill-directive": "~2.0.0",
+    "c3": "~0.4.10",
+    "compass-mixins": "~1.0.2",
+    "jeet.gs": "latest",
+    "jquery-modern": "jquery#~2.1.1",
+    "normalize-scss": "~3.0.2",
+    "svgxuse": "^1.1.7",
+    "typekit-load": "~0.1.2",
+    "angular-scroll": "^1.0.0",
+    "angular-daterangepicker": "^0.2.2",
+    "moment": "^2.17.1",
+    "angular-moment": "^1.0.1"
+  }
+}

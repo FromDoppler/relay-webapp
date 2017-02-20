@@ -1,0 +1,96 @@
+// *************************************
+//
+//   Tables
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+// -------------------------------------
+//   Base
+// -------------------------------------
+
+.section--table{
+  table{text-align: left;font-weight: normal;width: 100%;min-width: 800px;font-size: $headers_h5-font-size}
+  td,th{
+      color: #301F13;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-width: 1px;
+      padding: torem(13px) 0 torem(13px) 1%;
+    }
+  th {
+    color: #301F13;
+    font-weight: normal;
+    border-top: $suit-border-default;
+    border-bottom: $suit-border-default;
+    cursor: default;
+    .arrow-grey{height: 8px;}
+  }
+}
+.table--container{
+  width: 100%;
+  overflow-x: auto;
+  .column-xlarge {
+    width: 35%;
+  }
+  .column-large {
+    width: 21%;
+  }
+  .column-medium {
+    width: 16%;
+  }
+  .column-small {
+    width: 10%;
+  }
+  .column-records:nth-child(odd){
+      background: $suit-background-default;
+  }
+  .column-records:nth-child(even){
+      background: #eae6e5;
+  }
+  .column--date{
+    td{text-align: center;
+      padding: toem(20px) 0;
+      font-size: $headers_h5-font-size;
+      font-weight: 600;}
+  }
+  .table--status{ color: #858585;}
+  
+  .column-records:hover{background: #F9E5D2;}
+
+    .table--status-fail{color: #E98C26;}
+
+  a{color:#301F13; text-decoration: underline;cursor: pointer;}
+}
+.column-full {
+  text-align: center;
+  margin-top: torem(40px);
+}
+@media screen and (max-width: 700px) {
+  .column {
+    @include stack();
+  }
+}
+@media screen and (max-width: 1100px) {
+  .column-records {
+    font-size: $font-size-small;
+  }
+}
+
+.column-p {
+  font-size: $p-font-size-normal;
+}
+.column-p-big {
+  font-size: $p-font-size-normal;
+}
+.column-p-upper {
+  text-transform: uppercase;
+}
+
+.column-border {
+  border: $suit-border-default;
+  border-radius: 3px;
+}

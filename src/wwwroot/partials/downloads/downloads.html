@@ -1,0 +1,54 @@
+
+<section class="downloads--grid">
+  <div class="section--wrapper section--table" ng-show="records.length !== 0">
+    <div class="activity--title-container">
+      <h2>{{'downloads_title' | translate}}</h2>
+      <p class="main--subtitle">{{'downloads_subtitle' | translate}}</p>
+    </div>
+    <div ng-hide="searchInProgress" class="spinner--inline">
+      <input class="button button--large button--right" type="submit" value="{{'downloads_refresh_button' | translate}}" ng-click="getRecords()">
+    </div>
+    <spinner class="spinner" ng-show="searchInProgress"></spinner>
+    <div class="table--container">
+      <table>
+        <tr>
+          <th ng-click="" class="column-xlarge">{{'downloads_grid_name_header' | translate}}</th>
+          <th class="column-large">{{'downloads_grid_start_date_header' | translate}}</th>
+          <th ng-click="" class="column-large">{{'downloads_grid_end_date_header' | translate}}</th>
+          <th></th>
+        </tr>
+        <tr class="column-records" ng-repeat="r in records">
+          <td>{{r.name}}</td>
+          <td>{{r.start_date | date:'MMM':'+0' | translate}} {{r.start_date | date:'dd, yyyy':'+0'}}</td>
+          <td>{{r.end_date | date:'MMM':'+0' | translate}} {{r.end_date | date:'dd, yyyy':'+0'}}</td>
+          <td>
+            <a ng-show="r.file_path" href="{{r.file_path}}">{{'downloads_grid_download' | translate}}</a>
+            <p ng-show="!r.file_path && !r.processed">
+              <span class="loading">
+                <svg width="20px" height="20px">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-loading"></use>
+                </svg>
+              </span>{{'downloads_grid_processing' | translate}}
+            </p>
+            <p ng-show="!r.file_path && r.processed">{{'downloads_grid_no_result' | translate}}</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="section--wrapper" ng-show="!searchInProgress && records.length === 0">
+    <div class="is--empty">
+      <div class="main-image">
+        <svg width="285px" height="185px">
+          <use xlink:href="/images/sprite.svg#doppler-icon-downloads-empty"></use>
+        </svg>
+      </div>
+      <h2>{{'downloads_empty_title' | translate}}</h2>
+      <p>{{'downloads_empty_subtitle' | translate}}</p>
+    </div>
+  </div>
+  <div ng-if="searchInProgress && records.length === 0" class="section--wrapper templates--waiting">
+    <!-- Asking server for data -->
+    <spinner class="spinner" ng-show="searchInProgress"></spinner>
+  </div>
+</section>

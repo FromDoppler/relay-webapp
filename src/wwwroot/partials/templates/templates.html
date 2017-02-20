@@ -1,0 +1,85 @@
+<section class="templates--grid">
+
+  <div ng-if="!items" class="section--wrapper templates--waiting">
+    <!-- Asking server for data -->
+    <spinner class="spinner" ng-show="searchInProgress"></spinner>
+  </div>
+
+  <div ng-if="items && !items.length" class="section--wrapper templates--empty">
+    <!-- There are no templates -->
+    <svg class="icon m-glass main-image">
+      <use xlink:href="/images/sprite.svg#doppler-icon-no-templates"></use>
+    </svg>
+    <h2>{{'templates_empty_title' | translate}}</h2>
+    <p>{{'templates_empty_subtitle' | translate}}</p>
+    <a href="#/templates/new" class="button button--large button--right">{{'templates_new_button' | translate}}</a>
+  </div>
+
+  <div ng-if="items && items.length" class="section--wrapper section--table">
+    <!-- There is at least a template -->
+    <div class="templates--custom">
+      <div>
+        <div class="content--templates">
+          <h2>{{'templates_personalized_title' | translate}}</h2>
+          <p class="main--subtitle">{{'templates_subtitle' | translate}}</p>
+        </div>
+        <a href="#/templates/new" class="button button--large button--right">{{'templates_new_button' | translate}}</a>
+        <!--<div class="flex flex--between">
+            <input disabled="disabled" class="input input--large" ng-class="{true: 'error'}[submitted && loginform.searchTable.$invalid]" id="searchTable" type="text" name="searchTable" ng-model="searchTable" ng-change="searchResultsUpdate(searchTable)" ng-focus="searchTable ? expandSearch = true : expandSearch = false" ng-blur="expandSearch = false" placeholder="{{'templates_find' | translate}}" required />
+            <div class="flex">
+                <!--<label>{{'templates_user_guide' | translate}}:</label>
+            </div>
+          </div>
+        </div>
+        <div class="content--box">
+          <h4>{{template.name}}</h4>
+          <p>ID: {{template.id}}</p>
+          <p class="green">{{'templates_published' | translate}}</p>
+          <!--<p ng-if="template.status == 1" class="green">Publicado</p>-->
+        <!--<p ng-if="template.status != 1" class="draft">No Publicado</p>-->
+      </div>
+      <div>
+        <ul>
+          <li class="squares" ng-repeat="template in items" ng-mouseleave="hideDeleteDialog(template.id)" ng-hide="template.removingStatus">
+            <div class="img--container">
+              <img />
+              <div class="hidden--overlay">
+                <div class="icons--container">
+                  <div>
+                    <!--<svg class="icon m-glass"><use xlink:href="/images/sprite.svg#doppler-icon-descargar-01"></use></svg>
+                    <svg class="icon m-glass"><use xlink:href="/images/sprite.svg#doppler-icon-subir-01"></use></svg>-->
+                  </div>
+                  <div>
+                    <svg class="icon m-glass" ng-show="!deleteDialogs[template.id]" ng-click="toggleDeleteDialog(template.id)"><use xlink:href="/images/sprite.svg#doppler-icon-borrar-01"></use></svg>
+                  </div>
+                </div>
+                <div class="buttons--container">
+                  <div class="edit--button--container" ng-show="!deleteDialogs[template.id]">
+                    <a href="#/templates/{{template.id}}" class="button button--medium button--white">{{'templates_edit_button' | translate}}</a>
+                  </div>
+                  <div class="delete--confirmation--container" ng-show="deleteDialogs[template.id]">
+                    <p>{{'templates_delete_template_confirmation' | translate}}</p>
+                    <input type="button" class="button button--medium button--white" value="{{'dialog_accept' | translate}}" ng-click="deleteTemplate(template)" />
+                    <input type="button" class="button button--medium button--white" value="{{'dialog_cancel' | translate}}" ng-click="toggleDeleteDialog(template.id)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content--box">
+              <h4>{{template.name}}</h4>
+              <p>ID: {{template.id}}</p>
+              <p class="green">{{'templates_published' | translate}}</p>
+              <!--<p ng-if="template.status == 1" class="green">Publicado</p>-->
+              <!--<p ng-if="template.status != 1" class="draft">No Publicado</p>-->
+            </div>
+            <div>
+
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</section>

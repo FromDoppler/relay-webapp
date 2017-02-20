@@ -1,0 +1,25 @@
+// *************************************
+//
+//   Account Settings
+//
+// *************************************
+
+.connection--settings-container {
+  h2 {
+    margin-bottom: 1rem;
+  }
+  div.connection--settings-data-container:first-of-type {
+    border-top: 1px solid $suit-font-color-border-grey;
+    margin-top: 3rem;
+  }
+  div.connection--settings-data-container {
+    border-bottom: 1px solid $suit-font-color-border-grey;
+    padding: 1.2rem 0;
+    div.small-col{ width: 25%;}
+    div {
+      display: inline-block;
+      width: 35%;
+      label{ text-transform: uppercase;font-weight: 600;}
+    }
+  }
+}

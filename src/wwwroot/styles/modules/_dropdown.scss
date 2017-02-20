@@ -1,0 +1,36 @@
+// *************************************
+//
+//   Forms
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+$suit-font-color:           #7F7972;
+// -------------------------------------
+//   Base
+// -------------------------------------
+.filter--section {
+  padding: torem(40px) 0 0 0;
+  background-color: $suit-background-bright;
+}
+.section--wrapper{
+  &.filter{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    label{margin-right: toem(10px)}
+    svg{position: absolute;right:toem(15px);top:toem(20px);height: toem(8px);width: toem(10px);}
+  }
+}
+.relay-dropdown{
+  display: inline-block;
+  color:$suit-font-color;
+  font-size: 1em;
+  div{border: $suit-border-default;@include border-radius(3px);position: relative;}
+  div.expanded{border-bottom: $suit-border-default;@include border-bottom-radius(0);
+      ul{opacity: 1;visibility:visible;overflow: visible;}
+  }
+  input{cursor: pointer;padding: toem(24px) toem(55px) toem(24px) toem(15px); line-height: 0;margin:0;min-width:14.89em;}
+}

@@ -1,0 +1,186 @@
+// *************************************
+//
+//   Dashboard
+//
+// *************************************
+@import '../libs/jeet/index';
+// -------------------------------------
+//   Variables
+// -------------------------------------
+
+
+.section--table{
+  .icon{
+    &.m-glass{position: absolute;margin-left:torem(-59px);fill:white; padding:torem(15px);background-color:#E78224;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;cursor:pointer;
+              &.disabled{background-color:lightgray;cursor:default;}
+    }
+  }
+  .button--right {float: right;}
+}
+.reports--grid .spinner{
+    position: absolute;margin-left:torem(-59px);fill:white; padding:torem(15px);background-color:#E78224;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;
+}
+.reports--chart .spinner{
+    fill:#E78224; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:50%;transform: translate(-50%,-50%);position: absolute;
+    .sk-fading-circle {
+      .sk-circle:before{ background-color: $suit-main-color; }
+    }
+}
+.reports--error-graph{
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  color: $suit-accent-color;
+}
+
+.legend{
+  float: right;position: relative;top: -367px;
+  font-size: $font-size-tiny;
+  span{cursor: pointer;}
+  div{
+    height: toem(12px);
+    width: toem(12px);
+    display: inline-block;
+    margin-right: toem(20px);
+    margin-left: toem(12px);
+  }
+}
+.loadInProgress{
+  opacity: 0.5;
+}
+
+.long-box{
+  position: relative;
+  height: 320px;
+  margin: torem(40px) 0;
+  transition: opacity 0.3s all;
+  &.c3{
+    g:last-of-type{transform: translate(0,300) !important }
+  }
+}
+
+.c3 text tspan {font-size: torem(12px);}
+.c3-legend-item-Rebotados{transform: translate(0,320) !important}
+.get-records--container{
+  text-align: center;
+  input.button{margin-top: 4%;}
+}
+
+.reports--send-data{
+    .box{
+      @include span(1/3, $cycle : 3);
+      text-align: center;
+      padding:torem(40px) 0;
+      p {text-transform: uppercase; color: $suit-font-color-light;}
+
+      &.box-small {
+        h4 {font-weight: 600;}
+        p {text-transform: none; color: $suit-main-color;}
+
+        .mini-box {
+                width : 40%;
+                display : inline-block;
+        }
+      }
+
+      &.four-columns {@include span(1/4, $cycle : 4); text-align: center;}
+    }
+}
+
+.reports--chart{
+  padding: torem(40px) 0;
+  border-bottom: 1px solid $suit-color-grey-line;
+  background-color: $suit-background-bright;
+}
+
+.reports--grid{
+  background: #F5F1F1;
+  padding:  torem(40px) 0;
+  min-height: calc(100vh - 303px);
+  input.input { width: calc(100% - 347px);padding:torem(19px) 0 torem(19px) torem(19px);}
+
+  .activity--title-container{
+    p,h2{display: inline-block;}
+    p{font-weight: normal;font-size:$headers_h2-font-size;margin-left: toem(4px);}
+  }
+
+  .column-full{
+    margin-bottom: torem(90px);
+    margin-top: torem(90px);
+  }
+  
+  .long-box {
+    height: auto;
+  }
+}
+
+.downloads--grid {
+  background: $suit-color-bright;
+  .activity--title-container{
+    margin: 0 0 torem(30px) 0;
+    display:inline-block;
+    p,h2{display: block;}
+    p{font-weight: normal;font-size:$p-font-size-normal;}
+  }
+  .section--table{
+    tr {
+      td:last-child{
+        padding: torem(13px) 1% torem(13px) 1%; text-align:right;
+      }
+      .loading {margin: 0 torem(10px); line-height: 0; font-size: 0; width: torem(16px); position: relative; display: inline-block;
+        img {display:block; padding: 0; line-height: 0; font-size: 0; width: 100%; animation: loading-animation 1s infinite linear;}
+        svg {width: 100%; height: auto; loading-animation: 1s infinite linear;}
+      }
+    }
+  .spinner{
+    position:relative;
+    display:inline-block;
+    padding:torem(14px) torem(89px);
+    height:torem(59px);
+    width:torem(59px);
+    border-radius: 5px;
+    background-color:#E78224;
+    min-width:210px;
+    float:right;
+  }
+  }
+  .is--empty{
+    text-align: center;
+    h2 {margin: torem(20px) 0 0;}
+    p {margin: torem(20px) 0 0;}
+    .main-image{
+      margin: 0 auto;
+      width: 100%;
+      max-width: 283px;
+      img {width: 100%;}
+    }
+  }
+}
+
+/* TODO: ask Santi to take a look at this since is breaking sass gulp task
+@include keyframes(loading-animation) {
+  0% {transform:rotate(0deg);}
+  100% {transform:rotate(-360deg);}
+}*/
+
+
+@media screen and (max-width: 768px) {
+  .reports--grid{
+    p,h2{display: inline-block;}
+    input.input { width: 100%; margin-top: torem(30px)}
+  }
+
+  .downloads--grid {
+    min-height: 0;
+  }
+
+  .box{
+    @include stack();
+  }
+
+}
+
+// -------------------------------------
+//   Base
+// -------------------------------------

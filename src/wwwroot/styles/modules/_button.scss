@@ -1,0 +1,304 @@
+// *************************************
+//
+//   Buttons
+//
+// *************************************
+
+
+
+$button--icon--color: #CCCCCC;
+$input--color: #525845;
+$input--error-background: #DF3434;
+$input--error--color: #FFF;
+
+
+.ms-relay{
+	.text--center{
+		text-align: center;
+	}
+	.text--left{
+		text-align: left;
+	}
+	.text--right{
+		text-align: right;
+	}
+	.color--orange-light{
+		color: $suit-accent-color-light;
+	}
+	.color--orange{
+		color: $suit-accent-color;
+	}
+	.color--gray{
+		color: $suit-color-bright;
+	}
+	.highlight--no{
+		-webkit-touch-callout: none;
+	    -webkit-user-select: none;
+	    -khtml-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	}
+	.border--radius{
+		border-radius: 5px;
+	}
+	.input--shadow{
+		-webkit-box-shadow: inset 0 1px 10px rgba(204, 204, 204, 0.25), inset 0 -1px 10px rgba(204, 204, 204, 0.25);
+		-moz-box-shadow: inset 0 1px 10px rgba(204, 204, 204, 0.25), inset 0 -1px 10px rgba(204, 204, 204, 0.25);
+		-o-box-shadow: inset 0 1px 10px rgba(204, 204, 204, 0.25), inset 0 -1px 10px rgba(204, 204, 204, 0.25);
+		box-shadow: inset 0 1px 10px rgba(204, 204, 204, 0.25), inset 0 -1px 10px rgba(204, 204, 204, 0.25);
+	}
+	.transition--default{
+		-webkit-transition: all .3s ease;
+		-moz-transition: all .3s ease;
+		-o-transition: all .3s ease;
+		transition: all .3s ease;
+	}
+	.transition--login{
+		-webkit-transition: max-height 1.5s ease;
+		-moz-transition: max-height 1.5s ease;
+		-o-transition: max-height 1.5s ease;
+		transition: max-height 1.5s ease;
+	}
+.transition--color{
+	-webkit-transition: color .3s ease;
+	-moz-transition: color .3s ease;
+	-o-transition: color .3s ease;
+	transition: color .3s ease;
+	}
+
+	.input--size{
+		padding: toem(14px);
+		vertical-align: middle;
+		&.input--small{
+			min-width: 95px;
+		}
+		&.input--medium{
+			min-width: 130px;
+		}
+		&.input--large{
+			min-width: 350px;
+		}
+	}
+
+	.button--size{
+		vertical-align: middle;
+
+		&.button--small{
+			padding: 1em;
+			min-width: 155px;
+			font-size: $font-size-small;
+		}
+		&.button--medium{
+			padding: toem(18px);
+			font-size: $p-font-size-normal;
+
+		}
+		&.button--large{
+			padding:torem(19px) torem(40px);
+			font-size: $p-font-size-normal;
+		}
+	}
+
+	.button{
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		border: 1px solid $suit-color-bright;
+		background-color: $suit-accent-color;
+		text-transform: uppercase;
+		color: $suit-color-bright;
+		outline: none;
+		min-width: 210px;
+		@extend .button--size;
+		@extend .border--radius;
+		@extend .text--center;
+		@extend .transition--default;
+		@extend .highlight--no;
+		i{
+			color: $button--icon--color;
+		    font-size: 22px;
+		    display: inline-block;
+			vertical-align: middle;
+		    margin-left: -5px;
+		    margin-right: 5px;
+		    margin-top: -3px;
+			@extend .transition--default;
+		}
+		span{
+			display: inline-block;
+			vertical-align: top;
+			/*remove*/
+		}
+		&:hover{
+			background: #EB9A4F;
+			cursor: pointer;
+			i{color:#FFFFFF;}
+		}
+		&.button--dark{
+			background: #222222;
+			color: #FFFFFF;
+			border-color: #222222;
+			&:hover{
+				background: #222222;
+				border-color: #222222;
+			}
+		}
+		&.button--white{
+			background: transparent;
+			color: $suit-accent-color;
+			border-color: $suit-accent-color-light;
+			&:hover{
+				background: #F9E5D2;
+				border-color: $suit-accent-color;
+				color: $suit-accent-color;
+			}
+		}
+        &.button--disabled{
+			background: lightgray;
+			border-color: lightgray;
+            &:hover{
+                cursor:default;
+            }
+        }
+	}
+
+	.input--error{
+			color: $input--error--color;
+			background: $input--error-background;
+			font-size: $font-size-small;
+			position: relative;
+			border-radius: 3px;
+			font-style: italic;
+			padding: toem(10px) toem(15px);
+			float:left;
+			top:toem(9px);
+			left: toem(7px);
+			.arrow--up{
+				position: absolute;
+    		left: 3%;
+    		border-width: 0 8px 8px;
+    		top: toem(-8px);
+    		border-color: transparent transparent #df3434;
+			}
+			&.green {
+				background: $suit-color-status-green;
+				.arrow--up{
+					border-color: transparent transparent $suit-color-status-green;
+				}
+			}
+	}
+	.input{
+		color: $input--color;
+		@extend .border--radius;
+		@extend .input--size;
+		border: 1px solid #C0BCB8;
+		display: inline-block;
+		vertical-align: top;
+		text-align: left;
+		font-size: $p-font-size-normal;
+		background-color: $suit-color-bright;
+		@extend .transition--default;
+		@include placeholder{
+			color: $suit-font-color-placeholder;
+			font-style: italic;
+			font-size: $font-size-small;
+		};
+		&:active, &:focus{
+			outline:none;
+			background: #fff;
+		}
+		&.error{
+			border: $suit-border-error;
+		}
+
+		&.input__search{
+				width: 405px;
+				background-image:url('../img/search.png');
+				background-size: 16px;
+				background-repeat:no-repeat;
+				padding-left:30px;
+				background-position: 8px center;
+		}
+		&::-webkit-input-placeholder{
+			font-style: italic;
+			font-size: $font-size-small;
+		}
+		&:-moz-placeholder{
+			font-style: italic;
+			font-size: $font-size-small;
+		}
+		&::-moz-placeholder{
+			font-style: italic;
+			font-size: $font-size-small;
+		}
+		&:-ms-input-placeholder{
+			font-style: italic;
+			font-size: $font-size-small;
+		}
+	}
+
+	.icon{
+		font-size: torem(16px);
+		&.icon--small{font-size: 8px;}
+		&.size--medium{font-size: 24px;}
+		&.icon--large{font-size: 32px;}
+		&.icon--xxl{font-size: 32px;}
+	}
+}
+
+.ui-kit{
+	background-color: #FFFFFF;
+	font-size: 0.95em;
+	h1{
+	    font-size: 1.25em;
+    	font-weight: normal;
+    	text-align: left;
+    	text-transform: capitalize;
+	}
+	section{
+		margin: 25px auto;
+		min-width: 960px;
+	}
+	hr{
+		border-bottom: 1px solid $suit-color-bright;
+		height: initial;
+	}
+	aside p{
+		height: 30px;
+	}
+	.button{
+		margin-right: 15px;
+	}
+	.message{
+	    margin-bottom: 10px;
+	}
+	.input{
+	    margin-right: 15px;
+	}
+	.dropdown{
+	    margin-right: 15px;
+	}
+	.tooltip{
+	    margin: 0 10px;
+	}
+	.switch{
+	    margin: 0 10px;
+	}
+	.checkbox{
+	    margin: 0 10px;
+	}
+	.iconset{
+		.icon{
+			margin-right: 15px;
+		}
+	}
+	.gallery__menu{
+		    margin-right: 15px;
+	}
+}
+
+.shameless__checkbox{
+	vertical-align: bottom!important;
+    margin-bottom: 11px;
+}

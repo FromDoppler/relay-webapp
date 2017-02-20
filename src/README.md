@@ -1,4 +1,4 @@
-# Relay WebApp
+# relay-app
 
 ## Setup
 
