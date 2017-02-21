@@ -409,3 +409,21 @@ gulp.task('build', ['clean'], function () {
     'web.config'
   );
 });
+
+/**
+ * Task used for running the tests in travis
+ */
+gulp.task('test:travis', function (done) {
+ 
+  gulp.start('default');
+
+  var argv = [getProtractorBinary(), 'protractor-travis-conf.js'].concat(process.argv.slice(3));
+
+  child_process
+    .spawn(getNodeBinary(), argv, { stdio: 'inherit' })
+    .on('error', function (e) { throw e; })
+    .on('close', function (e) { process.exit(); });
+
+  gulp.start('test:unit');
+  
+});
