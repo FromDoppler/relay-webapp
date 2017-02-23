@@ -3,8 +3,9 @@
 angular.module('dopplerRelay')
   .factory('errorHandlerInterceptor', ['$q', '$location', '$injector', '$window', '$rootScope', function ($q, $location, $injector, $window, $rootScope) {
     var responseError = function (rejection, cause) {
-      if ((!rejection.config.tryHandleError || !rejection.config.tryHandleError(rejection)) && !rejection.config.avoidStandarErrorHandling) {
-        var actionDescription = !rejection.config.actionDescription ? '' : rejection.config.actionDescription;
+      var config = rejection.config || {};
+      if ((!config.tryHandleError || !config.tryHandleError(rejection)) && !config.avoidStandarErrorHandling) {
+        var actionDescription = !config.actionDescription ? '' : config.actionDescription;
         var rejectionTitle = !rejection.data ? null : rejection.data.title;
         switch (rejection.status) {
           case 401: //Unauthorized by token expired
