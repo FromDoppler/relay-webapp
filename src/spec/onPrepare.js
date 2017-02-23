@@ -1,3 +1,4 @@
+browser.driver.manage().window().maximize();
 browser.addMockModule('commonModule', () => angular
   .module('commonModule', ['ngMockE2E'])
   .run(($httpBackend, jwtHelper, auth) => {
