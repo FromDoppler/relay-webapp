@@ -27,7 +27,7 @@
       <p>{{'reports_volume_data2' | translate}}</p>
     </div>
     <div class="box separator-left separator-right">
-      <h1>{{deliveriesSummary.qEmailDeliverability | number:2 | numberFormat: '%'}}</h1>
+      <h1 class="deliverability-percentage">{{deliveriesSummary.qEmailDeliverability | number:2 | numberFormat: '%'}}</h1>
       <p>{{'reports_volume_data3' | translate}}</p>
     </div>
   </div>
@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="box box-small">
-      <h4>{{deliveriesSummary.qEmailsDropped | number | numberFormat}}</h4>
+      <h4 class="dropped-count">{{deliveriesSummary.qEmailsDropped | number | numberFormat}}</h4>
       <p>{{'reports_volume_sub_data4' | translate}}</p>
     </div>
       <!--TODO:This section is commented because we still need to add this data
