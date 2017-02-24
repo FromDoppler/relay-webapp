@@ -36,8 +36,6 @@ describe('Reports page', () => {
 
     // Act
     browser.get('/#/reports');
-    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
-
 
     // Assert
     expect(reportsPage.getDroppedEl()).toEqual('5');
@@ -65,8 +63,6 @@ describe('Reports page', () => {
 
     // Act
     browser.get('/#/reports');
-    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
-
 
     // Assert
     expect(reportsPage.getDroppedEl()).toEqual('0');
@@ -94,8 +90,6 @@ describe('Reports page', () => {
 
     // Act
     browser.get('/#/reports');
-    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
-
 
     // Assert
     expect(reportsPage.getDroppedEl()).toEqual('3');
@@ -124,8 +118,6 @@ describe('Reports page', () => {
 
     // Act
     browser.get('/#/reports');
-    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
-
 
     // Assert
     expect(reportsPage.getDroppedEl()).toEqual('0');
