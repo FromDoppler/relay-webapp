@@ -422,7 +422,7 @@ gulp.task('test:travis', function (done) {
   child_process
     .spawn(getNodeBinary(), argv, { stdio: 'inherit' })
     .on('error', function (e) { throw e; })
-    .on('close', function (e) { process.exit(); });
+    .on('close', function (e) { process.exit(e); });
 
   gulp.start('test:unit');
   
