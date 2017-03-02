@@ -7,3 +7,4 @@ bower_components/
 **/assets/styles/libs/compass/**
 **/assets/styles/libs/normalize/**
 **/assets/styles/libs/jeet/**
+src/tmp/**

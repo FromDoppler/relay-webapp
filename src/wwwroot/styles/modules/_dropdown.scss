@@ -32,5 +32,5 @@ $suit-font-color:           #7F7972;
   div.expanded{border-bottom: $suit-border-default;@include border-bottom-radius(0);
       ul{opacity: 1;visibility:visible;overflow: visible;}
   }
-  input{cursor: pointer; padding: torem(15px) toem(55px) torem(15px) toem(15px); line-height: 0;margin:0;min-width:14.89em;}
+  input{cursor: pointer; padding: torem(15px) toem(55px) torem(15px) toem(15px); line-height: 0;margin:0;min-width:17em;position: relative;z-index: 99;background: inherit;height: auto;}
 }

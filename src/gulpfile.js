@@ -371,7 +371,7 @@ gulp.task('test:component', function () {
   // maybe we should use another port, or do not try to start the server again.
   gulp.start('default');
 
-  var argv = [getProtractorBinary(), 'spec/config.js'].concat(process.argv.slice(3));
+  var argv = [getProtractorBinary(), 'protractor-conf.js'].concat(process.argv.slice(3));
 
   child_process
     .spawn(getNodeBinary(), argv, { stdio: 'inherit' })
@@ -379,8 +379,7 @@ gulp.task('test:component', function () {
       throw e;
     })
     .on('close', function (e) {
-      // TODO: I am not sure if I am returning different error codes if test fails or not
-      process.exit();
+      process.exit(e);
     });
 });
 /**
@@ -408,4 +407,22 @@ gulp.task('build', ['clean'], function () {
     'build-html',
     'web.config'
   );
+});
+
+/**
+ * Task used for running the tests in travis
+ */
+gulp.task('test:travis', function (done) {
+ 
+  gulp.start('default');
+
+  var argv = [getProtractorBinary(), 'protractor-travis-conf.js'].concat(process.argv.slice(3));
+
+  child_process
+    .spawn(getNodeBinary(), argv, { stdio: 'inherit' })
+    .on('error', function (e) { throw e; })
+    .on('close', function (e) { process.exit(e); });
+
+  gulp.start('test:unit');
+  
 });
