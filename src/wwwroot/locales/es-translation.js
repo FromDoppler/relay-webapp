@@ -162,6 +162,13 @@
   "error_popup_button_401/3": "Iniciar sesion",
   "submenu_smtp": "SMTP & Api Key",
   "submenu_con_settings": "Credenciales SMTP & API Key",
+  "submenu_dom_manager": "Configuarion de Dominios",
+  "domain-manager_title": "Domain Manager",
+  "domain-manager_button": "Agregar dominio",
+  "domain-manager_label_input": "Nombre de Dominio",
+  "domain-manager_subtitle": "Configura tus dominios aquí",
+  "domain-manager_default_title": "Dominio por defecto",
+  "domain-manager_list_title": "Listado de Dominios",
   "connection-settings_title": "Credenciales SMTP & API Key",
   "connection-settings_subtitle": "Empieza a enviar tus emails via API o SMTP utilizando la siguiente información:",
   "connection-settings_host_smtp_title": "HOST SMTP",
@@ -190,6 +197,7 @@
   "action_updating_password": "Actualizando contraseña",
   "action_register_user": "Registrando usuario",
   "action_activating_user": "Activando usuario",
+  "action_adding_domain": "Activando un Dominio",
   "reset_password_title": "Restablece tu contraseña",
   "reset_password_subtitle": "¡Crea tu nueva contraseña a continuación!",
   "reset_password_placeholder": "Escribe tu nueva contraseña",
@@ -205,5 +213,8 @@
   "registration_account_name_label": "Nombre de Cuenta",
   "registration_submit": "crear tu cuenta",
   "registration_email_placeholder": "Tu email será tu nombre de usuario",
-  "registration_success_message": "Tu usuario {{ emailRegistered }} fue creado con éxito!"
+  "registration_success_message": "Tu usuario {{ emailRegistered }} fue creado con éxito!",
+  "domain_manager_name_th" : "Nombre",
+  "domain_manager_status_th" : "Estado",
+  "domain_manager_actions_th" : "Acciones"
 };

@@ -150,6 +150,13 @@
   "error_popup_button_401/3": "Go to log in page",
   "submenu_smtp": "SMTP & Api Key",
   "submenu_con_settings": "SMTP & API Information",
+  "submenu_dom_manager": "Domain Manager",
+  "domain-manager_title": "Domain Manager",
+  "domain-manager_subtitle": "Configure your domains here",
+  "domain-manager_button": "Add domain",
+  "domain-manager_label_input": "Domain Name:",,
+  "domain-manager_default_title": "Current default domain",
+  "domain-manager_list_title": "Domains List",
   "connection-settings_title": "SMTP & API Key Credentials",
   "connection-settings_subtitle": "Start sending emails using our API or get started quickly with SMTP using the information below:",
   "connection-settings_host_smtp_title": "HOST SMTP",
@@ -178,6 +185,7 @@
   "action_updating_password": "Updating password",
   "action_register_user": "Registering user",
   "action_activating_user": "Activating user",
+  "action_adding_domain": "Adding a Domain",
   "reset_password_title": "Reset your Password",
   "reset_password_subtitle": "Create your new password below!",
   "reset_password_placeholder": "Type your new password",
@@ -193,5 +201,8 @@
   "registration_account_name_label": "Account Name",
   "registration_submit": "create your account",
   "registration_email_placeholder": "Your email will be your username",
-  "registration_success_message": "Your user {{ emailRegistered }} was successfully created!"
+  "registration_success_message": "Your user {{ emailRegistered }} was successfully created!",
+  "domain_manager_name_th" : "Name",
+  "domain_manager_status_th" : "Status",
+  "domain_manager_actions_th" : "Actions"
 };
