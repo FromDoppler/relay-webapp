@@ -7,14 +7,10 @@
 
   settings.$inject = [
     '$http',
-    '$window',
     '$q',
-    'jwtHelper',
-    'RELAY_CONFIG',
-    '$rootScope',
-    'auth'
+    'RELAY_CONFIG'
   ];
-  function settings($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope, auth) {
+  function settings($http, $q, RELAY_CONFIG) {
     var settingsService = {
       getDomains: getDomains,
       addDomain: addDomain
@@ -24,42 +20,40 @@
 
     function addDomain (domain) {
       var actionDescription = 'action_adding_domain';
-      /*return $http({
-        actionDescription: actionDescription,
-        method: 'POST',
-        url: RELAY_CONFIG.baseUrl + '/user?domain=' + domain,
-        headers: {
-          'Content-Type': 'text/plain',
-          'Authorization': 'token ' + apiKey
-        }
-      });*/
+
+      var deferred = $q.defer();
+      deferred.resolve("Fake $http call");
+
+      return deferred.promise;
     }
 
     function getDomains() {
-      return [{
-        name: "relay.com",
-        status: "default"
-      },
-      {
-        name: "fromdoppler.com",
-        status: "disabled"
-      },
-      {
-        name: "makingsense.com",
-        status: "disabled"
-      }];
-        /*return $http({
-          actionDescription: 'Gathering report requests',
-          method: 'GET',
-          url: RELAY_CONFIG.baseUrl + auth.getAccountName() +  '/domains'
-        }).then(function (response) {
-          return (response.data.items);
-        })
-        .catch(function (reason) {
-          $log.error(reason.error.detail);
-          return $q.reject(reason);
-        });
-    }*/
+      var response = $q.defer();
+
+      setTimeout( function() {
+        var data = {
+          domains: [{
+            name: "relay.com",
+            status: "default",
+            default: true
+          },
+          {
+            name: "fromdoppler.com",
+            status: "disabled",
+            default: false
+          },
+          {
+            name: "makingsense.com",
+            status: "disabled",
+            default: false
+          }],
+          defaultDomain: "relay.com"
+        };
+
+        response.resolve(data);
+      }, 500 );
+
+      return response.promise;
   }
 }
 })();

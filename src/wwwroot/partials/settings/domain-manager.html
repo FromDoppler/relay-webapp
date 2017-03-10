@@ -5,12 +5,12 @@
     <p class="width--full">{{'domain-manager_subtitle' | translate}}</p>
     </div>
     <div class="item flex flex--content-end width--half">
-      <button class="button button--large domain--input-toggler" ng-click="showDomainInput = true">{{'domain-manager_button' | translate}}</button>
+      <button class="button button--large domain--input-toggler" ng-click="vm.toggleDomainInput()">{{'domain-manager_button' | translate}}</button>
     </div>
   </div>
   <form method="post" id="form" name="form" ng-submit="vm.addDomain(form)" novalidate>
   <div class="item domain--default-container section--wrapper">
-    <div class="item flex domain--input-container width--full" ng-class="showDomainInput ? 'active' : ''">
+    <div class="item flex domain--input-container width--full" ng-class="vm.showDomainInput ? 'active' : ''">
         <label for="domain">{{'domain-manager_label_input' | translate}}</label>
         <div class="width--full">
           <input ng-pattern="vm.regexDomain" name="domain" ng-model="domain" class="input input--large"  validation-error required />
