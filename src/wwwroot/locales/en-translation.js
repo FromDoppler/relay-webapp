@@ -154,7 +154,7 @@
   "domain-manager_title": "Domain Manager",
   "domain-manager_subtitle": "Configure your domains here",
   "domain-manager_button": "Add domain",
-  "domain-manager_label_input": "Domain Name:",,
+  "domain-manager_label_input": "Domain Name:",
   "domain-manager_default_title": "Current default domain",
   "domain-manager_list_title": "Domains List",
   "connection-settings_title": "SMTP & API Key Credentials",
