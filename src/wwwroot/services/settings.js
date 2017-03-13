@@ -34,18 +34,15 @@
         var data = {
           domains: [{
             name: "relay.com",
-            status: "default",
-            default: true
+            status: "default"
           },
           {
             name: "fromdoppler.com",
-            status: "disabled",
-            default: false
+            status: "disabled"
           },
           {
             name: "makingsense.com",
-            status: "disabled",
-            default: false
+            status: "disabled"
           }],
           defaultDomain: "relay.com"
         };

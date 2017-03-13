@@ -15,7 +15,7 @@ describe('Settings Page', () => {
       }));
   }
 
-  it('should trigger correctly to show the add domain input', () => {
+  it('should show add domain input when you click in add domain button', () => {
     // Arrange
     beginAuthenticatedSession();
     var settings = new SettingsPage();
@@ -24,14 +24,14 @@ describe('Settings Page', () => {
     browser.get('/#/settings/domain-manager');
 
     //Assert
-    expect(settings.getDomainInputContainer().getAttribute('class')).not.toContain('active');
-    expect(settings.getDomainInputContainer().getCssValue('height')).toEqual('0px');
+    expect(settings.getClass(settings.getDomainInputContainer())).not.toContain('active');
+    expect(settings.getHeight(settings.getDomainInputContainer())).toEqual('0px');
 
     // Act
     settings.clickInputToggler();
 
     // Assert
-    expect(settings.getDomainInputContainer().getAttribute('class')).toContain('active');
-    expect(settings.getDomainInputContainer().getCssValue('height')).not.toEqual('0px');
+    expect(settings.getClass(settings.getDomainInputContainer())).toContain('active');
+    expect(settings.getHeight(settings.getDomainInputContainer())).not.toEqual('0px');
   });
 });

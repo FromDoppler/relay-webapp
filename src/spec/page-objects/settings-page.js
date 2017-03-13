@@ -18,6 +18,12 @@ class SettingsPage {
   getDomainInputContainer(){
     return this._domainInputContainer;
   }
+  getClass(elem){
+    return elem.getAttribute('class');
+  }
+  getHeight(elem){
+    return elem.getCssValue('height');
+  }
 
 }
 exports.SettingsPage = SettingsPage;

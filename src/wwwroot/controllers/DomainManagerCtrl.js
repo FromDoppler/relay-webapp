@@ -7,19 +7,21 @@
 
     DomainManagerCtrl.$inject = [
       '$scope',
-      'settings'
+      'settings',
+      '$q'
     ];
 
-    function DomainManagerCtrl($scope, settings) {
+    function DomainManagerCtrl($scope, settings, $q) {
       var vm = this;
       vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
-      activate();
+      vm.activationPromise = activate();
 
       function activate() {
         loadUserDomains();
+        return $q.resolve();
       }
 
-      vm.toggleDomainInput = function(){
+      vm.showDomainInputButton = function(){
         vm.showDomainInput = true;
       };
 
