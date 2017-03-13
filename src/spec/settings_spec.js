@@ -24,14 +24,12 @@ describe('Settings Page', () => {
     browser.get('/#/settings/domain-manager');
 
     //Assert
-    expect(settings.getClass(settings.getDomainInputContainer())).not.toContain('active');
-    expect(settings.getHeight(settings.getDomainInputContainer())).toEqual('0px');
+    expect(settings.isDomainInputVisible()).toBe(false);
 
     // Act
     settings.clickInputToggler();
 
     // Assert
-    expect(settings.getClass(settings.getDomainInputContainer())).toContain('active');
-    expect(settings.getHeight(settings.getDomainInputContainer())).not.toEqual('0px');
+    expect(settings.isDomainInputVisible()).toBe(true);
   });
 });

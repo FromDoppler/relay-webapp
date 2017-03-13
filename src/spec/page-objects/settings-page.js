@@ -18,12 +18,21 @@ class SettingsPage {
   getDomainInputContainer(){
     return this._domainInputContainer;
   }
-  getClass(elem){
-    return elem.getAttribute('class');
+  isDomainInputVisible(){
+    var hasActiveClass = this.getDomainInputContainer()
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('active') >= 0;
+      });
+    var hasZeroHeight = this.getDomainInputContainer()
+      .getCssValue('height')
+      .then(function(heightSize) {
+        return heightSize != '0px';
+      });
+    return Promise.all([hasActiveClass, hasZeroHeight])
+      .then(function(results) {
+        return results[0] && results[1];
+      });
   }
-  getHeight(elem){
-    return elem.getCssValue('height');
-  }
-
 }
 exports.SettingsPage = SettingsPage;
