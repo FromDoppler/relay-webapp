@@ -210,5 +210,7 @@
   "domain_manager_actions_th" : "Actions",
   "erase_text": "Delete",
   "edit_text": "Edit",
-  "domain-manger_set_as_default": "Make it your default domain"
+  "domain-manger_set_as_default": "Make it your default domain",
+  "disabled_text": "Disabled",
+  "default_text": "Default"
 };

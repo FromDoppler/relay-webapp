@@ -1,16 +1,16 @@
 <section>
   <div class="item section--wrapper flex flex--between">
-    <div class="item flex width--half flex--wrap">
+    <div class="item flex width--full flex--wrap">
     <h2 class="width--full">{{'domain-manager_title' | translate}}</h2>
     <p class="width--full">{{'domain-manager_subtitle' | translate}}</p>
     </div>
-    <div class="item flex flex--content-end width--half">
+    <!--<div class="item flex flex--content-end width--half">
       <button class="button button--large domain--input-toggler" ng-click="vm.showNewDomainInput()">{{'domain-manager_button' | translate}}</button>
-    </div>
+    </div>-->
   </div>
   <form method="post" id="form" name="form" ng-submit="vm.addDomain(form)" novalidate>
   <div class="item domain--default-container section--wrapper">
-    <div class="item flex domain--input-container width--full" ng-class="vm.showDomainInput ? 'active' : ''">
+    <!--<div class="item flex domain--input-container width--full" ng-class="vm.showDomainInput ? 'active' : ''">
       <label for="domain">{{'domain-manager_label_input' | translate}}</label>
       <div class="width--full">
         <input ng-pattern="vm.regexDomain" name="domain" ng-model="domain" class="input input--large"  validation-errors required />
@@ -18,7 +18,7 @@
       </div>
     </div>
     <span class="input--error" ng-show="(showDomainInput || form.domain.$dirty) && form.domain.$invalid && !form.domain.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
-    <span class="input--error" ng-show="(vm.submitted || form.domain.$dirty) && form.domain.$invalid && form.domain.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+    <span class="input--error" ng-show="(vm.submitted || form.domain.$dirty) && form.domain.$invalid && form.domain.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>-->
     <h4><strong>{{'domain-manager_default_title' | translate}}</strong></h4>
     <p class="italic">{{vm.domainDefault}}</p>
     <p>{{'domain-manager_default_subtitle' | translate}}</p>
@@ -36,7 +36,7 @@
         </tr>
         <tr class="column-records" ng-repeat="d in vm.domains">
           <td>{{d.name}}</td>
-          <td>{{d.status}}</td>
+          <td>{{ d.status | translate }}</td>
           <td><a>{{ 'erase_text' | translate}}</a><a ng-if="d.name != vm.domainDefault"> - {{ 'domain-manger_set_as_default' | translate}}</a></td>
         </tr>
       </table>

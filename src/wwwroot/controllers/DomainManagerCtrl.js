@@ -41,7 +41,7 @@
         .then(function(data){
           vm.domains = data.domains;
           data.domains.map(function (ele) {
-            ele.status = ele.disabled ? 'disabled' : 'default';
+            ele.status = ele.disabled ? 'disabled_text' : 'default_text';
           });
           vm.domainDefault = data.defaultDomain;
         });
