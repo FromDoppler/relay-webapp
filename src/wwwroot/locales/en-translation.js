@@ -152,11 +152,14 @@
   "submenu_con_settings": "SMTP & API Information",
   "submenu_dom_manager": "Domain Manager",
   "domain-manager_title": "Domain Manager",
-  "domain-manager_subtitle": "Configure your domains here",
-  "domain-manager_button": "Add domain",
+  "domain-manager_subtitle": "Set up all your domains here.",
+  "domain-manager_button": "add a new domain",
   "domain-manager_label_input": "Domain Name:",
-  "domain-manager_default_title": "Current default domain",
+  "domain-manager_input_button": "Add Domain",
+  "domain-manager_default_title": "Default Domain",
+  "domain-manager_default_subtitle": "This is your default domain, in case that your from email don’t use one of the domains in your list we’ll use the default one.",
   "domain-manager_list_title": "Domains List",
+  "domain-manager_list_name": "Domain Name",
   "connection-settings_title": "SMTP & API Key Credentials",
   "connection-settings_subtitle": "Start sending emails using our API or get started quickly with SMTP using the information below:",
   "connection-settings_host_smtp_title": "HOST SMTP",
@@ -204,5 +207,8 @@
   "registration_success_message": "Your user {{ emailRegistered }} was successfully created!",
   "domain_manager_name_th" : "Name",
   "domain_manager_status_th" : "Status",
-  "domain_manager_actions_th" : "Actions"
+  "domain_manager_actions_th" : "Actions",
+  "erase_text": "Delete",
+  "edit_text": "Edit",
+  "domain-manger_set_as_default": "Make it your default domain"
 };

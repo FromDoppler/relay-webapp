@@ -17,11 +17,10 @@
       vm.activationPromise = activate();
 
       function activate() {
-        loadUserDomains();
-        return $q.resolve();
+        return loadUserDomains();
       }
 
-      vm.showDomainInputButton = function(){
+      vm.showNewDomainInput = function(){
         vm.showDomainInput = true;
       };
 
@@ -38,9 +37,12 @@
       }
 
       function loadUserDomains() {
-        settings.getDomains()
+        return settings.getDomains()
         .then(function(data){
           vm.domains = data.domains;
+          data.domains.map(function (ele) {
+            ele.status = ele.disabled ? 'disabled' : 'default';
+          });
           vm.domainDefault = data.defaultDomain;
         });
       }
