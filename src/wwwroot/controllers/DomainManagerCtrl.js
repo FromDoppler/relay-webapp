@@ -20,7 +20,8 @@
         return loadUserDomains();
       }
 
-      vm.showNewDomainInput = function(){
+      //This code will be commented until we add the new Domain Functionality
+      /*vm.showNewDomainInput = function(){
         vm.showDomainInput = true;
       };
 
@@ -34,7 +35,7 @@
           loadUserDomains();
         });
 
-      }
+      }*/
 
       function loadUserDomains() {
         return settings.getDomains()
