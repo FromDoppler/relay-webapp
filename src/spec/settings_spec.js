@@ -26,10 +26,11 @@ describe('Settings Page', () => {
     //Assert
     expect(settings.isDomainInputVisible()).toBe(false);
 
-    // Act
+    //This will be commented until we add Add domain functionality.
+    /*// Act
     settings.clickInputToggler();
 
     // Assert
-    expect(settings.isDomainInputVisible()).toBe(true);
+    expect(settings.isDomainInputVisible()).toBe(true);*/
   });
 });
