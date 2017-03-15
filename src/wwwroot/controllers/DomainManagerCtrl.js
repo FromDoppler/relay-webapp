@@ -8,10 +8,15 @@
     DomainManagerCtrl.$inject = [
       '$scope',
       'settings',
-      '$q'
+      '$q',
+      '$rootScope'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope) {
+      $rootScope.setSubmenues([
+        { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
+        { text: 'domains_text', url: 'settings/domain-manager', active: true }
+      ]);
       var vm = this;
       vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
       vm.activationPromise = activate();
@@ -42,8 +47,10 @@
         .then(function(data) {
           vm.domains = data.domains.map(function (ele) {
             return {
-              status: ele.disabled ? 'disabled_text' : 'default_text',
-              name: ele.name
+              status: data.defaultDomain == ele.name ? 'default_text'
+                : (ele.disabled ? 'disabled_text' : 'enable_text'),
+              name: ele.name,
+              disabled: ele.disabled
              };
           });
           vm.domainDefault = data.defaultDomain;

@@ -23,21 +23,48 @@
     }
   }
 }
-
+.domain--title-container{
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
 .domain--default-container {
-  margin-top: 3rem;
+  margin-top: 4rem;
   border-top: $suit-border-default;
-  h4:last-of-type {
-    margin-top: 3rem;
+  border-bottom: $suit-border-default;
+  padding-bottom: 2.5rem;
+  h5 {
+    margin-top: 2rem;
+    display: inline-block;
+    margin-right: .2rem;
+  }
+  span {
+    color: $suit-accent-color-light;
+    font-size: 1rem;
   }
   p:last-of-type {
-    opacity: 0.6;
+    color:$suit-font-color-lighter;
+    font-size: 0.875rem;
   }
 }
 .domain--list-container {
-  margin-top: 5rem;
+  margin-top: 4rem;
   h3 {
     margin-bottom:1rem;
+  }
+  .column-records {
+    td:first-of-type {
+      color: $suit-accent-color-light;
+    }
+    td:first-of-type {
+      color: $suit-accent-color-light;
+    }
+    td.default {
+      font-weight: bold;
+    }
+    &.grey {
+      opacity: 0.5;
+    }
   }
 }
 .domain--input-container {
