@@ -20,7 +20,7 @@
     <span class="input--error" ng-show="(showDomainInput || form.domain.$dirty) && form.domain.$invalid && !form.domain.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
     <span class="input--error" ng-show="(vm.submitted || form.domain.$dirty) && form.domain.$invalid && form.domain.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
     <h5><strong>{{'domain-manager_default_title' | translate}}</strong></h5>
-    <span>{{vm.domainDefault}} *</span>
+    <span>{{vm.defaultDomain}} *</span>
     <p class="italic"><span>* </span>{{'domain-manager_default_subtitle' | translate}}</p>
 
   </div>
@@ -35,9 +35,9 @@
           <!--<th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>-->
         </tr>
         <tr class="column-records" ng-repeat="d in vm.domains" ng-class="d.disabled ? 'grey' : ''">
-          <td ng-class="vm.domainDefault == d.name ? 'default' : ''">{{d.name}}</td>
-          <td ng-class="vm.domainDefault == d.name ? 'default' : ''">{{ d.status | translate }}</td>
-          <!--<td><a>{{ 'erase_text' | translate}}</a><a ng-if="d.name != vm.domainDefault"> - {{ 'domain-manger_set_as_default' | translate}}</a></td>-->
+          <td ng-class="d.defaultDomain ? 'default' : ''">{{d.name}}</td>
+          <td ng-class="d.defaultDomain ? 'default' : ''">{{ d.status | translate }}</td>
+          <!--<td><a>{{ 'erase_text' | translate}}</a><a ng-if="d.name != vm.defaultDomain"> - {{ 'domain-manger_set_as_default' | translate}}</a></td>-->
         </tr>
       </table>
     </div>

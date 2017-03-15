@@ -50,10 +50,11 @@
               status: data.defaultDomain == ele.name ? 'default_text'
                 : (ele.disabled ? 'disabled_text' : 'enable_text'),
               name: ele.name,
-              disabled: ele.disabled
+              disabled: ele.disabled,
+              defaultDomain: data.defaultDomain == ele.name ? true : false
              };
           });
-          vm.domainDefault = data.defaultDomain;
+          vm.defaultDomain = data.defaultDomain;
         });
       }
     }
