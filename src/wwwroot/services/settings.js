@@ -8,48 +8,39 @@
   settings.$inject = [
     '$http',
     '$q',
-    'RELAY_CONFIG'
+    'RELAY_CONFIG',
+    'auth'
   ];
-  function settings($http, $q, RELAY_CONFIG) {
+  function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
-      getDomains: getDomains,
-      addDomain: addDomain
+      getDomains: getDomains
+      //addDomain: addDomain  //This will be commented until add domain it's implemented.
     };
 
     return settingsService;
-
-    function addDomain (domain) {
+    //This will be commented until add domain it's implemented.
+    /*function addDomain (domain) {
       var actionDescription = 'action_adding_domain';
 
       var deferred = $q.defer();
       deferred.resolve("Fake $http call");
 
       return deferred.promise;
-    }
+    }*/
 
     function getDomains() {
-      var response = $q.defer();
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains';
 
-      setTimeout( function() {
-        var data = {
-          domains: [{
-            name: "relay.com",
-          },
-          {
-            name: "fromdoppler.com",
-            disabled: true
-          },
-          {
-            name: "makingsense.com",
-            disabled: true
-          }],
-          defaultDomain: "relay.com"
-        };
-
-        response.resolve(data);
-      }, 500 );
-
-      return response.promise;
-  }
+      return $http({
+        actionDescription: 'Getting domains',
+        method: 'GET',
+        url: url
+      })
+      .then(function (response) {
+        return response;
+      });
+    }
 }
 })();

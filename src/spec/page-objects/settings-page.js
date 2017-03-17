@@ -4,6 +4,7 @@ class SettingsPage {
     this._togglerDomainInputButton = $('.domain--input-toggler');
     this._confirmAddDomainButton = $('.domain--input-container button');
     this._domainInputContainer = $('.domain--input-container');
+    this._domainsListItems = element.all(by.css('.domain--list-container table .column-records'));
   }
 
   getUrl(){
@@ -32,6 +33,12 @@ class SettingsPage {
     return Promise.all([hasActiveClass, hasZeroHeight])
       .then(function(results) {
         return results[0] && results[1];
+      });
+  }
+  countDomainListItems(){
+    return this._domainsListItems.count()
+      .then(function (value) {
+        return value;
       });
   }
 }

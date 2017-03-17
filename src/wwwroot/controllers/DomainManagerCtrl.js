@@ -44,17 +44,17 @@
 
       function loadUserDomains() {
         return settings.getDomains()
-        .then(function(data) {
-          vm.domains = data.domains.map(function (ele) {
+        .then(function(response) {
+          vm.domains = response.data.domains.map(function (ele) {
             return {
-              status: data.defaultDomain == ele.name ? 'default_text'
+              status: response.data.defaultDomain == ele.name ? 'default_text'
                 : (ele.disabled ? 'disabled_text' : 'enable_text'),
               name: ele.name,
               disabled: ele.disabled,
-              defaultDomain: data.defaultDomain == ele.name ? true : false
+              defaultDomain: response.data.defaultDomain == ele.name ? true : false
              };
           });
-          vm.defaultDomain = data.defaultDomain;
+          vm.defaultDomain = response.data.defaultDomain;
         });
       }
     }
