@@ -166,6 +166,11 @@
 
 
 @media screen and (max-width: 768px) {
+  .reports--send-data {
+    .four-columns {
+      h1 { font-size: 1.5rem !important; }
+    }
+  }
   .reports--grid{
     p,h2{display: inline-block;}
     input.input { width: 100%; margin-top: torem(30px)}

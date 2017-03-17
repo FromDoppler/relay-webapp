@@ -194,11 +194,15 @@
 }
 @media screen and (max-width: 768px) {
   .templates--custom {
-    .content--templates{
-      .button--large{ width: 100%; margin-top: 1rem;}
-    }
+    li { width: 100% !important; }
+    .button--large{ width: 100%; margin-top: 1rem;}
     .buttons--container {
       .button--medium { min-width: 80%; width: 80%;}
+    }
+  }
+  .templates--edition {
+    .button--medium{
+      margin-left: 0 !important;
     }
   }
 }
