@@ -45,6 +45,7 @@ header{
   }
   .header--config-menu{
     opacity: 0;
+    right: 0;
     visibility: hidden;
     position: absolute;
     top: 5rem;
@@ -155,6 +156,17 @@ header{
 
       .header--flags{ p{display: none;} a{cursor:pointer;} }
     }
+}
+@media screen and (max-width: 750px){
+  header{
+    .section--wrapper{
+      h4{font-size: 0.875rem;}
+      .header--config-menu-trigger{
+        span:first-of-type{ display:none; }
+      }
+      .second-container { a,span {font-size: .675rem !important;}}
+    }
+  }
 }
 
 
