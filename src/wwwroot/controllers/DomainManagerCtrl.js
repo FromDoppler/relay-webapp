@@ -51,7 +51,7 @@
                 : (ele.disabled ? 'disabled_text' : 'enable_text'),
               name: ele.name,
               disabled: ele.disabled,
-              defaultDomain: response.data.defaultDomain == ele.name ? true : false
+              defaultDomain: response.data.defaultDomain == ele.name
              };
           });
           vm.defaultDomain = response.data.defaultDomain;

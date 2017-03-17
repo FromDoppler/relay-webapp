@@ -36,10 +36,7 @@ class SettingsPage {
       });
   }
   countDomainListItems(){
-    return this._domainsListItems.count()
-      .then(function (value) {
-        return value;
-      });
+    return this._domainsListItems.count();
   }
 }
 exports.SettingsPage = SettingsPage;
