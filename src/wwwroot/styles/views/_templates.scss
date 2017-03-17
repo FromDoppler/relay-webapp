@@ -192,3 +192,13 @@
     &.m-glass{background-color: transparent;position:relative;margin-left:0;}
     }
 }
+@media screen and (max-width: 768px) {
+  .templates--custom {
+    .content--templates{
+      .button--large{ width: 100%; margin-top: 1rem;}
+    }
+    .buttons--container {
+      .button--medium { min-width: 80%; width: 80%;}
+    }
+  }
+}

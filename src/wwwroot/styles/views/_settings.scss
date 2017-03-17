@@ -13,6 +13,7 @@
     margin-top: 3rem;
   }
   div.connection--settings-data-container {
+    display: flex;
     border-bottom: 1px solid $suit-font-color-border-grey;
     padding: 1.2rem 0;
     div.small-col{ width: 25%;}
@@ -20,6 +21,7 @@
       display: inline-block;
       width: 35%;
       label{ text-transform: uppercase;font-weight: 600;}
+      p {word-wrap: break-word;}
     }
   }
 }
@@ -105,6 +107,11 @@
         margin: 2rem 0 0 0;
       }
     }
+  }
+  .connection--settings-data-container {
+    label { font-size: 0.775rem;}
+    div:first-of-type { width: 45% !important; }
+    div:last-of-type { width: 25% !important; }
   }
 
 }

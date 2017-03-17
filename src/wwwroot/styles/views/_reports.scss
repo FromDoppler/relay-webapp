@@ -176,11 +176,14 @@
       svg,.spinner { margin-top: torem(30px); right: 0; top: 0;}
      }
   }
+  .activity--title-container{
+    p{font-size:0.875rem !important;margin-left: toem(10px);}
+  }
 
   .downloads--grid {
     min-height: 0;
     input.button--large { margin-bottom: 2rem;}
-    spinner { padding: 0.875rem 45% !important; width: 100% !important;}
+    .spinner { padding: 0.875rem 45% !important; width: 100% !important;}
   }
 
   .box{
