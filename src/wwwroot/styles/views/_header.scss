@@ -52,7 +52,7 @@ header{
     padding: 0.7rem;
     z-index: 9999;
     width: 320px;
-    height: 215px;
+    height: 232px;
     box-shadow: 0 1px 10px $suit-main-color;
     @extend .transition--default;
     &.show{
@@ -111,10 +111,13 @@ header{
           color:$suit-accent-color;
         }
         li:first-of-type{
+          margin: 20px 0 0 0.5em;
+        }
+        li{
           margin: 20px 0 20px 0.5em;
         }
         li:last-of-type{
-          margin-bottom: 20px;
+          margin: 0 0 0 0.5em;
         }
       }
     }
@@ -124,7 +127,6 @@ header{
     height: 0;
     padding: 0 !important;
     overflow: hidden;
-    @extend .transition--default;
     &.show{
       height: 1.7rem;
     }
