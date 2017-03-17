@@ -91,9 +91,11 @@
     <div class="activity--title-container"><h2>{{'reports_activity_period_title' | translate}}</h2><p>{{ currentFullDateFilter.startDate | amUtc | amDateFormat:'MMM' | translate}} {{ currentFullDateFilter.startDate | amUtc | amDateFormat:'DD, YYYY' }}  {{moreThanOneDay ? "- " + (currentFullDateFilter.endDate | amUtc | amDateFormat:'MMM'| translate) : ""}} {{ moreThanOneDay ? (currentFullDateFilter.endDate | amUtc | amDateFormat:'DD, YYYY') : ""}}</p></div>
     <div class="long-box" ng-class="{true: 'searching'}[expandSearch]">
       <input class="button button--large button--right" type="submit" value="{{'reports_activity_period_download_report' | translate}}" ng-click="generateReport()">
-      <input class="input input--large" maxlength="100" ng-class="{true: 'error'}[submitted && loginform.searchTable.$invalid]" id="searchTable" type="text" name="searchTable" ng-model="searchTable" enter="searchResultsUpdate()" placeholder="{{'reports_activity_period_search_placeholder' | translate}}" ng-keyup="updateCanSearch()" required />
-      <svg class="icon m-glass" ng-show="!searchInProgress" ng-class="canSearch ? '' : 'disabled'" ng-click="searchResultsUpdate()"><use xlink:href="/images/sprite.svg#doppler-icon-magnifierGlass"></use></svg>
-      <spinner class="spinner" ng-show="searchInProgress"></spinner>
+      <div class="search--box-container">
+        <input class="input input--large" maxlength="100" ng-class="{true: 'error'}[submitted && loginform.searchTable.$invalid]" id="searchTable" type="text" name="searchTable" ng-model="searchTable" enter="searchResultsUpdate()" placeholder="{{'reports_activity_period_search_placeholder' | translate}}" ng-keyup="updateCanSearch()" required />
+        <svg class="icon m-glass" ng-show="!searchInProgress" ng-class="canSearch ? '' : 'disabled'" ng-click="searchResultsUpdate()"><use xlink:href="/images/sprite.svg#doppler-icon-magnifierGlass"></use></svg>
+        <spinner class="spinner" ng-show="searchInProgress"></spinner>
+      </div>
     </div>
     <div class="table--container">
       <table>
