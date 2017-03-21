@@ -109,7 +109,7 @@
     margin-bottom: torem(90px);
     margin-top: torem(90px);
   }
-  
+
   .long-box {
     height: auto;
   }
@@ -166,13 +166,29 @@
 
 
 @media screen and (max-width: 768px) {
+  .reports--send-data {
+    .four-columns {
+      h1 { font-size: 1.5rem !important; }
+    }
+  }
   .reports--grid{
     p,h2{display: inline-block;}
     input.input { width: 100%; margin-top: torem(30px)}
+    .search--box-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      svg,.spinner { margin-top: torem(30px); right: 0; top: 0;}
+     }
+  }
+  .activity--title-container{
+    p{font-size:0.875rem !important;margin-left: toem(10px);}
   }
 
   .downloads--grid {
     min-height: 0;
+    input.button--large { margin-bottom: 2rem;}
+    .spinner { padding: 0.875rem 45% !important; width: 100% !important;}
   }
 
   .box{

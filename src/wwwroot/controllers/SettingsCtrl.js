@@ -13,7 +13,8 @@
 
   function SettingsCtrl($scope, $rootScope, RELAY_CONFIG) {
     $rootScope.setSubmenues([
-      { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }
+      { text: 'submenu_smtp', url: 'settings/connection-settings', active: true },
+      { text: 'domains_text', url: 'settings/domain-manager', active: false }
     ]);
     var vm = this;
     vm.apiUrl = RELAY_CONFIG.baseUrl;

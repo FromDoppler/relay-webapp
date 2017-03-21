@@ -31,3 +31,17 @@ c3chart{display: block}
 .c3 svg {
     font: 400 10px "Proxima-Nova", sans-serif !important;
 }
+@media screen and (max-width: 1024px) {
+  .c3{
+    text {
+      tspan {font-size: 0.5rem !important;}
+    }
+  }
+}
+@media screen and (max-width: 750px) {
+  .c3{
+    text {
+      tspan {font-size: 0.3rem !important;}
+    }
+  }
+}

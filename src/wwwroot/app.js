@@ -69,6 +69,11 @@
           controller: 'SettingsCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/domain-manager', {
+          templateUrl: 'partials/settings/domain-manager.html',
+          controller: 'DomainManagerCtrl',
+          controllerAs: 'vm'
+        })
         .when('/signup/registration', {
           templateUrl: 'partials/signup/registration.html',
           controller: 'RegistrationCtrl',
