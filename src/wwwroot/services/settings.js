@@ -29,9 +29,6 @@
         actionDescription: 'action_adding_domain',
         method: 'PUT',
         url: url
-      })
-      .then(function (response) {
-        return response;
       });
     }
 

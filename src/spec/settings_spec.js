@@ -16,7 +16,7 @@ describe('Settings Page', () => {
         auth.saveToken(permanentToken);
       }));
   }
-  it('should show add domain input when you click in add domain button', () => {
+  it('should show "add domain" input when you click in add domain button', () => {
     //Arrange
     beginAuthenticatedSession();
     browser.addMockModule('descartableModule2', () => angular
@@ -28,11 +28,7 @@ describe('Settings Page', () => {
         });
       }));
     var settings = new SettingsPage();
-
-    //Act
     browser.get('/#/settings/domain-manager');
-
-    //Assert
     expect(settings.isDomainInputVisible()).toBe(false);
 
     // Act
@@ -62,25 +58,6 @@ describe('Settings Page', () => {
     expect(settings.countDomainListItems()).not.toBe(0);
   });
 
-  it('should show an empty list of domains', () => {
-    // Arrange
-    beginAuthenticatedSession();
-    browser.addMockModule('descartableModule2', () => angular
-      .module('descartableModule2', ['ngMockE2E'])
-      .run($httpBackend => {
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
-          "domains": []
-        });
-      }));
-    var settings = new SettingsPage();
-
-    //Act
-    browser.get('/#/settings/domain-manager');
-
-    //Assert
-    expect(settings.countDomainListItems()).toBe(0);
-  });
-
   it('should add a domain correctly', () => {
     // Arrange
     beginAuthenticatedSession();
@@ -91,21 +68,15 @@ describe('Settings Page', () => {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
           "defaultDomain": "relay.com"
         });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
+          "result": true
+        });
       }));
-      browser.addMockModule('descartableModule3', () => angular
-        .module('descartableModule3', ['ngMockE2E'])
-        .run($httpBackend => {
-          $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
-            "result": true
-          });
-        }));
 
       var settings = new SettingsPage();
 
       browser.get('/#/settings/domain-manager');
       settings.clickInputToggler();
-
-      //Assert
       expect(settings.isDomainInputVisible()).toBe(true);
 
       // Act
