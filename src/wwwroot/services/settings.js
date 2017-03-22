@@ -13,20 +13,24 @@
   ];
   function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
-      getDomains: getDomains
-      //addDomain: addDomain  //This will be commented until add domain it's implemented.
+      getDomains: getDomains,
+      addDomain: addDomain
     };
 
     return settingsService;
-    //This will be commented until add domain it's implemented.
-    /*function addDomain (domain) {
-      var actionDescription = 'action_adding_domain';
 
-      var deferred = $q.defer();
-      deferred.resolve("Fake $http call");
+    function addDomain (domain) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains/'
+        + domain;
 
-      return deferred.promise;
-    }*/
+      return $http({
+        actionDescription: 'action_adding_domain',
+        method: 'PUT',
+        url: url
+      });
+    }
 
     function getDomains() {
       var url = RELAY_CONFIG.baseUrl
