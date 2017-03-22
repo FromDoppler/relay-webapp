@@ -36,7 +36,6 @@
   border-bottom: $suit-border-default;
   padding-bottom: 2.5rem;
   h5 {
-    margin-top: 2rem;
     display: inline-block;
     margin-right: .2rem;
   }
@@ -73,16 +72,29 @@
   flex-wrap: wrap;
   height: 0;
   overflow: hidden;
-  align-items: center;
-  @extend .transition--default;
-  button {
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  div.flex--wrap:first-of-type{
+    width: 100%;
+  }
+  div.button-container{
     margin-left: 2rem;
   }
+  label{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  @extend .transition--default;
 }
 .domain--input-container {
   &.active {
+    margin-bottom: 0;
     margin-top: 2rem;
-    height: 80px;
+    height: 140px;
+    .error-container{
+      width: 100%;
+    }
     button {
       font-size: 2rem;
     }
@@ -102,9 +114,18 @@
     }
   .domain--input-container {
     &.active {
-      height: 165px;
+      height: 198px;
+      margin-bottom: 1rem;
+      .error-container{
+        position: absolute;
+        top: 7.3rem;
+      }
       button {
-        margin: 2rem 0 0 0;
+        margin: 3rem 0 0 0;
+      }
+      .button-container {
+        margin-left: 0;
+        margin-bottom: 0;
       }
     }
   }

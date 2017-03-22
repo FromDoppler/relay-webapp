@@ -25,8 +25,7 @@
         return loadUserDomains();
       }
 
-      //This code will be commented until we add the new Domain Functionality
-      /*vm.showNewDomainInput = function(){
+      vm.showNewDomainInput = function(){
         vm.showDomainInput = true;
       };
 
@@ -37,10 +36,11 @@
         }
         settings.addDomain(form.domain.$modelValue)
         .then(function() {
+          vm.showDomainInput = false;
           loadUserDomains();
         });
 
-      }*/
+      }
 
       function loadUserDomains() {
         return settings.getDomains()

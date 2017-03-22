@@ -1,10 +1,12 @@
 class SettingsPage {
   constructor() {
     this._url = '/#/settings/domain-manager';
-    this._togglerDomainInputButton = $('.domain--input-toggler');
+    this._togglerDomainInputButton = $('.domain--title-container .domain--input-toggler');
     this._confirmAddDomainButton = $('.domain--input-container button');
     this._domainInputContainer = $('.domain--input-container');
     this._domainsListItems = element.all(by.css('.domain--list-container table .column-records'));
+    this._domainInput = $('.domain--default-container input');
+    this._domainInputButton = $('.domain--default-container button');
   }
 
   getUrl(){
@@ -38,5 +40,12 @@ class SettingsPage {
   countDomainListItems(){
     return this._domainsListItems.count();
   }
+  setDomain(domain){
+    return this._domainInput.sendKeys(domain);
+  }
+  submitAddDomain(){
+    return this._domainInputButton.click();
+  }
+
 }
 exports.SettingsPage = SettingsPage;

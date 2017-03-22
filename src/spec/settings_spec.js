@@ -6,6 +6,8 @@ describe('Settings Page', () => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
     browser.removeMockModule('descartableModule3');
+    browser.removeMockModule('descartableModule4');
+    browser.removeMockModule('descartableModule5');
   });
 
   function beginAuthenticatedSession() {
@@ -16,25 +18,31 @@ describe('Settings Page', () => {
         auth.saveToken(permanentToken);
       }));
   }
-  ///This test will be commented until we add the new Domain Functionality
-  //it('should show add domain input when you click in add domain button', () => {
-    // Arrange
-    //beginAuthenticatedSession();
-    //var settings = new SettingsPage();
+  it('should show add domain input when you click in add domain button', () => {
+    //Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule4', () => angular
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "defaultDomain": "relay.com"
+        });
+      }));
+    var settings = new SettingsPage();
 
     //Act
-    //browser.get('/#/settings/domain-manager');
+    browser.get('/#/settings/domain-manager');
 
     //Assert
-    //expect(settings.isDomainInputVisible()).toBe(false);
+    expect(settings.isDomainInputVisible()).toBe(false);
 
-    //This will be commented until we add Add domain functionality.
-    /*// Act
+    // Act
     settings.clickInputToggler();
 
     // Assert
-    expect(settings.isDomainInputVisible()).toBe(true);*/
-  //});
+    expect(settings.isDomainInputVisible()).toBe(true);
+  });
 
   it('should list and show the domains correctly', () => {
     // Arrange
@@ -54,6 +62,61 @@ describe('Settings Page', () => {
 
     //Assert
     expect(settings.countDomainListItems()).not.toBe(0);
+  });
+
+  it('should show an empty list of domains', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule3', () => angular
+      .module('descartableModule3', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": []
+        });
+      }));
+    var settings = new SettingsPage();
+
+    //Act
+    browser.get('/#/settings/domain-manager');
+
+    //Assert
+    expect(settings.countDomainListItems()).toBe(0);
+  });
+
+  it('should add a domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule5', () => angular
+      .module('descartableModule5', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "defaultDomain": "relay.com"
+        });
+      }));
+      browser.addMockModule('descartableModule6', () => angular
+        .module('descartableModule6', ['ngMockE2E'])
+        .run($httpBackend => {
+          $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
+            "result": true
+          });
+        }));
+
+      var settings = new SettingsPage();
+
+      browser.get('/#/settings/domain-manager');
+      settings.clickInputToggler();
+
+      //Assert
+      expect(settings.isDomainInputVisible()).toBe(true);
+
+      // Act
+      settings.setDomain('test.com');
+      settings.submitAddDomain();
+
+      // Assert
+      expect(settings.isDomainInputVisible()).toBe(false);
+
   });
 
   it('should show an empty list of domains', () => {
