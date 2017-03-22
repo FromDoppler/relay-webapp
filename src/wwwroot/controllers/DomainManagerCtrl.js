@@ -42,6 +42,13 @@
 
       }
 
+      vm.setDefaultDomain = function(domain) {
+        settings.setDefaultDomain(domain)
+        .then(function() {
+          loadUserDomains();
+        });
+      }
+
       function loadUserDomains() {
         return settings.getDomains()
         .then(function(response) {

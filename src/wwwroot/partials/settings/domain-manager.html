@@ -37,12 +37,12 @@
         <tr>
           <th class="column-medium">{{ 'domain_manager_name_th' | translate}}</th>
           <th class="column-small">{{ 'domain_manager_status_th' | translate}}</th>
-          <!--<th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>-->
+          <th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
         <tr class="column-records" ng-repeat="d in vm.domains" ng-class="d.disabled ? 'grey' : ''">
           <td ng-class="d.defaultDomain ? 'default' : ''">{{d.name}}</td>
           <td ng-class="d.defaultDomain ? 'default' : ''">{{ d.status | translate }}</td>
-          <!--<td><a>{{ 'erase_text' | translate}}</a><a ng-if="d.name != vm.defaultDomain"> - {{ 'domain-manger_set_as_default' | translate}}</a></td>-->
+          <td><a ng-if="d.name != vm.defaultDomain" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manger_set_as_default' | translate}}</a></td>
         </tr>
       </table>
     </div>
