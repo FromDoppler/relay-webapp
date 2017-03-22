@@ -6,8 +6,6 @@ describe('Settings Page', () => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
     browser.removeMockModule('descartableModule3');
-    browser.removeMockModule('descartableModule4');
-    browser.removeMockModule('descartableModule5');
   });
 
   function beginAuthenticatedSession() {
@@ -21,8 +19,8 @@ describe('Settings Page', () => {
   it('should show add domain input when you click in add domain button', () => {
     //Arrange
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule4', () => angular
-      .module('descartableModule4', ['ngMockE2E'])
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
@@ -67,8 +65,8 @@ describe('Settings Page', () => {
   it('should show an empty list of domains', () => {
     // Arrange
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule3', () => angular
-      .module('descartableModule3', ['ngMockE2E'])
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": []
@@ -86,16 +84,16 @@ describe('Settings Page', () => {
   it('should add a domain correctly', () => {
     // Arrange
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule5', () => angular
-      .module('descartableModule5', ['ngMockE2E'])
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
           "defaultDomain": "relay.com"
         });
       }));
-      browser.addMockModule('descartableModule6', () => angular
-        .module('descartableModule6', ['ngMockE2E'])
+      browser.addMockModule('descartableModule3', () => angular
+        .module('descartableModule3', ['ngMockE2E'])
         .run($httpBackend => {
           $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
             "result": true
@@ -122,8 +120,8 @@ describe('Settings Page', () => {
   it('should show an empty list of domains', () => {
     // Arrange
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule3', () => angular
-      .module('descartableModule3', ['ngMockE2E'])
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": []
