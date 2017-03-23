@@ -34,12 +34,18 @@
         if (!form.$valid) {
           return;
         }
-        settings.addDomain(form.domain.$modelValue)
+        settings.addCreateEditDomain(form.domain.$modelValue)
         .then(function() {
           vm.showDomainInput = false;
           loadUserDomains();
         });
+      }
 
+      vm.activateDomain = function(domain) {
+        settings.addCreateEditDomain(domain)
+        .then(function() {
+          loadUserDomains();
+        });
       }
 
       vm.setDefaultDomain = function(domain) {

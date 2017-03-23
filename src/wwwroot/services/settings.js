@@ -14,13 +14,13 @@
   function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
       getDomains: getDomains,
-      addDomain: addDomain,
+      addCreateEditDomain: addCreateEditDomain,
       setDefaultDomain: setDefaultDomain
     };
 
     return settingsService;
 
-    function addDomain (domain) {
+    function addCreateEditDomain (domain) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
