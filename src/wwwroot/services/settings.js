@@ -15,7 +15,8 @@
     var settingsService = {
       getDomains: getDomains,
       createOrActiveDomain: createOrActiveDomain,
-      setDefaultDomain: setDefaultDomain
+      setDefaultDomain: setDefaultDomain,
+      deleteDomain: deleteDomain
     };
 
     return settingsService;
@@ -46,6 +47,19 @@
         data: {
           'name': domain
         },
+        url: url
+      });
+    }
+
+    function deleteDomain (domain) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains/'
+        + domain;
+
+      return $http({
+        actionDescription: 'action_deleting_domain',
+        method: 'DELETE',
         url: url
       });
     }

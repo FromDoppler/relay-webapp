@@ -40,13 +40,19 @@
           loadUserDomains();
         });
       }
-
       vm.activateDomain = function(domain) {
         settings.createOrActiveDomain(domain.name)
         .then(function() {
           domain.disabled = false;
         });
       }
+
+      vm.deleteDomain = function(domain, index){
+        settings.deleteDomain(domain)
+        .then(function() {
+          vm.domains.splice(index, 1);
+        });
+      };
 
       vm.setDefaultDomain = function(domain) {
         settings.setDefaultDomain(domain)
