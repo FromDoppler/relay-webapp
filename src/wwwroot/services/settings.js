@@ -42,7 +42,9 @@
       return $http({
         actionDescription: 'action_setting_default_domain',
         method: 'PUT',
-        data: domain,
+        data: {
+          'name': domain
+        },
         url: url
       });
     }
