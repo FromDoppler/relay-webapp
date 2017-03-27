@@ -37,7 +37,7 @@
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains'
-        + '/defaultDomain';
+        + '/default';
 
       return $http({
         actionDescription: 'action_setting_default_domain',
