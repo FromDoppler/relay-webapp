@@ -42,7 +42,7 @@
 
       }
 
-      vm.setDefaultDomain = function(domain, index) {        
+      vm.setDefaultDomain = function(domain) {
         settings.setDefaultDomain(domain)
         .then(function() {
           vm.defaultDomain = domain;
@@ -53,12 +53,7 @@
         return settings.getDomains()
         .then(function(response) {
           vm.defaultDomain = response.data.defaultDomain;
-          vm.domains = response.data.domains.map(function (ele) {
-            return {
-              name: ele.name,
-              disabled: ele.disabled
-             };
-          });
+          vm.domains = response.data.domains;
         });
       }
 
