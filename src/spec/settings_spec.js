@@ -106,4 +106,30 @@ describe('Settings Page', () => {
     //Assert
     expect(settings.countDomainListItems()).toBe(0);
   });
+
+  it('should set as default domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com" }, {name: "makingsense12.com" }],
+          "defaultDomain": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
+          "result": true
+        });
+      }));
+    var settings = new SettingsPage();
+
+    //Act
+    browser.get('/#/settings/domain-manager');
+    var defaultDomain = settings.getDefaultDomain();
+    settings.clickSetAsDefault();
+
+    //Assert
+    expect(settings.getDefaultDomain()).not.toEqual(defaultDomain);
+    expect(settings.getDefaultDomain()).toEqual("fromdoppler.com");
+  });
 });

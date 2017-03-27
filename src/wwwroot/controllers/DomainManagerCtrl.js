@@ -45,7 +45,7 @@
       vm.setDefaultDomain = function(domain) {
         settings.setDefaultDomain(domain)
         .then(function() {
-          loadUserDomains();
+          vm.defaultDomain = domain;
         });
       }
 

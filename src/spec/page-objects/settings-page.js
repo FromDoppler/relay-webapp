@@ -7,6 +7,9 @@ class SettingsPage {
     this._domainsListItems = element.all(by.css('.domain--list-container table .column-records'));
     this._domainInput = $('.domain--default-container input');
     this._domainInputButton = $('.domain--default-container button');
+    this._domainsSetDefaultButtonList = element.all(by.css('.domain--default-action'));
+    this._defaultDomain = $('.domain--default-container .default-domain');
+
   }
 
   getUrl(){
@@ -46,6 +49,13 @@ class SettingsPage {
   submitAddDomain(){
     return this._domainInputButton.click();
   }
-
+  getDefaultDomain(){
+    return this._defaultDomain.getText();
+  }
+  clickSetAsDefault(){
+    return this._domainsSetDefaultButtonList.then(function(val){
+      return val[0].click();
+    });
+  }
 }
 exports.SettingsPage = SettingsPage;
