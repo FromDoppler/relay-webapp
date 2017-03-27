@@ -42,20 +42,28 @@
 
       }
 
+      vm.setDefaultDomain = function(domain) {
+        settings.setDefaultDomain(domain)
+        .then(function() {
+          vm.defaultDomain = domain;
+        });
+      }
+
       function loadUserDomains() {
         return settings.getDomains()
         .then(function(response) {
-          vm.domains = response.data.domains.map(function (ele) {
-            return {
-              status: response.data.defaultDomain == ele.name ? 'default_text'
-                : (ele.disabled ? 'disabled_text' : 'enable_text'),
-              name: ele.name,
-              disabled: ele.disabled,
-              defaultDomain: response.data.defaultDomain == ele.name
-             };
-          });
           vm.defaultDomain = response.data.defaultDomain;
+          vm.domains = response.data.domains;
         });
+      }
+
+      vm.getDomainStatus = function(ele) {
+        return vm.defaultDomain == ele.name ? 'default_text'
+          : (ele.disabled ? 'disabled_text' : 'enable_text');
+      }
+
+      vm.isDefaultDomain = function(ele) {
+        return vm.defaultDomain == ele.name || ele.disabled;
       }
     }
 })();

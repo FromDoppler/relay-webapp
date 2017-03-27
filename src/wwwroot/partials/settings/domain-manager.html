@@ -25,7 +25,7 @@
     </div>
 
     <h5><strong>{{'domain-manager_default_title' | translate}}</strong></h5>
-    <span>{{vm.defaultDomain}} *</span>
+    <span class="default-domain">{{vm.defaultDomain}}</span><span> *</span>
     <p class="italic"><span>* </span>{{'domain-manager_default_subtitle' | translate}}</p>
 
   </div>
@@ -37,12 +37,12 @@
         <tr>
           <th class="column-medium">{{ 'domain_manager_name_th' | translate}}</th>
           <th class="column-small">{{ 'domain_manager_status_th' | translate}}</th>
-          <!--<th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>-->
+          <th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
         <tr class="column-records" ng-repeat="d in vm.domains" ng-class="d.disabled ? 'grey' : ''">
-          <td ng-class="d.defaultDomain ? 'default' : ''">{{d.name}}</td>
-          <td ng-class="d.defaultDomain ? 'default' : ''">{{ d.status | translate }}</td>
-          <!--<td><a>{{ 'erase_text' | translate}}</a><a ng-if="d.name != vm.defaultDomain"> - {{ 'domain-manger_set_as_default' | translate}}</a></td>-->
+          <td ng-class="vm.isDefaultDomain(d) ? 'default' : ''">{{d.name}}</td>
+          <td ng-class="vm.isDefaultDomain(d) ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
+          <td><a class="domain--default-action" ng-if="!vm.isDefaultDomain(d)" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manger_set_as_default' | translate}}</a></td>
         </tr>
       </table>
     </div>

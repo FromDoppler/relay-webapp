@@ -189,6 +189,7 @@
   "action_register_user": "Registering user",
   "action_activating_user": "Activating user",
   "action_adding_domain": "Adding a Domain",
+  "action_setting_default_domain": "Setting a default Domain",
   "reset_password_title": "Reset your Password",
   "reset_password_subtitle": "Create your new password below!",
   "reset_password_placeholder": "Type your new password",
