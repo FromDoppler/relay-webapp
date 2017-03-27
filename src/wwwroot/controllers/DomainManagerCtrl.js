@@ -63,7 +63,7 @@
       }
 
       vm.isDefaultDomain = function(ele) {
-        return vm.defaultDomain == ele.name;
+        return vm.defaultDomain == ele.name || ele.disabled;
       }
     }
 })();
