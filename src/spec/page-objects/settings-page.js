@@ -9,7 +9,7 @@ class SettingsPage {
     this._domainInputButton = $('.domain--default-container button');
     this._domainsSetDefaultButtonList = element.all(by.css('.domain--default-action'));
     this._defaultDomain = $('.domain--default-container .default-domain');
-    this._domainsDisabled = element.all(by.css('.domain--disabled-action'));
+    this._disabledDomains = element.all(by.css('.domain--disabled-action'));
 
   }
 
@@ -59,10 +59,10 @@ class SettingsPage {
     });
   }
   getDisabledDomain(){
-    return this._domainsDisabled.getText();
+    return this._disabledDomains.getText();
   }
-  clickDisabledDomain(){
-    return this._domainsDisabled.then(function(val){
+  clickFirstDisableDomainButton (){
+    return this._disabledDomains.then(function(val){
       return val[0].click();
     });
   }

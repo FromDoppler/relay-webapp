@@ -148,11 +148,11 @@ describe('Settings Page', () => {
         });
       }));
     var settings = new SettingsPage();
-
-    //Act
     browser.get('/#/settings/domain-manager');
     var disabledDomain = settings.getDisabledDomain();
-    settings.clickDisabledDomain();
+
+    //Act
+    settings.clickFirstDisableDomainButton();
 
     //Assert
     expect(settings.getDisabledDomain()).not.toEqual(disabledDomain);
