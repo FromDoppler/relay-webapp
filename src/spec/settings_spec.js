@@ -132,4 +132,29 @@ describe('Settings Page', () => {
     expect(settings.getDefaultDomain()).not.toEqual(defaultDomain);
     expect(settings.getDefaultDomain()).toEqual("fromdoppler.com");
   });
+
+  it('should set as enabled domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "defaultDomain": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
+          "result": true
+        });
+      }));
+    var settings = new SettingsPage();
+
+    //Act
+    browser.get('/#/settings/domain-manager');
+    var disabledDomain = settings.getDisabledDomain();
+    settings.clickDisabledDomain();
+
+    //Assert
+    expect(settings.getDisabledDomain()).not.toEqual(disabledDomain);
+  });
 });

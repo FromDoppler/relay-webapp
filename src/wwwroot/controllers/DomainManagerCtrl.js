@@ -34,7 +34,7 @@
         if (!form.$valid) {
           return;
         }
-        settings.addCreateEditDomain(form.domain.$modelValue)
+        settings.createOrActiveDomain(form.domain.$modelValue)
         .then(function() {
           vm.showDomainInput = false;
           loadUserDomains();
@@ -42,9 +42,9 @@
       }
 
       vm.activateDomain = function(domain) {
-        settings.addCreateEditDomain(domain)
+        settings.createOrActiveDomain(domain.name)
         .then(function() {
-          loadUserDomains();
+          domain.disabled = false;
         });
       }
 
