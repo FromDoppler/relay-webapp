@@ -133,7 +133,7 @@ describe('Settings Page', () => {
     expect(settings.getDefaultDomain()).toEqual("fromdoppler.com");
   });
 
-  it('should set as enable domain', () => {
+  it('should set as enabled domain', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.addMockModule('descartableModule2', () => angular
