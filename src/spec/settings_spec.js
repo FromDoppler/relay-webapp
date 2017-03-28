@@ -133,7 +133,7 @@ describe('Settings Page', () => {
     expect(settings.getDefaultDomain()).toEqual("fromdoppler.com");
   });
 
-  it('should set as enabled domain correctly', () => {
+  it('should set as enable domain', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.addMockModule('descartableModule2', () => angular
@@ -149,12 +149,12 @@ describe('Settings Page', () => {
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');
-    var disabledDomain = settings.getDisabledDomain();
+    var countActivateButtons = settings.countActivateButtons();
 
     //Act
-    settings.clickFirstDisableDomainButton();
+    settings.clickFirstActivateButton();
 
     //Assert
-    expect(settings.getDisabledDomain()).not.toEqual(disabledDomain);
+    expect(settings.countActivateButtons()).toBeLessThan(countActivateButtons);
   });
 });

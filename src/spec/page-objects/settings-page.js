@@ -9,7 +9,7 @@ class SettingsPage {
     this._domainInputButton = $('.domain--default-container button');
     this._domainsSetDefaultButtonList = element.all(by.css('.domain--default-action'));
     this._defaultDomain = $('.domain--default-container .default-domain');
-    this._disabledDomains = element.all(by.css('.domain--disabled-action'));
+    this._activateButtons = element.all(by.css('.domain--activate-action'));
 
   }
 
@@ -58,11 +58,11 @@ class SettingsPage {
       return val[0].click();
     });
   }
-  getDisabledDomain(){
-    return this._disabledDomains.getText();
+  countActivateButtons(){
+    return this._activateButtons.count();
   }
-  clickFirstDisableDomainButton (){
-    return this._disabledDomains.then(function(val){
+  clickFirstActivateButton (){
+    return this._activateButtons.then(function(val){
       return val[0].click();
     });
   }
