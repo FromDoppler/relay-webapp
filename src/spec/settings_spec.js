@@ -143,7 +143,7 @@ describe('Settings Page', () => {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
           "defaultDomain": "relay.com"
         });
-        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/, '{}').respond(201, {
           "result": true
         });
       }));

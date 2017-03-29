@@ -29,6 +29,7 @@
       return $http({
         actionDescription: 'action_adding_domain',
         method: 'PUT',
+        data: {},
         url: url
       });
     }
