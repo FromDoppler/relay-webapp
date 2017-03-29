@@ -211,6 +211,7 @@
   "domain_manager_actions_th" : "Actions",
   "erase_text": "Delete",
   "edit_text": "Edit",
+  "active_text": "Activate",
   "domain-manger_set_as_default": "Make it your default domain",
   "disabled_text": "Disabled",
   "default_text": "Default",

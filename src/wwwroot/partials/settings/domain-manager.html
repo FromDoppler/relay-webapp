@@ -42,7 +42,7 @@
         <tr class="column-records" ng-repeat="d in vm.domains" ng-class="d.disabled ? 'grey' : ''">
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
-          <td><a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manger_set_as_default' | translate}}</a></td>
+          <td><a class="domain--default-action" ng-if="!vm.isDefaultDomain(d)  && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manger_set_as_default' | translate}}</a><a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a></td>
         </tr>
       </table>
     </div>

@@ -223,6 +223,7 @@
   "domain_manager_actions_th": "Acciones",
   "erase_text": "Borrar",
   "edit_text": "Editar",
+  "active_text": "Activar",
   "domain-manger_set_as_default": "Convertirlo en dominio predeterminado",
   "disabled_text": "Desactivado",
   "default_text": "Predeterminado",

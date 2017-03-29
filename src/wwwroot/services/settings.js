@@ -14,13 +14,13 @@
   function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
       getDomains: getDomains,
-      addDomain: addDomain,
+      createOrActiveDomain: createOrActiveDomain,
       setDefaultDomain: setDefaultDomain
     };
 
     return settingsService;
 
-    function addDomain (domain) {
+    function createOrActiveDomain (domain) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
@@ -29,6 +29,7 @@
       return $http({
         actionDescription: 'action_adding_domain',
         method: 'PUT',
+        data: {},
         url: url
       });
     }

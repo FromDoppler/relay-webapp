@@ -117,9 +117,7 @@ describe('Settings Page', () => {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com" }, {name: "makingsense12.com" }],
           "defaultDomain": "relay.com"
         });
-        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(201, {
-          "result": true
-        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/).respond(200, {});
       }));
     var settings = new SettingsPage();
 
@@ -131,5 +129,30 @@ describe('Settings Page', () => {
     //Assert
     expect(settings.getDefaultDomain()).not.toEqual(defaultDomain);
     expect(settings.getDefaultDomain()).toEqual("fromdoppler.com");
+  });
+
+  it('should set as enabled domain', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "defaultDomain": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/, '{}').respond(201, {
+          "result": true
+        });
+      }));
+    var settings = new SettingsPage();
+    browser.get('/#/settings/domain-manager');
+    var countActivateButtons = settings.countActivateButtons();
+
+    //Act
+    settings.clickFirstActivateButton();
+
+    //Assert
+    expect(settings.countActivateButtons()).toBeLessThan(countActivateButtons);
   });
 });

@@ -9,6 +9,7 @@ class SettingsPage {
     this._domainInputButton = $('.domain--default-container button');
     this._domainsSetDefaultButtonList = element.all(by.css('.domain--default-action'));
     this._defaultDomain = $('.domain--default-container .default-domain');
+    this._activateButtons = element.all(by.css('.domain--activate-action'));
 
   }
 
@@ -54,6 +55,14 @@ class SettingsPage {
   }
   clickSetAsDefault(){
     return this._domainsSetDefaultButtonList.then(function(val){
+      return val[0].click();
+    });
+  }
+  countActivateButtons(){
+    return this._activateButtons.count();
+  }
+  clickFirstActivateButton (){
+    return this._activateButtons.then(function(val){
       return val[0].click();
     });
   }
