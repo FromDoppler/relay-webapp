@@ -47,10 +47,10 @@
         });
       }
 
-      vm.deleteDomain = function(domain, index){
-        settings.deleteDomain(domain)
+      vm.deleteDomain = function(domain){        
+        settings.deleteDomain(domain.name)
         .then(function() {
-          vm.domains.splice(index, 1);
+          vm.domains.splice(domain, 1);
         });
       };
 

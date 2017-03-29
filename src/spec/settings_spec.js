@@ -172,10 +172,10 @@ describe('Settings Page', () => {
 
     //Act
     browser.get('/#/settings/domain-manager');
-    var countDeleteButtons = settings.countDeleteButtons();
-    settings.clickDeleteDomain();
+    var countDomainListItems = settings.countDomainListItems();
+    settings.clickFirstDeleteButton();
 
     //Assert
-    expect(settings.countDeleteButtons()).toBeLessThan(countDeleteButtons);
+    expect(settings.countDomainListItems()).toBeLessThan(countDomainListItems);
   });
 });
