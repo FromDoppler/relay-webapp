@@ -25,12 +25,13 @@
         return loadUserDomains();
       }
 
-      vm.showNewDomainInput = function(){
+      vm.showNewDomainInput = function(domain){
         vm.showDomainInput = true;
+        document.getElementById("domain").focus();
       };
 
       vm.addDomain = function(form) {
-        vm.submitted = true;
+        vm.addSubmitted = true;
         if (!form.$valid) {
           return;
         }
