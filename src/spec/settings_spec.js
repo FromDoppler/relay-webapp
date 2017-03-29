@@ -178,4 +178,26 @@ describe('Settings Page', () => {
     //Assert
     expect(settings.countDomainListItems()).toBeLessThan(countDomainListItems);
   });
+  it('should set as disabled domain', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "defaultDomain": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/, { 'isDisabled': true }).respond(200, {});
+      }));
+    var settings = new SettingsPage();
+    browser.get('/#/settings/domain-manager');
+    var countDisableButtons = settings.countDisableButtons();
+
+    //Act
+    settings.clickFirstDisableButton();
+
+    //Assert
+    expect(settings.countDisableButtons()).toBeLessThan(countDisableButtons);
+  });
 });

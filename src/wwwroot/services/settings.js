@@ -14,23 +14,25 @@
   function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
       getDomains: getDomains,
-      createOrActiveDomain: createOrActiveDomain,
+      createActiveOrDisableDomain: createActiveOrDisableDomain,
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain
     };
 
     return settingsService;
 
-    function createOrActiveDomain (domain) {
+    function createActiveOrDisableDomain (domain, isDisable) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
         + domain;
 
+      var data = isDisable ? 'IsDisabled: true' : null;
+
       return $http({
         actionDescription: 'action_adding_domain',
         method: 'PUT',
-        data: {},
+        data: { data },
         url: url
       });
     }
@@ -60,6 +62,21 @@
       return $http({
         actionDescription: 'action_deleting_domain',
         method: 'DELETE',
+        data: {},
+        url: url
+      });
+    }
+    
+    function disableDomain (domain) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains/'
+        + domain;
+
+      return $http({
+        actionDescription: 'action_adding_domain',
+        method: 'PUT',
+        data: {},
         url: url
       });
     }
