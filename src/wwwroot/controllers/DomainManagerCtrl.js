@@ -47,10 +47,13 @@
         });
       }
 
-      vm.deleteDomain = function(domain){        
+      vm.deleteDomain = function(domain) {
         settings.deleteDomain(domain.name)
         .then(function() {
-          vm.domains.splice(domain, 1);
+          var domainPos = vm.domains.indexOf(domain);
+          if (domainPos >= 0) {
+            vm.domains.splice(domainPos, 1);
+          }
         });
       };
 
