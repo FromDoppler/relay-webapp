@@ -43,8 +43,8 @@
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
           <td><a class="domain--erase-button" ng-if="!vm.isDefaultDomain(d) || d.disabled" ng-click="vm.deleteDomain(d)">{{ 'erase_text' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) || d.disabled">&nbsp;-&nbsp;</span>
-              <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manger_set_as_default' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
-              <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manger_disable' | translate}}</a>
+              <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manager_set_as_default' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
+              <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manager_disable' | translate}}</a>
               <a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a>
           </td>
         </tr>
