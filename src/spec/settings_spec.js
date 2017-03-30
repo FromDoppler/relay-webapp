@@ -155,4 +155,27 @@ describe('Settings Page', () => {
     //Assert
     expect(settings.countActivateButtons()).toBeLessThan(countActivateButtons);
   });
+
+  it('should delete a domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "defaultDomain": "relay.com"
+        });
+        $httpBackend.whenDELETE(/\/accounts\/[\w|-]*\/domains/).respond(200, {});
+      }));
+    var settings = new SettingsPage();
+
+    //Act
+    browser.get('/#/settings/domain-manager');
+    var countDomainListItems = settings.countDomainListItems();
+    settings.clickFirstDeleteButton();
+
+    //Assert
+    expect(settings.countDomainListItems()).toBeLessThan(countDomainListItems);
+  });
 });
