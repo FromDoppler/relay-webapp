@@ -11,6 +11,7 @@ class SettingsPage {
     this._domainDeleteButtons = element.all(by.css('.domain--erase-button'));
     this._defaultDomain = $('.domain--default-container .default-domain');
     this._activateButtons = element.all(by.css('.domain--activate-action'));
+    this._disableButtons = element.all(by.css('.domain--disable-action'));
 
   }
 
@@ -69,6 +70,14 @@ class SettingsPage {
   }
   clickFirstActivateButton (){
     return this._activateButtons.then(function(val){
+      return val[0].click();
+    });
+  }
+  countDisableButtons(){
+    return this._disableButtons.count();
+  }
+  clickFirstDisableButton (){
+    return this._disableButtons.then(function(val){
       return val[0].click();
     });
   }

@@ -34,16 +34,23 @@
         if (!form.$valid) {
           return;
         }
-        settings.createOrActiveDomain(form.domain.$modelValue)
+        settings.createOrEditDomain(form.domain.$modelValue, false)
         .then(function() {
           vm.showDomainInput = false;
           loadUserDomains();
         });
       }
       vm.activateDomain = function(domain) {
-        settings.createOrActiveDomain(domain.name)
+        settings.createOrEditDomain(domain.name , false)
         .then(function() {
           domain.disabled = false;
+        });
+      }
+
+      vm.disableDomain = function(domain) {
+        settings.createOrEditDomain(domain.name , true)
+        .then(function() {
+          domain.disabled = true;
         });
       }
 
