@@ -226,6 +226,7 @@
   "edit_text": "Editar",
   "active_text": "Activar",
   "domain-manger_set_as_default": "Convertirlo en dominio predeterminado",
+  "domain-manger_disable": "Deshabilitar",
   "disabled_text": "Desactivado",
   "default_text": "Predeterminado",
   "domains_text": "Dominios",

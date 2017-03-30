@@ -214,6 +214,7 @@
   "edit_text": "Edit",
   "active_text": "Activate",
   "domain-manger_set_as_default": "Make it your default domain",
+  "domain-manger_disable": "Disable",
   "disabled_text": "Disabled",
   "default_text": "Default",
   "domains_text": "Domain Manager",

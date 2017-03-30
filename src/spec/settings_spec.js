@@ -138,7 +138,7 @@ describe('Settings Page', () => {
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
-          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "fromdoppler2.com" }, {name: "fromdoppler3.com", disabled: true }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
           "defaultDomain": "relay.com"
         });
         $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/, '{}').respond(201, {
@@ -188,7 +188,7 @@ describe('Settings Page', () => {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
           "defaultDomain": "relay.com"
         });
-        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/, { 'isDisabled': true }).respond(200, {});
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains/, '{"disabled":true}').respond(200, {});
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');

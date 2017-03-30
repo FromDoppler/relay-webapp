@@ -14,30 +14,33 @@
   function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
       getDomains: getDomains,
-      createActiveOrDisableDomain: createActiveOrDisableDomain,
+      createOrEditDomain: createOrEditDomain,
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain
     };
 
     return settingsService;
 
-    function createActiveOrDisableDomain (domain, isDisable) {
+    function createOrEditDomain (domainName, isDisabled) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
-        + domain;
+        + domainName;
 
-      var data = isDisable ? 'IsDisabled: true' : null;
+      var data = {};
+      if (isDisabled) {
+        data['disabled'] = true;
+      }
 
       return $http({
         actionDescription: 'action_adding_domain',
         method: 'PUT',
-        data: { data },
+        data: data,
         url: url
       });
     }
 
-    function setDefaultDomain (domain) {
+    function setDefaultDomain (domainName) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains'
@@ -47,35 +50,21 @@
         actionDescription: 'action_setting_default_domain',
         method: 'PUT',
         data: {
-          'name': domain
+          'name': domainName
         },
         url: url
       });
     }
 
-    function deleteDomain (domain) {
+    function deleteDomain (domainName) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
-        + domain;
+        + domainName;
 
       return $http({
         actionDescription: 'action_deleting_domain',
         method: 'DELETE',
-        data: {},
-        url: url
-      });
-    }
-    
-    function disableDomain (domain) {
-      var url = RELAY_CONFIG.baseUrl
-        + '/accounts/' + auth.getAccountName()
-        + '/domains/'
-        + domain;
-
-      return $http({
-        actionDescription: 'action_adding_domain',
-        method: 'PUT',
         data: {},
         url: url
       });
