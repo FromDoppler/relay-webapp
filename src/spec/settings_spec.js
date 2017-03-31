@@ -24,7 +24,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
       }));
     var settings = new SettingsPage();
@@ -46,7 +46,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
       }));
     var settings = new SettingsPage();
@@ -66,7 +66,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
         $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/test.com$/).respond(201, {
           "result": true
@@ -115,7 +115,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com" }, {name: "makingsense12.com" }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
         $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/default$/).respond(200, {});
       }));
@@ -139,7 +139,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "fromdoppler2.com" }, {name: "fromdoppler3.com", disabled: true }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
         $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/fromdoppler3.com$/, '{}').respond(201, {
           "result": true
@@ -164,7 +164,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
         $httpBackend.whenDELETE(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/).respond(200, {});
       }));
@@ -186,7 +186,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
         $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/, '{"disabled":true}').respond(200, {});
       }));

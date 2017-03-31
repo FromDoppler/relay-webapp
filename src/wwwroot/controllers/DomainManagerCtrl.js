@@ -74,7 +74,7 @@
       function loadUserDomains() {
         return settings.getDomains()
         .then(function(response) {
-          vm.defaultDomain = response.data.defaultDomain;
+          vm.defaultDomain = response.data.default;
           vm.domains = response.data.domains;
         });
       }
