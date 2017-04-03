@@ -39,6 +39,9 @@
         .then(function() {
           vm.showDomainInput = false;
           loadUserDomains();
+        })
+        .then(function() {
+          vm.newDomain = form.domain.$modelValue;
         });
       }
       vm.activateDomain = function(domain) {
