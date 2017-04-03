@@ -25,7 +25,7 @@
         return loadUserDomains();
       }
 
-      vm.showNewDomainInput = function(domain){
+      vm.showNewDomainInput = function(){
         vm.showDomainInput = true;
         document.getElementById("domain").focus();
       };

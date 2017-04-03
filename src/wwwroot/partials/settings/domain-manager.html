@@ -5,7 +5,7 @@
     <p class="width--full">{{'domain-manager_subtitle' | translate}}</p>
     </div>
     <div class="item flex flex--content-end width--half">
-      <button class="button button--large domain--input-toggler" ng-click="vm.showNewDomainInput(form.domain)">{{'domain-manager_button' | translate}}</button>
+      <button class="button button--large domain--input-toggler" ng-click="vm.showNewDomainInput()">{{'domain-manager_button' | translate}}</button>
     </div>
   </div>
   <form method="post" id="form" name="form" novalidate>
@@ -39,7 +39,7 @@
           <th class="column-small">{{ 'domain_manager_status_th' | translate}}</th>
           <th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
-        <tr class="column-records" ng-repeat="d in vm.domains" ng-class="d.disabled ? 'grey' : ''">
+        <tr class="column-records" ng-repeat="d in vm.domains" ng-class="{'highlight--temporal-blink' : vm.newDomain == d.name, 'grey' : d.disabled}">
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
           <td><a class="domain--erase-button" ng-if="!vm.isDefaultDomain(d) || d.disabled" ng-click="vm.deleteDomain(d)">{{ 'erase_text' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) || d.disabled">&nbsp;-&nbsp;</span>
