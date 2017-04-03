@@ -246,6 +246,21 @@ a {
 }
 
 
+@keyframes blink {
+  0% { background: $suit-color-status-green; }
+  100% { background: $suit-color-bright; }
+}
+@-webkit-keyframes blink {
+  0% { background: $suit-color-status-green; }
+  100% { background: $suit-color-bright; }
+}
+.highlight--temporal-blink{
+  -webkit-animation: blink 1s linear;
+  -moz-animation: blink 1s linear;
+  animation: blink 1s linear;
+  animation-iteration-count: 5;
+}
+
 @media screen and (max-width: 1024px) {
   .section--wrapper {
     max-width: 95%;

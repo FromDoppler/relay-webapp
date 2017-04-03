@@ -30,14 +30,18 @@
       };
 
       vm.addDomain = function(form) {
-        vm.submitted = true;
+        vm.addSubmitted = true;
         if (!form.$valid) {
           return;
         }
-        settings.createOrEditDomain(form.domain.$modelValue, false)
+        var newDomainName = vm.newDomainName;
+        vm.showDomainInput = false;
+        settings.createOrEditDomain(newDomainName, false)
         .then(function() {
-          vm.showDomainInput = false;
-          loadUserDomains();
+          return loadUserDomains();
+        })
+        .then(function() {
+          vm.recentlyAddedDomain = newDomainName;
         });
       }
       vm.activateDomain = function(domain) {
