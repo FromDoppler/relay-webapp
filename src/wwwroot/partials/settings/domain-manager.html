@@ -5,7 +5,7 @@
     <p class="width--full">{{'domain-manager_subtitle' | translate}}</p>
     </div>
     <div class="item flex flex--content-end width--half">
-      <button class="button button--large domain--input-toggler" ng-click="vm.showNewDomainInput()">{{'domain-manager_button' | translate}}</button>
+      <button class="button button--large domain--input-toggler" ng-click="vm.showNewDomainInput()" focus-element="newDomainName">{{'domain-manager_button' | translate}}</button>
     </div>
   </div>
   <form method="post" id="form" name="form" ng-submit="vm.addDomain(form)" novalidate>
@@ -13,13 +13,13 @@
     <div class="item flex domain--input-container width--full" ng-class="vm.showDomainInput ? 'active' : ''">
       <div class="item flex flex--wrap">
         <label for="domain">{{'domain-manager_label_input' | translate}}</label>
-        <input ng-pattern="vm.regexDomain" id="domain" name="domain" ng-model="vm.newDomainName" class="input input--large" validation-error required />
+        <input ng-pattern="vm.regexDomain" id="newDomainName" name="newDomainName" ng-model="vm.newDomainName" class="input input--large" validation-error required />
         <div class="item flex flex--content-start button-container">
           <button class="button button--small" type="submit">{{'domain-manager_input_button' | translate}}</button>
         </div>
         <div class="error-container">
-          <span class="input--error" ng-show="(vm.addSubmitted || form.domain.$dirty) && form.domain.$invalid && !form.domain.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
-          <span class="input--error" ng-show="(vm.addSubmitted || form.domain.$dirty) && form.domain.$invalid && form.domain.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <span class="input--error" ng-show="(vm.addSubmitted || form.newDomainName.$dirty) && form.newDomainName.$invalid && !form.newDomainName.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
+          <span class="input--error" ng-show="(vm.addSubmitted || form.newDomainName.$dirty) && form.newDomainName.$invalid && form.newDomainName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
       </div>
     </div>
