@@ -18,7 +18,8 @@
 
     var utilsService = {
       analizePasswordComplexity: analizePasswordComplexity,
-      setServerValidationToField: setServerValidationToField
+      setServerValidationToField: setServerValidationToField,
+      resetInput: resetInput
     };
 
     return utilsService;
@@ -63,7 +64,7 @@
     }
 
     function setServerValidationToField(scope, formField, errorName) {
-      // It is a quick and dirty way to set a validation error that is removed when 
+      // It is a quick and dirty way to set a validation error that is removed when
       // a change is detected.
       formField.$setValidity(errorName, false);
       var deregister = scope.$watch(function () { return formField.$modelValue; }, function (newVal, oldVal) {
@@ -72,6 +73,20 @@
           deregister();
         }
       });
+    }
+
+    function resetInput(vm, form, defaultValues) {
+      var undefined = {}["undefined"]; // It is not a good practice to use the `undefined` because it is not a reserved word
+      defaultValues = defaultValues || {}; // defaultValues is to allow to set default model values in place of null
+      for (var name in form) {
+        if (name.indexOf('$') !== 0) {
+          var control = form[name];
+          control.$setViewValue(undefined);
+          vm[control.$name] = defaultValues[control.$name] || null;
+        }
+      }
+      form.$setPristine();
+      form.$setUntouched();
     }
 
   }

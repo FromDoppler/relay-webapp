@@ -9,10 +9,11 @@
       '$scope',
       'settings',
       '$q',
-      '$rootScope'
+      '$rootScope',
+      'utils'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q, $rootScope) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils) {
       $rootScope.setSubmenues([
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
@@ -42,6 +43,8 @@
         })
         .then(function() {
           vm.recentlyAddedDomain = newDomainName;
+          utils.resetInput(vm, form);
+          vm.addSubmitted = false;
         });
       }
       vm.activateDomain = function(domain) {
