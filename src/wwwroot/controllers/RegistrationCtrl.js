@@ -61,7 +61,7 @@
       signup.registerUser(user, $translate.use(), onExpectedError)
         .then(function (result) {
           vm.emailRegistered = user.user_email;
-          utils.resetInput(vm,form);
+          utils.resetForm(vm,form);
           vm.submitted = false; // To avoid to show some error messages while submit is not pressed
           $timeout( function(){ vm.emailRegistered = null; }, 5000);
         });

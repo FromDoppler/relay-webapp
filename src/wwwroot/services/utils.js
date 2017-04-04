@@ -19,7 +19,7 @@
     var utilsService = {
       analizePasswordComplexity: analizePasswordComplexity,
       setServerValidationToField: setServerValidationToField,
-      resetInput: resetInput
+      resetForm: resetForm
     };
 
     return utilsService;
@@ -75,7 +75,7 @@
       });
     }
 
-    function resetInput(vm, form, defaultValues) {
+    function resetForm(vm, form, defaultValues) {
       var undefined = {}["undefined"]; // It is not a good practice to use the `undefined` because it is not a reserved word
       defaultValues = defaultValues || {}; // defaultValues is to allow to set default model values in place of null
       for (var name in form) {

@@ -43,7 +43,7 @@
         })
         .then(function() {
           vm.recentlyAddedDomain = newDomainName;
-          utils.resetInput(vm, form);
+          utils.resetForm(vm, form);
           vm.addSubmitted = false;
         });
       }
