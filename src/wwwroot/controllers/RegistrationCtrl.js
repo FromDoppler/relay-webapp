@@ -21,21 +21,6 @@
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.emailRegistered = null;
 
-    function reset(vm, form, defaultValues) {
-      // TODO: consider to move it to a service
-      var undefined = {}["undefined"]; // It is not a good practice to use the `undefined` because it is not a reserved word
-      defaultValues = defaultValues || {}; // defaultValues is to allow to set default model values in place of null
-      for (var name in form) {
-        if (name.indexOf('$') !== 0) {
-          var control = form[name];
-          control.$setViewValue(undefined);
-          vm[control.$name] = defaultValues[control.$name] || null;
-        }
-      }
-      form.$setPristine();
-      form.$setUntouched();
-    }
-
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
       if (form.$invalid) {
@@ -76,7 +61,7 @@
       signup.registerUser(user, $translate.use(), onExpectedError)
         .then(function (result) {
           vm.emailRegistered = user.user_email;
-          reset(vm, form);
+          utils.resetForm(vm,form);
           vm.submitted = false; // To avoid to show some error messages while submit is not pressed
           $timeout( function(){ vm.emailRegistered = null; }, 5000);
         });
