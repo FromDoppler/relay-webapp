@@ -54,6 +54,7 @@
     margin-bottom:1rem;
   }
   .column-records {
+    transition: all .3s ease-in;
     td:first-of-type {
       color: $suit-accent-color-light;
     }

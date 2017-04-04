@@ -10,10 +10,11 @@
       'settings',
       '$q',
       '$rootScope',
-      'utils'
+      'utils',
+      '$timeout'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout) {
       $rootScope.setSubmenues([
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
@@ -42,7 +43,7 @@
           return loadUserDomains();
         })
         .then(function() {
-          vm.recentlyAddedDomain = newDomainName;
+        recentlyUpdated(newDomainName);
           utils.resetForm(vm, form);
           vm.addSubmitted = false;
         });
@@ -58,6 +59,7 @@
         settings.createOrEditDomain(domain.name , true)
         .then(function() {
           domain.disabled = true;
+          recentlyUpdated(domain.name);
         });
       }
 
@@ -75,8 +77,21 @@
         settings.setDefaultDomain(domain)
         .then(function() {
           vm.defaultDomain = domain;
+          recentlyUpdated(domain);
         });
       }
+
+      function recentlyUpdated(domainName) {
+       var domain = vm.domains.find(function (x) {
+         return x.name == domainName;
+       });
+       if (domain) {
+         domain.recentlyUpdated = true;
+         $timeout(function(){
+           domain.recentlyUpdated = false;
+         }, 1000);
+       }
+     }
 
       function loadUserDomains() {
         return settings.getDomains()
