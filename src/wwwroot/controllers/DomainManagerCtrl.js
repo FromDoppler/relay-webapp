@@ -43,25 +43,27 @@
           return loadUserDomains();
         })
         .then(function() {
-        recentlyUpdated(newDomainName);
+          recentlyUpdated(newDomainName);
           utils.resetForm(vm, form);
           vm.addSubmitted = false;
         });
       }
+
       vm.activateDomain = function(domain) {
-        settings.createOrEditDomain(domain.name , false)
+        settings.createOrEditDomain(domain.name, false)
         .then(function() {
           domain.disabled = false;
+          recentlyUpdated(domain.name);
         });
-      }
+      };
 
       vm.disableDomain = function(domain) {
-        settings.createOrEditDomain(domain.name , true)
+        settings.createOrEditDomain(domain.name, true)
         .then(function() {
           domain.disabled = true;
           recentlyUpdated(domain.name);
         });
-      }
+      };
 
       vm.deleteDomain = function(domain) {
         settings.deleteDomain(domain.name)
@@ -76,20 +78,21 @@
       vm.setDefaultDomain = function(domain) {
         settings.setDefaultDomain(domain)
         .then(function() {
+          recentlyUpdated(vm.defaultDomain);
           vm.defaultDomain = domain;
           recentlyUpdated(domain);
         });
-      }
+      };
 
       function recentlyUpdated(domainName) {
-       var domain = vm.domains.find(function (x) {
+       var domain = vm.domains.find(function(x) {
          return x.name == domainName;
        });
        if (domain) {
          domain.recentlyUpdated = true;
          $timeout(function(){
            domain.recentlyUpdated = false;
-         }, 1000);
+         }, 300);
        }
      }
 
@@ -104,10 +107,10 @@
       vm.getDomainStatus = function(ele) {
         return vm.defaultDomain == ele.name ? 'default_text'
           : (ele.disabled ? 'disabled_text' : 'enable_text');
-      }
+      };
 
       vm.isDefaultDomain = function(ele) {
         return vm.defaultDomain == ele.name;
-      }
+      };
     }
 })();
