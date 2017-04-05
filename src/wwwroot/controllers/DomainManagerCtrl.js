@@ -92,7 +92,7 @@
          domain.recentlyUpdated = true;
          $timeout(function(){
            domain.recentlyUpdated = false;
-         }, 1000);
+         }, 300);
        }
      }
 
