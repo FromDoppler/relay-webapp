@@ -53,6 +53,7 @@
         settings.createOrEditDomain(domain.name, false)
         .then(function() {
           domain.disabled = false;
+          recentlyUpdated(domain.name);
         });
       };
 
