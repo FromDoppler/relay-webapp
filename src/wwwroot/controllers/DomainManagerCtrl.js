@@ -58,7 +58,8 @@
       };
 
       vm.disableDomain = function(domain) {
-        settings.createOrEditDomain(domain.name, true)
+        var onExpectedErrorResult = expectedError('domain_manager_error', loadUserDomains, 'domain_manager_error_button');
+        settings.createOrEditDomain(domain.name , true, onExpectedErrorResult)
         .then(function() {
           domain.disabled = true;
           recentlyUpdated(domain.name);
@@ -66,7 +67,8 @@
       };
 
       vm.deleteDomain = function(domain) {
-        settings.deleteDomain(domain.name)
+        var onExpectedErrorResult = expectedError('domain_manager_error', loadUserDomains, 'domain_manager_error_button');
+        settings.deleteDomain(domain.name, onExpectedErrorResult)
         .then(function() {
           var domainPos = vm.domains.indexOf(domain);
           if (domainPos >= 0) {
@@ -83,6 +85,13 @@
           recentlyUpdated(domain);
         });
       };
+
+      function expectedError(errorText, functionToCall, buttonText) {
+        var onExpectedError = function (rejectionData) {
+          $rootScope.addError(errorText, rejectionData.detail, rejectionData.title, rejectionData.status, rejectionData.errorCode, loadUserDomains, buttonText);
+          return true;
+        };
+        return onExpectedError;
 
       function recentlyUpdated(domainName) {
        var domain = vm.domains.find(function(x) {

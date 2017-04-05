@@ -24,7 +24,7 @@
     $rootScope.getFullName = auth.getFullName;
     $rootScope.getAccountId = auth.getAccountId;
 
-    $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, callback) {
+    $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, functionToCall, buttonText, callback) {
       ModalService.showModal({
         templateUrl: 'partials/modals/error.html',
         controller: 'ErrorCtrl',
@@ -35,7 +35,9 @@
           rejectionTitle: rejectionTitle || '',
           statusCode: statusCode,
           errorCode: errorCode,
-          isAuthorizationModal: false
+          isAuthorizationModal: false,
+          functionToCall: functionToCall || null,
+          buttonText: buttonText || 'error_popup_button'
         }
       }).then(function (modal) {
         modal.close.then(callback);

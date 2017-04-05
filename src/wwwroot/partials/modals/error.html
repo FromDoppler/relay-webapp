@@ -6,7 +6,7 @@
       <p ng-if="!vm.rejectionTitle" ng-bind-html="vm.errorMessage | translate:{action:vm.actionDescription}"></p>
       <p ng-if="vm.rejectionTitle" ng-bind-html="vm.errorMessage | translate:{action:vm.actionDescription, rejectionTitle:vm.rejectionTitle}"></p>
       <p>{{'error_popup_description' | translate}}</p>
-      <button class="button button--large button--right" ng-click="vm.refresh()">{{'error_popup_button' | translate}}</button>
+      <button class="button button--large button--right" ng-click="vm.actionButton()">{{vm.buttonText | translate}}</button>
     </div>
     <div ng-if="vm.isAuthorizationModal">
       <p ng-bind-html="vm.errorMessage | translate:{statusCode:vm.statusCode, errorCode:vm.errorCode}"></p>

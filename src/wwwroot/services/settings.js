@@ -21,7 +21,14 @@
 
     return settingsService;
 
-    function createOrEditDomain (domainName, isDisabled) {
+    function createOrEditDomain (domainName, isDisabled, onExpectedError) {
+      var tryHandleError = function (rejection) {
+        if (rejection.status != 400 || !rejection.data || rejection.data.errorCode != 4) {
+          return false; // not handled
+        }
+        return onExpectedError(rejection.data);
+      };
+
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
@@ -34,6 +41,7 @@
 
       return $http({
         actionDescription: 'action_adding_domain',
+        tryHandleError: tryHandleError,
         method: 'PUT',
         data: data,
         url: url
@@ -56,7 +64,14 @@
       });
     }
 
-    function deleteDomain (domainName) {
+    function deleteDomain (domainName, onExpectedError) {
+      var tryHandleError = function (rejection) {
+        if (rejection.status != 400 || !rejection.data || rejection.data.errorCode != 4) {
+          return false; // not handled
+        }
+        return onExpectedError(rejection.data);
+      };
+
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
@@ -64,6 +79,7 @@
 
       return $http({
         actionDescription: 'action_deleting_domain',
+        tryHandleError: tryHandleError,
         method: 'DELETE',
         data: {},
         url: url
