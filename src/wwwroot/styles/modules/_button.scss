@@ -110,6 +110,7 @@ $input--error--color: #FFF;
 		color: $suit-color-bright;
 		outline: none;
 		min-width: 210px;
+		max-height: 62px;
 		@extend .button--size;
 		@extend .border--radius;
 		@extend .text--center;

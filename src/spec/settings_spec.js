@@ -16,25 +16,27 @@ describe('Settings Page', () => {
         auth.saveToken(permanentToken);
       }));
   }
-  ///This test will be commented until we add the new Domain Functionality
-  //it('should show add domain input when you click in add domain button', () => {
-    // Arrange
-    //beginAuthenticatedSession();
-    //var settings = new SettingsPage();
+  it('should show "add domain" input when you click in add domain button', () => {
+    //Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "default": "relay.com"
+        });
+      }));
+    var settings = new SettingsPage();
+    browser.get('/#/settings/domain-manager');
+    expect(settings.isDomainInputVisible()).toBe(false);
 
-    //Act
-    //browser.get('/#/settings/domain-manager');
-
-    //Assert
-    //expect(settings.isDomainInputVisible()).toBe(false);
-
-    //This will be commented until we add Add domain functionality.
-    /*// Act
+    // Act
     settings.clickInputToggler();
 
     // Assert
-    expect(settings.isDomainInputVisible()).toBe(true);*/
-  //});
+    expect(settings.isDomainInputVisible()).toBe(true);
+  });
 
   it('should list and show the domains correctly', () => {
     // Arrange
@@ -44,7 +46,7 @@ describe('Settings Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
-          "defaultDomain": "relay.com"
+          "default": "relay.com"
         });
       }));
     var settings = new SettingsPage();
@@ -56,11 +58,41 @@ describe('Settings Page', () => {
     expect(settings.countDomainListItems()).not.toBe(0);
   });
 
+  it('should add a domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "default": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/test.com$/).respond(201, {
+          "result": true
+        });
+      }));
+
+      var settings = new SettingsPage();
+
+      browser.get('/#/settings/domain-manager');
+      settings.clickInputToggler();
+      expect(settings.isDomainInputVisible()).toBe(true);
+
+      // Act
+      settings.setDomain('test.com');
+      settings.submitAddDomain();
+
+      // Assert
+      expect(settings.isDomainInputVisible()).toBe(false);
+
+  });
+
   it('should show an empty list of domains', () => {
     // Arrange
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule3', () => angular
-      .module('descartableModule3', ['ngMockE2E'])
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
           "domains": []
@@ -73,5 +105,99 @@ describe('Settings Page', () => {
 
     //Assert
     expect(settings.countDomainListItems()).toBe(0);
+  });
+
+  it('should set as default domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com" }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/default$/).respond(200, {});
+      }));
+    var settings = new SettingsPage();
+
+    //Act
+    browser.get('/#/settings/domain-manager');
+    var defaultDomain = settings.getDefaultDomain();
+    settings.clickSetAsDefault();
+
+    //Assert
+    expect(settings.getDefaultDomain()).not.toEqual(defaultDomain);
+    expect(settings.getDefaultDomain()).toEqual("fromdoppler.com");
+  });
+
+  it('should set as enabled domain', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "fromdoppler2.com" }, {name: "fromdoppler3.com", disabled: true }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/fromdoppler3.com$/, '{}').respond(201, {
+          "result": true
+        });
+      }));
+    var settings = new SettingsPage();
+    browser.get('/#/settings/domain-manager');
+    var countActivateButtons = settings.countActivateButtons();
+
+    //Act
+    settings.clickFirstActivateButton();
+
+    //Assert
+    expect(settings.countActivateButtons()).toBeLessThan(countActivateButtons);
+  });
+
+  it('should delete a domain correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "default": "relay.com"
+        });
+        $httpBackend.whenDELETE(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/).respond(200, {});
+      }));
+    var settings = new SettingsPage();
+
+    //Act
+    browser.get('/#/settings/domain-manager');
+    var countDomainListItems = settings.countDomainListItems();
+    settings.clickFirstDeleteButton();
+
+    //Assert
+    expect(settings.countDomainListItems()).toBeLessThan(countDomainListItems);
+  });
+  it('should set as disabled domain', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/, '{"disabled":true}').respond(200, {});
+      }));
+    var settings = new SettingsPage();
+    browser.get('/#/settings/domain-manager');
+    var countDisableButtons = settings.countDisableButtons();
+
+    //Act
+    settings.clickFirstDisableButton();
+
+    //Assert
+    expect(settings.countDisableButtons()).toBeLessThan(countDisableButtons);
   });
 });

@@ -13,20 +13,62 @@
   ];
   function settings($http, $q, RELAY_CONFIG, auth) {
     var settingsService = {
-      getDomains: getDomains
-      //addDomain: addDomain  //This will be commented until add domain it's implemented.
+      getDomains: getDomains,
+      createOrEditDomain: createOrEditDomain,
+      setDefaultDomain: setDefaultDomain,
+      deleteDomain: deleteDomain
     };
 
     return settingsService;
-    //This will be commented until add domain it's implemented.
-    /*function addDomain (domain) {
-      var actionDescription = 'action_adding_domain';
 
-      var deferred = $q.defer();
-      deferred.resolve("Fake $http call");
+    function createOrEditDomain (domainName, isDisabled) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains/'
+        + domainName;
 
-      return deferred.promise;
-    }*/
+      var data = {};
+      if (isDisabled) {
+        data['disabled'] = true;
+      }
+
+      return $http({
+        actionDescription: 'action_adding_domain',
+        method: 'PUT',
+        data: data,
+        url: url
+      });
+    }
+
+    function setDefaultDomain (domainName) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains'
+        + '/default';
+
+      return $http({
+        actionDescription: 'action_setting_default_domain',
+        method: 'PUT',
+        data: {
+          'name': domainName
+        },
+        url: url
+      });
+    }
+
+    function deleteDomain (domainName) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains/'
+        + domainName;
+
+      return $http({
+        actionDescription: 'action_deleting_domain',
+        method: 'DELETE',
+        data: {},
+        url: url
+      });
+    }
 
     function getDomains() {
       var url = RELAY_CONFIG.baseUrl

@@ -1,26 +1,31 @@
 <section>
   <div class="item section--wrapper flex flex--between domain--title-container">
-    <div class="item flex width--full flex--wrap">
+    <div class="item flex width--half flex--wrap">
     <h2 class="width--full">{{'domain-manager_title' | translate}}</h2>
     <p class="width--full">{{'domain-manager_subtitle' | translate}}</p>
     </div>
-    <!--<div class="item flex flex--content-end width--half">
+    <div class="item flex flex--content-end width--half">
       <button class="button button--large domain--input-toggler" ng-click="vm.showNewDomainInput()">{{'domain-manager_button' | translate}}</button>
-    </div>-->
+    </div>
   </div>
   <form method="post" id="form" name="form" ng-submit="vm.addDomain(form)" novalidate>
   <div class="item domain--default-container section--wrapper">
     <div class="item flex domain--input-container width--full" ng-class="vm.showDomainInput ? 'active' : ''">
-      <label for="domain">{{'domain-manager_label_input' | translate}}</label>
-      <div class="width--full">
-        <input ng-pattern="vm.regexDomain" name="domain" ng-model="domain" class="input input--large"  validation-errors required />
-        <button class="button button--small" type="submit">{{'domain-manager_input_button' | translate}}</button>
+      <div class="item flex flex--wrap">
+        <label for="domain">{{'domain-manager_label_input' | translate}}</label>
+        <input ng-pattern="vm.regexDomain" id="newDomainName" name="newDomainName" ng-model="vm.newDomainName" class="input input--large" focus-if="vm.showDomainInput" validation-error required />
+        <div class="item flex flex--content-start button-container">
+          <button class="button button--small" type="submit">{{'domain-manager_input_button' | translate}}</button>
+        </div>
+        <div class="error-container">
+          <span class="input--error" ng-show="(vm.addSubmitted || form.newDomainName.$dirty) && form.newDomainName.$invalid && !form.newDomainName.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
+          <span class="input--error" ng-show="(vm.addSubmitted || form.newDomainName.$dirty) && form.newDomainName.$invalid && form.newDomainName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
       </div>
     </div>
-    <span class="input--error" ng-show="(showDomainInput || form.domain.$dirty) && form.domain.$invalid && !form.domain.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
-    <span class="input--error" ng-show="(vm.submitted || form.domain.$dirty) && form.domain.$invalid && form.domain.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+
     <h5><strong>{{'domain-manager_default_title' | translate}}</strong></h5>
-    <span>{{vm.defaultDomain}} *</span>
+    <span class="default-domain">{{vm.defaultDomain}}</span><span> *</span>
     <p class="italic"><span>* </span>{{'domain-manager_default_subtitle' | translate}}</p>
 
   </div>
@@ -32,12 +37,16 @@
         <tr>
           <th class="column-medium">{{ 'domain_manager_name_th' | translate}}</th>
           <th class="column-small">{{ 'domain_manager_status_th' | translate}}</th>
-          <!--<th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>-->
+          <th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
-        <tr class="column-records" ng-repeat="d in vm.domains" ng-class="d.disabled ? 'grey' : ''">
-          <td ng-class="d.defaultDomain ? 'default' : ''">{{d.name}}</td>
-          <td ng-class="d.defaultDomain ? 'default' : ''">{{ d.status | translate }}</td>
-          <!--<td><a>{{ 'erase_text' | translate}}</a><a ng-if="d.name != vm.defaultDomain"> - {{ 'domain-manger_set_as_default' | translate}}</a></td>-->
+        <tr class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'grey' : d.disabled}">
+          <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
+          <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
+          <td><a class="domain--erase-button" ng-if="!vm.isDefaultDomain(d) || d.disabled" ng-click="vm.deleteDomain(d)">{{ 'erase_text' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) || d.disabled">&nbsp;-&nbsp;</span>
+              <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manager_set_as_default' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
+              <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manager_disable' | translate}}</a>
+              <a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a>
+          </td>
         </tr>
       </table>
     </div>

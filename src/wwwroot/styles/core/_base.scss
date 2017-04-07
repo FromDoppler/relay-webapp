@@ -246,6 +246,10 @@ a {
 }
 
 
+.highlight--temporal-fade{
+    background-color: $suit-color-status-green !important;
+}
+
 @media screen and (max-width: 1024px) {
   .section--wrapper {
     max-width: 95%;
