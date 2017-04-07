@@ -230,5 +230,7 @@
   "disabled_text": "Desactivado",
   "default_text": "Predeterminado",
   "domains_text": "Dominios",
-  "enable_text": "Activado"
+  "enable_text": "Activado",
+  "domain_manager_error": "Parece que otra persona está utilizando la cuenta en este momento y no es posible realizar la acción que deseas. Por favor, haz clic en el botón de abajo para volver a cargar la información.",
+  "domain_manager_error_button": "Recargar datos"
 };

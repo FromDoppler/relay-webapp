@@ -218,5 +218,7 @@
   "disabled_text": "Disabled",
   "default_text": "Default",
   "domains_text": "Domain Manager",
-  "enable_text": "Enabled"
+  "enable_text": "Enabled",
+  "domain_manager_error": "It seems that someone else is using the account at this moment and it not possible to perform the action. Please click the button below to reload the information.",
+  "domain_manager_error_button": "Reload your data"
 };
