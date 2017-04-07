@@ -163,7 +163,7 @@ describe('Settings Page', () => {
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
-          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "makingsense.com", disabled: true }],
+          "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "fromdoppler1.com"}, {name: "makingsense.com", disabled: true }],
           "default": "relay.com"
         });
         $httpBackend.whenDELETE(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/).respond(200, {});
