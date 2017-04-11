@@ -1,0 +1,15 @@
+<section class="dkmin-config--container">
+<div class="item section--wrapper flex">
+  <h2>
+    {{ 'dkim_configuration' | translate }}
+  </h2>
+</div>
+<div class="item section--wrapper">
+  <h5>{{ 'dkim_configuration_help_domain_title' | translate }}</h5>
+  <p class="domain-selected">{{ vm.domain }}</p>
+  <h5>{{ 'dkim_configuration_help_selector_title' | translate }}</h5>
+  <p class="domain-selector">{{ vm.dKimSelector }}</p>
+  <h5>{{ 'dkim_configuration_help_public_k_title' | translate }}</h5>
+  <p><pre><code class="domain-public-key">{{ vm.dKimPublicKey }}</code></pre></p>
+</div>
+</section>

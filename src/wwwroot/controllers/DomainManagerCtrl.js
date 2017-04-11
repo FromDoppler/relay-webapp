@@ -11,10 +11,11 @@
       '$q',
       '$rootScope',
       'utils',
-      '$timeout'
+      '$timeout',
+      '$translate'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate) {
       $rootScope.setSubmenues([
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
@@ -106,6 +107,7 @@
         .then(function(response) {
           vm.defaultDomain = response.data.default;
           vm.domains = response.data.domains;
+          vm.langSelected = $translate.use();
         });
       }
 

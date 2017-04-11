@@ -200,4 +200,37 @@ describe('Settings Page', () => {
     //Assert
     expect(settings.countDisableButtons()).toBeLessThan(countDisableButtons);
   });
+  it('should check the information we display', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com", dkim_selector: "test", dkim_public_key: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+      }));
+    var domain = 'relay.com';
+    var dkimSelector = 'test';
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var settings = new SettingsPage();
+    browser.get('/#/settings/domain-manager');
+
+    //Act
+    settings.clickFirstDkimInformationButton().then(function(){
+      browser.getAllWindowHandles().then(function (handles) {
+            newWindowHandle = handles[1];
+            browser.switchTo().window(newWindowHandle).then(function () {
+              ///Assert
+                expect(settings.getdKimDomainSelected()).toBe(domain);
+
+                expect(settings.getdKimDomainSelector()).toBe(dkimSelector);
+
+                ///TODO:Improve this expect
+                expect(settings.getDkimPublicKey()).toMatch(/(-----BEGIN PUBLIC KEY-----)|(-----END PUBLIC KEY-----)/);
+            });
+        });
+    });
+  });
 });

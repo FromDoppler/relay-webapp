@@ -232,5 +232,9 @@
   "domains_text": "Dominios",
   "enable_text": "Activado",
   "domain_manager_error": "Parece que otra persona está utilizando la cuenta en este momento y no es posible realizar la acción que deseas. Por favor, haz clic en el botón de abajo para volver a cargar la información.",
-  "domain_manager_error_button": "Recargar datos"
+  "domain_manager_error_button": "Recargar datos",
+  "dkim_configuration": "Configuración DKIM",
+  "dkim_configuration_help_domain_title": "Encuentra aquí toda la información necesaria para configurar el DKIM del siguiente dominio:",
+  "dkim_configuration_help_selector_title": "DKIM Selector:",
+  "dkim_configuration_help_public_k_title": "DKIM Clave Pública:"
 };
