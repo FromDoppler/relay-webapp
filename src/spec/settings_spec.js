@@ -1,6 +1,7 @@
 describe('Settings Page', () => {
 
   var SettingsPage = require('./page-objects/settings-page').SettingsPage;
+  var DkimPage = require('./page-objects/dkim-page').DkimPage;
 
   afterEach(() => {
     browser.removeMockModule('descartableModule');
@@ -214,23 +215,16 @@ describe('Settings Page', () => {
     var domain = 'relay.com';
     var dkimSelector = 'test';
     var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
-    var settings = new SettingsPage();
+    var settingsPage = new SettingsPage();
+    var dkimPage = new DkimPage();
     browser.get('/#/settings/domain-manager');
 
     //Act
-    settings.clickFirstDkimInformationButton().then(function(){
-      browser.getAllWindowHandles().then(function (handles) {
-            newWindowHandle = handles[1];
-            browser.switchTo().window(newWindowHandle).then(function () {
-              ///Assert
-                expect(settings.getdKimDomainSelected()).toBe(domain);
-
-                expect(settings.getdKimDomainSelector()).toBe(dkimSelector);
-
-                ///TODO:Improve this expect
-                expect(settings.getDkimPublicKey()).toMatch(/(-----BEGIN PUBLIC KEY-----)|(-----END PUBLIC KEY-----)/);
-            });
-        });
+    settingsPage.clickFirstDkimInformationButton().then(() =>{
+      dkimPage.switchToNewTab().then(() =>{
+          expect(dkimPage.getdKimDomainSelected()).toBe(domain);
+          expect(dkimPage.getdKimDomainSelector()).toBe(dkimSelector);
+      });
     });
   });
 });

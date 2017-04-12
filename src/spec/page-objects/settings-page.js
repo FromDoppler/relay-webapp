@@ -13,10 +13,6 @@ class SettingsPage {
     this._activateButtons = element.all(by.css('.domain--activate-action'));
     this._disableButtons = element.all(by.css('.domain--disable-action'));
     this._dKimInformationButtons = element.all(by.css('.domain--dkim-info-action'));
-    this._dKimPublicKey = $('.domain-public-key');
-    this._dKimDomainSelected = $('.domain-selected');
-    this._dKimDomainSelector = $('.domain-selector');
-
   }
 
   getUrl(){
@@ -89,15 +85,6 @@ class SettingsPage {
     return this._dKimInformationButtons.then(function(val){
       return val[0].click();
     });
-  }
-  getdKimDomainSelected(){
-    return this._dKimDomainSelected.getText();
-  }
-  getdKimDomainSelector(){
-    return this._dKimDomainSelector.getText();
-  }
-  getDkimPublicKey(){
-    return this._dKimPublicKey.getText();
   }
 }
 exports.SettingsPage = SettingsPage;
