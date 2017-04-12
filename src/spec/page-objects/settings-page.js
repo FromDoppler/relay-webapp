@@ -12,7 +12,7 @@ class SettingsPage {
     this._defaultDomain = $('.domain--default-container .default-domain');
     this._activateButtons = element.all(by.css('.domain--activate-action'));
     this._disableButtons = element.all(by.css('.domain--disable-action'));
-
+    this._dKimInformationButtons = element.all(by.css('.domain--dkim-info-action'));
   }
 
   getUrl(){
@@ -78,6 +78,11 @@ class SettingsPage {
   }
   clickFirstDisableButton (){
     return this._disableButtons.then(function(val){
+      return val[0].click();
+    });
+  }
+  clickFirstDkimInformationButton(){
+    return this._dKimInformationButtons.then(function(val){
       return val[0].click();
     });
   }

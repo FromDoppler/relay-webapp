@@ -220,5 +220,9 @@
   "domains_text": "Domain Manager",
   "enable_text": "Enabled",
   "domain_manager_error": "It seems that someone else is using the account at this moment and it not possible to perform the action. Please click the button below to reload the information.",
-  "domain_manager_error_button": "Reload your data"
+  "domain_manager_error_button": "Reload your data",
+  "dkim_configuration": "DKIM Configuration",
+  "dkim_configuration_help_domain_title": "Find here all the necessary information to configure the DKIM for the following domain",
+  "dkim_configuration_help_selector_title": "Your DKIM Selector:",
+  "dkim_configuration_help_public_k_title": "Your DKIM Public Key:"
 };

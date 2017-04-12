@@ -1,6 +1,7 @@
 describe('Settings Page', () => {
 
   var SettingsPage = require('./page-objects/settings-page').SettingsPage;
+  var DkimPage = require('./page-objects/dkim-page').DkimPage;
 
   afterEach(() => {
     browser.removeMockModule('descartableModule');
@@ -199,5 +200,31 @@ describe('Settings Page', () => {
 
     //Assert
     expect(settings.countDisableButtons()).toBeLessThan(countDisableButtons);
+  });
+  it('should check the information we display', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com", dkim_selector: "test", dkim_public_key: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+      }));
+    var domain = 'relay.com';
+    var dkimSelector = 'test';
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var settingsPage = new SettingsPage();
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager');
+
+    //Act
+    settingsPage.clickFirstDkimInformationButton().then(() =>{
+      dkimPage.switchToNewTab().then(() =>{
+          expect(dkimPage.getdKimDomainSelected()).toBe(domain);
+          expect(dkimPage.getdKimDomainSelector()).toBe(dkimSelector);
+      });
+    });
   });
 });
