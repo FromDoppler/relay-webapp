@@ -14,6 +14,18 @@
     ; NREUM.info = { beacon: "bam.nr-data.net", errorBeacon: "bam.nr-data.net", licenseKey: "d1e93e3552", applicationID: "24634905", sa: 1 }
   </script>
 
+  <!-- Google Analytics -->
+  <script>
+    if (window.location.hostname == 'app.dopplerrelay.com') {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-532159-19', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+
   <link rel="icon" type="image/x-icon" href="http://www.dopplerrelay.com/favicon.ico" />
   <!-- inject:css -->
   <link rel="stylesheet" type="text/css" href="tmp/styles.css">
