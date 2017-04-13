@@ -236,5 +236,9 @@
   "dkim_configuration": "Configuración DKIM",
   "dkim_configuration_help_domain_title": "Encuentra aquí toda la información necesaria para configurar el DKIM del siguiente dominio:",
   "dkim_configuration_help_selector_title": "DKIM Selector:",
-  "dkim_configuration_help_public_k_title": "DKIM Clave Pública:"
+  "dkim_configuration_help_public_k_title": "DKIM Clave Pública:",
+  "dkim_configuration_help_spf_title": "SPF",
+  "dkim_configuration_help_spf_text": "Add the following string to the field `SPF`: `include: fromdoppler.com`",
+  "dkim_configuration_help_spf_subtitle": "Para mejorar la entrega de los emails al ibox es recomendable que incluya el SPF de doppler",
+  "domain_configuration_title": "Configuracion de dominio"
 };
