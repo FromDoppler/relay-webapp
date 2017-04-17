@@ -222,7 +222,12 @@
   "domain_manager_error": "It seems that someone else is using the account at this moment and it not possible to perform the action. Please click the button below to reload the information.",
   "domain_manager_error_button": "Reload your data",
   "dkim_configuration": "DKIM Configuration",
-  "dkim_configuration_help_domain_title": "Find here all the necessary information to configure the DKIM for the following domain",
+  "dkim_configuration_help_domain_title": "Find here all the information needed (SPF & DKIM)  to update your DNS records and verify that you are an authorized sender for this domain:",
   "dkim_configuration_help_selector_title": "Your DKIM Selector:",
-  "dkim_configuration_help_public_k_title": "Your DKIM Public Key:"
+  "dkim_configuration_help_public_k_title": "Your DKIM Public Key:",
+  "dkim_configuration_help_spf_title": "SPF",
+  "dkim_configuration_help_spf_text": "Add the following data to the ¨SPF¨ field: ¨include: fromdoppler.com¨",
+  "dkim_configuration_help_spf_subtitle": "Include Doppler Relay’s SPF to prevent sender address forgery.",
+  "domain_configuration_title": "Domain Settings",
+  "domain_singular_configuration_title": "Domain Settings"
 };

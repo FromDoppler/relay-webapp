@@ -1,12 +1,28 @@
 <section class="dkmin-config--container">
 <div class="item section--wrapper flex">
   <h2>
-    {{ 'dkim_configuration' | translate }}
+    {{ 'domain_configuration_title' | translate }}
   </h2>
 </div>
 <div class="item section--wrapper">
   <h5>{{ 'dkim_configuration_help_domain_title' | translate }}</h5>
   <p class="domain-selected">{{ vm.domain }}</p>
+</div>
+<div class="item section--wrapper spf-tite flex">
+  <h2>
+    {{ 'dkim_configuration_help_spf_title' | translate }}
+  </h2>
+</div>
+<div class="item section--wrapper">
+  <h5>{{ 'dkim_configuration_help_spf_subtitle' | translate }}</h5>
+  <p class="domain-selected">{{ 'dkim_configuration_help_spf_text' | translate }}</p>
+</div>
+<div class="item section--wrapper dkmin-config flex">
+  <h2>
+    {{ 'dkim_configuration' | translate }}
+  </h2>
+</div>
+<div class="item section--wrapper">
   <h5>{{ 'dkim_configuration_help_selector_title' | translate }}</h5>
   <p class="domain-selector">{{ vm.dKimSelector }}</p>
   <h5>{{ 'dkim_configuration_help_public_k_title' | translate }}</h5>
