@@ -213,7 +213,7 @@ describe('Settings Page', () => {
         });
       }));
     var domain = 'relay.com';
-    var dkimSelector = 'test';
+    var dkimSelector = 'test' + "._domainkey." + domain;
     var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
     var settingsPage = new SettingsPage();
     var dkimPage = new DkimPage();
