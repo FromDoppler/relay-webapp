@@ -14,8 +14,8 @@
     var vm = this;
     var queryParams = $location.search();
     vm.domain = queryParams['d'];
-    vm.dKimSelector = queryParams['sel'];
-    vm.dKimPublicKey = '-----BEGIN PUBLIC KEY-----\r\n' + queryParams['key'] + '\r\n-----END PUBLIC KEY-----\r\n';    
+    vm.dKimSelector = queryParams['sel'] + '._domainkey.' + vm.domain;
+    vm.dKimPublicKey = 'k=rsa; p=' + + queryParams['key'];
   }
 
 })();
