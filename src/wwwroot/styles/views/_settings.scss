@@ -103,6 +103,13 @@
 }
 
 .dkmin-config--container {
+  .dkmin-config-code {
+    p:last-of-type{max-width: 50%;}
+    code {
+      max-width: 50%;
+      word-wrap: break-word;
+    }
+  }
   .dkmin-config,.spf-tite {
     margin-top: 3rem;
   }
