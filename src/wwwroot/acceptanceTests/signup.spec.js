@@ -391,7 +391,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":"1qaz2WSX","account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":"1qaz2WSX","account_name":"accountname","company":"MakingSense"}'
         ).respond(200, {
           "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ3NjI2NjYsImV4cCI6MTQ4NzM1NDY2NiwiaWF0IjoxNDg0NzYyNjY2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.CaW8TdRwf77FzfyQB20AgE9Sd13k4RBeMgwBwJuCgg03NI0fhu7nTx7YPoTKQNxkU-3C3PhvJQHqDI2pU6ThS8dKsRHeJZoT8OxwiFbOYmnii33WcpmkVcLoUbfA8aXcVVFVTiXGN8LngE9Mml8nd7udxtvxcwv9uDMh0-u-FACBxrmX66Cth2_pNL6AzkAC91rRvf3MTUZ8IXOMbsxTaSMydsPqhtqlPoczbTYHaLCW0JRyANKNqhPMHRH14rfZLUyfOPC1_l4VgnQHt7_w95rJm5nFLsWk10Ji8ALoB-i8q5WUDQcKqwGt2Ar2z8ruRyjdx1aHTY5x-f0MFTTTGw"
         });
@@ -406,7 +406,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "1qaz2WSX";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -440,7 +440,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "pass";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -462,7 +462,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company":"MakingSense"}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -484,7 +484,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -508,7 +508,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company":"MakingSense"}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -530,7 +530,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -554,7 +554,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company":"MakingSense"}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -577,7 +577,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -601,7 +601,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":null}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company":null}'
         ).respond(202);
 
         $location.path('/signup/registration');
@@ -614,7 +614,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "";
+        controller.company = "";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
