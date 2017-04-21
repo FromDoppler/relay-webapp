@@ -211,6 +211,17 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
       text-align: center;
     }
   }
+  div.section--wrapper-input {
+    max-width: 47.7em;
+    flex-wrap: wrap;
+    div{display: flex; align-items: center;margin-bottom: 1em;input{margin-right: 0.5em;}}
+    div:first-of-type{
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 0;
+    }
+    a {color: $suit-accent-color;}
+  }
   div.section--wrapper{
     &.input-container{
       margin-top: 1.6em;
@@ -227,6 +238,11 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
 @media screen and (max-width: 800px){
     .registration{
       height: inherit;
+      .section--wrapper-input {
+        div:first-of-type {
+          input { max-width: 1em; margin-left: 2.5%;}
+        }
+      }
       h2{
         font-size: 2.1em;
       }

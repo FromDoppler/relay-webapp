@@ -133,7 +133,7 @@
           'lastName': newUser.lastName,
           'password': newUser.password || null,
           'account_name': newUser.account_name,
-          'domain': newUser.domain || null
+          'company': newUser.company || null
         }
       });
     }

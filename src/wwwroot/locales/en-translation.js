@@ -229,5 +229,6 @@
   "dkim_configuration_help_spf_text": "Add the following data to the ¨SPF¨ field: ¨include: fromdoppler.com¨",
   "dkim_configuration_help_spf_subtitle": "Include Doppler Relay’s SPF to prevent sender address forgery.",
   "domain_configuration_title": "Domain Settings",
-  "domain_singular_configuration_title": "Domain Settings"
+  "domain_singular_configuration_title": "Domain Settings",
+  "company_text": "Company"
 };
