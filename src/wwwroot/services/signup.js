@@ -93,7 +93,7 @@
       });
     }
 
-    function activateUser(apiKey, domain, email, pass, language, industry, telephone, country, termsAndConditions) {
+    function activateUser(apiKey, domain, email, pass, language, industry, phoneNumber, country, termsAndConditions) {
       var actionDescription = 'action_activating_user';
       return $http({
         actionDescription: actionDescription,
@@ -107,9 +107,8 @@
           "domain": domain,
           "password": pass,
           "industry_code": industry,
-          "phone_number": telephone,
+          "phone_number": phoneNumber,
           "country_code": country,
-          "telephone": telephone,
           "terms_and_conditions_version": termsAndConditions
         }
       });

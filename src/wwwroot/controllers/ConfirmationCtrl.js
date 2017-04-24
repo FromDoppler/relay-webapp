@@ -79,7 +79,7 @@
       if (!form.$valid) {
         return;
       }
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use(), form.industry.$modelValue, form.telephone.$modelValue, form.country.$modelValue, form.checkTerms.$modelValue)
+      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use(), form.industry.$modelValue, form.phoneNumber.$modelValue, form.country.$modelValue, form.checkTerms.$modelValue)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
