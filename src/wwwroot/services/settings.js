@@ -21,7 +21,7 @@
 
     return settingsService;
 
-    function createOrEditDomain (domainName, isDisabled) {
+    function createOrEditDomain (domainName, isDisabled, onExpectedError) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
@@ -34,6 +34,7 @@
 
       return $http({
         actionDescription: 'action_adding_domain',
+        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
         method: 'PUT',
         data: data,
         url: url
@@ -56,7 +57,7 @@
       });
     }
 
-    function deleteDomain (domainName) {
+    function deleteDomain (domainName, onExpectedError) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/' + auth.getAccountName()
         + '/domains/'
@@ -64,10 +65,18 @@
 
       return $http({
         actionDescription: 'action_deleting_domain',
+        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
         method: 'DELETE',
         data: {},
         url: url
       });
+    }
+
+    function tryHandleError(rejection, onExpectedError) {
+        if (rejection.status != 400 || !rejection.data || rejection.data.errorCode != 4) {
+          return false; // not handled
+        }
+        return onExpectedError(rejection.data);
     }
 
     function getDomains() {

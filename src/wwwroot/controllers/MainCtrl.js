@@ -12,19 +12,25 @@
     '$location',
     'auth',
     '$log',
-    'ModalService'
+    'ModalService',
+    '$route'
   ];
 
-  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService) {
+  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route) {
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
+    };
+
+    $rootScope.getTermsAndConditionsVersion = function () {
+      return 1;
     };
 
     $rootScope.getAccountName = auth.getAccountName;
     $rootScope.getFullName = auth.getFullName;
     $rootScope.getAccountId = auth.getAccountId;
 
-    $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, callback) {
+    $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, callback, buttonText) {
+      callback = callback || $route.reload;
       ModalService.showModal({
         templateUrl: 'partials/modals/error.html',
         controller: 'ErrorCtrl',
@@ -35,7 +41,8 @@
           rejectionTitle: rejectionTitle || '',
           statusCode: statusCode,
           errorCode: errorCode,
-          isAuthorizationModal: false
+          isAuthorizationModal: false,
+          buttonText: buttonText || 'error_popup_button'
         }
       }).then(function (modal) {
         modal.close.then(callback);
