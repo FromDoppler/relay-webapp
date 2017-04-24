@@ -19,6 +19,7 @@
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
+    vm.regexAllowedAccountName = /^[a-z-0-9_-]*$/;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
@@ -32,7 +33,8 @@
         lastName: vm.lastName,
         password: vm.password,
         account_name: vm.accountName,
-        company: vm.company
+        company: vm.company,
+        termsAndRights: vm.checkTerms
       };
 
       var onExpectedError = function (rejectionData) {

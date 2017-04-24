@@ -242,5 +242,9 @@
   "dkim_configuration_help_spf_subtitle": "Incluye el SPF de Doppler Relay para evitar la falsificación de direcciones de tu remitente.",
   "domain_configuration_title": "Configuración de Dominios",
   "domain_singular_configuration_title": "Configuración del dominio",
-  "company_text": "Empresa"
+  "company_text": "Empresa",
+  "country_text": "País",
+  "industry_text": "Industria",
+  "phone_number": "Teléfono",
+  "invalid_account_name": "Nombre de Cuenta inválido"
 };

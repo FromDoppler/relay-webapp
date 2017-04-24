@@ -230,5 +230,9 @@
   "dkim_configuration_help_spf_subtitle": "Include Doppler Relay’s SPF to prevent sender address forgery.",
   "domain_configuration_title": "Domain Settings",
   "domain_singular_configuration_title": "Domain Settings",
-  "company_text": "Company"
+  "company_text": "Company",
+  "country_text": "Country",
+  "industry_text": "Industry",
+  "phone_number": "Phone Number",
+  "invalid_account_name": "Invalid Account Name"
 };

@@ -90,6 +90,23 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
     .forgot--input-container{max-width: 22.875em;}// no deja extender clase .section--wrapper-input;
     input.button{width: 100%;padding: 1.2em 0.875em;}
   }
+
+  .signup--confirmation-details{
+    p:first-of-type {
+      text-align: left !important;
+      max-width: 100% !important;
+    }
+    .confirmation--info-wrapper{
+      width: 100% !important;
+    }
+    .confirmation--submit-container{
+      div:first-of-type{
+        input {
+          width: 1em;
+        }
+      }
+    }
+  }
 }
 
 .error--page{
@@ -134,6 +151,7 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
         div:first-of-type{
           display: inline-block;
           max-width: 100%;
+          margin-bottom: 0
         }
         a {color: $suit-accent-color;}
       }
@@ -161,7 +179,9 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
           &:last-of-type{
             border-top: 1px solid #CCC;
             margin: 3em 0 0 0;
-            padding: 3em 0 1em 0;
+            padding: 3em 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
           }
         }
       }
