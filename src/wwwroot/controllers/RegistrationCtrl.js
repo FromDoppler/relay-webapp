@@ -18,8 +18,8 @@
   function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
-    vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.emailRegistered = null;
+    vm.regexAllowedAccountName = /^[a-z-0-9_-]*$/;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
@@ -33,7 +33,8 @@
         lastName: vm.lastName,
         password: vm.password,
         account_name: vm.accountName,
-        domain: vm.domain
+        company: vm.company,
+        termsAndConditions: vm.checkTerms
       };
 
       var onExpectedError = function (rejectionData) {

@@ -21,6 +21,10 @@
       return auth.getUserName();
     };
 
+    $rootScope.getTermsAndConditionsVersion = function () {
+      return 1;
+    };
+
     $rootScope.getAccountName = auth.getAccountName;
     $rootScope.getFullName = auth.getFullName;
     $rootScope.getAccountId = auth.getAccountId;

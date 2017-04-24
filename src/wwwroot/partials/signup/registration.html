@@ -35,19 +35,28 @@
     </div>
     <div class="flex flex--center section--wrapper input-container">
       <div>
-        <label class="flex" for="domain">{{'registration_domain_label' | translate}}</label>
-        <input class="input input--large" ng-class="vm.submitted && form.domain.$invalid ? 'error' : ''" id="domain" ng-pattern="vm.regexDomain" name="domain" ng-model="vm.domain" maxlength="100" ng-maxlength="100" />
-        <span class="input--error" ng-show="(vm.submitted || form.domain.$dirty) && form.domain.$invalid"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
+        <label class="flex" for="company">{{'company_text' | translate}}</label>
+        <input class="input input--large" ng-class="vm.submitted && form.company.$invalid ? 'error' : ''" id="company" type="text" name="company" ng-model="vm.company" maxlength="100" ng-maxlength="100" required />
+        <span class="input--error" ng-show="(vm.submitted || form.company.$dirty) && form.company.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
       </div>
       <div>
         <label class="flex" for="accountName">{{'registration_account_name_label' | translate}}</label>
-        <input class="input input--large" ng-class="vm.submitted && form.accountName.$invalid ? 'error' : ''" id="accountName" type="text" name="accountName" ng-model="vm.accountName" maxlength="100" ng-maxlength="100" required />
+        <input class="input input--large" ng-pattern="vm.regexAllowedAccountName" ng-class="vm.submitted && form.accountName.$invalid ? 'error' : ''" id="accountName" type="text" name="accountName" ng-model="vm.accountName" maxlength="100" ng-maxlength="100" required />
         <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$error.accountname_already_taken"><i class="arrow--up"></i>{{'validation_error_accountname_already_taken' | translate}}</span>
+        <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$invalid && !form.accountName.$error.required && !form.accountName.$error.accountname_already_taken"><i class="arrow--up"></i>{{'invalid_account_name' | translate}}</span>
       </div>
     </div>
-  </form>
   <div class="flex flex--center section--wrapper-input">
-    <button class="button button--medium" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
+    <div class="wrapper-input width--full">
+      <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" value="getTermsAndConditionsVersion()" /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+    </div>
+    <div class="wrapper-input width--full">
+      <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+    </div>
+    <div class="wrapper-input width--full">
+      <button class="button button--medium" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
+    </div>
   </div>
+  </form>
 </section>
