@@ -93,7 +93,7 @@
       });
     }
 
-    function activateUser(apiKey, domain, email, pass, language, industry, phoneNumber, country, termsAndRights) {
+    function activateUser(apiKey, domain, email, pass, language, industry, telephone, country, termsAndConditions) {
       var actionDescription = 'action_activating_user';
       return $http({
         actionDescription: actionDescription,
@@ -106,10 +106,11 @@
         data: {
           "domain": domain,
           "password": pass,
-          "industry": industry,
-          "phone_number": phoneNumber,
-          "country": country,
-          "terms": termsAndRights
+          "industry_code": industry,
+          "phone_number": telephone,
+          "country_code": country,
+          "telephone": telephone,
+          "terms_and_conditions_version": termsAndConditions
         }
       });
     }
@@ -137,8 +138,8 @@
           'lastName': newUser.lastName,
           'password': newUser.password || null,
           'account_name': newUser.account_name,
-          'company': newUser.company || null,
-          'terms': newUser.termsAndRights || null
+          'company_name': newUser.company || null,
+          'terms_and_conditions_version': newUser.termsAndConditions || null
         }
       });
     }

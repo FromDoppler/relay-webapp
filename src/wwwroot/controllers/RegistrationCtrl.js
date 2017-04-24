@@ -34,7 +34,7 @@
         password: vm.password,
         account_name: vm.accountName,
         company: vm.company,
-        termsAndRights: vm.checkTerms
+        termsAndConditions: vm.checkTerms
       };
 
       var onExpectedError = function (rejectionData) {

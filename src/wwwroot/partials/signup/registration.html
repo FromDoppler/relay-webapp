@@ -49,7 +49,7 @@
     </div>
   <div class="flex flex--center section--wrapper-input">
     <div class="wrapper-input width--full">
-      <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" value="term1" /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+      <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" value="getTermsAndConditionsVersion()" /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
     </div>
     <div class="wrapper-input width--full">
       <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>

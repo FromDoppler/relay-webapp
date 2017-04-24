@@ -29,12 +29,12 @@
       </div>
       <div class="flex margin--bottom-inputs">
         <div class="wrapper-input width--full">
-          <label class="label--regular" for="phoneNumber">{{'phone_number' | translate}}</label>
-          <input class="input input--large width--full" ng-model="vm.phoneNumber" name="phoneNumber" placeholder="{{'phone_number' | translate}}" required />
-          <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <label class="label--regular" for="telephone">{{'phone_number' | translate}}</label>
+          <input class="input input--large width--full" ng-model="vm.telephone" name="telephone" placeholder="{{'phone_number' | translate}}" required />
+          <span class="input--error" ng-show="(vm.submitted ||form.telephone.$dirty) && form.telephone.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
       </div>
-      <div class="confirmation--password-container" ng-if="vm.emptyPass">
+      <div class="confirmation--password-container" ng-if="vm.passwordEmpty">
         <div class="wrapper-input">
           <label class="label--regular" for="password">{{'password_simple' | translate}}</label>
           <input class="input input--medium" ng-model="pass" type="password" name="pass" pass="pass" placeholder="{{'password_simple_placeholder' | translate}}" ng-change="vm.updateValidation(form)" maxlength="100" ng-maxlength="100" password-complex-validation required />
@@ -50,7 +50,7 @@
       </div>
       <div class="confirmation--submit-container">
         <div class="wrapper-input" ng-if="vm.termsAccepted">
-          <input ng-model="checkTerms" name="checkTerms" type="checkbox" value="term1" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+          <input ng-model="checkTerms" name="checkTerms" type="checkbox" value="getTermsAndConditionsVersion()" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
         </div>
         <div>
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>

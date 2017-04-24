@@ -22,9 +22,8 @@
     vm.name = $translate.instant('name_placeholder_confirmation');
     vm.updateValidation = updateValidation;
     vm.submitActivation = submitActivation;
-    vm.isFieldEmpty = isFieldEmpty;
     vm.activationPromise = activate();
-    vm.emptyPass = false;
+    vm.passwordEmpty = false;
     vm.termsAccepted = false;
 
     function activate() {
@@ -49,8 +48,8 @@
           vm.userName = result.data.user_email;
           vm.name = result.data.firstName || result.data.user_email;
           vm.domain = result.data.domain;
-          vm.emptyPass = result.data.emptyPass;
-          vm.termsAccepted = result.data.termsAccepted;
+          vm.passwordEmpty = result.data.password_empty;
+          vm.termsAccepted = result.data.terms_and_conditions_version;
           return getRealApiKey(activationToken);
         });
     }
@@ -80,7 +79,7 @@
       if (!form.$valid) {
         return;
       }
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use(), form.industry.$modelValue, form.phoneNumber.$modelValue, form.country.$modelValue, form.checkTerms.$modelValue)
+      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use(), form.industry.$modelValue, form.telephone.$modelValue, form.country.$modelValue, form.checkTerms.$modelValue)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
