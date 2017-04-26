@@ -25,6 +25,8 @@
     vm.activationPromise = activate();
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
+    vm.countryList = [{countryId : 1, name : "Spain"},{countryId : 2, name : "Germany"},{countryId : 3, name : "Argentina"}];
+    vm.industryList = [{industryId : 1, name : "Systems"},{industryId : 2, name : "Economics"},{industryId : 3, name : "Social"}];
 
     function activate() {
       var activationToken = $location.search()['activation'];
@@ -79,7 +81,9 @@
       if (!form.$valid) {
         return;
       }
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use(), form.industry.$modelValue, form.phoneNumber.$modelValue, form.country.$modelValue, form.checkTerms.$modelValue)
+      var pass = form.pass || null;
+      var checkTerms = form.checkTerms || null;
+      signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.industryId, form.phoneNumber.$modelValue, form.country.$modelValue.countryId, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
