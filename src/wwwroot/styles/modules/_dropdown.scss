@@ -11,6 +11,15 @@ $suit-font-color:           #7F7972;
 // -------------------------------------
 //   Base
 // -------------------------------------
+//workarround for issue in the selectize lib.
+.selectize-input{
+  height: 50px;
+  line-height: 30px !important;
+  padding: 0.875em !important;
+}
+.ui-select-focusser{
+  display: none;
+}
 .filter--section {
   padding: torem(40px) 0 0 0;
   background-color: $suit-background-bright;

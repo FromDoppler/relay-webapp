@@ -13,14 +13,16 @@
         'angular-click-outside',
         'duScroll',
         'angularMoment',
-        'daterangepicker'
+        'daterangepicker',
+        'ui.select'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
     })
-    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider) {
+    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'uiSelectConfig', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider, uiSelectConfig) {
 
       //  $locationProvider.html5Mode(true); //this apply HTML5MODE
+      uiSelectConfig.theme = 'selectize';
 
       $routeProvider
         .when('/login', {
