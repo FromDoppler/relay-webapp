@@ -31,6 +31,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/lib/bootstrap-daterangepicker/daterangepicker.js',
       __dirname + '/wwwroot/lib/angular-daterangepicker/js/angular-daterangepicker.min.js',
       __dirname + '/wwwroot/lib/angular-scroll/angular-scroll.min.js',
+      __dirname + '/wwwroot/lib/angular-ui-select/dist/select.min.js',
       __dirname + '/wwwroot/locales/en-translation.js',
       __dirname + '/wwwroot/locales/es-translation.js',
       __dirname + '/wwwroot/polyfills/array.prototype.filter.js',
