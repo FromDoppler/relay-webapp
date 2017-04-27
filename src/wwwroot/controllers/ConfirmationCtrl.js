@@ -19,6 +19,7 @@
 
   function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, INDUSTRIES, COUNTRIES) {
     var vm = this;
+    var currentLanguage = $translate.use();
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.submitted = false;
     vm.name = $translate.instant('name_placeholder_confirmation');
@@ -29,11 +30,11 @@
     vm.termsAccepted = false;
 
     vm.industryList = INDUSTRIES.map(function(val){
-        return { code: val.code, name: val[$translate.use()] };
+        return { code: val.code, name: val[currentLanguage] };
     });
 
     vm.countryList = COUNTRIES.map(function(val){
-        return { code: val.code, name: val[$translate.use()] }
+        return { code: val.code, name: val[currentLanguage] }
     });
 
     function activate() {
