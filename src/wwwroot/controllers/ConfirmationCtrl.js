@@ -92,7 +92,7 @@
         return;
       }
       var pass = form.pass || null;
-      var checkTerms = form.checkTerms || null;
+      var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
       signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
