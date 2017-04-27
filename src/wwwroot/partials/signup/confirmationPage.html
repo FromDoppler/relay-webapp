@@ -18,7 +18,7 @@
       <div class="flex margin--bottom-inputs">
         <div class="wrapper-input width--full margin--right-inputs">
           <label class="label--regular" for="industry">{{'industry_text' | translate}}</label>
-          <ui-select ng-model="selected.value" title="Choose a country" on-select="form.industry.$modelValue = $model" required>
+          <ui-select ng-model="selected.value" name="industry" title="{{'select_choose_industry' | translate}}" on-select="form.industry.$modelValue = $model" required>
               <ui-select-match placeholder="{{ 'select_placeholder_industry' | translate }}">
                   <span ng-bind="$select.selected.name"></span>
               </ui-select-match>
@@ -26,10 +26,11 @@
                   <span ng-bind="item.name"></span>
               </ui-select-choices>
           </ui-select>
+          <span class="input--error" ng-show="(vm.submitted ||form.industry.$dirty) && form.industry.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
         <div class="wrapper-input width--full">
           <label class="label--regular" for="country">{{'country_text' | translate}}</label>
-          <ui-select ng-model="selected.value" title="Choose a country" on-select="form.country.$modelValue = $model" ng-disabled="disabled" required>
+          <ui-select ng-model="selected.value" name="country" title="{{'select_choose_country' | translate}}" on-select="form.country.$modelValue = $model" ng-disabled="disabled" required>
               <ui-select-match placeholder="{{ 'select_placeholder_country' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
@@ -37,6 +38,7 @@
                 <span ng-bind-html="item.name | highlight: $select.search"></span>
               </ui-select-choices>
           </ui-select>
+          <span class="input--error" ng-show="(vm.submitted ||form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
       </div>
       <div class="flex margin--bottom-inputs">
@@ -62,7 +64,7 @@
         </div>
       </div>
       <div class="confirmation--submit-container">
-        <div class="wrapper-input" ng-if="vm.termsAccepted">
+        <div class="wrapper-input" ng-if="!vm.termsAccepted">
           <input ng-model="checkTerms" name="checkTerms" type="checkbox" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
         </div>
         <div>

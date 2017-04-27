@@ -112,6 +112,7 @@ gulp.task('build-scripts-app', function () {
     paths.app + '/directives/*.js',
     paths.app + '/filters/*.js',
     paths.app + '/services/**/*.js',
+    paths.app + '/lists/*.js',
     paths.app + '/*.js',
     paths.app + '/env/' + process.env.NODE_ENV + '.js'
   ])
@@ -206,7 +207,9 @@ gulp.task('styles', function () {
 gulp.task('build-styles', ['styles'], function () {
   return gulp.src([
     paths.tmpStyles + '/styles.css',
-    paths.lib + '/c3/c3.css'
+    paths.lib + '/c3/c3.css',
+    paths.lib + '/angular-ui-select/dist/select.min.css',
+    paths.lib + '/selectize/dist/css/selectize.default.css'
   ])
   .pipe(minifyCss({ compatibility: 'ie8' }))
   .pipe(rename({
@@ -227,7 +230,9 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
     paths.build + '/scripts/app*.js',
     paths.build + '/scripts/templates*.js',
     paths.build + '/styles/styles*.css',
-    paths.build + '/styles/c3*.css'
+    paths.build + '/styles/c3*.css',
+    paths.build + '/styles/select*.css',
+    paths.build + '/styles/selectize*.css'
   ], {
     read: false // It's not necessary to read the files (will speed up things), we're only after their paths.
   });
