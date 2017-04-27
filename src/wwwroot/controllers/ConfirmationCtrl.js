@@ -12,11 +12,14 @@
     '$location',
     '$rootScope',
     '$q',
-    'utils'
+    'utils',
+    'INDUSTRIES',
+    'COUNTRIES'
   ];
 
-  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils) {
+  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, INDUSTRIES, COUNTRIES) {
     var vm = this;
+    var currentLanguage = $translate.use();
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.submitted = false;
     vm.name = $translate.instant('name_placeholder_confirmation');
@@ -25,6 +28,14 @@
     vm.activationPromise = activate();
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
+
+    vm.industryList = INDUSTRIES.map(function(val){
+        return { code: val.code, name: val[currentLanguage] };
+    });
+
+    vm.countryList = COUNTRIES.map(function(val){
+        return { code: val.code, name: val[currentLanguage] }
+    });
 
     function activate() {
       var activationToken = $location.search()['activation'];
@@ -79,7 +90,9 @@
       if (!form.$valid) {
         return;
       }
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use(), form.industry.$modelValue, form.phoneNumber.$modelValue, form.country.$modelValue, form.checkTerms.$modelValue)
+      var pass = form.pass || null;
+      var checkTerms = form.checkTerms || null;
+      signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
