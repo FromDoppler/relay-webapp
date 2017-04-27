@@ -10,6 +10,9 @@ describe('Signup', () => {
       var errors = [];
       $rootScope.addError = err => errors.push(err);
       $rootScope.addAuthorizationError = $rootScope.addError;
+      $rootScope.getTermsAndConditionsVersion = function () {
+        return 1;
+      };
 
       context = {
         errors: errors,
@@ -407,7 +410,7 @@ describe('Signup', () => {
         controller.password = "1qaz2WSX";
         controller.accountName = "accountname";
         controller.company = "MakingSense";
-        controller.checkTerms = 1;
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -456,7 +459,7 @@ describe('Signup', () => {
 
       it('should set email error when email already exist', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
@@ -486,7 +489,7 @@ describe('Signup', () => {
         controller.password = "";
         controller.accountName = "accountname";
         controller.company = "MakingSense";
-        controller.checkTerms = 1;
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -503,7 +506,7 @@ describe('Signup', () => {
 
       it('should set account name error when account name already exist', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
@@ -533,7 +536,7 @@ describe('Signup', () => {
         controller.password = "";
         controller.accountName = "accountname";
         controller.company = "MakingSense";
-        controller.checkTerms = 1;
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -550,7 +553,7 @@ describe('Signup', () => {
 
       it('should set email and account name error when both already exist', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
@@ -581,7 +584,7 @@ describe('Signup', () => {
         controller.password = "";
         controller.accountName = "accountname";
         controller.company = "MakingSense";
-        controller.checkTerms = 1;
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -598,7 +601,7 @@ describe('Signup', () => {
 
       it('should send email using null values when password and domain are empty', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
@@ -619,7 +622,7 @@ describe('Signup', () => {
         controller.password = "";
         controller.accountName = "accountname";
         controller.company = "";
-        controller.checkTerms = 1;
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
