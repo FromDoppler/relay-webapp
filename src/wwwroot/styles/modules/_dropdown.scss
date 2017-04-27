@@ -17,8 +17,16 @@ $suit-font-color:           #7F7972;
   line-height: 30px !important;
   padding: 0.875em !important;
 }
+.selectize-dropdown{
+  .active{
+    color: $suit-accent-color-light !important;
+  }
+}
 .ui-select-focusser{
   display: none;
+}
+*:focus{
+  outline: none;
 }
 .filter--section {
   padding: torem(40px) 0 0 0;

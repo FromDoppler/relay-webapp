@@ -234,5 +234,7 @@
   "country_text": "Country",
   "industry_text": "Industry",
   "phone_number": "Phone Number",
-  "invalid_account_name": "Invalid Account Name"
+  "invalid_account_name": "Invalid Account Name",
+  "select_placeholder_country": "Select or search a country in the list...",
+  "select_placeholder_industry": "Select or search a industry in the list..."
 };
