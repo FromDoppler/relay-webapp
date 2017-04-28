@@ -151,6 +151,7 @@
   "error_tel": "1-800-123-4567",
   "pass_not_allowed": "Tu contraseña es muy corta, intenta sumar algun símbolo o número.",
   "domain_not_allowed": "Formato de dominio no válido.",
+  "phone_number_not_allowed": "Formato de número telefónico no válido.",
   "welcome_title": "{{ name }}, tus datos han sido confirmados correctamente.",
   "welcome_subtitle": "¡Ya puedes comenzar a utilizar tu cuenta! Comprueba tu casilla de correo electrónico, te hemos enviado la información que necesitas para realizar tus envíos.",
   "continue_text": "CONTINUAR",
