@@ -250,6 +250,6 @@
   "invalid_account_name": "Solo letras minúsculas, números, guión y subrayado",
   "select_placeholder_country": "Selecciona o busca un país en la lista...",
   "select_placeholder_industry": "Selecciona o busca una industria en la lista...",
-  "select_choose_country":"Elige un país",
-  "select_choose_industry":"Elige una industria"
+  "select_choose_country":"Selecciona tu país",
+  "select_choose_industry":"Selecciona tu industria"
 };
