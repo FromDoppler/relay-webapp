@@ -18,6 +18,7 @@ $suit-font-color:           #7F7972;
   padding: 0.875em !important;
 }
 .selectize-dropdown{
+  border-top: 1px solid #d0d0d0 !important;
   .active{
     color: $suit-accent-color-light !important;
   }

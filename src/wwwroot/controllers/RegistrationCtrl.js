@@ -45,7 +45,7 @@
         password: vm.password,
         account_name: vm.accountName,
         company: vm.company,
-        termsAndConditions: vm.checkTerms
+        termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null
       };
 
       var onExpectedError = function (rejectionData) {

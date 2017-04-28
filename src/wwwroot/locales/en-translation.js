@@ -237,5 +237,7 @@
   "phone_number": "Phone Number",
   "invalid_account_name": "Only lowercase letters, numbers, hyphens and underscore",
   "select_placeholder_country": "Select or search a country in the list...",
-  "select_placeholder_industry": "Select or search a industry in the list..."
+  "select_placeholder_industry": "Select or search a industry in the list...",
+  "select_choose_country":"Select your country",
+  "select_choose_industry":"Select your industry"
 };
