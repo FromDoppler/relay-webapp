@@ -79,7 +79,7 @@
     function updateValidation(form) {
       if (!form.pass.$modelValue || !form.confpass.$modelValue) {
         form.confpass.$setValidity('same', null);
-      } else if ($scope.resetPassword != $scope.resetPasswordConf) {
+      } else if (form.pass.$modelValue != form.confpass.$modelValue) {
         form.confpass.$setValidity('same', false);
       } else {
         form.confpass.$setValidity('same', true);
@@ -91,8 +91,8 @@
       if (!form.$valid) {
         return;
       }
-      var pass = form.pass || null;
-      var checkTerms = form.checkTerms || null;
+      var pass = form.pass.$modelValue || null;
+      var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
       signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
