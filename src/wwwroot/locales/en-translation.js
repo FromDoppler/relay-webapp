@@ -139,6 +139,7 @@
   "error_tel": "1-800-123-4567",
   "pass_not_allowed": "Password too short, try adding some symbols or numbers.",
   "domain_not_allowed": "Invalid domain format.",
+  "phone_number_not_allowed": "Invalid phone number format.",
   "welcome_title": "{{ name }}, your account information has been successfully submitted.",
   "welcome_subtitle": "Now you can begin using your account. Check your inbox to get all the information you need to start sending your emails.",
   "continue_text": "CONTINUE",
