@@ -247,7 +247,7 @@
   "country_text": "País",
   "industry_text": "Industria",
   "phone_number": "Teléfono",
-  "invalid_account_name": "Nombre de Cuenta inválido",
+  "invalid_account_name": "Solo letras minúsculas, números, guión y subrayado",
   "select_placeholder_country": "Selecciona o busca un país en la lista...",
   "select_placeholder_industry": "Selecciona o busca una industria en la lista..."
 };
