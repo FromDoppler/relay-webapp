@@ -242,17 +242,15 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
     }
     a {color: $suit-accent-color;}
   }
-  div.section--wrapper{
-    &.input-container{
+  .input-container{
       margin-top: 1.6em;
       align-items: inherit;
       input,span{
         display: flex;
       }
-      input:first-of-type{
+      .margin-right{
         margin-right: 2em;
       }
-    }
   }
 }
 @media screen and (max-width: 800px){
@@ -271,6 +269,7 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
       }
       .input-container{
         flex-wrap: wrap;
+
         div{
           width: 100%;
           label{

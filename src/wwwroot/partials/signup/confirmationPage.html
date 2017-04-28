@@ -49,7 +49,7 @@
           <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$invalid && !form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
         </div>
       </div>
-      <div class="confirmation--password-container" ng-if="vm.passwordEmpty">
+      <div class="confirmation--password-container">
         <div class="wrapper-input">
           <label class="label--regular" for="password">{{'password_simple' | translate}}</label>
           <input class="input input--medium" ng-model="pass" type="password" name="pass" pass="pass" placeholder="{{'password_simple_placeholder' | translate}}" ng-change="vm.updateValidation(form)" maxlength="100" ng-maxlength="100" password-complex-validation required />
@@ -57,7 +57,7 @@
           <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.strength && !form.pass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
         </div>
         <div class="wrapper-input">
-          <label class="label--regular" for="password">{{'confirm_password_simple' | translate}}</label>
+          <label class="label--regular" for="confpass">{{'confirm_password_simple' | translate}}</label>
           <input class="input input--medium" ng-model="confpass" type="password" name="confpass" placeholder="{{'confirm_password_simple_placeholder' | translate}}" ng-change="vm.updateValidation(form)" ng-maxlength="100" required />
           <span class="input--error" ng-show="(vm.submitted || form.confpass.$dirty) && form.confpass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
           <span class="input--error" ng-show="(vm.submitted || form.confpass.$dirty) && form.confpass.$error.same"><i class="arrow--up"></i>{{'login_error_same_password' | translate}}</span>
