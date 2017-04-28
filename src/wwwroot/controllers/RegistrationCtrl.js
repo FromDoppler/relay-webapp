@@ -12,14 +12,25 @@
     'signup',
     'utils',
     '$translate',
-    '$timeout'
+    '$timeout',
+    "Slug"
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
     vm.regexAllowedAccountName = /^[a-z-0-9_-]*$/;
+
+    var customAccountName = false;
+    vm.accountNameUpdated = function () {
+      customAccountName = !!vm.accountName;
+    }
+    vm.companyUpdated = function() {
+      if (!customAccountName) {
+        vm.accountName = Slug.slugify(vm.company);
+      }
+    }
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
