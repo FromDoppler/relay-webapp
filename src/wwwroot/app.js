@@ -14,7 +14,8 @@
         'duScroll',
         'angularMoment',
         'daterangepicker',
-        'ui.select'
+        'ui.select',
+        'slugifier'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;

@@ -89,7 +89,8 @@ gulp.task('build-scripts-lib', function () {
     paths.lib + '/angular-moment/angular-moment.js',
     paths.lib + '/bootstrap-daterangepicker/daterangepicker.js',
     paths.lib + '/angular-daterangepicker/js/angular-daterangepicker.min.js',
-    paths.lib + '/angular-ui-select/dist/select.min.js'
+    paths.lib + '/angular-ui-select/dist/select.min.js',
+    paths.lib + '/angular-slugify/angular-slugify.js'
   ])
   .pipe(concat('lib.min.js'))
   .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
