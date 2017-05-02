@@ -15,26 +15,60 @@
           <span class="input--error" ng-show="(vm.submitted ||form.domain.$dirty) && form.domain.$invalid && !form.domain.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
         </div>
       </div>
+      <div class="flex margin--bottom-inputs">
+        <div class="wrapper-input width--full margin--right-inputs">
+          <label class="label--regular" for="industry">{{'industry_text' | translate}}:</label>
+          <ui-select ng-model="selected.value" name="industry" title="{{'select_choose_industry' | translate}}" on-select="form.industry.$modelValue = $model" required>
+              <ui-select-match placeholder="{{ 'select_placeholder_industry' | translate }}">
+                  <span ng-bind-html="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (vm.industryList | filter: $select.search) track by item.code">
+                  <span ng-bind-html="item.name | highlight: $select.search"></span>
+              </ui-select-choices>
+          </ui-select>
+          <span class="input--error" ng-show="(vm.submitted ||form.industry.$dirty) && form.industry.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+        <div class="wrapper-input width--full">
+          <label class="label--regular" for="country">{{'country_text' | translate}}:</label>
+          <ui-select ng-model="selected.value" name="country" title="{{'select_choose_country' | translate}}" on-select="form.country.$modelValue = $model" ng-disabled="disabled" required>
+              <ui-select-match placeholder="{{ 'select_placeholder_country' | translate }}">
+                <span ng-bind-html="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (vm.countryList | filter: $select.search)">
+                <span ng-bind-html="item.name | highlight: $select.search"></span>
+              </ui-select-choices>
+          </ui-select>
+          <span class="input--error" ng-show="(vm.submitted ||form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="flex margin--bottom-inputs">
+        <div class="wrapper-input width--full">
+          <label class="label--regular" for="phoneNumber">{{'phone_number' | translate}}:</label>
+          <input class="input input--large width--full" ng-model="vm.phoneNumber" name="phoneNumber" placeholder="{{'phone_number' | translate}}" ng-pattern="vm.regexPhoneNumber" required />
+          <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$invalid && !form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
+        </div>
+      </div>
       <div class="confirmation--password-container">
         <div class="wrapper-input">
           <label class="label--regular" for="password">{{'password_simple' | translate}}</label>
           <input class="input input--medium" ng-model="pass" type="password" name="pass" pass="pass" placeholder="{{'password_simple_placeholder' | translate}}" ng-change="vm.updateValidation(form)" maxlength="100" ng-maxlength="100" password-complex-validation required />
           <span class="input--error" ng-show="(vm.submitted || form.pass.$dirty) && form.pass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
           <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.strength && !form.pass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
-      </div>
-      <div class="wrapper-input">
-        <label class="label--regular" for="password">{{'confirm_password_simple' | translate}}</label>
-        <input class="input input--medium" ng-model="confpass" type="password" name="confpass" placeholder="{{'confirm_password_simple_placeholder' | translate}}" ng-change="vm.updateValidation(form)" ng-maxlength="100" required />
-        <span class="input--error" ng-show="(vm.submitted || form.confpass.$dirty) && form.confpass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-        <span class="input--error" ng-show="(vm.submitted || form.confpass.$dirty) && form.confpass.$error.same"><i class="arrow--up"></i>{{'login_error_same_password' | translate}}</span>
-      </div>
+        </div>
+        <div class="wrapper-input">
+          <label class="label--regular" for="confpass">{{'confirm_password_simple' | translate}}</label>
+          <input class="input input--medium" ng-model="confpass" type="password" name="confpass" placeholder="{{'confirm_password_simple_placeholder' | translate}}" ng-change="vm.updateValidation(form)" ng-maxlength="100" required />
+          <span class="input--error" ng-show="(vm.submitted || form.confpass.$dirty) && form.confpass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <span class="input--error" ng-show="(vm.submitted || form.confpass.$dirty) && form.confpass.$error.same"><i class="arrow--up"></i>{{'login_error_same_password' | translate}}</span>
+        </div>
       </div>
       <div class="confirmation--submit-container">
-        <div class="wrapper-input">
-          <input ng-model="checkbox" name="checkbox" type="checkbox" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+        <div class="wrapper-input" ng-if="!vm.termsAccepted">
+          <input ng-model="checkTerms" name="checkTerms" type="checkbox" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
         </div>
         <div>
-          <span class="input--error" ng-show="vm.submitted && form.checkbox.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
         <div class="wrapper-input">
           <input class="button button--medium" ng-click="vm.submitActivation(form, vm.userName, vm.apiKey)" type="submit" value="{{'confirmation_submit' | translate}}" />

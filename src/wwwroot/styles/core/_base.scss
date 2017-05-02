@@ -50,7 +50,12 @@ p.main--subtitle{
   &.with-submenu{
     min-height: calc(100vh - 247px);
   }
+
+.selectize-input.selectize-focus {
+    border-color: $suit-accent-color-light !important;
+  }
 }
+
 img {
   display: inline-block;
   max-width: 100%;
@@ -60,6 +65,13 @@ img {
 
 strong {
   font-weight: 700;
+}
+
+.margin--bottom-inputs {
+  margin-bottom: 2em;
+}
+.margin--right-inputs {
+  margin-right: 1.5em;
 }
 
 .italic {

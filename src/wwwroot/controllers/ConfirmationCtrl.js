@@ -12,17 +12,31 @@
     '$location',
     '$rootScope',
     '$q',
-    'utils'
+    'utils',
+    'INDUSTRIES',
+    'COUNTRIES'
   ];
 
-  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils) {
+  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, INDUSTRIES, COUNTRIES) {
     var vm = this;
+    var currentLanguage = $translate.use();
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
+    vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
     vm.submitted = false;
     vm.name = $translate.instant('name_placeholder_confirmation');
     vm.updateValidation = updateValidation;
     vm.submitActivation = submitActivation;
     vm.activationPromise = activate();
+    vm.passwordEmpty = false;
+    vm.termsAccepted = false;
+
+    vm.industryList = INDUSTRIES.map(function(val){
+        return { code: val.code, name: val[currentLanguage] };
+    });
+
+    vm.countryList = COUNTRIES.map(function(val){
+        return { code: val.code, name: val[currentLanguage] }
+    });
 
     function activate() {
       var activationToken = $location.search()['activation'];
@@ -46,6 +60,8 @@
           vm.userName = result.data.user_email;
           vm.name = result.data.firstName || result.data.user_email;
           vm.domain = result.data.domain;
+          vm.passwordEmpty = result.data.password_empty;
+          vm.termsAccepted = result.data.terms_and_conditions_version;
           return getRealApiKey(activationToken);
         });
     }
@@ -63,7 +79,7 @@
     function updateValidation(form) {
       if (!form.pass.$modelValue || !form.confpass.$modelValue) {
         form.confpass.$setValidity('same', null);
-      } else if ($scope.resetPassword != $scope.resetPasswordConf) {
+      } else if (form.pass.$modelValue != form.confpass.$modelValue) {
         form.confpass.$setValidity('same', false);
       } else {
         form.confpass.$setValidity('same', true);
@@ -75,7 +91,9 @@
       if (!form.$valid) {
         return;
       }
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, form.pass.$modelValue, $translate.use())
+      var pass = form.pass.$modelValue || null;
+      var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
+      signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {

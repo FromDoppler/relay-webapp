@@ -4,50 +4,64 @@
     <p>{{'registration_subtitle' | translate}}</p>
   </div>
   <form method="post" id="form" name="form" novalidate>
-    <div class="flex flex--center flex--direction-column section--wrapper user-successful--container" ng-class="vm.emailRegistered != null ? 'show': ''">
+    <div class="filter section--wrapper flex--direction-column">
+      <div>
+    <div class="flex flex--direction-column section--wrapper user-successful--container" ng-class="vm.emailRegistered != null ? 'show': ''">
       <span class="input--error green" >{{'registration_success_message' | translate:{emailRegistered:vm.emailRegistered} }}</span>
     </div>
-    <div class="flex flex--center section--wrapper input-container">
+    <div class="flex input-container">
       <div>
-        <label class="flex" for="firstName">{{'registration_first_name_label' | translate}}</label>
-        <input class="input input--large" ng-class="vm.submitted && form.firstName.$invalid ? 'error' : ''" id="firstName" type="text" name="firstName" ng-model="vm.firstName" maxlength="100" ng-maxlength="100" required />
+        <label class="flex" for="firstName">{{'registration_first_name_label' | translate}}:</label>
+        <input class="input input--large margin-right" ng-class="vm.submitted && form.firstName.$invalid ? 'error' : ''" id="firstName" type="text" name="firstName" ng-model="vm.firstName" maxlength="100" ng-maxlength="100" required />
         <span class="input--error" ng-show="(vm.submitted || form.firstName.$dirty) && form.firstName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
       </div>
       <div>
-        <label class="flex" for="lastName">{{'registration_last_name_label' | translate}}</label>
+        <label class="flex" for="lastName">{{'registration_last_name_label' | translate}}:</label>
         <input class="input input--large" ng-class="vm.submitted && form.lastName.$invalid ? 'error' : ''" id="lastName" type="text" name="lastName" ng-model="vm.lastName" maxlength="100" ng-maxlength="100" required />
         <span class="input--error" ng-show="(vm.submitted || form.lastName.$dirty) && form.lastName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
       </div>
     </div>
-    <div class="flex flex--center section--wrapper input-container">
-      <div>
-        <label class="flex" for="email">{{'registration_email_label' | translate}}</label>
-        <input class="input input--large" ng-class="vm.submitted && form.email.$invalid ? 'error' : ''" id="email" type="email" name="email" ng-model="vm.email" maxlength="100" ng-maxlength="100" placeholder="{{'registration_email_placeholder' | translate}}" email-format-validation required />
+    <div class="flex input-container">
+      <div class="width--full">
+        <label class="flex" for="email">{{'registration_email_label' | translate}}:</label>
+        <input class="input input--large width--full" ng-class="vm.submitted && form.email.$invalid ? 'error' : ''" id="email" type="email" name="email" ng-model="vm.email" maxlength="100" ng-maxlength="100" placeholder="{{'registration_email_placeholder' | translate}}" email-format-validation required />
         <span class="input--error" ng-show="(vm.submitted || form.email.$dirty) && form.email.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="(vm.submitted || form.email.$dirty) && form.email.$error.email"><i class="arrow--up"></i>{{'login_error_invalid_email' | translate}}</span>
         <span class="input--error" ng-show="(vm.submitted || form.email.$dirty) && form.email.$error.email_already_exist"><i class="arrow--up"></i>{{'validation_error_email_already_exist' | translate}}</span>
       </div>
-      <div>
-        <label class="flex" for="password">{{'registration_pass_label' | translate}}</label>
+      <!-- we are hidding this until we figure out how to get the password to login in activation page -->
+      <div style="display:none;">
+        <label class="flex" for="password">{{'registration_pass_label' | translate}}:</label>
         <input class="input input--large" ng-class="vm.submitted && form.password.$invalid ? 'error' : ''" id="password" type="password" name="password" ng-model="vm.password" pass="vm.password" maxlength="100" ng-maxlength="100" password-complex-validation />
         <span class="input--error" ng-show="(vm.submitted || form.password.$dirty) && form.password.$error.strength && !form.resetPasswordConf.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
       </div>
     </div>
-    <div class="flex flex--center section--wrapper input-container">
+    <div class="flex input-container">
       <div>
-        <label class="flex" for="domain">{{'registration_domain_label' | translate}}</label>
-        <input class="input input--large" ng-class="vm.submitted && form.domain.$invalid ? 'error' : ''" id="domain" ng-pattern="vm.regexDomain" name="domain" ng-model="vm.domain" maxlength="100" ng-maxlength="100" />
-        <span class="input--error" ng-show="(vm.submitted || form.domain.$dirty) && form.domain.$invalid"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
+        <label class="flex" for="company">{{'company_text' | translate}}:</label>
+        <input class="input input--large margin-right" ng-class="vm.submitted && form.company.$invalid ? 'error' : ''" id="company" type="text" name="company" ng-model="vm.company" ng-change="vm.companyUpdated()" maxlength="100" ng-maxlength="100" required />
+        <span class="input--error" ng-show="(vm.submitted || form.company.$dirty) && form.company.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
       </div>
       <div>
-        <label class="flex" for="accountName">{{'registration_account_name_label' | translate}}</label>
-        <input class="input input--large" ng-class="vm.submitted && form.accountName.$invalid ? 'error' : ''" id="accountName" type="text" name="accountName" ng-model="vm.accountName" maxlength="100" ng-maxlength="100" required />
+        <label class="flex" for="accountName">{{'registration_account_name_label' | translate}}:</label>
+        <input class="input input--large" ng-pattern="vm.regexAllowedAccountName" ng-class="vm.submitted && form.accountName.$invalid ? 'error' : ''" id="accountName" type="text" name="accountName" ng-model="vm.accountName" ng-change="vm.accountNameUpdated()" maxlength="100" ng-maxlength="100" required />
         <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$error.accountname_already_taken"><i class="arrow--up"></i>{{'validation_error_accountname_already_taken' | translate}}</span>
+        <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$invalid && !form.accountName.$error.required && !form.accountName.$error.accountname_already_taken"><i class="arrow--up"></i>{{'invalid_account_name' | translate}}</span>
       </div>
     </div>
-  </form>
-  <div class="flex flex--center section--wrapper-input">
-    <button class="button button--medium" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
+  <div class="flex section--wrapper-input">
+    <div class="wrapper-input width--full">
+      <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" /><span>{{'confirmation_terms' | translate}}</span> <a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+    </div>
+    <div class="wrapper-input width--full">
+      <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+    </div>
+    <div class="wrapper-input width--full">
+      <button class="button button--medium" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
+    </div>
   </div>
+  </div>
+  </div>
+  </form>
 </section>

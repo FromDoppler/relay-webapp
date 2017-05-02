@@ -14,10 +14,11 @@
     'rejectionTitle',
     'statusCode',
     'errorCode',
-    'isAuthorizationModal'
+    'isAuthorizationModal',
+    'buttonText'
   ];
 
-  function ErrorCtrl($scope, close, $route, description, actionDescription, rejectionTitle, statusCode, errorCode, isAuthorizationModal) {
+  function ErrorCtrl($scope, close, $route, description, actionDescription, rejectionTitle, statusCode, errorCode, isAuthorizationModal, buttonText) {
     var vm = this;
     vm.errorMessage = description;
     vm.actionDescription = !actionDescription ? null : actionDescription;
@@ -25,10 +26,7 @@
     vm.statusCode = statusCode;
     vm.errorCode = errorCode;
     vm.isAuthorizationModal = isAuthorizationModal;
-    vm.refresh = function() {
-      close();
-      $route.reload();
-    };
+    vm.buttonText = buttonText;
     vm.closeModal = function() {
       close(vm.statusCode);
     };

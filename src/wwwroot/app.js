@@ -13,11 +13,17 @@
         'angular-click-outside',
         'duScroll',
         'angularMoment',
-        'daterangepicker'
+        'daterangepicker',
+        'ui.select',
+        'slugifier'
     ])
-    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider) {
+    .filter('escapeURI', function(){
+      return window.encodeURIComponent;
+    })
+    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'uiSelectConfig', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider, uiSelectConfig) {
 
       //  $locationProvider.html5Mode(true); //this apply HTML5MODE
+      uiSelectConfig.theme = 'selectize';
 
       $routeProvider
         .when('/login', {
@@ -72,6 +78,11 @@
         .when('/settings/domain-manager', {
           templateUrl: 'partials/settings/domain-manager.html',
           controller: 'DomainManagerCtrl',
+          controllerAs: 'vm'
+        })
+        .when('/settings/dkim-configuration-help', {
+          templateUrl: 'partials/settings/dkim-configuration-help.html',
+          controller: 'dKimConfigCtrl',
           controllerAs: 'vm'
         })
         .when('/signup/registration', {
@@ -136,7 +147,7 @@
   //}]);
 
   function verifyAuthorization($location, auth) {
-    var openForAllUrls = ['/signup/error', '/temporal-token-error']
+    var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
     var requireLogoutUrls = ['/signup/confirmation', '/login'];
     var requireTemporalAuthUrls = ['/reset-password', '/signup/registration'];
 

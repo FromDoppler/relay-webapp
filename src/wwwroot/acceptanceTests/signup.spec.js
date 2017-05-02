@@ -10,6 +10,9 @@ describe('Signup', () => {
       var errors = [];
       $rootScope.addError = err => errors.push(err);
       $rootScope.addAuthorizationError = $rootScope.addError;
+      $rootScope.getTermsAndConditionsVersion = function () {
+        return 1;
+      };
 
       context = {
         errors: errors,
@@ -391,13 +394,13 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":"1qaz2WSX","account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":"1qaz2WSX","account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1}'
         ).respond(200, {
           "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ3NjI2NjYsImV4cCI6MTQ4NzM1NDY2NiwiaWF0IjoxNDg0NzYyNjY2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.CaW8TdRwf77FzfyQB20AgE9Sd13k4RBeMgwBwJuCgg03NI0fhu7nTx7YPoTKQNxkU-3C3PhvJQHqDI2pU6ThS8dKsRHeJZoT8OxwiFbOYmnii33WcpmkVcLoUbfA8aXcVVFVTiXGN8LngE9Mml8nd7udxtvxcwv9uDMh0-u-FACBxrmX66Cth2_pNL6AzkAC91rRvf3MTUZ8IXOMbsxTaSMydsPqhtqlPoczbTYHaLCW0JRyANKNqhPMHRH14rfZLUyfOPC1_l4VgnQHt7_w95rJm5nFLsWk10Ji8ALoB-i8q5WUDQcKqwGt2Ar2z8ruRyjdx1aHTY5x-f0MFTTTGw"
         });
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MjAxMjEsImV4cCI6MTQ4NDYyMzcyMSwiaWF0IjoxNDg0NjIwMTIxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwidW5pcXVlX25hbWUiOiJhbW9zY2hpbmkrMUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9vbl9wYXNzd29yZF9yZXNldCI6dHJ1ZX0.dEFvbFzwmMDckjTPdih2WjC5fkkXMEirOxQcptJOh_vUtOU8c6psldSt4TsfL6znkFi2df9I4LVDnLUHVZG_PClkukqvQZ_EKJrUdx4PhGeRn9GL_bpYlOXr_G4VPs9h4s20Rq8fWDC4uYKIncXgQtP-po1VZHez8RyRv-xVUKTRouFfdt29usu_DPscvpVFn0P_J4qxkGnWcsHWGmexEVBbMP8_W_YCxz23FgH8vjkNo54j1wWFsOfxzZivNG92kgPcTE4PVXxn4y4yRmRS03m1mpnEL46CZ127utyhRSg91f4Imz3kgM6t4cpacxObUOMWdw86kL2flSbYUh4pxQ'});
+        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MjAxMjEsImV4cCI6MTQ4NDYyMzcyMSwiaWF0IjoxNDg0NjIwMTIxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwidW5pcXVlX25hbWUiOiJhbW9zY2hpbmkrMUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9vbl9wYXNzd29yZF9yZXNldCI6dHJ1ZX0.dEFvbFzwmMDckjTPdih2WjC5fkkXMEirOxQcptJOh_vUtOU8c6psldSt4TsfL6znkFi2df9I4LVDnLUHVZG_PClkukqvQZ_EKJrUdx4PhGeRn9GL_bpYlOXr_G4VPs9h4s20Rq8fWDC4uYKIncXgQtP-po1VZHez8RyRv-xVUKTRouFfdt29usu_DPscvpVFn0P_J4qxkGnWcsHWGmexEVBbMP8_W_YCxz23FgH8vjkNo54j1wWFsOfxzZivNG92kgPcTE4PVXcxn4y4yRmRS03m1mpnEL46CZ127utyhRSg91f4Imz3kgM6t4cpacxObUOMWdw86kL2flSbYUh4pxQ'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -406,7 +409,8 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "1qaz2WSX";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -440,7 +444,7 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "pass";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -455,14 +459,14 @@ describe('Signup', () => {
 
       it('should set email error when email already exist', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -484,7 +488,8 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -501,14 +506,14 @@ describe('Signup', () => {
 
       it('should set account name error when account name already exist', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -530,7 +535,8 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -547,14 +553,14 @@ describe('Signup', () => {
 
       it('should set email and account name error when both already exist', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":"domain.com"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -577,7 +583,8 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "domain.com";
+        controller.company = "MakingSense";
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();
@@ -594,14 +601,14 @@ describe('Signup', () => {
 
       it('should send email using null values when password and domain are empty', () => {
         // Arrange
-        var { $location, $scope, createController, jwtHelper, $httpBackend } = createContext();
+        var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
 
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","domain":null}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":null,"terms_and_conditions_version":1}'
         ).respond(202);
 
         $location.path('/signup/registration');
@@ -614,7 +621,8 @@ describe('Signup', () => {
         controller.lastName = "last";
         controller.password = "";
         controller.accountName = "accountname";
-        controller.domain = "";
+        controller.company = "";
+        controller.checkTerms = true;
         controller.language = "en";
         controller.submitRegistration(form);
         $httpBackend.flush();

@@ -37,7 +37,7 @@
         <tr>
           <th class="column-medium">{{ 'domain_manager_name_th' | translate}}</th>
           <th class="column-small">{{ 'domain_manager_status_th' | translate}}</th>
-          <th class="column-medium">{{ 'domain_manager_actions_th' | translate}}</th>
+          <th class="column-xlarge">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
         <tr class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'grey' : d.disabled}">
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
@@ -46,6 +46,7 @@
               <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manager_set_as_default' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
               <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manager_disable' | translate}}</a>
               <a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a>
+              <span ng-if="!vm.isDefaultDomain(d)">&nbsp;-&nbsp;</span><a class="domain--dkim-info-action" target="_blank" href="#/settings/dkim-configuration-help?lang={{vm.langSelected}}&d={{d.name}}&sel={{d.dkim_selector}}&key={{d.dkim_public_key | escapeURI}}">{{ 'domain_singular_configuration_title' | translate}}</a>
           </td>
         </tr>
       </table>

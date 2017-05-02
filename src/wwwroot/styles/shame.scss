@@ -34,10 +34,15 @@ form .ng-invalid-pattern.ng-dirty,
 form .ng-invalid-pattern.ng-dirty:focus,
 form .ng-invalid-same.ng-dirty,
 form .ng-invalid-same.ng-dirty:focus,
+form.ng-submitted .ng-invalid.ng-invalid-required .selectize-input,
 form.ng-submitted .ng-invalid,
 form.ng-submitted .ng-invalid:focus {
   background-color: #FCEDEC;
   border-color: #EF3747;
+}
+
+form.ng-submitted .ng-invalid-required {
+    background-color: inherit !important;
 }
 
 /* Sadly I cannot confirm that it will work fine in other pages, but it should be general */

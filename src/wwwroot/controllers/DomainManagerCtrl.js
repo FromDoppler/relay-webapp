@@ -11,10 +11,11 @@
       '$q',
       '$rootScope',
       'utils',
-      '$timeout'
+      '$timeout',
+      '$translate'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate) {
       $rootScope.setSubmenues([
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
@@ -58,7 +59,7 @@
       };
 
       vm.disableDomain = function(domain) {
-        settings.createOrEditDomain(domain.name, true)
+        settings.createOrEditDomain(domain.name , true, onExpectedError)
         .then(function() {
           domain.disabled = true;
           recentlyUpdated(domain.name);
@@ -66,7 +67,7 @@
       };
 
       vm.deleteDomain = function(domain) {
-        settings.deleteDomain(domain.name)
+        settings.deleteDomain(domain.name, onExpectedError)
         .then(function() {
           var domainPos = vm.domains.indexOf(domain);
           if (domainPos >= 0) {
@@ -83,6 +84,11 @@
           recentlyUpdated(domain);
         });
       };
+
+      function onExpectedError(rejectionData) {
+        $rootScope.addError('domain_manager_error', rejectionData.detail, rejectionData.title, rejectionData.status, rejectionData.errorCode, loadUserDomains, 'domain_manager_error_button');
+        return true;
+      }
 
       function recentlyUpdated(domainName) {
        var domain = vm.domains.find(function(x) {
@@ -101,6 +107,7 @@
         .then(function(response) {
           vm.defaultDomain = response.data.default;
           vm.domains = response.data.domains;
+          vm.langSelected = $translate.use();
         });
       }
 
