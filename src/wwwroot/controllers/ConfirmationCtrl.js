@@ -30,13 +30,21 @@
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
 
-    vm.industryList = INDUSTRIES.map(function(val){
-        return { code: val.code, name: val[currentLanguage] };
+    vm.industryList = fillArrayByMap(INDUSTRIES, currentLanguage);
+    vm.countryList = fillArrayByMap(COUNTRIES, currentLanguage);
+
+    $rootScope.$watch('newLang', function (newLang) {
+      if (newLang) {
+        vm.industryList = fillArrayByMap(INDUSTRIES, newLang);
+        vm.countryList = fillArrayByMap(COUNTRIES, newLang);
+      }
     });
 
-    vm.countryList = COUNTRIES.map(function(val){
-        return { code: val.code, name: val[currentLanguage] }
-    });
+    function fillArrayByMap(values, lang) {
+      return values.map(function(val){
+          return { code: val.code, name: val[lang] };
+      });
+    }
 
     function activate() {
       var activationToken = $location.search()['activation'];
