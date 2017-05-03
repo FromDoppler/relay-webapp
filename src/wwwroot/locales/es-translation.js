@@ -251,5 +251,6 @@
   "select_placeholder_country": "Selecciona o busca un país en la lista...",
   "select_placeholder_industry": "Selecciona o busca una industria en la lista...",
   "select_choose_country":"Selecciona tu país",
-  "select_choose_industry":"Selecciona tu industria"
+  "select_choose_industry":"Selecciona tu industria",
+  "domain_manager_dkim_spf_status_th": "SPF & DKIM"
 };
