@@ -25,10 +25,6 @@
       return 1;
     };
 
-    $rootScope.languageChanged = function (key) {
-      $rootScope.newLang = key;
-    };
-
     $rootScope.getAccountName = auth.getAccountName;
     $rootScope.getFullName = auth.getFullName;
     $rootScope.getAccountId = auth.getAccountId;
