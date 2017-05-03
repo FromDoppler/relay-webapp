@@ -14,12 +14,12 @@
     '$q',
     'utils',
     'INDUSTRIES',
-    'COUNTRIES'
+    'COUNTRIES',
+    '$scope'
   ];
 
-  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, INDUSTRIES, COUNTRIES) {
+  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, INDUSTRIES, COUNTRIES, $scope) {
     var vm = this;
-    var currentLanguage = $translate.use();
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
     vm.submitted = false;
@@ -30,13 +30,17 @@
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
 
-    vm.industryList = INDUSTRIES.map(function(val){
-        return { code: val.code, name: val[currentLanguage] };
-    });
+    var deregisterLangListener = $rootScope.$on('$translateChangeSuccess', fillList);
+    //Clean up
+    $scope.$on('$destroy', deregisterLangListener);
 
-    vm.countryList = COUNTRIES.map(function(val){
-        return { code: val.code, name: val[currentLanguage] }
-    });
+    fillList();
+
+    function fillList() {
+      var lang = $translate.use();
+      vm.industryList = INDUSTRIES.map(function(val){ return { code: val.code, name: val[lang] }; });
+      vm.countryList = COUNTRIES.map(function(val){ return { code: val.code, name: val[lang] }; });
+    }
 
     function activate() {
       var activationToken = $location.search()['activation'];
