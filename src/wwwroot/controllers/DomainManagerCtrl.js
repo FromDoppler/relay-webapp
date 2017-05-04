@@ -108,7 +108,6 @@
           vm.defaultDomain = response.data.default;
           vm.domains = response.data.domains;
           vm.langSelected = $translate.use();
-          vm.isDkimSpfReady = response.dkim_ready;
         });
       }
 
