@@ -90,7 +90,8 @@ gulp.task('build-scripts-lib', function () {
     paths.lib + '/bootstrap-daterangepicker/daterangepicker.js',
     paths.lib + '/angular-daterangepicker/js/angular-daterangepicker.min.js',
     paths.lib + '/angular-ui-select/dist/select.min.js',
-    paths.lib + '/angular-slugify/angular-slugify.js'
+    paths.lib + '/angular-slugify/angular-slugify.js',
+    paths.lib + '/angular-tooltips/dist/angular-tooltips.min.js'
   ])
   .pipe(concat('lib.min.js'))
   .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
@@ -209,7 +210,8 @@ gulp.task('build-styles', ['styles'], function () {
     paths.tmpStyles + '/styles.css',
     paths.lib + '/c3/c3.css',
     paths.lib + '/angular-ui-select/dist/select.min.css',
-    paths.lib + '/selectize/dist/css/selectize.default.css'
+    paths.lib + '/selectize/dist/css/selectize.default.css',
+    paths.lib + '/angular-tooltips/dist/angular-tooltips.min.css'
   ])
   .pipe(minifyCss({ compatibility: 'ie8' }))
   .pipe(rename({
@@ -420,7 +422,7 @@ gulp.task('build', ['clean'], function () {
  * Task used for running the tests in travis
  */
 gulp.task('test:travis', function (done) {
- 
+
   gulp.start('default');
 
   var argv = [getProtractorBinary(), 'protractor-travis-conf.js'].concat(process.argv.slice(3));

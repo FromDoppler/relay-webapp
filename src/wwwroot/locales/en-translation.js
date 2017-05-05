@@ -236,6 +236,9 @@
   "industry_text": "Industry",
   "phone_number": "Phone Number",
   "invalid_account_name": "Only lowercase letters, numbers, hyphens and underscore",
-  "select_choose_country":"Choose your country",
-  "select_choose_industry":"Choose your industry"
+  "select_choose_country":"Select your country",
+  "select_choose_industry":"Select your industry",
+  "domain_manager_dkim_spf_status_th": "SPF & DKIM",
+  "domain_manager_status_error_tooltip": "The DKIM is not configured yet.",
+  "domain_manager_status_warning_tooltip": "The SPF is not configured yet."
 };

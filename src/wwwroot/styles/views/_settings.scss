@@ -64,7 +64,10 @@
     td.default {
       font-weight: bold;
     }
-    &.grey {
+    td {
+      overflow: visible;
+    }
+    &.disabled td:first-of-type{
       opacity: 0.5;
     }
   }
