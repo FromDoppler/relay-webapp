@@ -36,6 +36,11 @@ body {
   }
 }
 
+tooltip tip {
+  background: $suit-main-color !important;
+  font-size: 0.8rem;
+}
+
 .spinner--inline{
     display:inline;
 }

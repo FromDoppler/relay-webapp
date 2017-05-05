@@ -252,5 +252,7 @@
   "select_placeholder_industry": "Selecciona o busca una industria en la lista...",
   "select_choose_country":"Selecciona tu país",
   "select_choose_industry":"Selecciona tu industria",
-  "domain_manager_dkim_spf_status_th": "SPF & DKIM"
+  "domain_manager_dkim_spf_status_th": "SPF & DKIM",
+  "domain_manager_status_error_tooltip": "El DKIM no está configurado aún.",
+  "domain_manager_status_warning_tooltip": "El SPF no está configurado aún."
 };

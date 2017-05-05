@@ -15,15 +15,24 @@
         'angularMoment',
         'daterangepicker',
         'ui.select',
-        'slugifier'
+        'slugifier',
+        '720kb.tooltips'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
     })
-    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'uiSelectConfig', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider, uiSelectConfig) {
+    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'uiSelectConfig', 'tooltipsConfProvider', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider, uiSelectConfig, tooltipsConfProvider) {
 
       //  $locationProvider.html5Mode(true); //this apply HTML5MODE
       uiSelectConfig.theme = 'selectize';
+      tooltipsConfProvider.configure({
+        'smart':true,
+        'size':'large',
+        'speed': 'fast',
+        'tooltipTemplateUrlCache': true
+        //etc...
+      });
+
 
       $routeProvider
         .when('/login', {

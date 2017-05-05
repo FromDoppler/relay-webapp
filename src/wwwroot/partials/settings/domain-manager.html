@@ -40,16 +40,16 @@
           <th class="column-small text--center">{{ 'domain_manager_status_th' | translate}}</th>
           <th class="column-xlarge">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
-        <tr class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'grey' : d.disabled}">
+        <tr class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'disabled' : d.disabled}">
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
           <td class="text--center">
             <svg class="icon ok-icon" ng-if="d.dkim_ready && d.spf_ready">
               <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
             </svg>
-            <svg class="icon alert-icon" ng-if="d.dkim_ready && !d.spf_ready">
+            <svg class="icon alert-icon" ng-if="d.dkim_ready && !d.spf_ready" tooltips tooltip-template="{{ 'domain_manager_status_warning_tooltip' | translate}}">
               <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
             </svg>
-            <svg class="icon alert-icon" ng-if="!d.dkim_ready">
+            <svg class="icon alert-icon" ng-if="!d.dkim_ready" tooltips tooltip-template="{{ 'domain_manager_status_error_tooltip' | translate}}">
               <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
             </svg>
           </td>
