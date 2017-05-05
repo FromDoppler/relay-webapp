@@ -66,6 +66,17 @@
     }
     td {
       overflow: visible;
+      .action-icon {
+        cursor: pointer;
+        &.default{
+          fill: $suit-accent-color-light;
+        }
+        &.disabled{
+          fill: $suit-main-color;
+          opacity: .3;
+          cursor: auto;
+        }
+      }
     }
     &.disabled td:first-of-type{
       opacity: 0.5;
