@@ -30,7 +30,6 @@
         'size':'large',
         'speed': 'fast',
         'tooltipTemplateUrlCache': true
-        //etc...
       });
 
 
