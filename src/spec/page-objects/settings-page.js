@@ -54,7 +54,7 @@ class SettingsPage {
   }
   clickFirstDeleteButton(){
     return this._domainDeleteButtons.then(function(val){
-      return val[0].click();
+      return val[1].click();
     });
   }
   getDefaultDomain(){
