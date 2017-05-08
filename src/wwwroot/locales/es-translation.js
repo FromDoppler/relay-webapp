@@ -239,7 +239,7 @@
   "dkim_configuration_help_selector_title": "DKIM Selector:",
   "dkim_configuration_help_public_k_title": "DKIM Clave Pública:",
   "dkim_configuration_help_spf_title": "SPF",
-  "dkim_configuration_help_spf_text": "Agrega el siguiente valor en el campo ¨SPF¨: ¨include: fromdoppler.com¨",
+  "dkim_configuration_help_spf_text": "Agrega el siguiente valor en el campo ¨SPF¨: ¨include:spf.fromdoppler.com¨",
   "dkim_configuration_help_spf_subtitle": "Incluye el SPF de Doppler Relay para evitar la falsificación de direcciones de tu remitente.",
   "domain_configuration_title": "Configuración de Dominios",
   "domain_singular_configuration_title": "Configuración del dominio",
