@@ -55,7 +55,7 @@
           </td>
           <td class="text--center" ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
           <td>
-            <svg class="domain--erase-button icon action-icon" ng-class="!vm.isDefaultDomain(d) || d.disabled ? 'default':'disabled'" ng-click="!vm.isDefaultDomain(d) || d.disabled ? vm.deleteDomain(d):''">
+            <svg class="domain--erase-button icon action-icon" ng-class="!vm.isDefaultDomain(d) || d.disabled ? 'default':'disabled'" ng-click="!vm.isDefaultDomain(d) && vm.deleteDomain(d)">
               <use xlink:href="/images/sprite.svg#doppler-icon-delete-icon"></use>
             </svg>
             <span>&nbsp;-&nbsp;</span>
