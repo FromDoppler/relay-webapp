@@ -84,6 +84,11 @@ $input--error--color: #FFF;
 	.button--size{
 		vertical-align: middle;
 
+		&.button--extra-small{
+			padding: toem(4px);
+			min-width: 100px;
+			font-size: $font-size-small;
+		}
 		&.button--small{
 			padding: 1em;
 			min-width: 155px;

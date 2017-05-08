@@ -16,7 +16,15 @@
     display: flex;
     border-bottom: 1px solid $suit-font-color-border-grey;
     padding: 1.2rem 0;
-    div.small-col{ width: 25%;}
+    div.small-col{ 
+      width: 25%;
+      span {
+        display: inline-block;
+        p {
+          display: inline-block;
+        }
+      }
+    }
     div {
       display: inline-block;
       width: 35%;
@@ -24,6 +32,12 @@
       p {word-wrap: break-word;}
     }
   }
+  .spinner{
+    fill:#E78224; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:100%;transform: translate(-50%,-50%);position: absolute;
+    .sk-fading-circle {
+      .sk-circle:before{ background-color: $suit-main-color; }
+    }
+}
 }
 .domain--title-container{
   h2 {
