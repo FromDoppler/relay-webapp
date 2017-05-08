@@ -54,11 +54,22 @@
             </svg>
           </td>
           <td class="text--center" ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
-          <td><a class="domain--erase-button" ng-if="!vm.isDefaultDomain(d) || d.disabled" ng-click="vm.deleteDomain(d)">{{ 'erase_text' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) || d.disabled">&nbsp;-&nbsp;</span>
-              <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manager_set_as_default' | translate}}</a><span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
-              <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manager_disable' | translate}}</a>
-              <a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a>
-              <span ng-if="!vm.isDefaultDomain(d)">&nbsp;-&nbsp;</span><a class="domain--dkim-info-action" target="_blank" href="#/settings/dkim-configuration-help?lang={{vm.langSelected}}&d={{d.name}}&sel={{d.dkim_selector}}&key={{d.dkim_public_key | escapeURI}}">{{ 'domain_singular_configuration_title' | translate}}</a>
+          <td>
+            <svg class="domain--erase-button icon action-icon" ng-class="!vm.isDefaultDomain(d) || d.disabled ? 'default':'disabled'" ng-click="!vm.isDefaultDomain(d) && vm.deleteDomain(d)">
+              <use xlink:href="/images/sprite.svg#doppler-icon-delete-icon"></use>
+            </svg>
+            <span>&nbsp;-&nbsp;</span>
+            <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manager_set_as_default' | translate}}</a>
+            <span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
+            <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manager_disable' | translate}}</a>
+            <a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a>
+            <span ng-if="!vm.isDefaultDomain(d)">&nbsp;-&nbsp;</span>
+            <a class="domain--dkim-info-action" target="_blank" href="#/settings/dkim-configuration-help?lang={{vm.langSelected}}&d={{d.name}}&sel={{d.dkim_selector}}&key={{d.dkim_public_key | escapeURI}}">
+              <svg class="icon action-icon default">
+                <use xlink:href="/images/sprite.svg#doppler-icon-settings-icon"></use>
+              </svg>
+            </a>
+
           </td>
         </tr>
       </table>
