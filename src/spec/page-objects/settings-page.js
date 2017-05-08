@@ -8,7 +8,7 @@ class SettingsPage {
     this._domainInput = $('.domain--default-container input');
     this._domainInputButton = $('.domain--default-container button');
     this._domainsSetDefaultButtonList = element.all(by.css('.domain--default-action'));
-    this._domainDeleteButtons = element.all(by.css('.domain--erase-button'));
+    this._domainDeleteButtons = element.all(by.css('.domain--erase-button.default'));
     this._defaultDomain = $('.domain--default-container .default-domain');
     this._activateButtons = element.all(by.css('.domain--activate-action'));
     this._disableButtons = element.all(by.css('.domain--disable-action'));
@@ -54,7 +54,7 @@ class SettingsPage {
   }
   clickFirstDeleteButton(){
     return this._domainDeleteButtons.then(function(val){
-      return val[1].click();
+      return val[0].click();
     });
   }
   getDefaultDomain(){
