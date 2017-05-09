@@ -2,6 +2,7 @@ describe('Settings Page', () => {
 
   var SettingsPage = require('./page-objects/settings-page').SettingsPage;
   var DkimPage = require('./page-objects/dkim-page').DkimPage;
+  var ConnectionSettingsPage = require('./page-objects/connection-settings-page').ConnectionSettingsPage;
 
   afterEach(() => {
     browser.removeMockModule('descartableModule');
@@ -229,5 +230,52 @@ describe('Settings Page', () => {
           expect(dkimPage.getdKimDomainSelector()).toBe(dkimSelector);
       });
     });
+  });
+
+  it('should show api key correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/user\/apikeys/).respond(200, {
+          "api_keys": [
+            {
+              "api_key": 'testApiKey'
+            }
+          ]
+        });
+      }));
+    var settings = new ConnectionSettingsPage();
+
+    //Act
+    browser.get('/#/settings/connection-settings');
+
+    //Assert
+    expect(settings.getApiKey()).toEqual('testApiKey');
+  });
+
+  it('should show api key in copy to clipboard popup', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/user\/apikeys/).respond(200, {
+          "api_keys": [
+            {
+              "api_key": 'testApiKey'
+            }
+          ]
+        });
+      }));
+    var settings = new ConnectionSettingsPage();
+
+    //Act
+    browser.get('/#/settings/connection-settings');
+    settings.clickCopyApiKey();
+
+    //Assert
+    expect(settings.getApiKeyToCopy()).toEqual('testApiKey');
   });
 });
