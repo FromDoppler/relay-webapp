@@ -209,6 +209,7 @@
   "action_adding_domain": "Activando un Dominio",
   "action_setting_default_domain": "Activando un dominio predeterminado",
   "action_deleting_domain": "Borrando un Dominio",
+  "action_getting_resource" : "Obteniendo recurso de la web",
   "reset_password_title": "Restablece tu contraseña",
   "reset_password_subtitle": "¡Crea tu nueva contraseña a continuación!",
   "reset_password_placeholder": "Escribe tu nueva contraseña",

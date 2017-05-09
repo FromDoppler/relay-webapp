@@ -62,15 +62,28 @@ describe('Signup', () => {
 
       it('should be error page when activation token (query string parameter) is not set', () => {
         // Arrange
-        var { $location, $scope, createController } = createContext();
+        var { $location, $httpBackend, $scope, createController } = createContext();
+
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $location.path("/signup/confirmation");
 
         // Act
         var controller = createController('ConfirmationCtrl');
+        $httpBackend.flush();
         $scope.$apply(); // To run app.js code
 
         // Assert
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
         expect($location.path()).toBe('/signup/error');
       });
 
@@ -121,6 +134,15 @@ describe('Signup', () => {
         auth.saveToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODM2MjQ3NjAsImV4cCI6MTQ4NjIxNjc2MCwiaWF0IjoxNDgzNjI0NzYwLCJpc3MiOiJodHRwOi8vZG9wcGxlcnJlbGF5aW50Lm1ha2luZ3NlbnNlLmNvbTo4MDgwIiwic3ViIjo3MDAwMiwidW5pcXVlX25hbWUiOiJ1c2VybmFtZTJAZG9wcGxlcnJlbGF5LmNvbSIsInJlbGF5X2FjY291bnRzIjpbImFjY291bnQyIl0sInJlbGF5X3Rva2VuX3ZlcnNpb24iOiIxLjAuMC1iZXRhNSJ9.Ee2eb88xqZpkLUoX2AET2_SiDodzxCltFxaIVpJQ4DXtteXpt_1eB5WjEcV4t0KryrWLw4M0Yc_xRaXWYsXFMCBPwy53qpMzeNg39rEK70cYdlvNV_mLQz9Q0fesxYQPjWeNelg1GGrbiYtx5ljiLZStav-rouoHeye5uu9tAFVc8NVNIjmwuy87aWmH0oeuccNszrKjYndACno_K7Wna5JOQpXLsR6VZhcTeyUAaXvfGlhRPtZ2QQYrxW1APfXNCAcwtK8R07qoIKACvY-opH6xXdSl1fuhHDWzpeq7xWsiJswgtiCHkNiXOItOA5z-OQqnutQcZ4ReLuxuczhn7g");
         $location.path('/signup/confirmation');
         $location.search({ activation: 'wrongcode'});
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         // Act
         var controller = createController('ConfirmationCtrl');
@@ -141,6 +163,16 @@ describe('Signup', () => {
           'GET',
           url => url.endsWith('/user')
         ).respond(401, {});
+
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $location.path('/signup/confirmation');
         $location.search('activation', 'wrongcode');
@@ -172,6 +204,16 @@ describe('Signup', () => {
           "lastName": "last"
         });
 
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
+
         $location.path('/signup/confirmation');
         $location.search('activation', 'rightcode');
 
@@ -202,6 +244,16 @@ describe('Signup', () => {
           "firstName": "first",
           "lastName": "last"
         });
+
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $httpBackend.expect(
           'POST',
@@ -249,6 +301,16 @@ describe('Signup', () => {
           firstName: expected.firstName,
           lastName: 'last'
         });
+
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $httpBackend.expect(
           'POST',
@@ -301,6 +363,16 @@ describe('Signup', () => {
         });
 
         $httpBackend.expect(
+        'GET',
+        url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+        'GET',
+         url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/apikeys'),
           null, // data
@@ -331,6 +403,16 @@ describe('Signup', () => {
           'GET',
           url => url.endsWith('/user')
         ).respond(500, {});
+
+        $httpBackend.expect(
+          'GET',
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.expect(
+          'GET',
+           url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $location.path('/signup/confirmation');
         $location.search('activation', 'wrongcode');

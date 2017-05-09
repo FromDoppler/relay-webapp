@@ -73,8 +73,6 @@ module.exports = function (config) {
       __dirname + '/wwwroot/env/development.js',
       __dirname + '/wwwroot/lib/svgxuse/svgxuse.js',
       __dirname + '/wwwroot/lib/autofill-directive/autofill-directive.js',
-      __dirname + '/wwwroot/lists/countries.js',
-      __dirname + '/wwwroot/lists/industries.js',
       __dirname + '/wwwroot/**/*.spec.js'
     ],
 

@@ -197,6 +197,7 @@
   "action_adding_domain": "Adding a Domain",
   "action_setting_default_domain": "Setting a default Domain",
   "action_deleting_domain": "Deleting a Domain",
+  "action_getting_resource" : "Getting web resource",
   "reset_password_title": "Reset your Password",
   "reset_password_subtitle": "Create your new password below!",
   "reset_password_placeholder": "Type your new password",
