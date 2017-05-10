@@ -1,10 +1,10 @@
 <div class="modal--wrapper ms-relay">
-  <div class="modal--outter text--center copyContainer">
+  <div class="modal--outter text--center copy--container">
     <span ng-click="vm.closeModal()">X</span>
     <h3>{{'copy_popup_title' | translate}}</h3>
     <div>
       <p>{{'copy_popup_message' | translate}}</p>
-      <div class="inputContainer">
+      <div class="input--container">
       <input type="text" ng-model="vm.textToCopy" readonly select-input-text/>
       </div>
       <button class="button button--small button--right" ng-click="vm.closeModal()">{{'copy_popup_close' | translate}}</button>

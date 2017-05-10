@@ -6,10 +6,9 @@
       .directive('selectInputText', selectInputText);
       
     selectInputText.$inject = [
-      '$window'
     ];      
 
-    function selectInputText($window) {
+    function selectInputText() {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {

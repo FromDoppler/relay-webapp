@@ -1,8 +1,9 @@
 class ConnectionSettingsPage {
   constructor() {
     this._url = '/#/settings/connection-settings';
-    this._apiKeyContainer = $('.apiKeyContainer p');
-    this._copyApiKeyButton = $('.apiKeyContainer button');
+    this._apiKeyContainer = $('.api-key--container p');
+    this._copyApiKeyButton = $('.api-key--container button');
+    this._apiKeyToCopy = $('.copy--container .input--container input');
   }
 
   getApiKey() {
@@ -14,8 +15,7 @@ class ConnectionSettingsPage {
   }
 
   getApiKeyToCopy() {
-    var apiKeyToCopy = $('.copyContainer .inputContainer input');
-    return apiKeyToCopy.getAttribute('value');
+    return this._apiKeyToCopy.getAttribute('value');
   }
 }
 exports.ConnectionSettingsPage = ConnectionSettingsPage;
