@@ -113,9 +113,10 @@
       }
 
       vm.predefinedList = function(item, d) {
+        //Compares if the domain it's the same as the choice and set as disabled.
         if ($translate.instant(vm.getDomainStatus(d)) == item) {
           return true;
-        } else if(vm.getDomainStatus(d) == 'default_text'){
+        } else if(vm.getDomainStatus(d) == 'default_text') { //Compares if the domain it's the default and disable the choice to set as default.
           return true;
         }
       }
