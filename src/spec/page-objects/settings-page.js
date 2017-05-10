@@ -7,12 +7,12 @@ class SettingsPage {
     this._domainsListItems = element.all(by.css('.domain--list-container table .column-records'));
     this._domainInput = $('.domain--default-container input');
     this._domainInputButton = $('.domain--default-container button');
-    this._domainsSetDefaultButtonList = element.all(by.css('.domain--default-action'));
     this._domainDeleteButtons = element.all(by.css('.domain--erase-button.default'));
     this._defaultDomain = $('.domain--default-container .default-domain');
-    this._activateButtons = element.all(by.css('.domain--activate-action'));
-    this._disableButtons = element.all(by.css('.domain--disable-action'));
     this._dKimInformationButtons = element.all(by.css('.domain--dkim-info-action'));
+    this._openDomainStatusDropdown = element.all(by.css('.dropdown--container .selectize-control'));
+    this._domainActions = element.all(by.css('.dropdown--container .selectize-control .ui-select-choices-row'));
+    this._disableDomains = element.all(by.css('.domain--list-container .column-records.disabled'));
   }
 
   getUrl(){
@@ -60,26 +60,33 @@ class SettingsPage {
   getDefaultDomain(){
     return this._defaultDomain.getText();
   }
+  openEnabledNotDefaultDropdown(){
+    this._openDomainStatusDropdown.then(function(val){
+      return val[1].click();
+    });
+  }
+  openDisabledDropDown(){
+    this._openDomainStatusDropdown.then(function(val){
+      return val[3].click();
+    });
+  }
   clickSetAsDefault(){
-    return this._domainsSetDefaultButtonList.then(function(val){
+    this._domainActions.then(function(val){
       return val[0].click();
     });
   }
-  countActivateButtons(){
-    return this._activateButtons.count();
-  }
-  clickFirstActivateButton (){
-    return this._activateButtons.then(function(val){
-      return val[0].click();
+  clickActivateButton(){
+    return this._domainActions.then(function(val){
+      return val[1].click();
     });
   }
-  countDisableButtons(){
-    return this._disableButtons.count();
-  }
-  clickFirstDisableButton (){
-    return this._disableButtons.then(function(val){
-      return val[0].click();
+  clickDisableButton(){
+    return this._domainActions.then(function(val){
+      return val[2].click();
     });
+  }
+  countDisableDomains(){
+    return this._disableDomains.count();
   }
   clickFirstDkimInformationButton(){
     return this._dKimInformationButtons.then(function(val){
