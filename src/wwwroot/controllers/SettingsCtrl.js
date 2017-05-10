@@ -9,11 +9,10 @@
     '$scope',
     '$rootScope',
     'RELAY_CONFIG',
-    'settings',
-    'ModalService'
+    'settings'
   ];
 
-  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, ModalService) {
+  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings) {
     $rootScope.setSubmenues([
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: true },
       { text: 'domains_text', url: 'settings/domain-manager', active: false }
@@ -30,16 +29,6 @@
     }
 
     vm.apiKey = '';
-    vm.showCopy = function () {
-      ModalService.showModal({
-        templateUrl: 'partials/modals/copy-to-clipboard.html',
-        controller: 'CopyToClipboardCtrl',
-        controllerAs: 'vm',
-        inputs: {
-          textToCopy: vm.apiKey
-        }
-      });
-    };
     settings.getUserApiKeys()
       .then(function (apiKeys) {
         // Show the first api key (in the future a user will be able to handle more than one)
