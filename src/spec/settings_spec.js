@@ -125,6 +125,7 @@ describe('Settings Page', () => {
     //Act
     browser.get('/#/settings/domain-manager');
     var defaultDomain = settings.getDefaultDomain();
+    settings.openEnabledNotDefaultDropdown();
     settings.clickSetAsDefault();
 
     //Assert
@@ -148,13 +149,14 @@ describe('Settings Page', () => {
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');
-    var countActivateButtons = settings.countActivateButtons();
+    var countActivateButtons = settings.countDisableDomains();
 
     //Act
-    settings.clickFirstActivateButton();
+    settings.openDisabledDropDown();
+    settings.clickActivateButton();
 
     //Assert
-    expect(settings.countActivateButtons()).toBeLessThan(countActivateButtons);
+    expect(settings.countDisableDomains()).toBeLessThan(countActivateButtons);
   });
 
   it('should delete a domain correctly', () => {
@@ -193,13 +195,14 @@ describe('Settings Page', () => {
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');
-    var countDisableButtons = settings.countDisableButtons();
+    var countDisableDomains = settings.countDisableDomains();
 
     //Act
-    settings.clickFirstDisableButton();
+    settings.openEnabledNotDefaultDropdown();
+    settings.clickDisableButton();
 
     //Assert
-    expect(settings.countDisableButtons()).toBeLessThan(countDisableButtons);
+    expect(settings.countDisableDomains()).toBeGreaterThan(countDisableDomains);
   });
   it('should check the information we display', () => {
     // Arrange
