@@ -36,9 +36,9 @@
       <table>
         <tr>
           <th class="column-medium">{{ 'domain_manager_name_th' | translate}}</th>
-          <th class="column-small text--center">{{ 'domain_manager_dkim_spf_status_th' | translate}}</th>
-          <th class="column-small text--center">{{ 'domain_manager_status_th' | translate}}</th>
-          <th class="column-xlarge">{{ 'domain_manager_actions_th' | translate}}</th>
+          <th class="column-tiny text--center">{{ 'domain_manager_dkim_spf_status_th' | translate}}</th>
+          <th class="column-medium text--center">{{ 'domain_manager_status_th' | translate}}</th>
+          <th class="column-small">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
         <tr class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'disabled' : d.disabled}">
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
@@ -53,23 +53,27 @@
               <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
             </svg>
           </td>
-          <td class="text--center" ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{ vm.getDomainStatus(d) | translate }}</td>
+          <td class="text--center" ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">
+            <div class="dropdown--container">
+              <ui-select ng-model="domainStatus" name="domainStatus" search-enabled="false" title="{{'select_choose_status' | translate}}" on-select="vm.changeStatus($model, d)" required>
+                  <ui-select-match placeholder="{{ vm.getDomainStatus(d) | translate }}">
+                      <span ng-bind-html="$select.selected.name"></span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="item in (vm.statusList) track by item.id" ui-disable-choice="vm.predefinedList(item.name, d)">
+                      <span ng-bind-html="item.name"></span>
+                  </ui-select-choices>
+              </ui-select>
+            </div>
+          </td>
           <td>
             <svg class="domain--erase-button icon action-icon" ng-class="!vm.isDefaultDomain(d) || d.disabled ? 'default':'disabled'" ng-click="!vm.isDefaultDomain(d) && vm.deleteDomain(d)">
               <use xlink:href="/images/sprite.svg#doppler-icon-delete-icon"></use>
             </svg>
-            <span>&nbsp;-&nbsp;</span>
-            <a class="domain--default-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.setDefaultDomain(d.name)">{{ 'domain-manager_set_as_default' | translate}}</a>
-            <span ng-if="!vm.isDefaultDomain(d) && !d.disabled">&nbsp;-&nbsp;</span>
-            <a class="domain--disable-action" ng-if="!vm.isDefaultDomain(d) && !d.disabled" ng-click="vm.disableDomain(d)">{{ 'domain-manager_disable' | translate}}</a>
-            <a class="domain--activate-action" ng-if="d.disabled" ng-click="vm.activateDomain(d)">{{ 'active_text' | translate}}</a>
-            <span ng-if="!vm.isDefaultDomain(d)">&nbsp;-&nbsp;</span>
             <a class="domain--dkim-info-action" target="_blank" href="#/settings/dkim-configuration-help?lang={{vm.langSelected}}&d={{d.name}}&sel={{d.dkim_selector}}&key={{d.dkim_public_key | escapeURI}}">
               <svg class="icon action-icon default">
                 <use xlink:href="/images/sprite.svg#doppler-icon-settings-icon"></use>
               </svg>
             </a>
-
           </td>
         </tr>
       </table>

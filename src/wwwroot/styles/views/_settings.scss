@@ -68,6 +68,7 @@
       overflow: visible;
       .action-icon {
         cursor: pointer;
+        margin-right: 1em;
         &.default{
           fill: $suit-accent-color-light;
         }
@@ -75,6 +76,37 @@
           fill: $suit-main-color;
           opacity: .3;
           cursor: auto;
+        }
+      }
+      .dropdown--container{
+        display: inline-block;
+        width: 7em;
+        .ui-select-choices-row:hover{
+          background-color: #eae6e5 !important;
+        }
+        .selectize-dropdown {
+          top: torem(-16px);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+          border: none;
+          .active{
+            color: $suit-main-color !important;
+            background-color: #FFF;
+          }
+        }
+        .disabled{
+          color: $suit-main-color;
+          opacity: .3;
+          .ui-select-choices-row-inner{
+            cursor: default !important;
+          }
+        }
+        .ui-select-search-hidden{
+          display: none !important;
+        }
+        .selectize-input{
+          border: none;
+          background: inherit;
+          box-shadow: none;
         }
       }
     }
@@ -134,6 +166,14 @@
 
 
 /******* Media-Queries *****/
+
+@media screen and (max-width: 1450px) {
+  .domain--list-container{
+     .dropdown--container{
+        width: 8em !important;
+     }
+   }
+}
 
 @media screen and (max-width: 768px) {
   .item {

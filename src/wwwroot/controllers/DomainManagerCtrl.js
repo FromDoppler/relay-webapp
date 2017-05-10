@@ -23,6 +23,7 @@
       var vm = this;
       vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
       vm.activationPromise = activate();
+      vm.statusList = [{ name: $translate.instant('default_text'), id : 1}, {name: $translate.instant('enable_text'), id : 2}, {name: $translate.instant('disabled_text'), id : 3}];
 
       function activate() {
         return loadUserDomains();
@@ -50,7 +51,7 @@
         });
       }
 
-      vm.activateDomain = function(domain) {
+      function activateDomain(domain) {
         settings.createOrEditDomain(domain.name, false)
         .then(function() {
           domain.disabled = false;
@@ -58,7 +59,7 @@
         });
       };
 
-      vm.disableDomain = function(domain) {
+      function disableDomain(domain) {
         settings.createOrEditDomain(domain.name , true, onExpectedError)
         .then(function() {
           domain.disabled = true;
@@ -76,7 +77,7 @@
         });
       };
 
-      vm.setDefaultDomain = function(domain) {
+      function setDefaultDomain(domain) {
         settings.setDefaultDomain(domain)
         .then(function() {
           recentlyUpdated(vm.defaultDomain);
@@ -109,6 +110,27 @@
           vm.domains = response.data.domains;
           vm.langSelected = $translate.use();
         });
+      }
+
+      vm.predefinedList = function(item, d) {
+        if ($translate.instant(vm.getDomainStatus(d)) == item) {
+          return true;
+        } else if(vm.getDomainStatus(d) == 'default_text'){
+          return true;
+        }
+      }
+
+      vm.changeStatus = function(model,domain) {
+        switch (model.id) {
+          case 1:
+            setDefaultDomain(domain.name);
+            break;
+          case 2:
+            activateDomain(domain)
+            break;
+          case 3:
+            disableDomain(domain);
+        }
       }
 
       vm.getDomainStatus = function(ele) {

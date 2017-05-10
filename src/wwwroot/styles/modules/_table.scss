@@ -45,6 +45,9 @@
   .column-small {
     width: 10%;
   }
+  .column-tiny {
+    width: 5%;
+  }
   .column-records:nth-child(odd){
       background: $suit-background-default;
   }
@@ -58,7 +61,7 @@
       font-weight: 600;}
   }
   .table--status{ color: #858585;}
-  
+
   .column-records:hover{background: #F9E5D2;}
 
     .table--status-fail{color: #E98C26;}
