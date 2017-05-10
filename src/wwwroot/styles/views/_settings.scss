@@ -83,9 +83,15 @@
       }
       .dropdown--container{
         display: inline-block;
-        width: 7em;
+        width: 8em;
         .ui-select-choices-row:hover{
           background-color: #eae6e5 !important;
+        }
+        .selectize-dropdown, .selectize-input, .selectize-input input{
+          font-size: 16px;
+        }
+        .selectize-control.single .selectize-input:after {
+          top:55%;
         }
         .selectize-dropdown {
           top: torem(-16px);
@@ -176,7 +182,7 @@
        padding: 1rem 0 1rem 1%;
      }
      .dropdown--container{
-        width: 8em !important;
+        width: 9em !important;
      }
      .table--container {
        overflow: auto;
