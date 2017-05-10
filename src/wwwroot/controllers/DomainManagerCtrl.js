@@ -78,11 +78,11 @@
       };
 
       function setDefaultDomain(domain) {
-        settings.setDefaultDomain(domain)
+        settings.setDefaultDomain(domain.name)
         .then(function() {
           recentlyUpdated(vm.defaultDomain);
-          vm.defaultDomain = domain;
-          recentlyUpdated(domain);
+          vm.defaultDomain = domain.name;
+          recentlyUpdated(domain.name);
         });
       };
 
@@ -123,7 +123,7 @@
       vm.changeStatus = function(model,domain) {
         switch (model.id) {
           case 1:
-            setDefaultDomain(domain.name);
+            setDefaultDomain(domain);
             break;
           case 2:
             activateDomain(domain)
