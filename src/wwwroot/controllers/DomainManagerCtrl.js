@@ -82,6 +82,7 @@
         .then(function() {
           recentlyUpdated(vm.defaultDomain);
           vm.defaultDomain = domain.name;
+          domain.disabled = false;
           recentlyUpdated(domain.name);
         });
       };
