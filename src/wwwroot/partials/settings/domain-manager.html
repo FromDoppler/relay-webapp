@@ -55,11 +55,11 @@
           </td>
           <td class="text--center" ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">
             <div class="dropdown--container">
-              <ui-select ng-model="domainStatus" name="domainStatus" search-enabled="false" title="{{'select_choose_status' | translate}}" on-select="vm.changeStatus($model, d)" required>
+              <ui-select ng-model="domainStatus" name="domainStatus" search-enabled="false" title="{{'select_choose_status' | translate}}" on-select="vm.changeStatus($model, d);" required>
                   <ui-select-match placeholder="{{ vm.getDomainStatus(d) | translate }}">
-                      <span ng-bind-html="$select.selected.name"></span>
+                      <span>{{ vm.getDomainStatus(d) | translate }}</span>
                   </ui-select-match>
-                  <ui-select-choices repeat="item in (vm.statusList) track by item.id" ui-disable-choice="vm.predefinedList(item.name, d)">
+                  <ui-select-choices repeat="item in (vm.statusList) track by item.id" position="bottom" ui-disable-choice="vm.predefinedList(item.name, d)">
                       <span ng-bind-html="item.name"></span>
                   </ui-select-choices>
               </ui-select>
