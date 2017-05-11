@@ -37,7 +37,7 @@
       <label>{{'connection-settings_api_key_title' | translate}}</label>
       <span class="api-key--container">
         <p>{{vm.apiKey}}</p>
-        <button class="button button--extra-small" ng-click="vm.showCopy()">{{'connection-settings_copy_api_key' | translate}}</button>
+        <copy-to-clipboard copy-target=".api-key--container p" copy-tooltip-message-key="connection-settings_copy_success" button-text-key="connection-settings_copy_api_key"></copy-to-clipboard>        
       </span>
     </div>
   </div>

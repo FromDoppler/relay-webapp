@@ -24,6 +24,9 @@
           display: inline-block;
         }
       }
+      span.api-key--container p {
+        padding-right: toem(25px);
+      }
     }
     div {
       display: inline-block;

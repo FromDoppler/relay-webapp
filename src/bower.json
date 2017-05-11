@@ -30,6 +30,7 @@
     "angular-ui-select": "^0.19.8",
     "angular-slugify": "^1.0.1",
     "selectize": "~0.8.5",
-    "angular-tooltips": "^1.1.10"
+    "angular-tooltips": "^1.1.10",
+    "clipboard": "^1.6.1"
   }
 }
