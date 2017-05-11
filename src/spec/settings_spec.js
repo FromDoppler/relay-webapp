@@ -255,7 +255,7 @@ describe('Settings Page', () => {
     expect(settings.getApiKey()).toEqual('testApiKey');
   });
 
-  it('should show api key in copy to clipboard popup', () => {
+  it('should copy api key to clipboard if browser supports it', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.addMockModule('descartableModule2', () => angular
@@ -269,13 +269,24 @@ describe('Settings Page', () => {
           ]
         });
       }));
+
     var settings = new ConnectionSettingsPage();
 
     //Act
     browser.get('/#/settings/connection-settings');
     settings.clickCopyApiKey();
 
+    // creating a new input element to test the pasted text
+    browser.executeScript(function () {
+        var el = document.createElement('input');
+        el.setAttribute('id', 'testInput'); 
+
+        document.getElementsByTagName('body')[0].appendChild(el);
+    });
+    var testInput = $("#testInput");    
+    testInput.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, "v"));
+
     //Assert
-    expect(settings.getApiKeyToCopy()).toEqual('testApiKey');
+    expect(testInput.getAttribute('value')).toEqual('testApiKey');
   });
 });
