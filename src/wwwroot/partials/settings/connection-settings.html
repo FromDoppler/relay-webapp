@@ -1,7 +1,10 @@
 <section class="section--wrapper connection--settings-container">
   <h2>{{'connection-settings_title' | translate}}</h2>
   <p>{{'connection-settings_subtitle' | translate}}</p>
-  <div class="connection--settings-data-container">
+  <div>
+    <spinner class="spinner section--wrapper" ng-if="vm.loadInProgress"></spinner>
+  </div>
+  <div class="connection--settings-data-container" ng-if="!vm.loadInProgress">
     <div>
       <label>{{'connection-settings_host_smtp_title' | translate}}</label>
       <p>{{vm.hostSmtp}}</p>
@@ -15,7 +18,7 @@
       <p>{{getLoggedUserEmail()}}</p>
     </div>
   </div>
-  <div class="connection--settings-data-container">
+  <div class="connection--settings-data-container" ng-if="!vm.loadInProgress">
     <div>
       <label>{{'connection-settings_api_url_title' | translate}}</label>
       <p>{{vm.apiUrl}}</p>
@@ -27,6 +30,15 @@
     <div>
       <label>{{'connection-settings_api_account_name_title' | translate}}</label>
       <p>{{getAccountName()}}</p>
+    </div>
+  </div>
+  <div class="connection--settings-data-container" ng-if="!vm.loadInProgress">
+    <div class="small-col">
+      <label>{{'connection-settings_api_key_title' | translate}}</label>
+      <span class="api-key--container">
+        <p>{{vm.apiKey}}</p>
+        <button class="button button--extra-small" ng-click="vm.showCopy()">{{'connection-settings_copy_api_key' | translate}}</button>
+      </span>
     </div>
   </div>
 </section>
