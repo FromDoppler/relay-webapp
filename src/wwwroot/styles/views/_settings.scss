@@ -16,7 +16,7 @@
     display: flex;
     border-bottom: 1px solid $suit-font-color-border-grey;
     padding: 1.2rem 0;
-    div.small-col{ 
+    div.small-col{
       width: 25%;
       span {
         display: block;
@@ -105,7 +105,10 @@
           font-size: 16px;
         }
         .selectize-control.single .selectize-input:after {
-          top:55%;
+          position: static;
+          display: inline-block;
+          margin-left: 8px;
+          margin-bottom: 2px;
         }
         .selectize-dropdown {
           top: torem(-16px);
