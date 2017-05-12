@@ -29,8 +29,8 @@
         <span class="input--error" ng-show="(vm.submitted || form.email.$dirty) && form.email.$error.email"><i class="arrow--up"></i>{{'login_error_invalid_email' | translate}}</span>
         <span class="input--error" ng-show="(vm.submitted || form.email.$dirty) && form.email.$error.email_already_exist"><i class="arrow--up"></i>{{'validation_error_email_already_exist' | translate}}</span>
       </div>
-      <!-- we are hidding this until we figure out how to get the password to login in activation page -->
-      <div style="display:none;">
+      <div ng-if="false">
+        <!-- we are hidding this until we figure out how to get the password to login in activation page -->
         <label class="flex" for="password">{{'registration_pass_label' | translate}}:</label>
         <input class="input input--large" ng-class="vm.submitted && form.password.$invalid ? 'error' : ''" id="password" type="password" name="password" ng-model="vm.password" pass="vm.password" maxlength="100" ng-maxlength="100" password-complex-validation />
         <span class="input--error" ng-show="(vm.submitted || form.password.$dirty) && form.password.$error.strength && !form.resetPasswordConf.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
