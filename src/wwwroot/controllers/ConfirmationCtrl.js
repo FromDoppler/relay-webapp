@@ -109,7 +109,7 @@
       }
       var pass = form.pass.$modelValue || null;
       var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
+      return signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
@@ -117,7 +117,7 @@
             password: form.pass.$modelValue
           };
 
-          auth.login(credentials).then(function (result) {
+          return auth.login(credentials).then(function (result) {
             if (result.authenticated) {
               $location.path('/');
             }

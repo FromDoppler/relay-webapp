@@ -71,7 +71,7 @@
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
         <div class="wrapper-input">
-          <input class="button button--medium" ng-click="vm.submitActivation(form, vm.userName, vm.apiKey)" type="submit" value="{{'confirmation_submit' | translate}}" />
+          <input class="button button--medium" debounced-ng-click="vm.submitActivation(form, vm.userName, vm.apiKey)" type="submit" value="{{'confirmation_submit' | translate}}" />
         </div>
       </div>
     </div>
