@@ -134,7 +134,8 @@
             cursor: default !important;
           }
         }
-        .ui-select-search-hidden{
+        //This it's an ugly fix because the plugin has some bugs with the search being disbled.
+        .ui-select-search-hidden,.ng-hide{
           display: none !important;
         }
         .selectize-input{
