@@ -181,6 +181,12 @@
   "connection-settings_api_url_title": "API URL",
   "connection-settings_api_id_title": "API ID",
   "connection-settings_api_account_name_title": "API ACCOUNT NAME",
+  "connection-settings_api_key_title": "API KEY / SMTP Password",
+  "connection-settings_copy_api_key": "Copiar API key",
+  "connection-settings_copy_success": "Copiado al portapapeles!",
+  "copy_popup_title": "Copiar al portapapeles",
+  "copy_popup_message": "Presione las teclas Ctrl + C o click derecho -> Copiar para copiar el texto al portapapeles",
+  "copy_popup_close": "Listo",
   "error_handler_401.3": "Lo sentimos, parece que tu token de autorización ha expirado.",
   "error_handler_401/3": "Lo sentimos, se ha producido un error de autenticación ({{statusCode}}.{{errorCode}}),",
   "error_handler_404": "Lo sentimos, el recurso que estás buscando no fue encontrado mientras {{action | translate}}.",
@@ -204,6 +210,7 @@
   "action_adding_domain": "Activando un Dominio",
   "action_setting_default_domain": "Activando un dominio predeterminado",
   "action_deleting_domain": "Borrando un Dominio",
+  "action_getting_resource" : "Obteniendo recurso de la web",
   "reset_password_title": "Restablece tu contraseña",
   "reset_password_subtitle": "¡Crea tu nueva contraseña a continuación!",
   "reset_password_placeholder": "Escribe tu nueva contraseña",
@@ -251,5 +258,9 @@
   "select_placeholder_country": "Selecciona o busca un país en la lista...",
   "select_placeholder_industry": "Selecciona o busca una industria en la lista...",
   "select_choose_country":"Selecciona tu país",
-  "select_choose_industry":"Selecciona tu industria"
+  "select_choose_industry":"Selecciona tu industria",
+  "domain_manager_dkim_spf_status_th": "SPF & DKIM",
+  "domain_manager_status_error_tooltip": "El DKIM no está configurado aún.",
+  "domain_manager_status_warning_tooltip": "El SPF no está configurado aún.",
+  "select_choose_status": "Selecciona estado"
 };

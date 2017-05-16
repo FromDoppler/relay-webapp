@@ -21,7 +21,9 @@
       getUser: getUser,
       getApiKey: getApiKey,
       activateUser: activateUser,
-      registerUser: registerUser
+      registerUser: registerUser,
+      getIndustries: getIndustries,
+      getCountries: getCountries
     };
 
     return signupService;
@@ -140,6 +142,23 @@
           'company_name': newUser.company || null,
           'terms_and_conditions_version': newUser.termsAndConditions
         }
+      });
+    }
+
+  function getIndustries() {
+    return getResource("industries.json");
+  }
+
+  function getCountries() {
+    return getResource("countries.json");
+  }
+
+  function getResource(resourceFileName) {
+    var actionDescription = 'action_getting_resource';
+      return $http({
+        actionDescription: actionDescription,
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/resources/' + resourceFileName
       });
     }
   }

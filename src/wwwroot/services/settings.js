@@ -16,7 +16,8 @@
       getDomains: getDomains,
       createOrEditDomain: createOrEditDomain,
       setDefaultDomain: setDefaultDomain,
-      deleteDomain: deleteDomain
+      deleteDomain: deleteDomain,
+      getUserApiKeys: getUserApiKeys
     };
 
     return settingsService;
@@ -91,6 +92,20 @@
       })
       .then(function (response) {
         return response;
+      });
+    }
+
+    function getUserApiKeys() {
+      var url = RELAY_CONFIG.baseUrl
+        + '/user/apikeys';
+
+      return $http({
+        actionDescription: 'Getting API keys',
+        method: 'GET',
+        url: url
+      })
+      .then(function (response) {
+        return response.data.api_keys;
       });
     }
 }

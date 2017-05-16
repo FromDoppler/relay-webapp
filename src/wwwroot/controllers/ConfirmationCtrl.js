@@ -13,13 +13,14 @@
     '$rootScope',
     '$q',
     'utils',
-    'INDUSTRIES',
-    'COUNTRIES'
+    '$scope'
   ];
 
-  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, INDUSTRIES, COUNTRIES) {
+  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, $scope) {
     var vm = this;
-    var currentLanguage = $translate.use();
+    var industriesPromise = signup.getIndustries();
+    var countriesPromise = signup.getCountries();
+
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
     vm.submitted = false;
@@ -29,16 +30,31 @@
     vm.activationPromise = activate();
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
+    vm.industryList = [];
+    vm.countryList = [];
 
-    vm.industryList = INDUSTRIES.map(function(val){
-        return { code: val.code, name: val[currentLanguage] };
-    });
+    var deregisterLangListener = $rootScope.$on('$translateChangeSuccess', fillList);
+    //Clean up
+    $scope.$on('$destroy', deregisterLangListener);
 
-    vm.countryList = COUNTRIES.map(function(val){
-        return { code: val.code, name: val[currentLanguage] }
-    });
+    function fillList() {
+      var lang = $translate.use();
+      industriesPromise.then(function(ret) {
+        vm.industryList = ret.data.map(function(val){
+          return { code: val.code, name: val[lang] };
+        })
+      });
+
+      countriesPromise.then(function(ret) {
+        vm.countryList = ret.data.map(function(val){
+          return { code: val.code, name: val[lang] };
+        })
+      });
+    }
 
     function activate() {
+      fillList();
+      
       var activationToken = $location.search()['activation'];
       if (!activationToken) {
         redirectToError();
@@ -93,7 +109,7 @@
       }
       var pass = form.pass.$modelValue || null;
       var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
-      signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
+      return signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
@@ -101,7 +117,7 @@
             password: form.pass.$modelValue
           };
 
-          auth.login(credentials).then(function (result) {
+          return auth.login(credentials).then(function (result) {
             if (result.authenticated) {
               $location.path('/');
             }

@@ -16,7 +16,18 @@
     display: flex;
     border-bottom: 1px solid $suit-font-color-border-grey;
     padding: 1.2rem 0;
-    div.small-col{ width: 25%;}
+    div.small-col{
+      width: 25%;
+      span {
+        display: block;
+        p {
+          display: inline-block;
+        }
+      }
+      span.api-key--container p {
+        padding-right: toem(25px);
+      }
+    }
     div {
       display: inline-block;
       width: 35%;
@@ -24,6 +35,12 @@
       p {word-wrap: break-word;}
     }
   }
+  .spinner{
+    fill:#E78224; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:100%;transform: translate(-50%,-50%);position: absolute;
+    .sk-fading-circle {
+      .sk-circle:before{ background-color: $suit-main-color; }
+    }
+}
 }
 .domain--title-container{
   h2 {
@@ -50,6 +67,13 @@
 }
 .domain--list-container {
   margin-top: 4rem;
+  .table--container {
+    overflow: visible;
+    padding-bottom: torem(20px);
+    table {
+      border-bottom: 1px solid #D5D2CF;
+    }
+  }
   h3 {
     margin-bottom:1rem;
   }
@@ -64,7 +88,64 @@
     td.default {
       font-weight: bold;
     }
-    &.grey {
+    td {
+      overflow: visible;
+      .action-icon {
+        cursor: pointer;
+        margin-right: 1em;
+        &.default{
+          fill: $suit-accent-color-light;
+        }
+        &.disabled{
+          fill: $suit-main-color;
+          opacity: .3;
+          cursor: auto;
+        }
+      }
+      .dropdown--container{
+        display: inline-block;
+        width: 12em;
+        .ui-select-choices-row:hover{
+          background-color: #eae6e5 !important;
+        }
+        .selectize-dropdown, .selectize-input, .selectize-input input{
+          font-size: 16px;
+        }
+        .selectize-control.single .selectize-input:after {
+          position: static;
+          display: inline-block;
+          margin-left: 8px;
+          margin-bottom: 2px;
+        }
+        .selectize-dropdown {
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+          border: none !important;
+          width: 68%;
+          left: 14%;
+          .active{
+            color: $suit-main-color !important;
+            background-color: #FFF;
+          }
+        }
+        .disabled{
+          color: $suit-main-color;
+          opacity: .3;
+          .ui-select-choices-row-inner{
+            cursor: default !important;
+          }
+        }
+        //This it's an ugly fix because the plugin has some bugs with the search being disbled.
+        .ui-select-search-hidden,.ng-hide{
+          display: none !important;
+        }
+        .selectize-input{
+          border: none;
+          background: inherit;
+          box-shadow: none;
+        }
+      }
+    }
+    &.disabled td:first-of-type{
       opacity: 0.5;
     }
   }
@@ -120,6 +201,21 @@
 
 
 /******* Media-Queries *****/
+
+@media screen and (max-width: 1450px) {
+  .domain--list-container{
+     .column-records td {
+       padding: 1rem 0 1rem 1%;
+     }
+     .dropdown--container{
+        width: 13em !important;
+     }
+     .table--container {
+       overflow: auto;
+       padding-bottom: torem(80px);
+     }
+   }
+}
 
 @media screen and (max-width: 768px) {
   .item {

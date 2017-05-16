@@ -32,6 +32,7 @@
   <link href="lib/c3/c3.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="lib/selectize/dist/css/selectize.default.css">
   <link rel="stylesheet" href="lib/angular-ui-select/dist/select.min.css">
+  <link rel="stylesheet" href="lib/angular-tooltips/dist/angular-tooltips.min.css" type="text/css" />
 
   <!-- endinject -->
 </head>
@@ -82,6 +83,7 @@
   <script src="controllers/ResetPasswordCtrl.js"></script>
   <script src="controllers/modals/WelcomeCtrl.js"></script>
   <script src="controllers/modals/ErrorCtrl.js"></script>
+  <script src="controllers/modals/CopyToClipboardCtrl.js"></script>
   <script src="controllers/SettingsCtrl.js"></script>
   <script src="controllers/DomainManagerCtrl.js"></script>
   <script src="controllers/dKimConfigCtrl.js"></script>
@@ -95,6 +97,9 @@
   <script src="directives/email-format-validation.js"></script>
   <script src="directives/password-complex-validations.js"></script>
   <script src="directives/focus-if.js"></script>
+  <script src="directives/selectInputText.js"></script>
+  <script src="directives/copy-to-clipboard.js"></script>
+  <script src="directives/debounced-ng-click.js"></script>
   <script src="filters/numberFormat.js"></script>
   <script src="services/auth.js"></script>
   <script src="services/linkUtilities.js"></script>
@@ -104,12 +109,12 @@
   <script src="services/utils.js"></script>
   <script src="services/settings.js"></script>
   <script src="env/development.js"></script>
-  <script src="lists/industries.js"></script>
-  <script src="lists/countries.js"></script>
   <script src="lib/svgxuse/svgxuse.js"></script>
   <script src="lib/autofill-directive/autofill-directive.js"></script>
   <script src="lib/angular-ui-select/dist/select.min.js"></script>
   <script src="lib/angular-slugify/angular-slugify.js"></script>
+  <script src="lib/angular-tooltips/dist/angular-tooltips.min.js"></script>
+  <script src="lib\clipboard\dist\clipboard.min.js"></script>
   <!-- endinject -->
 </body>
 </html>

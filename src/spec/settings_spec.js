@@ -2,6 +2,7 @@ describe('Settings Page', () => {
 
   var SettingsPage = require('./page-objects/settings-page').SettingsPage;
   var DkimPage = require('./page-objects/dkim-page').DkimPage;
+  var ConnectionSettingsPage = require('./page-objects/connection-settings-page').ConnectionSettingsPage;
 
   afterEach(() => {
     browser.removeMockModule('descartableModule');
@@ -125,6 +126,7 @@ describe('Settings Page', () => {
     //Act
     browser.get('/#/settings/domain-manager');
     var defaultDomain = settings.getDefaultDomain();
+    settings.openEnabledNotDefaultDropdown();
     settings.clickSetAsDefault();
 
     //Assert
@@ -148,13 +150,14 @@ describe('Settings Page', () => {
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');
-    var countActivateButtons = settings.countActivateButtons();
+    var countActivateButtons = settings.countDisableDomains();
 
     //Act
-    settings.clickFirstActivateButton();
+    settings.openDisabledDropDown();
+    settings.clickActivateButton();
 
     //Assert
-    expect(settings.countActivateButtons()).toBeLessThan(countActivateButtons);
+    expect(settings.countDisableDomains()).toBeLessThan(countActivateButtons);
   });
 
   it('should delete a domain correctly', () => {
@@ -193,13 +196,14 @@ describe('Settings Page', () => {
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');
-    var countDisableButtons = settings.countDisableButtons();
+    var countDisableDomains = settings.countDisableDomains();
 
     //Act
-    settings.clickFirstDisableButton();
+    settings.openEnabledNotDefaultDropdown();
+    settings.clickDisableButton();
 
     //Assert
-    expect(settings.countDisableButtons()).toBeLessThan(countDisableButtons);
+    expect(settings.countDisableDomains()).toBeGreaterThan(countDisableDomains);
   });
   it('should check the information we display', () => {
     // Arrange
@@ -226,5 +230,63 @@ describe('Settings Page', () => {
           expect(dkimPage.getdKimDomainSelector()).toBe(dkimSelector);
       });
     });
+  });
+
+  it('should show api key correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/user\/apikeys/).respond(200, {
+          "api_keys": [
+            {
+              "api_key": 'testApiKey'
+            }
+          ]
+        });
+      }));
+    var settings = new ConnectionSettingsPage();
+
+    //Act
+    browser.get('/#/settings/connection-settings');
+
+    //Assert
+    expect(settings.getApiKey()).toEqual('testApiKey');
+  });
+
+  it('should copy api key to clipboard if browser supports it', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/user\/apikeys/).respond(200, {
+          "api_keys": [
+            {
+              "api_key": 'testApiKey'
+            }
+          ]
+        });
+      }));
+
+    var settings = new ConnectionSettingsPage();
+
+    //Act
+    browser.get('/#/settings/connection-settings');
+    settings.clickCopyApiKey();
+
+    // creating a new input element to test the pasted text
+    browser.executeScript(function () {
+        var el = document.createElement('input');
+        el.setAttribute('id', 'testInput'); 
+
+        document.getElementsByTagName('body')[0].appendChild(el);
+    });
+    var testInput = $("#testInput");    
+    testInput.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, "v"));
+
+    //Assert
+    expect(testInput.getAttribute('value')).toEqual('testApiKey');
   });
 });
