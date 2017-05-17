@@ -279,14 +279,41 @@ describe('Settings Page', () => {
     // creating a new input element to test the pasted text
     browser.executeScript(function () {
         var el = document.createElement('input');
-        el.setAttribute('id', 'testInput'); 
+        el.setAttribute('id', 'testInput');
 
         document.getElementsByTagName('body')[0].appendChild(el);
     });
-    var testInput = $("#testInput");    
+    var testInput = $("#testInput");
     testInput.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, "v"));
 
     //Assert
     expect(testInput.getAttribute('value')).toEqual('testApiKey');
+  });
+
+  it('should show status icons Spf and dKim', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com", dkim_selector: "test", dkim_public_key: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+      }));
+    var domain = 'relay.com';
+    var dkimSelector = 'test' + "._domainkey." + domain;
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var settingsPage = new SettingsPage();
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager');
+
+    //Act
+    settingsPage.clickFirstDkimInformationButton().then(() =>{
+      dkimPage.switchToNewTab().then(() =>{
+          expect(dkimPage.isAlertIconDisplayed()).toBe(true);
+      });
+    });
   });
 });
