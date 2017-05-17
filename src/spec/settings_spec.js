@@ -290,7 +290,7 @@ describe('Settings Page', () => {
     expect(testInput.getAttribute('value')).toEqual('testApiKey');
   });
 
-  it('should show status icons Spf and dKim', () => {
+  it('should show ok and alert icons status', () => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -302,18 +302,58 @@ describe('Settings Page', () => {
           "default": "relay.com"
         });
       }));
-    var domain = 'relay.com';
-    var dkimSelector = 'test' + "._domainkey." + domain;
-    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
-    var settingsPage = new SettingsPage();
     var dkimPage = new DkimPage();
-    browser.get('/#/settings/domain-manager');
 
-    //Act
-    settingsPage.clickFirstDkimInformationButton().then(() =>{
-      dkimPage.switchToNewTab().then(() =>{
-          expect(dkimPage.isAlertIconDisplayed()).toBe(true);
-      });
-    });
+    // Act
+    browser.get('#/settings/dkim-configuration-help?d=googel.com&sel=dopplerrelay_zohotest8sada&key=MIGfMA0GCSqGSIb3DQEBAQU&dkim_status=true&spf_status=false');
+
+    // Assert
+    expect(dkimPage.isAlertIconDisplayed()).toBeTruthy();
+    expect(dkimPage.isOkIconDisplayed()).toBeTruthy();
+
+  });
+
+  it('should show ok icons status', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com", dkim_selector: "test", dkim_public_key: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+      }));
+    var dkimPage = new DkimPage();
+
+    // Act
+    browser.get('#/settings/dkim-configuration-help?d=googel.com&sel=dopplerrelay_zohotest8sada&key=MIGfMA0GCSqGSIb3DQEBAQU&dkim_status=true&spf_status=true');
+
+    // Assert
+    expect(dkimPage.isOkIconDisplayed()).toBeTruthy();
+
+  });
+
+  it('should show alert icons status', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains/).respond(200, {
+          "domains": [{name: "relay.com", dkim_selector: "test", dkim_public_key: "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
+          "default": "relay.com"
+        });
+      }));
+    var dkimPage = new DkimPage();
+
+    // Act
+    browser.get('#/settings/dkim-configuration-help?d=googel.com&sel=dopplerrelay_zohotest8sada&key=MIGfMA0GCSqGSIb3DQEBAQU&dkim_status=false&spf_status=false');
+
+    // Assert
+    expect(dkimPage.isAlertIconDisplayed()).toBeTruthy();
+
   });
 });
