@@ -1,0 +1,27 @@
+<section class="basic-info--container">
+  <div class="section--wrapper flex">
+    <h2>
+      {{ 'basic_info_title' | translate }}
+    </h2>
+  </div>
+  <form method="post" id="form" name="form" novalidate>
+  <div class="section--wrapper subtitle">
+    <h3>{{ 'basic_info_change_password' | translate }}</h3>
+  </div>
+  <div class="item section--wrapper">
+    <h5>{{ 'basic_info_old_password' | translate }}</h5>
+    <input id="oldPassword" name="oldPass" ng-model="vm.oldPass" class="input input--large" validation-error required />
+  </div>
+  <div class="item section--wrapper">
+    <h5>{{ 'basic_info_new_password' | translate }}</h5>
+    <input id="newPassword" name="newPass" ng-model="vm.newPass" class="input input--large" validation-error required />
+  </div>
+  <div class="item section--wrapper">
+    <h5>{{ 'basic_info_new_password' | translate }}</h5>
+    <input id="confPassword" name="confPass" ng-model="vm.confPass" class="input input--large" validation-error required />
+  </div>
+  <div class="item section--wrapper">
+    <button class="button button--small" debounced-ng-click="vm.changePassword(form)" type="submit">{{'basic_info_change_password' | translate}}</button>
+  </div>
+  </form>
+</section>

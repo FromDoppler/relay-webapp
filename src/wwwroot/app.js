@@ -93,6 +93,11 @@
           controller: 'dKimConfigCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/basic-info', {
+          templateUrl: 'partials/settings/basic-info.html',
+          controller: 'BasicInfoCtrl',
+          controllerAs: 'vm'
+        })
         .when('/signup/registration', {
           templateUrl: 'partials/signup/registration.html',
           controller: 'RegistrationCtrl',

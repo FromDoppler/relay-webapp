@@ -197,5 +197,26 @@
         }
       });
     }
+    function changePassword(oldPass,newPass) {
+      return $http({
+        actionDescription: 'action_updating_password',
+        method: 'PUT',
+        url: RELAY_CONFIG.baseUrl + '/user/changePassword?lang=' + lang,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          "oldPass": oldPass,
+          "password": newPass
+        }
+      })
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (reason) {
+        $log.error(reason);
+        return $q.reject(reason);
+      });
+    }
   }
 })();

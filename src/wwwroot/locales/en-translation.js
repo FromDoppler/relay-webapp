@@ -253,4 +253,10 @@
   "select_choose_status": "Select status",
   "configuration_page_status": "Status",
   "configuration_page_added": "Configured"
+  "submenu_basic_info": "Basic Info",
+  "basic_info_title": "Basic Information",
+  "basic_info_subtitle": "Password",
+  "basic_info_old_password":"Old Password",
+  "basic_info_new_password":"New Password",
+  "basic_info_change_password": "Change Password"
 };

@@ -267,4 +267,10 @@
   "select_choose_status": "Selecciona estado",
   "configuration_page_status": "Estado",
   "configuration_page_added": "Configurado"
+  "submenu_basic_info": "Basic info",
+  "basic_info_title": "Basic Information",
+  "basic_info_subtitle": "Password",
+  "basic_info_old_password":"Old Password",
+  "basic_info_new_password":"New Password",
+  "basic_info_change_password": "Change Password"
 };

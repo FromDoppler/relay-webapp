@@ -211,6 +211,24 @@ h5 {
   margin-left: 0.5em;
   }
 }
+.basic-info--container {
+  .subtitle {
+    margin-bottom: 1em;
+  }
+  .section--wrapper:first-of-type {
+    padding-bottom: 5em;
+    margin-bottom: 2em;
+    border-bottom: $suit-border-default;
+  }
+  .item {
+    margin-top: 1em;
+  }
+  .item:last-of-type {
+    padding-bottom: 2em;
+    border-bottom: $suit-border-default;
+  }
+}
+
 
 /******* Media-Queries *****/
 

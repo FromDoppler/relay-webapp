@@ -14,6 +14,7 @@ header{
     a{align-items: center;}
     nav{background:none; display: flex;}
     nav:last-of-type{justify-content: flex-end;
+        a { margin-left: toem(20px);}
         a:last-of-type{margin-left: toem(20px); font-size: $font-size-small}
         a:first-of-type{margin-left: toem(12px)}
         p{color: $suit-font-color-light;}
@@ -53,7 +54,7 @@ header{
     padding: 0.7rem;
     z-index: 9999;
     width: 320px;
-    height: 232px;
+    height: 262px;
     box-shadow: 0 1px 10px $suit-main-color;
     @extend .transition--default;
     &.show{
@@ -115,10 +116,7 @@ header{
           margin: 20px 0 0 0.5em;
         }
         li{
-          margin: 20px 0 20px 0.5em;
-        }
-        li:last-of-type{
-          margin: 0 0 0 0.5em;
+          margin: 20px 0 0 0.5em;
         }
       }
     }
