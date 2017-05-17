@@ -248,5 +248,6 @@
   "domain_manager_dkim_spf_status_th": "SPF & DKIM",
   "domain_manager_status_error_tooltip": "The DKIM is not configured yet.",
   "domain_manager_status_warning_tooltip": "The SPF is not configured yet.",
-  "select_choose_status": "Select status"
+  "select_choose_status": "Select status",
+  "configuration_page_status": "Status"
 };
