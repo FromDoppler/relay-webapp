@@ -16,6 +16,17 @@
 <div class="item section--wrapper">
   <h5>{{ 'dkim_configuration_help_spf_subtitle' | translate }}</h5>
   <p class="domain-selected">{{ 'dkim_configuration_help_spf_text' | translate }}</p>
+  <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
+  <div>
+    <svg class="icon ok-icon" ng-if="vm.spfStatus">
+      <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+    </svg>
+    <span ng-if="vm.spfStatus">{{ 'configuration_page_added' | translate }}</span>
+    <svg class="icon alert-icon" ng-if="!vm.spfStatus">
+      <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
+    </svg>
+    <span ng-if="!vm.spfStatus">{{ 'domain_manager_status_warning_tooltip' | translate }}</span>
+  </div>
 </div>
 <div class="item section--wrapper dkmin-config flex">
   <h2>
@@ -27,5 +38,16 @@
   <p class="domain-selector">{{ vm.dKimSelector }}</p>
   <h5>{{ 'dkim_configuration_help_public_k_title' | translate }}</h5>
   <p><code class="domain-public-key">{{ vm.dKimPublicKey }}</code></p>
+  <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
+  <div>
+    <svg class="icon ok-icon" ng-if="vm.dKimStatus">
+      <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+    </svg>
+    <span ng-if="vm.dKimStatus">{{ 'configuration_page_added' | translate }}</span>
+    <svg class="icon alert-icon" ng-if="!vm.dKimStatus">
+      <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
+    </svg>
+    <span ng-if="!vm.dKimStatus">{{ 'domain_manager_status_error_tooltip' | translate }}</span>
+  </div>
 </div>
 </section>

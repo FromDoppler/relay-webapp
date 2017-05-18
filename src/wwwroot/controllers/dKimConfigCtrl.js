@@ -16,6 +16,8 @@
     vm.domain = queryParams['d'];
     vm.dKimSelector = queryParams['sel'] + '._domainkey.' + vm.domain;
     vm.dKimPublicKey = 'k=rsa; p=' + queryParams['key'];
+    vm.dKimStatus = queryParams['dkim_status'] && JSON.parse(queryParams['dkim_status']);
+    vm.spfStatus = queryParams['spf_status'] && JSON.parse(queryParams['spf_status']);
   }
 
 })();
