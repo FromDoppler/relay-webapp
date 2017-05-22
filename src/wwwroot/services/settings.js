@@ -17,7 +17,8 @@
       createOrEditDomain: createOrEditDomain,
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain,
-      getUserApiKeys: getUserApiKeys
+      getUserApiKeys: getUserApiKeys,
+      getDomain: getDomain
     };
 
     return settingsService;
@@ -87,6 +88,21 @@
 
       return $http({
         actionDescription: 'Getting domains',
+        method: 'GET',
+        url: url
+      })
+      .then(function (response) {
+        return response;
+      });
+    }
+
+    function getDomain(domainName) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/domains/' + domainName;
+
+      return $http({
+        actionDescription: 'Getting domain',
         method: 'GET',
         url: url
       })
