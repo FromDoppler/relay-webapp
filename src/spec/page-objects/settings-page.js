@@ -88,6 +88,9 @@ class SettingsPage {
   countDisableDomains(){
     return this._disableDomains.count();
   }
+  isDkimInformationButtonDisplayed(){
+    return this._dKimInformationButtons.isDisplayed();
+  }
   clickFirstDkimInformationButton(){
     return this._dKimInformationButtons.then(function(val){
       return val[0].click();
