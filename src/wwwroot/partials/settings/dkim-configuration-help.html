@@ -5,8 +5,10 @@
   </h2>
 </div>
 <div class="item section--wrapper">
-  <h5>{{ 'dkim_configuration_help_domain_title' | translate }}</h5>
-  <p class="domain-selected">{{ vm.domain }}</p>
+  <div class="domain--config-container">
+    <h5>{{ 'dkim_configuration_help_domain_title' | translate }}</h5>
+    <p class="domain-selected">{{ vm.domain }}</p>
+  </div>
 </div>
 <div class="item section--wrapper spf-tite flex">
   <h2>
@@ -16,18 +18,20 @@
 <div class="item section--wrapper">
   <h5>{{ 'dkim_configuration_help_spf_subtitle' | translate }}</h5>
   <p class="domain-selected">{{ 'dkim_configuration_help_spf_text' | translate }}</p>
-  <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
-  <div ng-if="!vm.loading && vm.spfStatus">
-    <svg class="icon ok-icon">
-      <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
-    </svg>
-    <span>{{ 'configuration_page_added' | translate }}</span>
-  </div>
-  <div ng-if="!vm.loading && !vm.spfStatus">
-    <svg class="icon alert-icon">
-      <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
-    </svg>
-    <span>{{ 'domain_manager_status_warning_tooltip' | translate }}</span>
+  <div class="domain--config-container">
+    <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
+    <div ng-if="!vm.loading && vm.spfStatus">
+      <svg class="icon ok-icon">
+        <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+      </svg>
+      <span>{{ 'configuration_page_added' | translate }}</span>
+    </div>
+    <div ng-if="!vm.loading && !vm.spfStatus">
+      <svg class="icon alert-icon">
+        <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
+      </svg>
+      <span>{{ 'domain_manager_status_warning_tooltip' | translate }}</span>
+    </div>
   </div>
 </div>
 <div class="item section--wrapper dkmin-config flex">
@@ -40,18 +44,20 @@
   <p class="domain-selector">{{ vm.dKimSelector }}</p>
   <h5>{{ 'dkim_configuration_help_public_k_title' | translate }}</h5>
   <p><code class="domain-public-key">{{ vm.dKimPublicKey }}</code></p>
+  <div class="domain--config-container">
   <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
-  <div ng-if="!vm.loading && vm.dKimStatus">
+    <div ng-if="!vm.loading && vm.dKimStatus">
       <svg class="icon ok-icon">
         <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
       </svg>
       <span>{{ 'configuration_page_added' | translate }}</span>
-  </div>
+    </div>
   <div ng-if="!vm.loading && !vm.dKimStatus">
       <svg class="icon alert-icon">
         <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
       </svg>
       <span>{{ 'domain_manager_status_error_tooltip' | translate }}</span>
+  </div>
   </div>
 </div>
 </section>
