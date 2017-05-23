@@ -105,9 +105,6 @@
         actionDescription: 'Getting domain',
         method: 'GET',
         url: url
-      })
-      .then(function (response) {
-        return response;
       });
     }
 

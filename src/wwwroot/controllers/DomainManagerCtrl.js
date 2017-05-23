@@ -109,6 +109,8 @@
         .then(function(response) {
           vm.defaultDomain = response.data.default;
           vm.domains = response.data.domains;
+
+          // It is required because the new windows lose the language configuration.
           vm.langSelected = $translate.use();
         });
       }

@@ -20,7 +20,7 @@
     vm.spfStatus = null; 
     vm.dKimPublicKey = null;
     vm.dKimSelector = null;
-	vm.activationPromise = activate();
+	  vm.activationPromise = activate();
 
   function activate() {
     return loadDataDomain();
