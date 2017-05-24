@@ -184,6 +184,12 @@
 }
 
 .dkmin-config--container {
+  p.dkim--subtitle{
+    margin-top: 1.5em;
+  }
+  .domain-selected{
+    color: $suit-accent-color;
+  }
   .dkmin-config-code {
     p:last-of-type{max-width: 50%;}
     code {
@@ -191,18 +197,19 @@
       word-wrap: break-word;
     }
   }
-  .dkmin-config,.spf-tite {
-    margin-top: 3rem;
-  }
-  h5 {
-    margin-top: 1rem;
-  }
 }
 
-.domain--config-container{
-  border-bottom: 1px solid #D5D2CF;
-  margin-bottom: 1rem;
-  padding: 1.2rem 0;
+h5 {
+  margin-top: 1.5em;
+}
+
+.domain--config-status{
+  display: flex;
+  align-items: center;
+  margin-top: 0.5em;
+  span:last-of-type{
+  margin-left: 0.5em;
+  }
 }
 
 /******* Media-Queries *****/

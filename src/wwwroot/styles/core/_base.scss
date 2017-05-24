@@ -175,6 +175,13 @@ hr {
   border: 0;
   border-top: 1px solid $suit-hr-default-color;
   padding: 0;
+  &.default{
+    margin: 3rem 0;
+  }
+  &.small{
+    width:30%;
+    margin: 1.5rem 0;
+  }
 }
 
 button {
