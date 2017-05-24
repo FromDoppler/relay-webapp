@@ -212,20 +212,105 @@ h5 {
   }
 }
 .basic-info--container {
+  input {
+    display: inline-block !important;
+    margin-top: 1em;
+  }
   .subtitle {
     margin-bottom: 1em;
   }
-  .section--wrapper:first-of-type {
-    padding-bottom: 5em;
-    margin-bottom: 2em;
-    border-bottom: $suit-border-default;
-  }
   .item {
-    margin-top: 1em;
+    margin-top: 1.5em;
+    padding-top: 1.5em;
+    border-top: $suit-border-default;
   }
   .item:last-of-type {
-    padding-bottom: 2em;
+    padding-bottom: 2.5em;
     border-bottom: $suit-border-default;
+  }
+  .password.item{
+    overflow: hidden;
+    input{align-items: flex-end;}
+    transition: height 0.3s ease;ight: toem(245px);
+    &.show {
+      height: toem(330px);
+      border-bottom: none;
+    }
+    &.hidden {
+      height: toem(50px);
+    }
+    .icon-container{
+      opacity: 1;
+      position: absolute;
+      @extend .transition--default;
+      span{
+        cursor: pointer;
+        margin-right: 12em;
+      }
+      .success {
+        display: inline-block;
+        background: $suit-color-status-green;
+        padding: 0.7em;
+        margin-left: 1em;
+        position: relative;
+        bottom: toem(8px);
+      }
+      .icon{
+        cursor: pointer;
+        position: relative;
+        bottom: 5px;
+      }
+      &.hidden{
+          opacity: 0;
+      }
+    }
+  }
+  .email--container{
+    span{
+      display: inline-block;
+      max-width: 15em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      cursor: default;
+    }
+  }
+  .inputs--container{
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    @extend .transition--default;
+    .confirm-icons--container{
+        padding: 0.7em;
+        position: relative;
+        top: toem(18px);
+        .cross{
+          margin-left: 1.2em;
+          cursor: pointer;
+        }
+        .tick{
+          cursor: pointer;
+        }
+    }
+    div.input--wrapper {
+      display: flex;
+      max-width: 50%;
+      flex-wrap: wrap;
+      .error--container{
+        width: 100%;
+      }
+    }
+    div.input--wrapper:first-of-type{
+      input{ margin-top: 0;}
+    }
+    div.input--wrapper:last-of-type {
+      max-width: 100%;
+    }
+    &.show{
+      height: toem(330px);
+    }
+    &.hidden{
+      height: 0px;
+    }
   }
 }
 
@@ -276,6 +361,31 @@ h5 {
     label { font-size: 0.775rem;}
     div:first-of-type { width: 45% !important; }
     div:last-of-type { width: 25% !important; }
+  }
+  .basic-info--container {
+    .icon-container svg{
+      display: none;
+    }
+    .inputs--container {
+      div.input--wrapper{
+        max-width: 100%;
+      }
+      div.input--wrapper:last-of-type{
+        flex-direction: row-reverse;
+      }
+      .error--container{
+        position: relative;
+        top: toem(-55px);
+      }
+    }
+    .inputs--container .confirm-icons--container{
+      position: relative;
+      top: 0;
+      z-index: 1;
+    }
+    .password.item.show{
+      height: toem(400px);
+    }
   }
 
 }

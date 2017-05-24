@@ -4,24 +4,58 @@
       {{ 'basic_info_title' | translate }}
     </h2>
   </div>
-  <form method="post" id="form" name="form" novalidate>
-  <div class="section--wrapper subtitle">
-    <h3>{{ 'basic_info_change_password' | translate }}</h3>
+  <div class="section--wrapper flex item">
+    <div class="flex one">
+      <label class="uppercase bold">User</label>
+    </div>
+    <div class="flex three email--container">
+      <span>{{ getLoggedUserEmail() }}</span>
+    </div>
   </div>
-  <div class="item section--wrapper">
-    <h5>{{ 'basic_info_old_password' | translate }}</h5>
-    <input id="oldPassword" name="oldPass" ng-model="vm.oldPass" class="input input--large" validation-error required />
+  <div class="section--wrapper flex item password" ng-class="vm.showChangePassContainer ? 'show' : 'hidden'">
+    <div class="flex one">
+      <label class="uppercase bold">Password</label>
+    </div>
+    <div class="flex three flex--direction-column" ng-class="!vm.showChangePassContainer ? 'show' : 'hidden'">
+      <div class="icon-container" ng-class="!vm.showChangePassContainer ? 'show' : 'hidden'">
+        <span ng-click="vm.showChangePassContainer=true;">&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;</span>
+        <svg class="icon edit-icon" ng-click="vm.showChangePassContainer=true;">
+          <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
+        </svg>
+        <span class="success" ng-show="vm.changePasswordSuccess">Password changed</span>
+      </div>
+      <div class="flex three flex--direction-column inputs--container" ng-class="vm.showChangePassContainer ? 'show' : 'hidden'">
+        <form method="post" id="form" name="form" novalidate>
+          <div class="input--wrapper">
+            <input id="oldPass" name="oldPass" ng-model="oldPass" type="password" placeholder="{{ 'basic_info_old_password' | translate }}" pass="oldPass" maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
+            <div>
+              <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && form.oldPass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && form.oldPass.$error.strength && !form.oldPass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
+            </div>
+          </div>
+          <div class="input--wrapper">
+            <input id="pass" name="pass" ng-model="pass" type="password" pass="pass" placeholder="{{ 'basic_info_new_password' | translate }}"  maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
+            <div>
+              <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.strength && !form.pass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
+            </div>
+          </div>
+          <div class="input--wrapper">
+            <input id="confPassword" name="confPass" ng-model="vm.confPass" pass="vm.confPass" placeholder="{{ 'basic_info_new_password' | translate }}" type="password" ng-change="vm.updateValidation(vm.newPass, vm.confPass)" maxlength="100" ng-maxlength="100" class="input input--large" required />
+            <div class="confirm-icons--container flex">
+              <span class="tick" debounced-ng-click="vm.changePassword(form);">
+                  <div class="tick_stem"></div>
+                  <div class="tick_kick"></div>
+              </span>
+              <a class="cross" ng-click="vm.showChangePassContainer=false;"></a>
+            </div>
+            <div class="error--container">
+              <span class="input--error" ng-show="(vm.submitted ||form.confPass.$dirty) && form.confPass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted ||form.confPass.$dirty) && form.confPass.$error.same"><i class="arrow--up"></i>{{'login_error_same_password' | translate}}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="item section--wrapper">
-    <h5>{{ 'basic_info_new_password' | translate }}</h5>
-    <input id="newPassword" name="newPass" ng-model="vm.newPass" class="input input--large" validation-error required />
-  </div>
-  <div class="item section--wrapper">
-    <h5>{{ 'basic_info_new_password' | translate }}</h5>
-    <input id="confPassword" name="confPass" ng-model="vm.confPass" class="input input--large" validation-error required />
-  </div>
-  <div class="item section--wrapper">
-    <button class="button button--small" debounced-ng-click="vm.changePassword(form)" type="submit">{{'basic_info_change_password' | translate}}</button>
-  </div>
-  </form>
 </section>
