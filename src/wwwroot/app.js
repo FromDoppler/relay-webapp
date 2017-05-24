@@ -93,9 +93,9 @@
           controller: 'dKimConfigCtrl',
           controllerAs: 'vm'
         })
-        .when('/settings/basic-info', {
-          templateUrl: 'partials/settings/basic-info.html',
-          controller: 'BasicInfoCtrl',
+        .when('/settings/my-profile', {
+          templateUrl: 'partials/settings/my-profile.html',
+          controller: 'MyProfileCtrl',
           controllerAs: 'vm'
         })
         .when('/signup/registration', {

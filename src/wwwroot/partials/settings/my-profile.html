@@ -1,7 +1,7 @@
-<section class="basic-info--container">
+<section class="my-profile--container">
   <div class="section--wrapper flex">
     <h2>
-      {{ 'basic_info_title' | translate }}
+      {{ 'my_profile_title' | translate }}
     </h2>
   </div>
   <div class="section--wrapper flex item">
@@ -27,21 +27,21 @@
       <div class="flex three flex--direction-column inputs--container" ng-class="vm.showChangePassContainer ? 'show' : 'hidden'">
         <form method="post" id="form" name="form" novalidate>
           <div class="input--wrapper">
-            <input id="oldPass" name="oldPass" ng-model="oldPass" type="password" placeholder="{{ 'basic_info_old_password' | translate }}" pass="oldPass" maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
+            <input id="oldPass" name="oldPass" ng-model="oldPass" type="password" placeholder="{{ 'my_profile_old_password' | translate }}" pass="oldPass" maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
             <div>
               <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && form.oldPass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && form.oldPass.$error.strength && !form.oldPass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
             </div>
           </div>
           <div class="input--wrapper">
-            <input id="pass" name="pass" ng-model="pass" type="password" pass="pass" placeholder="{{ 'basic_info_new_password' | translate }}"  maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
+            <input id="pass" name="pass" ng-model="pass" type="password" pass="pass" placeholder="{{ 'my_profile_new_password' | translate }}"  maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
             <div>
               <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.strength && !form.pass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
             </div>
           </div>
           <div class="input--wrapper">
-            <input id="confPassword" name="confPass" ng-model="vm.confPass" pass="vm.confPass" placeholder="{{ 'basic_info_new_password' | translate }}" type="password" ng-change="vm.updateValidation(vm.newPass, vm.confPass)" maxlength="100" ng-maxlength="100" class="input input--large" required />
+            <input id="confPassword" name="confPass" ng-model="vm.confPass" pass="vm.confPass" placeholder="{{ 'my_profile_new_password' | translate }}" type="password" ng-change="vm.updateValidation(vm.newPass, vm.confPass)" maxlength="100" ng-maxlength="100" class="input input--large" required />
             <div class="confirm-icons--container flex">
               <span class="tick" debounced-ng-click="vm.changePassword(form);">
                   <div class="tick_stem"></div>

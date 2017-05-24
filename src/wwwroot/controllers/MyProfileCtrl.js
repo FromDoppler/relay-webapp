@@ -3,9 +3,9 @@
 
   angular
     .module('dopplerRelay')
-    .controller('BasicInfoCtrl', BasicInfoCtrl);
+    .controller('MyProfileCtrl', MyProfileCtrl);
 
-  BasicInfoCtrl.$inject = [
+  MyProfileCtrl.$inject = [
     '$scope',
     '$location',
     '$rootScope',
@@ -13,10 +13,10 @@
     '$translate'
   ];
 
-  function BasicInfoCtrl($scope, $location, $rootScope, auth, $translate) {
+  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate) {
     var vm = this;
     $rootScope.setSubmenues([
-      { text: 'submenu_basic_info', url: 'settings/basic-info', active: true },
+      { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
       { text: 'domains_text', url: 'settings/domain-manager', active: false }
     ]);
