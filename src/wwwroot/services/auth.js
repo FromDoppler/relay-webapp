@@ -28,7 +28,8 @@
       getFullName: getFullName,
       forgotPassword: forgotPassword,
       resetPassword: resetPassword,
-      getApiToken: getApiToken
+      getApiToken: getApiToken,
+      changePassword: changePassword
     };
 
     var decodedToken = null;
@@ -194,6 +195,22 @@
         },
         data: {
           "password": pass
+        }
+      });
+    }
+    function changePassword(old_pass, newPass, lang) {
+      return $http({
+        actionDescription: 'action_updating_password',
+        method: 'PUT',
+        avoidStandarErrorHandling: true,
+        url: RELAY_CONFIG.baseUrl + '/user/password/change?lang=' + lang,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          "username": getUserName(),
+          "old_password": old_pass,
+          "password": newPass
         }
       });
     }

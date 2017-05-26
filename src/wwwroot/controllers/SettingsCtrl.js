@@ -14,6 +14,7 @@
 
   function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings) {
     $rootScope.setSubmenues([
+      { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: true },
       { text: 'domains_text', url: 'settings/domain-manager', active: false }
     ]);

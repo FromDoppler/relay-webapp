@@ -139,6 +139,20 @@ section {
 .flex--direction-column{
   flex-direction: column;
 }
+.flex{
+  &.one{
+    flex:1;
+  }
+  &.two{
+    flex:2;
+  }
+  &.three{
+    flex:3;
+  }
+}
+.uppercase{
+  text-transform: uppercase;
+}
 
 .hidden--label{
   opacity: 0;
@@ -245,6 +259,50 @@ a {
   border-right: 5px solid transparent;
   border-top: 5px solid black;
 }
+
+.cross {
+  width: 22px;
+  height: 22px;
+}
+.cross:before, .cross:after {
+  position: absolute;
+  content: ' ';
+  height: 23px;
+  width: 4px;
+  background-color: $suit-accent-color;
+}
+.cross:before {
+  transform: rotate(45deg);
+}
+.cross:after {
+  transform: rotate(-45deg);
+}
+
+.tick-icon {
+    display:inline-block;
+    width: 32px;
+    height:32px;
+    transform: rotate(45deg);
+}
+
+.tick_stem {
+    position: absolute;
+    width:4px;
+    height:24px;
+    background-color:$suit-accent-color;
+    left:14px;
+    top:0px;
+}
+
+.tick_kick {
+    position: absolute;
+    width:11px;
+    height:4px;
+    background-color:$suit-accent-color;
+    left:5px;
+    top:20px;
+}
+
 
 .icon {
   display:inline-block;
