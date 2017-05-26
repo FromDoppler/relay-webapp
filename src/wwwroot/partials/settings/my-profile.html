@@ -42,7 +42,7 @@
             </div>
           </div>
           <div class="input--wrapper">
-            <input id="confPassword" name="confPass" ng-model="vm.confPass" pass="vm.confPass" placeholder="{{ 'my_profile_new_password' | translate }}" type="password" ng-change="vm.updateValidation(vm.newPass, vm.confPass)" maxlength="100" ng-maxlength="100" class="input input--large" required />
+            <input id="confPassword" name="confPass" ng-model="vm.confPass" pass="vm.confPass" placeholder="{{ 'my_profile_confirm_new_password' | translate }}" type="password" ng-change="vm.updateValidation(vm.newPass, vm.confPass)" maxlength="100" ng-maxlength="100" class="input input--large" required />
             <div class="confirm-icons--container flex">
               <span class="tick-icon" debounced-ng-click="vm.changePassword(form);">
                   <div class="tick_stem"></div>

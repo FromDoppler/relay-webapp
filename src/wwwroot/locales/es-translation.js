@@ -267,11 +267,11 @@
   "select_choose_status": "Selecciona estado",
   "configuration_page_status": "Estado",
   "configuration_page_added": "Configurado",
-  "submenu_my_profile": "Mi Perfil",
-  "my_profile_title": "Mi Perfil",
-  "my_profile_subtitle": "Password",
-  "my_profile_old_password":"Old Password",
-  "my_profile_old_password_error":"Wrong password",
-  "my_profile_new_password":"New Password",
-  "my_profile_change_password": "Change Password"
+  "submenu_my_profile": "Mi Cuenta",
+  "my_profile_title": "Mi Cuenta",
+  "my_profile_old_password":"Actual Contraseña",
+  "my_profile_old_password_error":"La contraseña que has ingresado no es correcta.",
+  "my_profile_new_password":"Nueva Contraseña",
+  "my_profile_change_password": "Change Password",
+  "my_profile_confirm_new_password": "Confirma tu nueva contraseña"
 };

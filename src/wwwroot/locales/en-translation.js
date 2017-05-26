@@ -255,9 +255,9 @@
   "configuration_page_added": "Configured",
   "submenu_my_profile": "View Profile",
   "my_profile_title": "My Profile",
-  "my_profile_subtitle": "Password",
-  "my_profile_old_password":"Old Password",
-  "my_profile_old_password_error":"Wrong password",
+  "my_profile_old_password":"Current Password",
+  "my_profile_old_password_error":"The password you have entered is not correct.",
   "my_profile_new_password":"New Password",
-  "my_profile_change_password": "Change Password"
+  "my_profile_change_password": "Change Password",
+  "my_profile_confirm_new_password": "Confirm New Password"
 };
