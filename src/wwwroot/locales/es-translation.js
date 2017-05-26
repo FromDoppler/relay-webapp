@@ -266,7 +266,7 @@
   "domain_manager_status_warning_tooltip": "El SPF no está configurado aún.",
   "select_choose_status": "Selecciona estado",
   "configuration_page_status": "Estado",
-  "configuration_page_added": "Configurado"
+  "configuration_page_added": "Configurado",
   "submenu_my_profile": "Mi Perfil",
   "my_profile_title": "Mi Perfil",
   "my_profile_subtitle": "Password",

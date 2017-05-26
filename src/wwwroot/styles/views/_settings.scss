@@ -211,7 +211,7 @@ h5 {
   margin-left: 0.5em;
   }
 }
-.basic-info--container {
+.my-profile--container {
   input {
     display: inline-block !important;
     margin-top: 1em;
@@ -254,6 +254,8 @@ h5 {
         margin-left: 1em;
         position: relative;
         bottom: toem(8px);
+        border-radius: 5px;
+        font-weight: bold;
       }
       .icon{
         cursor: pointer;
@@ -287,7 +289,7 @@ h5 {
           margin-left: 1.2em;
           cursor: pointer;
         }
-        .tick{
+        .tick-icon{
           cursor: pointer;
         }
     }

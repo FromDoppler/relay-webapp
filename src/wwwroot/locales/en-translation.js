@@ -252,7 +252,7 @@
   "domain_manager_status_warning_tooltip": "The SPF is not configured yet.",
   "select_choose_status": "Select status",
   "configuration_page_status": "Status",
-  "configuration_page_added": "Configured"
+  "configuration_page_added": "Configured",
   "submenu_my_profile": "View Profile",
   "my_profile_title": "My Profile",
   "my_profile_subtitle": "Password",

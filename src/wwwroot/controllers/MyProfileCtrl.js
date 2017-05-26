@@ -10,10 +10,11 @@
     '$location',
     '$rootScope',
     'auth',
-    '$translate'
+    '$translate',
+    '$timeout'
   ];
 
-  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate) {
+  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate, $timeout) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
@@ -42,9 +43,9 @@
       .then(function() {
         vm.showChangePassContainer = false;
         vm.changePasswordSuccess = true;
-        $setTimeout(function () {
+        $timeout(function(){
           vm.changePasswordSuccess = false;
-        }, 500);
+        }, 1500);
 
       });
     }
