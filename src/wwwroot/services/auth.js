@@ -202,6 +202,7 @@
       return $http({
         actionDescription: 'action_updating_password',
         method: 'PUT',
+        avoidStandarErrorHandling: true,
         url: RELAY_CONFIG.baseUrl + '/user/password/change?lang=' + lang,
         headers: {
           'Content-Type': 'application/json'

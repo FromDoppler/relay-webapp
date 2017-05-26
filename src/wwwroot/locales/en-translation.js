@@ -257,6 +257,7 @@
   "my_profile_title": "My Profile",
   "my_profile_subtitle": "Password",
   "my_profile_old_password":"Old Password",
+  "my_profile_old_password_error":"Wrong password",
   "my_profile_new_password":"New Password",
   "my_profile_change_password": "Change Password"
 };

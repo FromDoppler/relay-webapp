@@ -46,7 +46,13 @@
         $timeout(function(){
           vm.changePasswordSuccess = false;
         }, 1500);
-
+      })
+      .catch(function(rejectionData){
+        if (rejectionData.data.errorCode == 2 && rejectionData.data.status == 401) {
+          vm.wrongOldPassword = true;
+        } else {
+          $rootScope.addError('action_updating_password', rejectionData.data.detail, rejectionData.data.title, rejectionData.data.status, rejectionData.data.errorCode);
+        }
       });
     }
   }

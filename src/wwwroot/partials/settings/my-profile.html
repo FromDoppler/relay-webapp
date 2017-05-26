@@ -27,10 +27,11 @@
       <div class="flex three flex--direction-column inputs--container" ng-class="vm.showChangePassContainer ? 'show' : 'hidden'">
         <form method="post" id="form" name="form" novalidate>
           <div class="input--wrapper">
-            <input id="oldPass" name="oldPass" ng-model="oldPass" type="password" placeholder="{{ 'my_profile_old_password' | translate }}" pass="oldPass" maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
+            <input id="oldPass" name="oldPass" ng-model="oldPass" ng-change="vm.wrongOldPassword = false;" ng-class="vm.wrongOldPassword ? 'error' : ''" type="password" placeholder="{{ 'my_profile_old_password' | translate }}" pass="oldPass" maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
             <div>
               <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && form.oldPass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && form.oldPass.$error.strength && !form.oldPass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted ||form.oldPass.$dirty) && vm.wrongOldPassword && !form.oldPass.$error.strength && !form.oldPass.$error.required"><i class="arrow--up"></i>{{'my_profile_old_password_error' | translate}}</span>
             </div>
           </div>
           <div class="input--wrapper">
