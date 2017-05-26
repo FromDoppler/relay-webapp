@@ -3,11 +3,13 @@ describe('Settings Page', () => {
   var SettingsPage = require('./page-objects/settings-page').SettingsPage;
   var DkimPage = require('./page-objects/dkim-page').DkimPage;
   var ConnectionSettingsPage = require('./page-objects/connection-settings-page').ConnectionSettingsPage;
+  var ProfilePage = require('./page-objects/profile-page').ProfilePage;
 
   afterEach(() => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
     browser.removeMockModule('descartableModule3');
+    browser.removeMockModule('descartableModule4');
   });
 
   function beginAuthenticatedSession() {
@@ -372,5 +374,49 @@ describe('Settings Page', () => {
     expect(dkimPage.isOkIconDisplayed()).toBeTruthy();
     expect(dkimPage.getDkimPublicKey()).toBe('k=rsa; p=' + dkimPublicKey);
     expect(dkimPage.getdKimDomainSelector()).toEqual(dkimSelector);
+  });
+
+  it('should show the password form correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    var profilePage = new ProfilePage();
+
+    //Act
+    browser.get('/#/settings/my-profile');
+    profilePage.togglePasswordTemplate();
+
+    //Assert
+    expect(profilePage.isPasswordFormVisible()).toBe(true);
+
+    //Act
+    profilePage.closePasswordTemplate();
+
+    //Assert
+    expect(profilePage.isPasswordFormVisible()).toBe(false);
+  });
+
+  it('should change the password correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule4', () => angular
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenPUT(/\/password\/change/).respond(200, {
+          "result": "We have change your password",
+        });
+      }));
+    var profilePage = new ProfilePage();
+
+    //Act
+    browser.get('/#/settings/my-profile');
+    profilePage.togglePasswordTemplate();
+    profilePage.setOldPassword("Testing123");
+    profilePage.setNewPassword("Testing1234");
+    profilePage.setConfirmNewPassword("Testing1234");
+    profilePage.clickSubmitPasswordForm();
+
+    //Assert
+    expect(profilePage.isPasswordFormVisible()).toBe(false);
+    expect(profilePage.isChangePasswordSuccessMessageHidden()).toBe(false);
   });
 });

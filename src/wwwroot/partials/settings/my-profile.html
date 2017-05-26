@@ -18,7 +18,7 @@
     </div>
     <div class="flex three flex--direction-column" ng-class="!vm.showChangePassContainer ? 'show' : 'hidden'">
       <div class="icon-container" ng-class="!vm.showChangePassContainer ? 'show' : 'hidden'">
-        <span ng-click="vm.showChangePassContainer=true;">&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;</span>
+        <span id="passwordTemplate" ng-click="vm.showChangePassContainer=true;">&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;&#42;</span>
         <svg class="icon edit-icon" ng-click="vm.showChangePassContainer=true;">
           <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
         </svg>

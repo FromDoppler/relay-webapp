@@ -253,7 +253,7 @@
   "select_choose_status": "Select status",
   "configuration_page_status": "Status",
   "configuration_page_added": "Configured"
-  "submenu_my_profile": "My Profile",
+  "submenu_my_profile": "View Profile",
   "my_profile_title": "My Profile",
   "my_profile_subtitle": "Password",
   "my_profile_old_password":"Old Password",

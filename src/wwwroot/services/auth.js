@@ -211,11 +211,6 @@
           "old_password": old_pass,
           "password": newPass
         }
-      })
-      .then(function (response) {
-        return response;
-      })
-      .catch(function (reason) {
       });
     }
   }

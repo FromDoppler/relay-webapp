@@ -54,7 +54,7 @@ header{
     padding: 0.7rem;
     z-index: 9999;
     width: 320px;
-    height: 262px;
+    height: 230px;
     box-shadow: 0 1px 10px $suit-main-color;
     @extend .transition--default;
     &.show{
@@ -70,8 +70,9 @@ header{
       justify-content: space-between;
       div:last-of-type{padding-top: 0.8em; width: 68%;}
       p,a{display: inline-block;width: 100%;}
+      a{cursor: pointer; text-transform: uppercase;font-size: $font-size-tiny !important;}
       p{font-weight: 600; }
-      a:last-of-type{ margin-left: 0 !important; cursor: default;}
+      a:last-of-type{ margin-left: 0 !important;}
       .header--config-avatar{
         position: relative;
         display: inline-block;
