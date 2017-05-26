@@ -35,7 +35,7 @@
             </div>
           </div>
           <div class="input--wrapper">
-            <input id="pass" name="pass" ng-model="pass" type="password" pass="pass" placeholder="{{ 'my_profile_new_password' | translate }}"  maxlength="100" ng-maxlength="100" class="input input--large" required password-complex-validation />
+            <input id="pass" name="pass" ng-model="pass" type="password" pass="pass" placeholder="{{ 'my_profile_new_password' | translate }}"  maxlength="100" ng-maxlength="100" class="input input--large" ng-change="vm.updateValidation(vm.newPass, vm.confPass)" required password-complex-validation />
             <div>
               <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               <span class="input--error" ng-show="(vm.submitted ||form.pass.$dirty) && form.pass.$error.strength && !form.pass.$error.required"><i class="arrow--up"></i>{{'pass_not_allowed' | translate}}</span>

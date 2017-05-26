@@ -233,7 +233,7 @@ h5 {
     input{align-items: flex-end;}
     transition: height 0.3s ease;
     &.show {
-      height: toem(330px);
+      height: toem(355px);
       border-bottom: none;
     }
     &.hidden {
@@ -308,7 +308,7 @@ h5 {
       max-width: 100%;
     }
     &.show{
-      height: toem(330px);
+      height: toem(355px);
     }
     &.hidden{
       height: 0px;
