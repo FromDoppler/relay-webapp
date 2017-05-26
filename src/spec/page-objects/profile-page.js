@@ -48,7 +48,7 @@ class ProfilePage {
   getChangePasswordSuccessMessage(){
     return this._changePasswordSuccessMessage;
   }
-  isChangePasswordSuccessMessageHidden(){
+  isChangePasswordSuccessMessageNotHidden(){
     return this.elemHasClass(this.getChangePasswordSuccessMessage(), 'ng-hide');
   }
 }

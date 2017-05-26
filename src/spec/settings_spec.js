@@ -240,7 +240,7 @@ describe('Settings Page', () => {
   });
 
   it('should check the information of a domain we display', () => {
-    
+
     // Arrange
     var domain = 'relay.com';
     var dkimSelector = 'test' + "._domainkey." + domain;
@@ -417,6 +417,6 @@ describe('Settings Page', () => {
 
     //Assert
     expect(profilePage.isPasswordFormVisible()).toBe(false);
-    expect(profilePage.isChangePasswordSuccessMessageHidden()).toBe(false);
+    expect(profilePage.isChangePasswordSuccessMessageNotHidden()).toBe(true);
   });
 });

@@ -273,5 +273,7 @@
   "my_profile_old_password_error":"La contraseña que has ingresado no es correcta.",
   "my_profile_new_password":"Nueva Contraseña",
   "my_profile_change_password": "Change Password",
-  "my_profile_confirm_new_password": "Confirma tu nueva contraseña"
+  "my_profile_change_password_success": "Tu contraseña ha sido cambiada exitosamente",
+  "my_profile_confirm_new_password": "Confirma tu nueva contraseña",
+  "user_text": "Usuario"
 };

@@ -6,7 +6,7 @@
   </div>
   <div class="section--wrapper flex item">
     <div class="flex one">
-      <label class="uppercase bold">User</label>
+      <label class="uppercase bold">{{ 'user_text' | translate}}</label>
     </div>
     <div class="flex three email--container">
       <span>{{ getLoggedUserEmail() }}</span>
@@ -14,7 +14,7 @@
   </div>
   <div class="section--wrapper flex item password" ng-class="vm.showChangePassContainer ? 'show' : 'hidden'">
     <div class="flex one">
-      <label class="uppercase bold">Password</label>
+      <label class="uppercase bold">{{ 'password_simple_placeholder' | translate}}</label>
     </div>
     <div class="flex three flex--direction-column" ng-class="!vm.showChangePassContainer ? 'show' : 'hidden'">
       <div class="icon-container" ng-class="!vm.showChangePassContainer ? 'show' : 'hidden'">
@@ -22,7 +22,7 @@
         <svg class="icon edit-icon" ng-click="vm.showChangePassContainer=true;">
           <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
         </svg>
-        <span class="success" ng-show="vm.changePasswordSuccess">Password changed</span>
+        <span class="success" ng-show="vm.changePasswordSuccess">{{ 'my_profile_change_password_success' | translate}}</span>
       </div>
       <div class="flex three flex--direction-column inputs--container" ng-class="vm.showChangePassContainer ? 'show' : 'hidden'">
         <form method="post" id="form" name="form" novalidate>
