@@ -242,7 +242,7 @@
   "domain_manager_error": "Parece que otra persona está utilizando la cuenta en este momento y no es posible realizar la acción que deseas. Por favor, haz clic en el botón de abajo para volver a cargar la información.",
   "domain_manager_error_button": "Recargar datos",
   "dkim_configuration": "Configuración DKIM",
-  "dkim_configuration_help_subtitle": "Activa esta tecnología y mejora la seguridad de tus Emails identificando correos fraudulentos y acciones de robo de identidad.",
+  "dkim_configuration_help_subtitle": "Encuentra aquí toda la información necesaria (DKIM Selector & DKIM Public Key) para actualizar tus registros DNS y verificar que eres un remitente autorizado para este dominio.",
   "dkim_configuration_help_domain_title": "Encuentra aquí toda la información necesaria (SPF & DKIM) para actualizar tus registros DNS y verificar que eres un remitente autorizado para este dominio:",
   "dkim_configuration_help_selector_title": "DKIM Selector:",
   "dkim_configuration_help_public_k_title": "DKIM Clave Pública:",
