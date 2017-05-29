@@ -3,6 +3,8 @@ class DkimPage {
     this._dKimPublicKey = $('.domain-public-key');
     this._dKimDomainSelected = $('.domain-selected');
     this._dKimDomainSelector = $('.domain-selector');
+    this._iconAlert = $('.alert-icon');
+    this._iconOk = $('.ok-icon');
   }
 
   getdKimDomainSelected(){
@@ -19,6 +21,14 @@ class DkimPage {
           var newWindowHandle = handles[1];
           browser.switchTo().window(newWindowHandle);
       });
+  }
+
+  isAlertIconDisplayed(){
+    return this._iconAlert.isDisplayed();
+  }
+
+  isOkIconDisplayed(){
+    return this._iconOk.isDisplayed();
   }
 
 }

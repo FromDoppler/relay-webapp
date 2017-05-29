@@ -17,6 +17,7 @@
 
     function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate) {
       $rootScope.setSubmenues([
+        { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
       ]);
@@ -109,6 +110,8 @@
         .then(function(response) {
           vm.defaultDomain = response.data.default;
           vm.domains = response.data.domains;
+
+          // It is required because the new windows lose the language configuration.
           vm.langSelected = $translate.use();
         });
       }

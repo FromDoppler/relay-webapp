@@ -69,7 +69,7 @@
             <svg class="domain--erase-button icon action-icon" ng-class="!vm.isDefaultDomain(d) || d.disabled ? 'default':'disabled'" ng-click="!vm.isDefaultDomain(d) && vm.deleteDomain(d)">
               <use xlink:href="/images/sprite.svg#doppler-icon-delete-icon"></use>
             </svg>
-            <a class="domain--dkim-info-action" target="_blank" href="#/settings/dkim-configuration-help?lang={{vm.langSelected}}&d={{d.name}}&sel={{d.dkim_selector}}&key={{d.dkim_public_key | escapeURI}}">
+            <a class="domain--dkim-info-action" target="_blank" href="#/settings/dkim-configuration-help?lang={{vm.langSelected}}&d={{d.name}}">
               <svg class="icon action-icon default">
                 <use xlink:href="/images/sprite.svg#doppler-icon-settings-icon"></use>
               </svg>

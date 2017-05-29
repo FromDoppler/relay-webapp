@@ -5,27 +5,62 @@
   </h2>
 </div>
 <div class="item section--wrapper">
-  <h5>{{ 'dkim_configuration_help_domain_title' | translate }}</h5>
+  <p class="dkim--subtitle">{{ 'dkim_configuration_help_domain_title' | translate }}</p>
   <p class="domain-selected">{{ vm.domain }}</p>
+  <hr class="default" />
 </div>
-<div class="item section--wrapper spf-tite flex">
-  <h2>
-    {{ 'dkim_configuration_help_spf_title' | translate }}
-  </h2>
-</div>
-<div class="item section--wrapper">
-  <h5>{{ 'dkim_configuration_help_spf_subtitle' | translate }}</h5>
-  <p class="domain-selected">{{ 'dkim_configuration_help_spf_text' | translate }}</p>
-</div>
-<div class="item section--wrapper dkmin-config flex">
+<div class="item section--wrapper flex">
   <h2>
     {{ 'dkim_configuration' | translate }}
   </h2>
 </div>
 <div class="item section--wrapper dkmin-config-code">
+  <p class="dkim--subtitle" ng-bind-html="'dkim_configuration_help_subtitle' | translate"></p>
+  <hr class="small" />
   <h5>{{ 'dkim_configuration_help_selector_title' | translate }}</h5>
   <p class="domain-selector">{{ vm.dKimSelector }}</p>
   <h5>{{ 'dkim_configuration_help_public_k_title' | translate }}</h5>
   <p><code class="domain-public-key">{{ vm.dKimPublicKey }}</code></p>
+  <hr class="small" />  
+  <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
+  <div class="domain--config-status" ng-if="!vm.loading && vm.dKimStatus">
+    <svg class="icon ok-icon">
+      <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+    </svg>
+    <span>{{ 'configuration_page_added' | translate }}</span>
+  </div>
+  <div class="domain--config-status" ng-if="!vm.loading && !vm.dKimStatus">
+    <svg class="icon alert-icon">
+      <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
+    </svg>
+    <span>{{ 'domain_manager_status_error_tooltip' | translate }}</span>
+  </div>
+  <hr class="default" />
+</div>
+<div class="item section--wrapper flex">
+  <h2>
+    {{ 'dkim_configuration_help_spf_title' | translate }}
+  </h2>
+</div>
+<div class="item section--wrapper">
+  <p class="dkim--subtitle" ng-bind-html="'dkim_configuration_help_spf_subtitle' | translate"></p>
+  <hr class="small" />
+  <label><strong>{{ 'dkim_configuration_help_spf_field' | translate }}</strong></label>
+  <p>{{ 'dkim_configuration_help_spf_text' | translate }}</p>
+  <hr class="small" />
+  <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
+  <div class="domain--config-status" ng-if="!vm.loading && vm.spfStatus">
+    <svg class="icon ok-icon">
+      <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+    </svg>
+    <span>{{ 'configuration_page_added' | translate }}</span>
+  </div>
+  <div class="domain--config-status" ng-if="!vm.loading && !vm.spfStatus">
+    <svg class="icon alert-icon">
+      <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
+    </svg>
+    <span>{{ 'domain_manager_status_warning_tooltip' | translate }}</span>
+  </div>
+  <hr class="default" />
 </div>
 </section>
