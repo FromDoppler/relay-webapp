@@ -261,5 +261,7 @@
   "my_profile_change_password": "Change Password",
   "my_profile_change_password_success": "Your password has been successfully changed",
   "my_profile_confirm_new_password": "Confirm New Password",
-  "user_text": "User"
+  "user_text": "User",
+  "plans_text": "My Plans",
+  "billing_text": "My Billing"
 };
