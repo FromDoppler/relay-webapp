@@ -1,0 +1,38 @@
+// *************************************
+//
+//   Slider
+//
+// *************************************
+
+// -------------------------------------
+//   Variables
+// -------------------------------------
+$slider-transition: all ease-out 0.15s;;
+// -------------------------------------
+//   Base
+// -------------------------------------
+.rzslider {
+  span.rz-pointer{
+    height: 20px;
+    width: 20px;
+    top: -9px;
+    background-color: $suit-color-bright;
+    border: 1px solid $suit-font-color-light;
+    transition: $slider-transition;
+    &:after{
+      display: none;
+    }
+  }
+  span.rz-bar-wrapper{
+    transition: $slider-transition;
+  }
+  span.rz-bubble{
+    display: none;
+  }
+  span.rz-selection{
+    background: $suit-accent-color !important;
+  }
+  span.rz-bar{
+    background: $suit-font-color-light;
+  }
+}
