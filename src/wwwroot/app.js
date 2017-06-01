@@ -16,7 +16,8 @@
         'daterangepicker',
         'ui.select',
         'slugifier',
-        '720kb.tooltips'
+        '720kb.tooltips',
+        'rzModule'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;

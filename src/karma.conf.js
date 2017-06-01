@@ -34,6 +34,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/lib/angular-ui-select/dist/select.min.js',
       __dirname + '/wwwroot/lib/angular-slugify/angular-slugify.js',
       __dirname + '/wwwroot/lib/angular-tooltips/dist/angular-tooltips.min.js',
+      __dirname + '/wwwroot/lib/angularjs-slider/dist/rzslider.min.js',
       __dirname + '/wwwroot/locales/en-translation.js',
       __dirname + '/wwwroot/locales/es-translation.js',
       __dirname + '/wwwroot/polyfills/array.prototype.filter.js',

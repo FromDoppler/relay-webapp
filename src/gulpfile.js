@@ -92,7 +92,8 @@ gulp.task('build-scripts-lib', function () {
     paths.lib + '/angular-ui-select/dist/select.min.js',
     paths.lib + '/angular-slugify/angular-slugify.js',
     paths.lib + '/angular-tooltips/dist/angular-tooltips.min.js',
-    paths.lib + '/clipboard/dist/clipboard.min.js'
+    paths.lib + '/clipboard/dist/clipboard.min.js',
+    paths.lib + '/angularjs-slider/dist/rzslider.min.js',
   ])
   .pipe(concat('lib.min.js'))
   .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
@@ -236,7 +237,8 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
     paths.build + '/styles/c3*.css',
     paths.build + '/styles/select*.css',
     paths.build + '/styles/selectize*.css',
-    paths.build + '/styles/angular-tooltips*.css'
+    paths.build + '/styles/angular-tooltips*.css',
+    paths.build + '/styles/rzslider*.css',
   ], {
     read: false // It's not necessary to read the files (will speed up things), we're only after their paths.
   });
