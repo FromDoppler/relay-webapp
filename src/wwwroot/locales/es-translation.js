@@ -275,5 +275,7 @@
   "my_profile_change_password": "Change Password",
   "my_profile_change_password_success": "Tu contraseña ha sido cambiada exitosamente",
   "my_profile_confirm_new_password": "Confirma tu nueva contraseña",
-  "user_text": "Usuario"
+  "user_text": "Usuario",
+  "plans_text": "Mis Planes",
+  "billing_text": "Mi Facturación"
 };
