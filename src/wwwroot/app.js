@@ -104,6 +104,11 @@
           controller: 'RegistrationCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/my-plan', {
+          templateUrl: 'partials/settings/my-plan.html',
+          controller: 'PlanCtrl',
+          controllerAs: 'vm'
+        })
         .otherwise({
           redirectTo: '/reports'
         });

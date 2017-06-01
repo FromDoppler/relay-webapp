@@ -142,6 +142,10 @@ header{
   p.header--config-menu-trigger{
       cursor: pointer !important;
   }
+  a.upgrade--link{
+    font-size: $font-size-tiny !important;
+    margin-right: 6em !important;
+  }
 }
 
 @media screen and (max-height: 750px){
@@ -165,6 +169,9 @@ header{
       h4{font-size: 0.875rem;}
       .header--config-menu-trigger{
         span:first-of-type{ display:none; }
+      }
+      a.upgrade--link{
+        margin-right: 2em !important;
       }
       .second-container { a,span {font-size: .675rem !important;}}
     }

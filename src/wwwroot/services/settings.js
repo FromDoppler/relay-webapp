@@ -121,5 +121,17 @@
         return response.data.api_keys;
       });
     }
+
+    function getPlansAvailable() {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/plans/';
+
+      return $http({
+        actionDescription: 'action_getting_plans',
+        method: 'GET',
+        url: url
+      });
+    }
 }
 })();

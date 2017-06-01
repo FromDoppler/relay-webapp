@@ -55,6 +55,7 @@
   h5 {
     display: inline-block;
     margin-right: .2rem;
+    margin-top: 1.5em;
   }
   span {
     color: $suit-accent-color-light;
@@ -199,10 +200,6 @@
   }
 }
 
-h5 {
-  margin-top: 1.5em;
-}
-
 .domain--config-status{
   display: flex;
   align-items: center;
@@ -316,7 +313,52 @@ h5 {
   }
 }
 
-    span.special{
+.my-plans--container {
+  .plan--box-container{
+    padding-top: 2em;
+    ul {padding: 0; margin: auto;}
+    li:first-of-type {
+      background-color: $suit-color-status-green;
+      border-color: $suit-color-status-green;
+      color: $suit-background-default;
+      width: 100%;
+      padding: 1em;
+    }
+    li:last-of-type {
+      border-bottom: $suit-border-default;
+      text-align: center;
+      color: initial;
+      padding: 1em 0;
+    }
+    li {
+      list-style-type: none;
+      border-left: $suit-border-default;
+      border-right: $suit-border-default;
+      padding:  0.5em 1em;
+      color:$suit-font-color-light;
+    }
+  }
+  .plan--slider-container {
+    margin-top: 2em;
+    span.special {
+      font-size: $headers_h3-font-size;
+      color: $suit-accent-color;
+    }
+    div {
+      text-align: center;
+      span {
+        @extend .transition--default;
+        opacity: 1;
+        &.hide{
+          opacity: 0;
+        }
+      }
+    }
+  }
+  .plan--price-big {
+    font-size: $headers_h2-font-size;
+  }
+}
 
 /******* Media-Queries *****/
 

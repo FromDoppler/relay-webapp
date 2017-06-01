@@ -1,0 +1,31 @@
+<section class="my-plans--container">
+  <div class="section--wrapper">
+    <h2>
+      {{ 'plans_text' | translate }}
+    </h2>
+  </div>
+  <div class="section--wrapper">
+    <hr class="default"/>
+    <h5 class="special uppercase">{{ 'my_plan_pricing_chart' | translate }}</h5>
+    <p>{{'my_plan_pricing_chart_description' | translate }}</p>
+    <div class="section--wrapper plan--slider-container">
+      <p ng-bind-html="'my_plan_pricing_chart_slider_title' | translate:{emailsSuggestedAmount: vm.emailsSuggestedAmount}"></p>
+      <rzslider rz-slider-model="vm.slider.value" rz-slider-options="vm.slider.options"></rzslider>
+      <div><span ng-class="vm.hideDragMe ? 'hide': 'show'">DragMe</span></div>
+    </div>
+    <div class="section--wrapper plan--box-container">
+      <ul class="width--half">
+        <li class="special uppercase">{{vm.planName | translate}}</li>
+        <li>{{'cost_email' | translate}} &#36;{{vm.costEmail | number:5}}</li>
+        <li>{{'attr_api' | translate}}</li>
+        <li>{{'attr_dkim' | translate}}</li>
+        <li>{{'attr_metrics_and_reports' | translate}}</li>
+        <li>
+          <p class="special plan--price-big">${{vm.planPrice | number:2 | numberFormat}}</p>
+          <button class="button button--small button--green">{{'buy_now' | translate}}</button>
+        </li>
+      </ul>
+    </div>
+    <hr class="default"/>
+  </div>
+</section>
