@@ -344,11 +344,13 @@
       font-size: $headers_h3-font-size;
       color: $suit-accent-color;
     }
-    div {
+    div.plan--drag-container{
       text-align: center;
-      span {
+      .ok-icon {
         @extend .transition--default;
         opacity: 1;
+        height: 2.6875rem;
+        width: 5.6875rem;
         &.hide{
           opacity: 0;
         }
@@ -430,6 +432,22 @@
     }
     .password.item.show{
       height: toem(400px);
+    }
+  }
+  .my-plans--container{
+    .plan--box-container{
+      ul.width--half{
+        width: 100%;
+        li:last-of-type{
+          padding: 1em;
+          button{
+            margin-top: 1.5em;
+          }
+          p.plan--price-big{
+            font-size: $headers_h3-font-size !important;
+          }
+        }
+      }
     }
   }
 

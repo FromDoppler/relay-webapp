@@ -11,10 +11,11 @@
     '$rootScope',
     'auth',
     '$translate',
-    '$timeout'
+    '$timeout',
+    'settings'
   ];
 
-  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout) {
+  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -34,7 +35,7 @@
         planItems = response.data;
       });
     }
-    
+
     updatePlan(defaultPlanId);
     function updatePlan(planId) {
       var selectedItem = planItems.find(function(obj){

@@ -18,7 +18,8 @@
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain,
       getUserApiKeys: getUserApiKeys,
-      getDomain: getDomain
+      getDomain: getDomain,
+      getPlansAvailable: getPlansAvailable
     };
 
     return settingsService;
@@ -124,7 +125,6 @@
 
     function getPlansAvailable() {
       var url = RELAY_CONFIG.baseUrl
-        + '/accounts/' + auth.getAccountName()
         + '/plans/';
 
       return $http({

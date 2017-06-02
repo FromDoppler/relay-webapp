@@ -11,7 +11,9 @@
     <div class="section--wrapper plan--slider-container">
       <p ng-bind-html="'my_plan_pricing_chart_slider_title' | translate:{emailsSuggestedAmount: vm.emailsSuggestedAmount}"></p>
       <rzslider rz-slider-model="vm.slider.value" rz-slider-options="vm.slider.options"></rzslider>
-      <div><span ng-class="vm.hideDragMe ? 'hide': 'show'">DragMe</span></div>
+      <div class="plan--drag-container"><svg class="icon ok-icon" ng-class="vm.hideDragMe ? 'hide': 'show'">
+        <use xlink:href="/images/sprite.svg#doppler-icon-drag-me"></use>
+      </svg></div>
     </div>
     <div class="section--wrapper plan--box-container">
       <ul class="width--half">
