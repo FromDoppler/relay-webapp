@@ -284,5 +284,6 @@
   "plan_100k": "Plan 100k",
   "plan_150k": "Plan 150k",
   "plan_200k": "Plan 200k",
-  "action_getting_plans": "Getting Plans"
+  "action_getting_plans": "Getting Plans",
+  "upgrade_text": "Upgrade"
 };
