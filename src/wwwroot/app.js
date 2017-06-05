@@ -109,6 +109,11 @@
           controller: 'PlanCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/billing', {
+          templateUrl: 'partials/settings/billing.html',
+          controller: 'BillingCtrl',
+          controllerAs: 'vm'
+        })
         .otherwise({
           redirectTo: '/reports'
         });

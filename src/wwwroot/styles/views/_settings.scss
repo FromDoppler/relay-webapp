@@ -362,6 +362,15 @@
   }
 }
 
+.billing--container,.credit-card--container {
+  div.item{
+    border-bottom: $suit-border-default;
+    margin: 1em 0;
+    padding-bottom: 1em;
+    .flex--content-end{margin-right: 1em;}
+  }
+}
+
 /******* Media-Queries *****/
 
 @media screen and (max-width: 1450px) {

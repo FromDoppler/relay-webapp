@@ -1,0 +1,136 @@
+<section class="my-plans--container">
+  <div class="section--wrapper">
+    <h2>
+      {{ 'billing_text' | translate }}
+    </h2>
+    <p>{{ 'billing_subtitle' | translate }}</p>
+  </div>
+  <div class="section--wrapper billing--container">
+    <hr class="default"/>
+    <h3>{{ 'billing_address_title' | translate }}</h3>
+    <form>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="firstName">{{'registration_first_name_label' | translate}}</label>
+        </div>
+        <div class="flex three">
+          <input id="firstName" name="firstName" ng-model="vm.firstName" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.firstName.$dirty) && form.firstName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="lastName">{{'registration_last_name_label' | translate}}</label>
+        </div>
+        <div class="flex three">
+          <input id="lastName" name="lastName" ng-model="vm.lastName" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.lastName.$dirty) && form.lastName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="business">{{'bussiness_label' | translate}}</label>
+        </div>
+        <div class="flex three">
+          <input id="business" name="business" ng-model="vm.business" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.business.$dirty) && form.business.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="address">{{'address_text' | translate}}</label>
+        </div>
+        <div class="flex three">
+          <input id="address" name="address" ng-model="vm.address" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.address.$dirty) && form.address.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex two">
+          <div class="flex one flex--vertically-center">
+            <label for="city">{{'city_label' | translate}}</label>
+          </div>
+          <div class="flex one">
+            <input id="city" name="city" ng-model="vm.city" class="input input--large" required />
+            <span class="input--error" ng-show="(vm.addSubmitted || form.city.$dirty) && form.city.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          </div>
+        </div>
+        <div class="flex two">
+          <div class="flex one flex--content-end flex--vertically-center">
+            <label for="zCode">{{'zip_code_label' | translate}}</label>
+          </div>
+          <div class="flex three">
+            <input id="zCode" name="zCode" ng-model="vm.zCode" class="input input--small" required />
+            <span class="input--error" ng-show="(vm.addSubmitted || form.zCode.$dirty) && form.zCode.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="country">{{'country_text' | translate}}</label>
+        </div>
+        <div class="flex three">
+          <input id="country" name="country" ng-model="vm.country" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="typeConsumer">{{'consumer_label' | translate}}</label>
+        </div>
+        <div class="flex three">
+          <input id="typeConsumer" name="typeConsumer" ng-model="vm.typeConsumer" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.typeConsumer.$dirty) && form.typeConsumer.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="section--wrapper credit-card--container">
+      <h3>{{ 'payment_method_title' | translate }}</h3>
+      <div class="item flex">
+        <div class="flex flex--vertically-center">
+          <label for="creditCardRadio">{{'credit_card_option' | translate}}</label>
+        </div>
+        <div class="flex flex--vertically-center">
+          <input id="creditCardRadio" type="radio" name="creditCardRadio" ng-model="vm.creditCardRadio" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.creditCardRadio.$dirty) && form.creditCardRadio.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="cardHolder">{{'card_holder_label' | translate}}</label>
+        </div>
+        <div class="flex three flex--vertically-center">
+          <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.cardHolder.$dirty) && form.cardHolder.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="cardNumber">{{'card_number_label' | translate}}</label>
+        </div>
+        <div class="flex three flex--vertically-center">
+          <input id="cardNumber" name="cardNumber" ng-model="vm.cardNumber" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.cardNumber.$dirty) && form.cardNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="expDate">{{'exp_date_label' | translate}}</label>
+        </div>
+        <div class="flex three flex--vertically-center">
+          <input id="expDate" name="expDate" ng-model="vm.expDate" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.expDate.$dirty) && form.expDate.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+      <div class="item flex">
+        <div class="flex one flex--vertically-center">
+          <label for="securityCode">{{'sec_code_label' | translate}}</label>
+        </div>
+        <div class="flex three flex--vertically-center">
+          <input id="securityCode" name="securityCode" ng-model="vm.securityCode" class="input input--large" required />
+          <span class="input--error" ng-show="(vm.addSubmitted || form.securityCode.$dirty) && form.securityCode.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div>
+  </div>
+</section>

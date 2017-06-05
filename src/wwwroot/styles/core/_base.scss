@@ -123,13 +123,16 @@ section {
   justify-content: space-between;
 }
 .flex--content-end{
-  justify-content: flex-end;;
+  justify-content: flex-end;
 }
 .flex--wrap{
   flex-wrap: wrap;
 }
 .flex--center{
   justify-content: center;
+  align-items: center;
+}
+.flex--vertically-center{
   align-items: center;
 }
 .flex--left{

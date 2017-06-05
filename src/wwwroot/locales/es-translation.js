@@ -277,7 +277,9 @@
   "my_profile_confirm_new_password": "Confirma tu nueva contraseña",
   "user_text": "Usuario",
   "plans_text": "Mi Plan",
-  "billing_text": "Mi Facturación",
+  "billing_text": "Facturación",
+  "billing_subtitle": "Por favor revisa que el plan seleccionado sea el correcto y luego completa con los datos de facturación y el medio de pago preferido.",
+  "billing_address_title": "Información de Facturación",
   "my_plan_pricing_chart": "Tabla de precios",
   "my_plan_pricing_chart_description": "Selecciona la cantidad de correos electrónicos que enviará, compara los diferentes planes y encuentra la mejor opción para tus necesidades.",
   "my_plan_pricing_chart_slider_title": "<span class='special'>{{vm.emailsSuggestedAmount | number | numberFormat}}</span> Emails por mes",
@@ -299,5 +301,16 @@
   "PLAN_150K": "Plan 150k",
   "PLAN_200K": "Plan 200k",
   "action_getting_plans": "Obteniendo Planes",
-  "upgrade_text": "Upgrade"
+  "upgrade_text": "Upgrade",
+  "bussiness_label": "Empresa",
+  "address_text": "Dirección",
+  "city_label": "Ciudad",
+  "zip_code_label": "Código Postal",
+  "consumer_label": "Tipo de Consumidor",
+  "payment_method_title": "Medios de Pago",
+  "credit_card_option": "Tarjeta de Crédito",
+  "card_holder_label": "Titular",
+  "card_number_label": "Número de tarjeta",
+  "exp_date_label": "Vencimiento",
+  "sec_code_label": "Código de seguridad"
 };
