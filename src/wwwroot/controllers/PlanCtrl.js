@@ -26,18 +26,13 @@
     var planItems;
 
     function activate() {
-      loadPlans();
-      return updatePlan(defaultPlanId);
-    }
-
-    function loadPlans() {
-      return settings.getPlansAvailable()
-      .then(function(response) {
+      return settings.getPlansAvailable().then(function(response){
         planItems = response.data;
+        changePlan(defaultPlanId);
       });
     }
 
-    function updatePlan(planId) {
+    function changePlan(planId) {
       var selectedItem = planItems.find(function(obj){
         return obj.id === planId;
       });
@@ -67,7 +62,7 @@
         ],
         onChange: function (sliderId, modelValue) {
           vm.hideDragMe = true;
-          updatePlan(modelValue);
+          changePlan(modelValue);
         }
       }
     };
