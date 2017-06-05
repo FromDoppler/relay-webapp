@@ -125,7 +125,7 @@
 
     function getPlansAvailable() {
       var url = RELAY_CONFIG.baseUrl
-        + '/plans/';
+        + '/plans';
 
       return $http({
         actionDescription: 'action_getting_plans',

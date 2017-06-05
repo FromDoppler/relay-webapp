@@ -26,7 +26,8 @@
     var planItems;
 
     function activate() {
-      return loadPlans();
+      loadPlans();
+      return updatePlan(defaultPlanId);
     }
 
     function loadPlans() {
@@ -36,7 +37,6 @@
       });
     }
 
-    updatePlan(defaultPlanId);
     function updatePlan(planId) {
       var selectedItem = planItems.find(function(obj){
         return obj.id === planId;
