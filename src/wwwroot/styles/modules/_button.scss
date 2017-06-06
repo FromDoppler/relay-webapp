@@ -150,6 +150,13 @@ $input--error--color: #FFF;
 				border-color: #222222;
 			}
 		}
+		&.button--green{
+			background: $suit-color-status-green;
+			color: #FFF;
+			&:hover {
+				background: lighten($suit-color-status-green, 8%);
+			}
+		}
 		&.button--white{
 			background: transparent;
 			color: $suit-accent-color;

@@ -18,7 +18,7 @@
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
-      { text: 'plans_text', url: 'settings/plans', active: false },
+      { text: 'plans_text', url: 'settings/my-plan', active: false },
       { text: 'billing_text', url: 'settings/billing', active: false }
     ]);
     vm.changePassword = changePassword;
