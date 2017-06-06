@@ -31,7 +31,6 @@
     </nav>
     <nav ng-if="isPermanentAuthed()">
       <div click-outside="hideConfigDropDown()" class="right-container">
-        <a href="#/settings/my-plan" class="upgrade--link uppercase special">{{'upgrade_text' | translate}}</a>
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
           <div class="first-container">
