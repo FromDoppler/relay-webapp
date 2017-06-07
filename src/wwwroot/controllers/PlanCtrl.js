@@ -22,50 +22,44 @@
     ]);
     vm.hideDragMe = false;
     vm.activationPromise = activate();
-    var defaultPlanId = 6;
+    var defaultPlanName = 'PLAN_60K';
     var planItems;
+    vm.langUsed = $translate.use();
 
     function activate() {
       return settings.getPlansAvailable().then(function(response){
-        planItems = response.data;
-        changePlan(defaultPlanId);
+        planItems = response.data.items;
+        loadSlider();
+        changePlan(defaultPlanName);
       });
     }
 
-    function changePlan(planId) {
+    function changePlan(planName) {
       var selectedItem = planItems.find(function(obj){
-        return obj.id === planId;
+        return obj.name == planName;
       });
-      vm.emailsSuggestedAmount = selectedItem.emailsAmount;
+      vm.emailsSuggestedAmount = selectedItem.included_deliveries;
       vm.planName = selectedItem.name;
-      vm.planPrice = selectedItem.price;
-      vm.costEmail = selectedItem.costEmail;
+      vm.planPrice = selectedItem.fee;
+      vm.costEmail = selectedItem.extra_delivery_cost;
     }
 
-    vm.slider = {
-      value: defaultPlanId,
-      options: {
-        showSelectionBar: true,
-        stepsArray: [
-          {value: 1},
-          {value: 2},
-          {value: 3},
-          {value: 4},
-          {value: 5},
-          {value: 6},
-          {value: 7},
-          {value: 8},
-          {value: 9},
-          {value: 10},
-          {value: 11},
-          {value: 12}
-        ],
-        onChange: function (sliderId, modelValue) {
-          vm.hideDragMe = true;
-          changePlan(modelValue);
+    function loadSlider() {
+      var planItemsParsedForSlider = planItems.map(function(plan){
+        return { value : plan.name};
+      });
+      vm.slider = {
+        value: defaultPlanName,
+        options: {
+          showSelectionBar: true,
+          stepsArray: planItemsParsedForSlider,
+          onChange: function (sliderId, modelValue) {
+            vm.hideDragMe = true;
+            changePlan(modelValue);
+          }
         }
-      }
-    };
+      };
+    }
   }
 
 })();
