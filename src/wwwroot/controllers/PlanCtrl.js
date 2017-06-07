@@ -28,7 +28,7 @@
 
     function activate() {
       return settings.getPlansAvailable().then(function(response){
-        planItems = response.data.plans;
+        planItems = response.data.items;
         loadSlider();
         changePlan(defaultPlanName);
       });
