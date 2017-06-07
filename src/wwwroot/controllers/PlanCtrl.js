@@ -24,15 +24,11 @@
     vm.activationPromise = activate();
     var defaultPlanName = 'PLAN_60K';
     var planItems;
-    var planItemsParsedForSlider;
     vm.langUsed = $translate.use();
 
     function activate() {
       return settings.getPlansAvailable().then(function(response){
         planItems = response.data.plans;
-        planItemsParsedForSlider = response.data.plans.map(function(plan){
-          return { value : plan.name};
-        });
         loadSlider();
         changePlan(defaultPlanName);
       });
@@ -49,6 +45,9 @@
     }
 
     function loadSlider() {
+      var planItemsParsedForSlider = planItems.map(function(plan){
+        return { value : plan.name};
+      });
       vm.slider = {
         value: defaultPlanName,
         options: {
