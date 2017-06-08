@@ -370,6 +370,17 @@
     .flex--content-end{margin-right: 1em;}
   }
 }
+.billing--container {
+  .zip--container{
+    margin-left: 3em;
+    label{margin-right: 1em;}
+  }
+}
+.billing-page--container {
+  .button--container{
+    text-align: right;
+  }
+}
 
 /******* Media-Queries *****/
 
@@ -456,6 +467,20 @@
             font-size: $headers_h3-font-size !important;
           }
         }
+      }
+    }
+  }
+
+  .billing--container{
+    .city--container{
+      display: inline;
+      .zip--container{
+        flex-wrap: wrap;
+        margin-left: 1em;
+        margin-left: 0;
+        max-width: 20%;
+        margin-top: 1em;
+        input{ width: 100%;}
       }
     }
   }

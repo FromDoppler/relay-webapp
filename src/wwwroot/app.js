@@ -17,7 +17,8 @@
         'ui.select',
         'slugifier',
         '720kb.tooltips',
-        'rzModule'
+        'rzModule',
+        'ui.mask'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
