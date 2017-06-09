@@ -116,9 +116,9 @@
             <label for="cardNumber">{{'card_number_label' | translate}}</label>
           </div>
           <div class="flex three flex--wrap">
-            <input ng-model="vm.cc.number" name="cc.number" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
+            <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
             <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
             </div>
           </div>
         </div>
