@@ -24,21 +24,24 @@
     vm.checkExpDate = checkExpDate;
     vm.submitBilling = submitBilling;
 
-    vm.cc = {number:'', type:{}, mask:''};
+    vm.cc = {number: '', type: {}, mask: ''};
     vm.maskOptions = {
-  	  allowInvalidValue:true //allows us to watch the value
+      allowInvalidValue: true //allows us to watch the value
     };
-    $scope.$watch('vm.cc.number', function(newNumber){
+
+    $scope.$watch('vm.cc.number', fillCreditCardProperties);
+
+    function fillCreditCardProperties(newNumber) {
       vm.cc.type = getCreditCardType(newNumber);
       vm.cc.mask = getMaskType(vm.cc.type);
-  	});
+    }
 
     function getMaskType(cardType){
     	var masks = {
-      	'mastercard': '9999 9999 9999 9999',
-        'visa': '9999 9999 9999 9999',
-        'amex': '9999 999999 99999',
-        'unknown': '9999 9999 9999 9999'
+    	   'mastercard': '9999 9999 9999 9999',
+         'visa': '9999 9999 9999 9999',
+         'amex': '9999 999999 99999',
+         'unknown': '9999 9999 9999 9999'
     	};
       return masks[cardType];
     }
@@ -66,7 +69,6 @@
       var currentDate = new Date();
       var currentYear = currentDate.getFullYear().toString().slice(2);
       var currentMonth = currentDate.getMonth() + 1;
-      console.log(input);
       if (input.$modelValue) {
         var year = input.$modelValue.slice(2);
         var month = input.$modelValue.slice(0,2);
