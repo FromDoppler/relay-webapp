@@ -25,7 +25,7 @@
         <li>{{'attr_metrics_and_reports' | translate}}</li>
         <li>
           <p class="special plan--price-big">${{vm.planPrice | number:2 | numberFormat}}</p>
-          <button class="button button--small button--green">{{'buy_now' | translate}}</button>
+          <a class="button button--small button--green" href="#/settings/billing?plan={{vm.planName}}">{{'buy_now' | translate}}</a>
         </li>
       </ul>
     </div>
