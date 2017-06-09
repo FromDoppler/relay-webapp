@@ -214,7 +214,8 @@ gulp.task('build-styles', ['styles'], function () {
     paths.lib + '/c3/c3.css',
     paths.lib + '/angular-ui-select/dist/select.min.css',
     paths.lib + '/selectize/dist/css/selectize.default.css',
-    paths.lib + '/angular-tooltips/dist/angular-tooltips.css'
+    paths.lib + '/angular-tooltips/dist/angular-tooltips.css',
+    paths.lib + '/angularjs-slider/dist/rzslider.min.css'
   ])
   .pipe(minifyCss({ compatibility: 'ie8' }))
   .pipe(rename({
