@@ -371,10 +371,19 @@
   }
 }
 .billing--container {
-  .zip--container{
-    margin-left: 3em;
-    label{margin-right: 1em;}
+  .city--container{
+    position: relative;
+    .error{margin-bottom: torem(40px);}
+    span.input--error{position: absolute; top:torem(60px);}
+    .zip--container{
+      position: relative;
+      margin-left: 3em;
+      span.input--error{position: absolute; top:torem(60px);}
+      label{margin-right: 1em;}
+      span.input--error{left: torem(85px);}
+    }
   }
+
 }
 .billing-page--container {
   .button--container{
@@ -478,9 +487,10 @@
         flex-wrap: wrap;
         margin-left: 1em;
         margin-left: 0;
-        max-width: 20%;
+        max-width: 40%;
         margin-top: 1em;
         input{ width: 100%;}
+        span.input--error{top:torem(80px);left: torem(5px);}
       }
     }
   }

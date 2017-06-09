@@ -22,6 +22,45 @@
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
     ]);
     vm.checkExpDate = checkExpDate;
+    vm.submitBilling = submitBilling;
+
+    vm.cc = {number:'', type:{}, mask:''};
+    vm.maskOptions = {
+  	  allowInvalidValue:true //allows us to watch the value
+    };
+    $scope.$watch('vm.cc.number', function(newNumber){
+      vm.cc.type = getCreditCardType(newNumber);
+      vm.cc.mask = getMaskType(vm.cc.type);
+  	});
+
+    function getMaskType(cardType){
+    	var masks = {
+      	'mastercard': '9999 9999 9999 9999',
+        'visa': '9999 9999 9999 9999',
+        'amex': '9999 999999 99999',
+        'unknown': '9999 9999 9999 9999'
+    	};
+      return masks[cardType];
+    }
+
+    function getCreditCardType(creditCardNumber) {
+    	// start without knowing the credit card type
+    	var result = "unknown";
+
+    	// first check for MasterCard
+    	if (/^5[1-5]/.test(creditCardNumber)) {
+        	result = "mastercard";
+    	}
+    	// then check for Visa
+    	else if (/^4/.test(creditCardNumber)) {
+    		result = "visa";
+    	}
+    	// then check for AmEx
+    	else if (/^3[47]/.test(creditCardNumber)) {
+    		result = "amex";
+    	}
+    	return result;
+    }
 
     function checkExpDate(input) {
       var currentDate = new Date();
@@ -38,6 +77,13 @@
       }
       if (year == currentYear && month < currentMonth) {
         utils.setServerValidationToField($scope, $scope.form.expDate, 'ilegal_date');
+      }
+    }
+
+    function submitBilling(form) {
+      vm.submitted = true;
+      if (!form.$valid) {
+        return;
       }
     }
 
