@@ -5,7 +5,7 @@
     </h2>
     <p>{{ 'billing_subtitle' | translate }}</p>
   </div>
-  <form id="form" name="form">
+  <form id="form" name="form" novalidate>
     <div class="section--wrapper billing--container">
       <hr class="default"/>
       <h3>{{ 'billing_address_title' | translate }}</h3>
@@ -98,9 +98,6 @@
           </div>
           <div class="flex flex--vertically-center flex--wrap">
             <input id="creditCardRadio" type="radio" name="creditCardRadio" ng-model="vm.creditCardRadio" ng-class="(vm.submitted || form.creditCardRadio.$dirty) && form.creditCardRadio.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.creditCardRadio.$dirty) && form.creditCardRadio.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-            </div>
           </div>
         </div>
         <div class="item flex">
