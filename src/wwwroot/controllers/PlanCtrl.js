@@ -22,7 +22,7 @@
     ]);
     vm.hideDragMe = false;
     vm.activationPromise = activate();
-    var defaultPlanName = 'PLAN_60K';
+    var defaultPlanName = 'PLAN-60K';
     var planItems;
     vm.langUsed = $translate.use();
 
