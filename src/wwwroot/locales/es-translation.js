@@ -313,5 +313,6 @@
   "card_holder_label": "Titular",
   "card_number_label": "Número de tarjeta",
   "exp_date_label": "Vencimiento",
-  "sec_code_label": "Código de seguridad"
+  "sec_code_label": "Código de seguridad",
+  "billing_check_button": "Revisar mi pedido"
 };

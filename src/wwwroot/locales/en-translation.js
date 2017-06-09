@@ -299,5 +299,6 @@
   "card_holder_label": "Cardholder",
   "card_number_label": "Card number",
   "exp_date_label": "Expiration Date",
-  "sec_code_label": "Security code"
+  "sec_code_label": "Security code",
+  "billing_check_button": "Check my order"
 };
