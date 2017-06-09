@@ -283,7 +283,7 @@
   "billing_address_title": "Información de Facturación",
   "my_plan_pricing_chart": "Tabla de precios",
   "my_plan_pricing_chart_description": "Selecciona la cantidad de correos electrónicos que enviará, compara los diferentes planes y encuentra la mejor opción para tus necesidades.",
-  "my_plan_pricing_chart_slider_title": "<span class='special'>{{vm.emailsSuggestedAmount | number | numberFormat}}</span> Emails por mes",
+  "my_plan_pricing_chart_slider_title": "<span class='special'>{{emailsSuggestedAmount | number | numberFormat}}</span> Emails por mes",
   "buy_now": "Comprar ahora",
   "cost_email":"Costo por email:",
   "attr_api": "Conexión API & SMTP",
