@@ -12,10 +12,11 @@
     'auth',
     '$translate',
     '$timeout',
-    'settings'
+    'settings',
+    '$filter'
   ];
 
-  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings) {
+  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -38,6 +39,10 @@
       var selectedItem = planItems.find(function(obj){
         return obj.name == planName;
       });
+      if (!selectedItem) {
+        selectedItem = planItems[0];
+        vm.hideDragMe = true;
+      }
       vm.emailsSuggestedAmount = selectedItem.included_deliveries;
       vm.planName = selectedItem.name;
       vm.planPrice = selectedItem.fee;
@@ -45,6 +50,7 @@
     }
 
     function loadSlider() {
+      planItems = $filter('orderBy')(planItems,'included_deliveries');
       var planItemsParsedForSlider = planItems.map(function(plan){
         return { value : plan.name};
       });
