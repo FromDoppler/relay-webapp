@@ -18,7 +18,8 @@
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain,
       getUserApiKeys: getUserApiKeys,
-      getDomain: getDomain
+      getDomain: getDomain,
+      getPlansAvailable: getPlansAvailable
     };
 
     return settingsService;
@@ -119,6 +120,17 @@
       })
       .then(function (response) {
         return response.data.api_keys;
+      });
+    }
+
+    function getPlansAvailable() {
+      var url = RELAY_CONFIG.baseUrl
+        + '/plans';
+
+      return $http({
+        actionDescription: 'action_getting_plans',
+        method: 'GET',
+        url: url
       });
     }
 }

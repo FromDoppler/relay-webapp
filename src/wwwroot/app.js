@@ -16,7 +16,9 @@
         'daterangepicker',
         'ui.select',
         'slugifier',
-        '720kb.tooltips'
+        '720kb.tooltips',
+        'rzModule',
+        'ui.mask'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
@@ -101,6 +103,16 @@
         .when('/signup/registration', {
           templateUrl: 'partials/signup/registration.html',
           controller: 'RegistrationCtrl',
+          controllerAs: 'vm'
+        })
+        .when('/settings/my-plan', {
+          templateUrl: 'partials/settings/my-plan.html',
+          controller: 'PlanCtrl',
+          controllerAs: 'vm'
+        })
+        .when('/settings/billing', {
+          templateUrl: 'partials/settings/billing.html',
+          controller: 'BillingCtrl',
           controllerAs: 'vm'
         })
         .otherwise({

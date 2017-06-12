@@ -55,6 +55,7 @@
   h5 {
     display: inline-block;
     margin-right: .2rem;
+    margin-top: 1.5em;
   }
   span {
     color: $suit-accent-color-light;
@@ -199,10 +200,6 @@
   }
 }
 
-h5 {
-  margin-top: 1.5em;
-}
-
 .domain--config-status{
   display: flex;
   align-items: center;
@@ -316,6 +313,83 @@ h5 {
   }
 }
 
+.my-plans--container {
+  .plan--box-container{
+    padding-top: 2em;
+    ul {padding: 0; margin: auto;}
+    li:first-of-type {
+      background-color: $suit-color-status-green;
+      border-color: $suit-color-status-green;
+      color: $suit-background-default;
+      width: 100%;
+      padding: 1em;
+    }
+    li:last-of-type {
+      border-bottom: $suit-border-default;
+      text-align: center;
+      color: initial;
+      padding: 1em 0;
+    }
+    li {
+      list-style-type: none;
+      border-left: $suit-border-default;
+      border-right: $suit-border-default;
+      padding:  0.5em 1em;
+      color:$suit-font-color-light;
+    }
+  }
+  .plan--slider-container {
+    margin-top: 2em;
+    span.special {
+      font-size: $headers_h3-font-size;
+      color: $suit-accent-color;
+    }
+    div.plan--drag-container{
+      text-align: center;
+      .ok-icon {
+        @extend .transition--default;
+        opacity: 1;
+        height: 2.6875rem;
+        width: 5.6875rem;
+        &.hide{
+          opacity: 0;
+        }
+      }
+    }
+  }
+  .plan--price-big {
+    font-size: $headers_h2-font-size;
+  }
+}
+
+.billing--container,.credit-card--container {
+  div.item{
+    border-bottom: $suit-border-default;
+    margin: 1em 0;
+    padding-bottom: 1em;
+    .flex--content-end{margin-right: 1em;}
+  }
+}
+.billing--container {
+  .city--container{
+    position: relative;
+    .error{margin-bottom: torem(40px);}
+    span.input--error{position: absolute; top:torem(60px);}
+    .zip--container{
+      position: relative;
+      margin-left: 3em;
+      span.input--error{position: absolute; top:torem(60px);}
+      label{margin-right: 1em;}
+      span.input--error{left: torem(85px);}
+    }
+  }
+
+}
+.billing-page--container {
+  .button--container{
+    text-align: right;
+  }
+}
 
 /******* Media-Queries *****/
 
@@ -387,6 +461,37 @@ h5 {
     }
     .password.item.show{
       height: toem(400px);
+    }
+  }
+  .my-plans--container{
+    .plan--box-container{
+      ul.width--half{
+        width: 100%;
+        li:last-of-type{
+          padding: 1em;
+          button{
+            margin-top: 1.5em;
+          }
+          p.plan--price-big{
+            font-size: $headers_h3-font-size !important;
+          }
+        }
+      }
+    }
+  }
+
+  .billing--container{
+    .city--container{
+      display: inline;
+      .zip--container{
+        flex-wrap: wrap;
+        margin-left: 1em;
+        margin-left: 0;
+        max-width: 40%;
+        margin-top: 1em;
+        input{ width: 100%;}
+        span.input--error{top:torem(80px);left: torem(5px);}
+      }
     }
   }
 

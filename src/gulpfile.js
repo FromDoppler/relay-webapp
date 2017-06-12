@@ -90,9 +90,11 @@ gulp.task('build-scripts-lib', function () {
     paths.lib + '/bootstrap-daterangepicker/daterangepicker.js',
     paths.lib + '/angular-daterangepicker/js/angular-daterangepicker.min.js',
     paths.lib + '/angular-ui-select/dist/select.min.js',
+    paths.lib + '/angular-ui-mask/dist/mask.min.js',
     paths.lib + '/angular-slugify/angular-slugify.js',
     paths.lib + '/angular-tooltips/dist/angular-tooltips.min.js',
-    paths.lib + '/clipboard/dist/clipboard.min.js'
+    paths.lib + '/clipboard/dist/clipboard.min.js',
+    paths.lib + '/angularjs-slider/dist/rzslider.min.js',
   ])
   .pipe(concat('lib.min.js'))
   .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
@@ -212,7 +214,8 @@ gulp.task('build-styles', ['styles'], function () {
     paths.lib + '/c3/c3.css',
     paths.lib + '/angular-ui-select/dist/select.min.css',
     paths.lib + '/selectize/dist/css/selectize.default.css',
-    paths.lib + '/angular-tooltips/dist/angular-tooltips.css'
+    paths.lib + '/angular-tooltips/dist/angular-tooltips.css',
+    paths.lib + '/angularjs-slider/dist/rzslider.min.css'
   ])
   .pipe(minifyCss({ compatibility: 'ie8' }))
   .pipe(rename({
@@ -236,7 +239,8 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
     paths.build + '/styles/c3*.css',
     paths.build + '/styles/select*.css',
     paths.build + '/styles/selectize*.css',
-    paths.build + '/styles/angular-tooltips*.css'
+    paths.build + '/styles/angular-tooltips*.css',
+    paths.build + '/styles/rzslider*.css',
   ], {
     read: false // It's not necessary to read the files (will speed up things), we're only after their paths.
   });

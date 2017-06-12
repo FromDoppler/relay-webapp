@@ -31,6 +31,8 @@
     "angular-slugify": "^1.0.1",
     "selectize": "~0.8.5",
     "angular-tooltips": "^1.1.10",
-    "clipboard": "^1.6.1"
+    "clipboard": "^1.6.1",
+    "angularjs-slider": "^6.2.2",
+    "angular-ui-mask": "^1.8.7"
   }
 }

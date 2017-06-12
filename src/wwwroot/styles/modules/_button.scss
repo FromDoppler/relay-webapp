@@ -70,6 +70,9 @@ $input--error--color: #FFF;
 	.input--size{
 		padding: toem(14px);
 		vertical-align: middle;
+		&.input--extra-small{
+			min-width: 45px;
+		}
 		&.input--small{
 			min-width: 95px;
 		}
@@ -148,6 +151,13 @@ $input--error--color: #FFF;
 			&:hover{
 				background: #222222;
 				border-color: #222222;
+			}
+		}
+		&.button--green{
+			background: $suit-color-status-green;
+			color: #FFF;
+			&:hover {
+				background: lighten($suit-color-status-green, 8%);
 			}
 		}
 		&.button--white{

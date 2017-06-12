@@ -30,7 +30,7 @@
       </a>
     </nav>
     <nav ng-if="isPermanentAuthed()">
-      <div click-outside="hideConfigDropDown()">
+      <div click-outside="hideConfigDropDown()" class="right-container">
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
           <div class="first-container">
