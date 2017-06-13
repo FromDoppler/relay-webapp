@@ -21,19 +21,23 @@
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
     ]);
-    vm.activationPromise = activate();
     var queryParams = $location.search();
-    vm.planName = queryParams['plan'];
+    var planName = queryParams['plan'];
+    vm.activationPromise = activate();
+
     function activate() {
-      var planSelected;
+      if (!planName) {
+        return $location.path('/settings/my-plan');
+      }
+      vm.planName = planName;
       return settings.getPlansAvailable().then(function(response){
-        planSelected = response.data.items.find(function(obj){
-          return obj.name == vm.planName;
+        var planSelected = response.data.items.find(function(obj){
+          return obj.name == planName;
         });
         if (!planSelected) {
-          planSelected = response.data.items[0];
-          vm.planName = planSelected.name;
+          return $location.path('/settings/my-plan');
         }
+        vm.currentCurrency = planSelected.currency;
         vm.planPrice = planSelected.fee;
       });
     }
