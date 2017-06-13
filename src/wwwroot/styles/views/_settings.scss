@@ -386,6 +386,10 @@
 
 }
 .billing-page--container {
+  .billing--plan-name-container{
+    div:first-of-type{margin-right: 15%;}
+    div{display: inline-block;}
+  }
   .button--container{
     text-align: right;
   }

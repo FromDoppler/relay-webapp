@@ -21,6 +21,22 @@
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
     ]);
+    vm.activationPromise = activate();
+    var queryParams = $location.search();
+    vm.planName = queryParams['plan'];
+    function activate() {
+      var planSelected;
+      return settings.getPlansAvailable().then(function(response){
+        planSelected = response.data.items.find(function(obj){
+          return obj.name == vm.planName;
+        });
+        if (!planSelected) {
+          planSelected = response.data.items[0];
+          vm.planName = planSelected.name;
+        }
+        vm.planPrice = planSelected.fee;
+      });
+    }
     vm.checkExpDate = checkExpDate;
     vm.submitBilling = submitBilling;
 
