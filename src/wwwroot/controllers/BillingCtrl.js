@@ -45,8 +45,10 @@
     vm.submitBilling = submitBilling;
 
     vm.cc = {number: '', type: {}, mask: ''};
+    vm.secCode = {number: '', mask: ''};
     vm.maskOptions = {
-      allowInvalidValue: true //allows us to watch the value
+      allowInvalidValue: true, //allows us to watch the value
+      clearOnBlur: false
     };
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
@@ -54,6 +56,17 @@
     function fillCreditCardProperties(newNumber) {
       vm.cc.type = getCreditCardType(newNumber);
       vm.cc.mask = getMaskType(vm.cc.type);
+      vm.secCode.mask = getMaskSecType(vm.cc.type);
+    }
+
+    function getMaskSecType(cardCompany){
+      var masks = {
+        'mastercard': '999',
+        'visa': '999',
+        'amex': '9999',
+        'unknown': '999'
+      }
+      return masks[cardCompany];
     }
 
     function getMaskType(cardType){

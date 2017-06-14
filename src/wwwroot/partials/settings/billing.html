@@ -152,9 +152,9 @@
             <label for="securityCode">{{'sec_code_label' | translate}}</label>
           </div>
           <div class="flex three flex--wrap">
-            <input id="securityCode" name="securityCode" ng-model="vm.securityCode" ng-class="(vm.submitted || form.securityCode.$dirty) && form.securityCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
+            <input id="secCode" ng-model="vm.secCode.number" name="secCode" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
             <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.securityCode.$dirty) && form.securityCode.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted || form.secCode.$dirty) && form.secCode.$error.required || form.secCode.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
             </div>
           </div>
         </div>
