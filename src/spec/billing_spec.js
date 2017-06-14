@@ -37,7 +37,6 @@ describe('Billing Page', () => {
         });
       }));
 
-
     var billingPage = new BillingPage();
 
     // Act
@@ -48,4 +47,98 @@ describe('Billing Page', () => {
     expect(plan).toBe('PLAN-60K');
     expect(billingPage.getPrice()).toBe('USD 31.80 x month');
   });
+
+  it('should show credit card icon when complete visa credit card number valid', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/plans/).respond(200, {
+          "items": [
+            { "currency": "USD",
+              "fee": 5.90,
+              "name": "PLAN-10K"},
+            { "currency": "USD",
+              "fee": 31.8,
+              "name": "PLAN-60K" }
+          ]
+        });
+      }));
+
+      var billingPage = new BillingPage();
+
+      // Act
+      billingPage.setCreditCardNumber(4);
+      
+      // Assert
+      expect(billingPage.isCcIconDisplayed()).toBeTruthy();
+  });
+
+  it('should show credit card icon when complete master credit card number valid', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/plans/).respond(200, {
+          "items": [
+            { "currency": "USD",
+              "fee": 5.90,
+              "name": "PLAN-10K"},
+            { "currency": "USD",
+              "fee": 31.8,
+              "name": "PLAN-60K" }
+          ]
+        });
+      }));
+
+      var billingPage = new BillingPage();
+
+      // Act
+      billingPage.setCreditCardNumber(54);
+      
+      // Assert
+      expect(billingPage.isCcIconDisplayed()).toBeTruthy();
+  });
+
+  it('should show credit card icon when complete amex credit card number valid', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/plans/).respond(200, {
+          "items": [
+            { "currency": "USD",
+              "fee": 5.90,
+              "name": "PLAN-10K"},
+            { "currency": "USD",
+              "fee": 31.8,
+              "name": "PLAN-60K" }
+          ]
+        });
+      }));
+
+      var billingPage = new BillingPage();
+
+      // Act
+      billingPage.setCreditCardNumber(34);
+      
+      // Assert
+      expect(billingPage.isCcIconDisplayed()).toBeTruthy();
+  });
+
 });
