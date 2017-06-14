@@ -22,6 +22,8 @@
       getPlansAvailable: getPlansAvailable
     };
 
+    var plansCache = null;
+
     return settingsService;
 
     function createOrEditDomain (domainName, isDisabled, onExpectedError) {
@@ -124,14 +126,16 @@
     }
 
     function getPlansAvailable() {
-      var url = RELAY_CONFIG.baseUrl
-        + '/plans';
-
-      return $http({
+      plansCache = plansCache || $http({
         actionDescription: 'action_getting_plans',
         method: 'GET',
-        url: url
+        url: RELAY_CONFIG.baseUrl + '/plans'
+      }).catch(function(reason) {
+        plansCache = null;
+        return $q.reject(reason);
       });
+
+      return plansCache;
     }
 }
 })();
