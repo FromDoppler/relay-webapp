@@ -5,6 +5,18 @@
     </h2>
     <p>{{ 'billing_subtitle' | translate }}</p>
   </div>
+  <div class="section--wrapper billing--plan-name-container">
+    <hr class="default"/>
+    <div>
+      <label class="uppercase">{{ 'plan_text' | translate }}</label>
+      <h4 class="special uppercase plan-name">{{vm.planName}}</h4>
+    </div>
+    <div>
+      <label class="uppercase">{{ 'price_text' | translate }}</label>
+      <h4 class="special plan-price">{{vm.currentCurrency}} {{vm.planPrice | number:2 }} {{ 'each_month' | translate }}</h4>
+    </div>
+  </div>
+
   <form id="form" name="form" novalidate>
     <div class="section--wrapper billing--container">
       <hr class="default"/>

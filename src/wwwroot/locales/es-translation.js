@@ -302,5 +302,8 @@
   "card_number_label": "Número de tarjeta",
   "exp_date_label": "Vencimiento",
   "sec_code_label": "Código de seguridad",
-  "billing_check_button": "Revisar mi pedido"
+  "billing_check_button": "Revisar mi pedido",
+  "price_text": "Precio",
+  "plan_text": "Plan",
+  "each_month": "x mes"
 };
