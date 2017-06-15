@@ -16,6 +16,18 @@
     'utils'
   ];
 
+  var secCodeMasksByBrand = {
+    'mastercard': '999',
+    'visa': '999',
+    'amex': '9999',
+    'unknown': '999'
+  };
+  var creditCardMasksByBrand = {
+     'mastercard': '9999 9999 9999 9999',
+     'visa': '9999 9999 9999 9999',
+     'amex': '9999 999999 99999',
+     'unknown': '9999 9999 9999 9999'
+  };
   function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils) {
     var vm = this;
     $rootScope.setSubmenues([
@@ -44,30 +56,31 @@
     vm.checkExpDate = checkExpDate;
     vm.submitBilling = submitBilling;
 
-    vm.cc = {number: '', type: {}, mask: ''};
+    vm.cc = {number: '', brand: {}, mask: ''};
+    vm.secCode = {number: '', mask: ''};
     vm.maskOptions = {
-      allowInvalidValue: true //allows us to watch the value
+      allowInvalidValue: true, //allows us to watch the value
+      clearOnBlur: false
     };
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
 
     function fillCreditCardProperties(newNumber) {
-      vm.cc.type = getCreditCardType(newNumber);
-      vm.cc.mask = getMaskType(vm.cc.type);
+      vm.cc.brand = getCreditCardBrand(newNumber);
+      vm.cc.mask = getMaskByBrand(vm.cc.brand);
+      vm.secCode.mask = getMaskSecCodByBrand(vm.cc.brand);
     }
 
-    function getMaskType(cardType){
-    	var masks = {
-    	   'mastercard': '9999 9999 9999 9999',
-         'visa': '9999 9999 9999 9999',
-         'amex': '9999 999999 99999',
-         'unknown': '9999 9999 9999 9999'
-    	};
-      return masks[cardType];
+    function getMaskSecCodByBrand(cardBrand){
+      return secCodeMasksByBrand[cardBrand];
     }
 
-    function getCreditCardType(creditCardNumber) {
-    	// start without knowing the credit card type
+    function getMaskByBrand(cardBrand){
+      return creditCardMasksByBrand[cardBrand];
+    }
+
+    function getCreditCardBrand(creditCardNumber) {
+    	// start without knowing the credit card brand
     	var result = "unknown";
 
     	// first check for MasterCard
@@ -108,10 +121,6 @@
         return;
       }
     }
-
-
-
-
   }
 
 })();
