@@ -16,120 +16,120 @@
       <h4 class="special plan-price">{{vm.currentCurrency}} {{vm.planPrice | number:2 }} {{ 'each_month' | translate }}</h4>
     </div>
   </div>
-
-  <form id="form" name="form" novalidate>
-    <div class="section--wrapper billing--container">
-      <hr class="default"/>
-      <h3>{{ 'billing_address_title' | translate }}</h3>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="firstName">{{'registration_first_name_label' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="firstName" name="firstName" ng-model="vm.firstName" ng-class="(vm.submitted || form.firstName.$dirty) && form.firstName.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.firstName.$dirty) && form.firstName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="lastName">{{'registration_last_name_label' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="lastName" name="lastName" ng-model="vm.lastName" ng-class="(vm.submitted || form.lastName.$dirty) && form.lastName.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.lastName.$dirty) && form.lastName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="business">{{'bussiness_label' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="business" name="business" ng-model="vm.business" ng-class="(vm.submitted || form.business.$dirty) && form.business.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.business.$dirty) && form.business.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="address">{{'address_text' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="address" name="address" ng-model="vm.address" ng-class="(vm.submitted || form.address.$dirty) && form.address.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.address.$dirty) && form.address.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="item flex">
+  <div class="billing--first-container" ng-class="vm.showConfirmation ? 'hide':'show'">
+    <form id="form" name="form" novalidate>
+      <div class="section--wrapper billing--container">
+        <hr class="default"/>
+        <h3 class="special">{{ 'billing_address_title' | translate }}</h3>
+          <div class="item flex">
             <div class="flex one flex--vertically-center">
-              <label for="city">{{'city_label' | translate}}</label>
+              <label class="special uppercase" for="firstName">{{'registration_first_name_label' | translate}}</label>
             </div>
-            <div class="flex three flex--vertically-center city--container">
-              <input id="city" name="city" ng-model="vm.city" ng-class="(vm.submitted || form.city.$dirty) && form.city.$invalid ? 'error' : ''" class="input input--large" required />
-              <span class="input--error" ng-show="(vm.submitted || form.city.$dirty) && form.city.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              <div class="flex flex--vertically-center zip--container">
-                <label for="zCode">{{'zip_code_label' | translate}}</label>
-                <input id="zCode" name="zCode" ng-model="vm.zCode" ng-class="(vm.submitted || form.zCode.$dirty) && form.zCode.$invalid ? 'error' : ''" class="input input--small width--half" required />
-                <span class="input--error" ng-show="(vm.submitted || form.zCode.$dirty) && form.zCode.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+            <div class="flex three flex--wrap">
+              <input id="firstName" name="firstName" ng-model="vm.firstName" ng-class="(vm.submitted || form.firstName.$dirty) && form.firstName.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.firstName.$dirty) && form.firstName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               </div>
             </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="country">{{'country_text' | translate}}</label>
           </div>
-          <div class="flex three flex--wrap">
-            <input id="country" name="country" ng-model="vm.country" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="lastName">{{'registration_last_name_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="lastName" name="lastName" ng-model="vm.lastName" ng-class="(vm.submitted || form.lastName.$dirty) && form.lastName.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.lastName.$dirty) && form.lastName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="typeConsumer">{{'consumer_label' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="typeConsumer" name="typeConsumer" ng-model="vm.typeConsumer" ng-class="(vm.submitted || form.typeConsumer.$dirty) && form.typeConsumer.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.typeConsumer.$dirty) && form.typeConsumer.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="company">{{'company_text' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="company" name="company" ng-model="vm.company" ng-class="(vm.submitted || form.company.$dirty) && form.company.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.company.$dirty) && form.company.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
             </div>
           </div>
-        </div>
-    </div>
-    <div class="section--wrapper credit-card--container">
-        <h3>{{ 'payment_method_title' | translate }}</h3>
-        <div class="item flex">
-          <div class="flex flex--vertically-center">
-            <label for="creditCardRadio">{{'credit_card_option' | translate}}</label>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="address">{{'address_text' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="address" name="address" ng-model="vm.address" ng-class="(vm.submitted || form.address.$dirty) && form.address.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.address.$dirty) && form.address.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
+            </div>
           </div>
+          <div class="item flex">
+              <div class="flex one flex--vertically-center">
+                <label class="special uppercase" for="city">{{'city_label' | translate}}</label>
+              </div>
+              <div class="flex three flex--vertically-center city--container">
+                <input id="city" name="city" ng-model="vm.city" ng-class="(vm.submitted || form.city.$dirty) && form.city.$invalid ? 'error' : ''" class="input input--large" required />
+                <span class="input--error" ng-show="(vm.submitted || form.city.$dirty) && form.city.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <div class="flex flex--vertically-center zip--container">
+                  <label class="special uppercase" for="zCode">{{'zip_code_label' | translate}}</label>
+                  <input id="zCode" name="zCode" ng-model="vm.zCode" ng-class="(vm.submitted || form.zCode.$dirty) && form.zCode.$invalid ? 'error' : ''" class="input input--small width--half" required />
+                  <span class="input--error" ng-show="(vm.submitted || form.zCode.$dirty) && form.zCode.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                </div>
+              </div>
+          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="country">{{'country_text' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="country" name="country" ng-model="vm.country" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="typeConsumer">{{'consumer_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="typeConsumer" name="typeConsumer" ng-model="vm.typeConsumer" ng-class="(vm.submitted || form.typeConsumer.$dirty) && form.typeConsumer.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.typeConsumer.$dirty) && form.typeConsumer.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="section--wrapper credit-card--container">
+          <h3 class="special">{{ 'payment_method_title' | translate }}</h3>
+          <div class="item flex">
+            <div class="flex flex--vertically-center">
+              <label class="special uppercase" for="creditCardRadio">{{'credit_card_option' | translate}}</label>
+            </div>
           <!-- Add this code when add other payment method -->
           <!-- <div class="flex flex--vertically-center flex--wrap">
             <input id="creditCardRadio" type="radio" name="creditCardRadio" ng-model="vm.creditCardRadio" ng-class="(vm.submitted || form.creditCardRadio.$dirty) && form.creditCardRadio.$invalid ? 'error' : ''" class="input input--large" required />
           </div> -->
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="cardHolder">{{'card_holder_label' | translate}}</label>
           </div>
-          <div class="flex three flex--wrap">
-            <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" ng-class="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$invalid ? 'error' : ''" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="cardHolder">{{'card_holder_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" ng-class="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$invalid ? 'error' : ''" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="cardNumber">{{'card_number_label' | translate}}</label>
-          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="cardNumber">{{'card_number_label' | translate}}</label>
+            </div>
           <div class="flex three credit-card flex--wrap" ng-class="vm.cc.brand">
-            <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
+              <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
             <svg class="icon icon-visa">
               <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
             </svg>
@@ -139,38 +139,100 @@
             <svg class="icon icon-amex">
               <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
             </svg>
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="expDate">{{'exp_date_label' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="expDate" name="expDate" ui-mask="99/99" ui-mask-placeholder ng-change="vm.checkExpDate(form.expDate)" ng-model="vm.expDate" ng-class="(vm.submitted || form.expDate.$dirty) && form.expDate.$invalid ? 'error' : ''"  ng-change="vm.checkExpDate(form.expDate)" class="input input--large" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.required || form.expDate.$error.mask && !form.expDate.$error.ilegal_date"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.ilegal_date && !form.expDate.$error.required && !form.expDate.$error.mask"><i class="arrow--up"></i>{{'validation_error_exp_date_length' | translate}}</span>
-
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="expDate">{{'exp_date_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="expDate" name="expDate" ui-mask="99/99" ui-mask-placeholder ng-change="vm.checkExpDate(form.expDate)" ng-model="vm.expDate" ng-class="(vm.submitted || form.expDate.$dirty) && form.expDate.$invalid ? 'error' : ''"  ng-change="vm.checkExpDate(form.expDate)" class="input input--large" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.required || form.expDate.$error.mask && !form.expDate.$error.ilegal_date"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.ilegal_date && !form.expDate.$error.required && !form.expDate.$error.mask"><i class="arrow--up"></i>{{'validation_error_exp_date_length' | translate}}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="item flex">
-          <div class="flex one flex--vertically-center">
-            <label for="securityCode">{{'sec_code_label' | translate}}</label>
-          </div>
-          <div class="flex three flex--wrap">
-            <input id="secCode" ng-model="vm.secCode.number" name="secCode" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
-            <div class="width--full">
-              <span class="input--error" ng-show="(vm.submitted || form.secCode.$dirty) && form.secCode.$error.required || form.secCode.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+          <div class="item flex">
+            <div class="flex one flex--vertically-center">
+              <label class="special uppercase" for="securityCode">{{'sec_code_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="secCode" ng-model="vm.secCode.number" name="secCode" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
+              <div class="width--full">
+                <span class="input--error" ng-show="(vm.submitted || form.secCode.$dirty) && form.secCode.$error.required || form.secCode.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              </div>
             </div>
           </div>
-        </div>
+      </div>
+      <div class="section--wrapper button--container">
+        <button class="button button--small" ng-click="vm.submitBilling(form)">{{'billing_check_button' | translate}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="section--wrapper billing--plan-confirmation" ng-class="vm.showConfirmation ? 'show':'hide'">
+    <hr class="default" />
+    <div class="item">
+      <h3>{{ 'billing_address_title' | translate }}</h3>
+    </div>
+    <div class="item flex flex--wrap first">
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">nombre y apellido</label>
+        <p tooltips tooltip-template="{{vm.firstName}}" tooltip-hidden="{{vm.firstName.length < 20}}" ng-class="vm.firstName.length > 20 ? 'hide': 'show'">{{vm.firstName}} {{vm.lastName}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'company_text' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.company}}" tooltip-hidden="{{vm.company.length < 20}}" ng-class="vm.company.length > 20 ? 'hide': 'show'">{{vm.company}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'address_text' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.address}}" tooltip-hidden="{{vm.address.length < 20}}" ng-class="vm.address.length > 20 ? 'hide': 'show'">{{vm.address}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'city_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.city}}" tooltip-hidden="{{vm.city.length < 20}}" ng-class="vm.city.length > 20 ? 'hide': 'show'">{{vm.city}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'zip_code_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.zCode}}" tooltip-hidden="{{vm.zCode.length < 20}}" ng-class="vm.zCode.length > 20 ? 'hide': 'show'">{{vm.zCode}}</p>
+      </div>
+    </div>
+    <div class="item flex flex--wrap">
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'country_text' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.country}}" tooltip-hidden="{{vm.country.length < 20}}" ng-class="vm.country.length > 20 ? 'hide': 'show'">{{vm.country}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'consumer_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.typeConsumer}}" tooltip-hidden="{{vm.typeConsumer.length < 20}}" ng-class="vm.typeConsumer.length > 20 ? 'hide': 'show'">{{vm.typeConsumer}}</p>
+      </div>
+    </div>
+    <div class="item">
+      <h3>{{ 'payment_method_title' | translate }}</h3>
+    </div>
+    <div class="item flex flex--wrap">
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'card_holder_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.cardHolder}}" tooltip-hidden="{{vm.cardHolder.length < 20}}" ng-class="vm.cardHolder.length > 20 ? 'hide': 'show'">{{vm.cardHolder}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.cc.number}}" tooltip-hidden="{{vm.cc.number.length < 20}}" ng-class="vm.cc.number.length > 20 ? 'hide': 'show'">{{vm.cc.number}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'exp_date_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.expDate}}" tooltip-hidden="{{vm.expDate.length < 20}}" ng-class="vm.expDate.length > 20 ? 'hide': 'show'">{{vm.expDate}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'sec_code_label' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.secCode.number}}" tooltip-hidden="{{vm.secCode.number.length < 20}}" ng-class="vm.secCode.number.length > 20 ? 'hide': 'show'">{{vm.secCode.number}}</p>
+      </div>
     </div>
     <div class="section--wrapper button--container">
-      <button class="button button--small" ng-click="vm.submitBilling(form)">{{'billing_check_button' | translate}}</button>
+      <button class="button button--small" ng-click="vm.showConfirmation = false">{{'billing_check_button' | translate}}</button>
     </div>
-  </form>
+  </div>
 </section>

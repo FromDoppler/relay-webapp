@@ -120,6 +120,7 @@
       if (!form.$valid) {
         return;
       }
+      vm.showConfirmation = true;
     }
   }
 

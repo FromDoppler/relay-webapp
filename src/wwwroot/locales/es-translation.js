@@ -291,7 +291,6 @@
   "attr_metrics_and_reports": "Métricas y reportes",
   "action_getting_plans": "Obteniendo Planes",
   "upgrade_text": "Upgrade",
-  "bussiness_label": "Empresa",
   "address_text": "Dirección",
   "city_label": "Ciudad",
   "zip_code_label": "Código Postal",

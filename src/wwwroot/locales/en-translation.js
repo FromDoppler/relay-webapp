@@ -277,7 +277,6 @@
   "attr_metrics_and_reports": "Metrics and reports",
   "action_getting_plans": "Getting Plans",
   "upgrade_text": "Upgrade",
-  "bussiness_label": "Business",
   "address_text": "Address",
   "city_label": "City",
   "zip_code_label": "Zip Code",

@@ -362,13 +362,38 @@
   }
 }
 
-.billing--container,.credit-card--container {
+.billing--container,.credit-card--container,.billing--plan-confirmation{
   div.item{
     border-bottom: $suit-border-default;
     margin: 1em 0;
     padding-bottom: 1em;
     .flex--content-end{margin-right: 1em;}
   }
+}
+.billing--plan-confirmation{
+  max-height: 0;
+  transition: .8s max-height 700ms;
+  overflow: hidden;
+  .one{
+    flex-grow: 1;
+    max-width: 18%;
+    margin-right: 2%;
+    p{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    p.hide{
+      max-width: 80%;
+    }
+  }
+  .one:last-of-type{
+    margin-right: 0;
+  }
+}
+
+.billing--plan-confirmation.show{
+  max-height: torem(900px);
 }
 .billing--container {
   .city--container{
@@ -386,6 +411,14 @@
 
 }
 .billing-page--container {
+  .billing--first-container{
+    max-height: torem(1800px);
+    transition: max-height .8s ease;
+    overflow: hidden;
+  }
+  .billing--first-container.hide{
+    max-height: 0;
+  }
   .billing--plan-name-container{
     div:first-of-type{margin-right: 15%;}
     div{display: inline-block;}
@@ -520,7 +553,18 @@
       }
     }
   }
-
+  .billing--plan-confirmation{
+    .first{
+      border-bottom: none !important;
+      padding-bottom: 0 !important;
+    }
+    .one{
+      flex-grow: 1;
+      min-width: 20%;
+      max-width: 100%;
+      margin-bottom: 1em
+    }
+  }
   .billing--container{
     .city--container{
       display: inline;
