@@ -15,6 +15,25 @@ describe('Billing Page', () => {
       }));
   }
 
+  function setupSamplePlansResponse() {
+    
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/plans/).respond(200, {
+          "items": [
+            { "currency": "USD",
+              "fee": 5.90,
+              "name": "PLAN-10K"},
+            { "currency": "USD",
+              "fee": 31.8,
+              "name": "PLAN-60K" }
+          ]
+        });
+      }));
+  }
 
   it('should show the selected plan name and price', () => {
     // Arrange
@@ -37,7 +56,6 @@ describe('Billing Page', () => {
         });
       }));
 
-
     var billingPage = new BillingPage();
 
     // Act
@@ -48,4 +66,75 @@ describe('Billing Page', () => {
     expect(plan).toBe('PLAN-60K');
     expect(billingPage.getPrice()).toBe('USD 31.80 x month');
   });
+
+  it('should show credit card icon when complete visa credit card number', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+
+    // Act
+    billingPage.setCreditCardNumber(4);
+      
+    // Assert
+    expect(billingPage.isCcIconVisaDisplayed()).toBeTruthy();
+
+  });
+
+  it('should show credit card icon when complete master credit card number', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+
+    // Act
+    billingPage.setCreditCardNumber(54);
+      
+    // Assert
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeTruthy();
+
+  });
+
+  it('should show credit card icon when complete amex credit card number', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+
+    // Act
+    billingPage.setCreditCardNumber(34);
+      
+    // Assert
+    expect(billingPage.isCcIconAmexDisplayed()).toBeTruthy();
+
+  });
+
+  it('should not show credit card icons when complete with credit card number invalid', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+
+    // Act
+    billingPage.setCreditCardNumber(988923432432);
+      
+    // Assert
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
+
+  });
+
 });

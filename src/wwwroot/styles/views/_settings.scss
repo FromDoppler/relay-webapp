@@ -395,6 +395,31 @@
   }
 }
 
+.credit-card--container {
+  .credit-card {
+    align-items: center;
+    svg { display: none; }
+    &.visa {
+      svg.icon-visa {
+        display: block;
+      }
+    }
+    &.mastercard {
+      svg.icon-master {
+        display: block;
+      }
+    }
+    &.amex {
+      svg.icon-amex {
+        display: block;
+      }
+    }
+    svg.icon {
+      margin-left: 1.5em;
+    }
+  }
+}
+
 /******* Media-Queries *****/
 
 @media screen and (max-width: 1450px) {
@@ -480,6 +505,18 @@
             font-size: $headers_h3-font-size !important;
           }
         }
+      }
+    }
+  }
+
+  .credit-card--container {
+    .credit-card {
+      flex-direction: row-reverse;
+      svg {
+        margin-top: torem(4px);
+      }
+      .width--full {
+        margin-top: -1.6em;
       }
     }
   }
