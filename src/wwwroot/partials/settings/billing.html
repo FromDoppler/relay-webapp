@@ -108,6 +108,7 @@
           <div class="flex flex--vertically-center">
             <label for="creditCardRadio">{{'credit_card_option' | translate}}</label>
           </div>
+          <!-- Add this code when add other payment method -->
           <!-- <div class="flex flex--vertically-center flex--wrap">
             <input id="creditCardRadio" type="radio" name="creditCardRadio" ng-model="vm.creditCardRadio" ng-class="(vm.submitted || form.creditCardRadio.$dirty) && form.creditCardRadio.$invalid ? 'error' : ''" class="input input--large" required />
           </div> -->
@@ -127,12 +128,16 @@
           <div class="flex one flex--vertically-center">
             <label for="cardNumber">{{'card_number_label' | translate}}</label>
           </div>
-          <div class="flex three credit-card flex--wrap">
+          <div class="flex three credit-card flex--wrap" ng-class="vm.cc.brand">
             <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
-            <svg class="icon">
-              <use xlink:href="/images/sprite.svg#doppler-icon-visa-card" ng-show="vm.cc.brand == 'visa'"></use>
-              <use xlink:href="/images/sprite.svg#doppler-icon-master-card" ng-show="vm.cc.brand == 'mastercard'"></use>
-              <use xlink:href="/images/sprite.svg#doppler-icon-american-card" ng-show="vm.cc.brand == 'amex'"></use>
+            <svg class="icon icon-visa">
+              <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
+            </svg>
+            <svg class="icon icon-master">
+              <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
+            </svg>
+            <svg class="icon icon-amex">
+              <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
             </svg>
             <div class="width--full">
               <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>

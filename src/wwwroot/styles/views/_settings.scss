@@ -398,6 +398,22 @@
 .credit-card--container {
   .credit-card {
     align-items: center;
+    svg { display: none; }
+    &.visa {
+      svg.icon-visa {
+        display: block;
+      }
+    }
+    &.mastercard {
+      svg.icon-master {
+        display: block;
+      }
+    }
+    &.amex {
+      svg.icon-amex {
+        display: block;
+      }
+    }
     svg.icon {
       margin-left: 1.5em;
     }

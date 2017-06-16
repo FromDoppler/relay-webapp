@@ -4,7 +4,9 @@ class BillingPage {
     this._planName = $('.billing--plan-name-container .plan-name');
     this._planPrice = $('.billing--plan-name-container .plan-price');
     this._ccNumber = element(by.id('cc.number'));
-    this._ccIcon = $('.credit-card .icon');
+    this._ccIconAmex = $('.icon-amex');
+    this._ccIconVisa = $('.icon-visa');
+    this._ccIconMaster = $('.icon-master');
   }
 
   getPlanName() {
@@ -16,8 +18,14 @@ class BillingPage {
   setCreditCardNumber(ccNumber) {
       return this._ccNumber.sendKeys(ccNumber);
   }
-  isCcIconDisplayed(){
-    return this._ccIcon.isDisplayed();
+  isCcIconVisaDisplayed() {
+      return this._ccIconVisa.isDisplayed();
+  }
+  isCcIconMastercardDisplayed() {
+      return this._ccIconMaster.isDisplayed();
+  }
+  isCcIconAmexDisplayed() {
+      return this._ccIconAmex.isDisplayed();
   }
 }
 exports.BillingPage = BillingPage;
