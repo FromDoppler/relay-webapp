@@ -294,7 +294,6 @@
   "address_text": "Dirección",
   "city_label": "Ciudad",
   "zip_code_label": "Código Postal",
-  "consumer_label": "Tipo de Consumidor",
   "payment_method_title": "Medios de Pago",
   "credit_card_option": "Tarjeta de Crédito",
   "card_holder_label": "Titular",
@@ -304,5 +303,7 @@
   "billing_check_button": "Revisar mi pedido",
   "price_text": "Precio",
   "plan_text": "Plan",
-  "each_month": "x mes"
+  "each_month": "x mes",
+  "billing_change_plan_button": "Seleccionar otro plan",
+  "billing_change_info_button": "Modificar información"
 };

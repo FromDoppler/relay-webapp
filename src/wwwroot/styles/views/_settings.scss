@@ -393,7 +393,7 @@
 }
 
 .billing--plan-confirmation.show{
-  max-height: torem(900px);
+  max-height: 80rem;
 }
 .billing--container {
   .city--container{
@@ -411,6 +411,9 @@
 
 }
 .billing-page--container {
+  .button--white{
+      margin-right: 2%;
+  }
   .billing--first-container{
     max-height: torem(1800px);
     transition: max-height .8s ease;
@@ -554,6 +557,9 @@
     }
   }
   .billing--plan-confirmation{
+    hr{ display: none;}
+      padding-top: 1em;
+      border-top: 1px solid #D5D2CF;
     .first{
       border-bottom: none !important;
       padding-bottom: 0 !important;
@@ -563,6 +569,12 @@
       min-width: 20%;
       max-width: 100%;
       margin-bottom: 1em
+    }
+  }
+  .billing-page--container{
+    .button--white{
+        margin-right: 0;
+        margin-bottom: 5%;
     }
   }
   .billing--container{

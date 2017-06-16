@@ -23,23 +23,12 @@
         <h3 class="special">{{ 'billing_address_title' | translate }}</h3>
           <div class="item flex">
             <div class="flex one flex--vertically-center">
-              <label class="special uppercase" for="firstName">{{'registration_first_name_label' | translate}}</label>
+              <label class="special uppercase" for="name">{{'downloads_grid_name_header' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="firstName" name="firstName" ng-model="vm.firstName" ng-class="(vm.submitted || form.firstName.$dirty) && form.firstName.$invalid ? 'error' : ''" class="input input--large" required />
+              <input id="name" name="name" ng-model="vm.name" ng-class="(vm.submitted || form.name.$dirty) && form.name.$invalid ? 'error' : ''" class="input input--large" required />
               <div class="width--full">
-                <span class="input--error" ng-show="(vm.submitted || form.firstName.$dirty) && form.firstName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="item flex">
-            <div class="flex one flex--vertically-center">
-              <label class="special uppercase" for="lastName">{{'registration_last_name_label' | translate}}</label>
-            </div>
-            <div class="flex three flex--wrap">
-              <input id="lastName" name="lastName" ng-model="vm.lastName" ng-class="(vm.submitted || form.lastName.$dirty) && form.lastName.$invalid ? 'error' : ''" class="input input--large" required />
-              <div class="width--full">
-                <span class="input--error" ng-show="(vm.submitted || form.lastName.$dirty) && form.lastName.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <span class="input--error" ng-show="(vm.submitted || form.name.$dirty) && form.name.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               </div>
             </div>
           </div>
@@ -87,17 +76,6 @@
               <input id="country" name="country" ng-model="vm.country" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'error' : ''" class="input input--large" required />
               <div class="width--full">
                 <span class="input--error" ng-show="(vm.submitted || form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="item flex">
-            <div class="flex one flex--vertically-center">
-              <label class="special uppercase" for="typeConsumer">{{'consumer_label' | translate}}</label>
-            </div>
-            <div class="flex three flex--wrap">
-              <input id="typeConsumer" name="typeConsumer" ng-model="vm.typeConsumer" ng-class="(vm.submitted || form.typeConsumer.$dirty) && form.typeConsumer.$invalid ? 'error' : ''" class="input input--large" required />
-              <div class="width--full">
-                <span class="input--error" ng-show="(vm.submitted || form.typeConsumer.$dirty) && form.typeConsumer.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               </div>
             </div>
           </div>
@@ -169,7 +147,8 @@
           </div>
       </div>
       <div class="section--wrapper button--container">
-        <button class="button button--small" ng-click="vm.submitBilling(form)">{{'billing_check_button' | translate}}</button>
+        <button class="button button--small button--white" ng-click="vm.redirectToPlanSelect();">{{'billing_change_plan_button' | translate}}</button>
+        <button class="button button--small" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
       </div>
     </form>
   </div>
@@ -180,8 +159,8 @@
     </div>
     <div class="item flex flex--wrap first">
       <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">nombre y apellido</label>
-        <p tooltips tooltip-template="{{vm.firstName}}" tooltip-hidden="{{vm.firstName.length < 20}}" ng-class="vm.firstName.length > 20 ? 'hide': 'show'">{{vm.firstName}} {{vm.lastName}}</p>
+        <label class="width--full special uppercase">{{'downloads_grid_name_header' | translate}}</label>
+        <p tooltips tooltip-template="{{vm.name}}" tooltip-hidden="{{vm.name.length < 20}}" ng-class="vm.name.length > 20 ? 'hide': 'show'">{{vm.name}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'company_text' | translate}}</label>
@@ -204,10 +183,6 @@
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'country_text' | translate}}</label>
         <p tooltips tooltip-template="{{vm.country}}" tooltip-hidden="{{vm.country.length < 20}}" ng-class="vm.country.length > 20 ? 'hide': 'show'">{{vm.country}}</p>
-      </div>
-      <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">{{'consumer_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.typeConsumer}}" tooltip-hidden="{{vm.typeConsumer.length < 20}}" ng-class="vm.typeConsumer.length > 20 ? 'hide': 'show'">{{vm.typeConsumer}}</p>
       </div>
     </div>
     <div class="item">
@@ -232,7 +207,8 @@
       </div>
     </div>
     <div class="section--wrapper button--container">
-      <button class="button button--small" ng-click="vm.showConfirmation = false">{{'billing_check_button' | translate}}</button>
+      <button class="button button--small button--white" ng-click="vm.showConfirmation = false">{{'billing_change_info_button' | translate}}</button>
+      <button class="button button--small" ng-click="">{{'billing_check_button' | translate}}</button>
     </div>
   </div>
 </section>
