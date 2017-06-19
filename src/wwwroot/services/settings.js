@@ -19,7 +19,8 @@
       deleteDomain: deleteDomain,
       getUserApiKeys: getUserApiKeys,
       getDomain: getDomain,
-      getPlansAvailable: getPlansAvailable
+      getPlansAvailable: getPlansAvailable,
+      getCountries: getCountries
     };
 
     var plansCache = null;
@@ -136,6 +137,19 @@
       });
 
       return plansCache;
+    }
+
+    function getCountries() {
+      return getResource("countries.json");
+    }
+
+    function getResource(resourceFileName) {
+    var actionDescription = 'action_getting_resource';
+      return $http({
+        actionDescription: actionDescription,
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/resources/' + resourceFileName
+      });
     }
 }
 })();

@@ -35,10 +35,16 @@
     ]);
     var queryParams = $location.search();
     var planName = queryParams['plan'];
+    var countriesPromise = settings.getCountries();
     vm.activationPromise = activate();
     vm.redirectToPlanSelection = redirectToPlanSelection;
 
+    var deregisterLangListener = $rootScope.$on('$translateChangeSuccess', fillList);
+    //Clean up
+    $scope.$on('$destroy', deregisterLangListener);
+
     function activate() {
+      fillList();
       if (!planName) {
         return redirectToPlanSelection();
       }
@@ -130,6 +136,11 @@
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
       vm.viewExpDate = form.expDate.$viewValue;
 
+      countriesPromise.then(function(ret) {
+        vm.countryList = ret.data.map(function(val){
+          return { code: val.code, name: val[lang] };
+        })
+      });
     }
   }
 

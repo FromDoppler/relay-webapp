@@ -73,9 +73,17 @@
               <label class="special uppercase" for="country">{{'country_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="country" name="country" ng-model="vm.country" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'error' : ''" class="input input--large" required />
+            <!--<input id="country" name="country" ng-model="vm.country" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'error' : ''" class="input input--large" required /> -->
+            <ui-select id="country" name="country" ng-model="vm.country" on-select="form.country.$modelValue = $model" ng-disabled="disabled" required>
+              <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
+                <span ng-bind-html="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (vm.countryList | filter: $select.search)">
+                <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
               <div class="width--full">
-                <span class="input--error" ng-show="(vm.submitted || form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted ||form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               </div>
             </div>
           </div>
