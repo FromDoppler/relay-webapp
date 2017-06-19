@@ -32,7 +32,7 @@ describe('Billing Page', () => {
               "name": "PLAN-60K" }
           ]
         });
-       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "The Bolivian people","es": "Bolivia"}]); 
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]); 
       }));
   }
 
@@ -149,7 +149,7 @@ describe('Billing Page', () => {
   it('should show countries drop downs in different languages', () => {
 
     // Arrange
-    var countryInEnglish = "The Bolivian people";
+    var countryInEnglish = "Bolivia, Plurinational State Of";
     var countryInSpanish = "Bolivia";
     beginAuthenticatedSession();
     setupSamplePlansResponse();
