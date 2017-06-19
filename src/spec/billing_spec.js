@@ -32,6 +32,7 @@ describe('Billing Page', () => {
               "name": "PLAN-60K" }
           ]
         });
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "The Bolivian people","es": "Bolivia"}]); 
       }));
   }
 
@@ -39,22 +40,7 @@ describe('Billing Page', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
-    browser.addMockModule('descartableModule2', () => angular
-      // This code will be executed in the browser context,
-      // so it cannot access variables from outside its scope
-      .module('descartableModule2', ['ngMockE2E'])
-      .run($httpBackend => {
-        $httpBackend.whenGET(/\/plans/).respond(200, {
-          "items": [
-            { "currency": "USD",
-              "fee": 5.90,
-              "name": "PLAN-10K"},
-            { "currency": "USD",
-              "fee": 31.8,
-              "name": "PLAN-60K" }
-          ]
-        });
-      }));
+    setupSamplePlansResponse();
 
     var billingPage = new BillingPage();
 
@@ -157,6 +143,29 @@ describe('Billing Page', () => {
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
+
+  });
+
+  it('should show countries drop downs in different languages', () => {
+
+    // Arrange
+    var countryInEnglish = "The Bolivian people";
+    var countryInSpanish = "Bolivia";
+    beginAuthenticatedSession();
+    setupSamplePlansResponse();
+    
+    // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
+
+    // Assert
+    var billingPage = new BillingPage();
+    expect(billingPage.getFirstCountryName()).toBe(countryInSpanish);
+
+     // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=en');
+    
+    // Assert
+    expect(billingPage.getFirstCountryName()).toBe(countryInEnglish);
 
   });
 
