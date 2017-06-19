@@ -81,6 +81,8 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isCcIconVisaDisplayed()).toBeTruthy();
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
   });
 
@@ -98,6 +100,8 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isCcIconMastercardDisplayed()).toBeTruthy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
 
   });
 
@@ -115,6 +119,8 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isCcIconAmexDisplayed()).toBeTruthy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
   });
 
@@ -131,6 +137,23 @@ describe('Billing Page', () => {
     billingPage.setCreditCardNumber(988923432432);
 
     // Assert
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
+
+  });
+
+  it('should not show credit card icons by default', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    setupSamplePlansResponse();
+
+    // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+      
+    // Assert
+    var billingPage = new BillingPage();
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
