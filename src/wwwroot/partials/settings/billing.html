@@ -148,7 +148,7 @@
       </div>
       <div class="section--wrapper button--container">
         <button class="button button--small button--white" ng-click="vm.redirectToPlanSelect();">{{'billing_change_plan_button' | translate}}</button>
-        <button class="button button--small" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
+        <button class="button button--small check-button" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
       </div>
     </form>
   </div>
@@ -160,29 +160,29 @@
     <div class="item flex flex--wrap first">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'downloads_grid_name_header' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.name}}" tooltip-hidden="{{vm.name.length < 20}}" ng-class="vm.name.length > 20 ? 'hide': 'show'">{{vm.name}}</p>
+        <p id="nameConfirmation" tooltips tooltip-template="{{vm.name}}" tooltip-hidden="{{vm.name.length < 20}}" ng-class="vm.name.length > 20 ? 'hide': 'show'">{{vm.name}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'company_text' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.company}}" tooltip-hidden="{{vm.company.length < 20}}" ng-class="vm.company.length > 20 ? 'hide': 'show'">{{vm.company}}</p>
+        <p id="companyConfirmation" tooltips tooltip-template="{{vm.company}}" tooltip-hidden="{{vm.company.length < 20}}" ng-class="vm.company.length > 20 ? 'hide': 'show'">{{vm.company}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'address_text' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.address}}" tooltip-hidden="{{vm.address.length < 20}}" ng-class="vm.address.length > 20 ? 'hide': 'show'">{{vm.address}}</p>
+        <p id="addressConfirmation" tooltips tooltip-template="{{vm.address}}" tooltip-hidden="{{vm.address.length < 20}}" ng-class="vm.address.length > 20 ? 'hide': 'show'">{{vm.address}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'city_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.city}}" tooltip-hidden="{{vm.city.length < 20}}" ng-class="vm.city.length > 20 ? 'hide': 'show'">{{vm.city}}</p>
+        <p id="cityConfirmation" tooltips tooltip-template="{{vm.city}}" tooltip-hidden="{{vm.city.length < 20}}" ng-class="vm.city.length > 20 ? 'hide': 'show'">{{vm.city}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'zip_code_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.zCode}}" tooltip-hidden="{{vm.zCode.length < 20}}" ng-class="vm.zCode.length > 20 ? 'hide': 'show'">{{vm.zCode}}</p>
+        <p id="zCodeConfirmation" tooltips tooltip-template="{{vm.zCode}}" tooltip-hidden="{{vm.zCode.length < 20}}" ng-class="vm.zCode.length > 20 ? 'hide': 'show'">{{vm.zCode}}</p>
       </div>
     </div>
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'country_text' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.country}}" tooltip-hidden="{{vm.country.length < 20}}" ng-class="vm.country.length > 20 ? 'hide': 'show'">{{vm.country}}</p>
+        <p id="countryConfirmation" tooltips tooltip-template="{{vm.country}}" tooltip-hidden="{{vm.country.length < 20}}" ng-class="vm.country.length > 20 ? 'hide': 'show'">{{vm.country}}</p>
       </div>
     </div>
     <div class="item">
@@ -191,23 +191,23 @@
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'card_holder_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.cardHolder}}" tooltip-hidden="{{vm.cardHolder.length < 20}}" ng-class="vm.cardHolder.length > 20 ? 'hide': 'show'">{{vm.cardHolder}}</p>
+        <p id="cardHolderConfirmation" tooltips tooltip-template="{{vm.cardHolder}}" tooltip-hidden="{{vm.cardHolder.length < 20}}" ng-class="vm.cardHolder.length > 20 ? 'hide': 'show'">{{vm.cardHolder}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.cc.number}}" tooltip-hidden="{{vm.cc.number.length < 20}}" ng-class="vm.cc.number.length > 20 ? 'hide': 'show'">{{vm.cc.number}}</p>
+        <p id="ccNumberConfirmation">{{vm.cc.parsedCcNumber}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'exp_date_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.expDate}}" tooltip-hidden="{{vm.expDate.length < 20}}" ng-class="vm.expDate.length > 20 ? 'hide': 'show'">{{vm.expDate}}</p>
+        <p id="expDateConfirmation">{{vm.viewExpDate}}</p>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'sec_code_label' | translate}}</label>
-        <p tooltips tooltip-template="{{vm.secCode.number}}" tooltip-hidden="{{vm.secCode.number.length < 20}}" ng-class="vm.secCode.number.length > 20 ? 'hide': 'show'">{{vm.secCode.number}}</p>
+        <p id="secCodeConfirmation">{{vm.secCode.ParsedNumber}}</p>
       </div>
     </div>
     <div class="section--wrapper button--container">
-      <button class="button button--small button--white" ng-click="vm.showConfirmation = false">{{'billing_change_info_button' | translate}}</button>
+      <button class="button button--small button--white modify-button" ng-click="vm.showConfirmation = false">{{'billing_change_info_button' | translate}}</button>
       <button class="button button--small" ng-click="">{{'billing_check_button' | translate}}</button>
     </div>
   </div>

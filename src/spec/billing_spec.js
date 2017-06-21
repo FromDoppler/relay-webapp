@@ -16,7 +16,7 @@ describe('Billing Page', () => {
   }
 
   function setupSamplePlansResponse() {
-    
+
     browser.addMockModule('descartableModule2', () => angular
       // This code will be executed in the browser context,
       // so it cannot access variables from outside its scope
@@ -78,7 +78,7 @@ describe('Billing Page', () => {
 
     // Act
     billingPage.setCreditCardNumber(4);
-      
+
     // Assert
     expect(billingPage.isCcIconVisaDisplayed()).toBeTruthy();
 
@@ -95,7 +95,7 @@ describe('Billing Page', () => {
 
     // Act
     billingPage.setCreditCardNumber(54);
-      
+
     // Assert
     expect(billingPage.isCcIconMastercardDisplayed()).toBeTruthy();
 
@@ -112,7 +112,7 @@ describe('Billing Page', () => {
 
     // Act
     billingPage.setCreditCardNumber(34);
-      
+
     // Assert
     expect(billingPage.isCcIconAmexDisplayed()).toBeTruthy();
 
@@ -129,12 +129,140 @@ describe('Billing Page', () => {
 
     // Act
     billingPage.setCreditCardNumber(988923432432);
-      
+
     // Assert
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
   });
+
+  it('should show the confirmation page with all the fields filled', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+    var name = 'TestName TestLastName';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Country Test';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4444444444444444';
+    var expDate = '0919';
+    var secCode = '123'
+
+    // Act
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+
+    billingPage.clickCheckOrder();
+
+    // Assert
+    expect(billingPage.isConfirmationDisplayed()).toBeTruthy();
+    expect(billingPage.isNameDisplayed()).toBe(name);
+    expect(billingPage.isCompanyDisplayed()).toBe(company);
+    expect(billingPage.isCityDisplayed()).toBe(city);
+    expect(billingPage.isZCodeDisplayed()).toBe(zCode);
+    expect(billingPage.isCountryDisplayed()).toBe(country);
+    expect(billingPage.isCardHolderDisplayed()).toBe(cardHolder);
+    expect(billingPage.isCcNumberDisplayed()).toBe('************4444');
+    expect(billingPage.isExpDateDisplayed()).toBe('09/19');
+    expect(billingPage.isSecCodeDisplayed()).toBe('***');
+    expect(billingPage.isBillingPageDisplayed()).toBeFalsy();
+
+  });
+
+  it('should not show the confirmation page if all fields are not filled', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+    var name = '';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Country Test';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4444444444444444';
+    var expDate = '0919';
+    var secCode = '123'
+
+    // Act
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+
+    billingPage.clickCheckOrder();
+
+    // Assert
+    expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
+    expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+  });
+  it('should go back to billing page if the user clicks on modify information', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+    var name = 'TestName TestLastName';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Country Test';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4444444444444444';
+    var expDate = '0919';
+    var secCode = '123'
+
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+    billingPage.clickCheckOrder();
+
+    expect(billingPage.isConfirmationDisplayed()).toBeTruthy();
+    expect(billingPage.isBillingPageDisplayed()).toBeFalsy();
+
+    // Act
+    billingPage.clickModifyInformation();
+
+    // Assert
+    expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
+    expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+  });
+
 
 });
