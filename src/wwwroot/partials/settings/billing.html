@@ -77,7 +77,7 @@
               <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in (vm.countryList | filter: $select.search)">
+              <ui-select-choices repeat="item in (vm.resources.countries | filter: $select.search)">
                 <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>

@@ -13,7 +13,8 @@
     '$translate',
     '$timeout',
     'settings',
-    'utils'
+    'utils',
+    'resources'
   ];
 
   var secCodeMasksByBrand = {
@@ -28,23 +29,21 @@
      'amex': '9999 999999 99999',
      'unknown': '9999 9999 9999 9999'
   };
-  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils) {
+  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
     ]);
     var queryParams = $location.search();
     var planName = queryParams['plan'];
-    var countriesPromise = settings.getCountries();
     vm.activationPromise = activate();
     vm.redirectToPlanSelection = redirectToPlanSelection;
 
-    var deregisterLangListener = $rootScope.$on('$translateChangeSuccess', fillList);
-    //Clean up
-    $scope.$on('$destroy', deregisterLangListener);
-
     function activate() {
-      fillList();
+
+      resources.ensureCountries();
+      vm.resources = resources.data;
+
       if (!planName) {
         return redirectToPlanSelection();
       }
@@ -135,12 +134,6 @@
       vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
       vm.viewExpDate = form.expDate.$viewValue;
-
-      countriesPromise.then(function(ret) {
-        vm.countryList = ret.data.map(function(val){
-          return { code: val.code, name: val[lang] };
-        })
-      });
     }
   }
 
