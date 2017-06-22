@@ -32,8 +32,8 @@
 
     function activate() {
 
-      resources.ensureCountries();
       resources.ensureIndustries();
+      resources.ensureCountries();
       vm.resources = resources.data;
       
       var activationToken = $location.search()['activation'];

@@ -182,7 +182,7 @@ describe('Billing Page', () => {
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
-    var country = 'Country Test';
+    var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
     var expDate = '0919';
@@ -208,7 +208,7 @@ describe('Billing Page', () => {
     expect(billingPage.isCompanyDisplayed()).toBe(company);
     expect(billingPage.isCityDisplayed()).toBe(city);
     expect(billingPage.isZCodeDisplayed()).toBe(zCode);
-    expect(billingPage.isCountryDisplayed()).toBe(country);
+    expect(billingPage.isCountryDisplayed()).toContain(country);
     expect(billingPage.isCardHolderDisplayed()).toBe(cardHolder);
     expect(billingPage.isCcNumberDisplayed()).toBe('************4444');
     expect(billingPage.isExpDateDisplayed()).toBe('09/19');
@@ -230,7 +230,7 @@ describe('Billing Page', () => {
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
-    var country = 'Country Test';
+    var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
     var expDate = '0919';
@@ -267,7 +267,7 @@ describe('Billing Page', () => {
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
-    var country = 'Country Test';
+    var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
     var expDate = '0919';

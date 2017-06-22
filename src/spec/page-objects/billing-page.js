@@ -59,7 +59,7 @@ class BillingPage {
     return this._zCodeInput.sendKeys(zCode);
   }
   setCountry(country) {
-    return this._countryInput.sendKeys(country);
+    return this.clickFirstSelectOptionText(this._countrySelect);
   }
   setCardHolder(cardHolder) {
     return this._cardHolderInput.sendKeys(cardHolder);
@@ -100,7 +100,7 @@ class BillingPage {
   isNameDisplayed() {
     return this._nameConfirmationLabel.getText();
   }
-  getFirstSelectOptionText(parentElem){
+  getFirstSelectOptionText(parentElem) {
     parentElem.click();
 
     var firstOption = parentElem.all(by.css('span.select-option')).first();
@@ -113,6 +113,13 @@ class BillingPage {
     }, this._waitTimeout);
 
     return firstOption.getText();
+  }
+  clickFirstSelectOptionText(parentElem)
+  {
+    parentElem.click();
+    var firstOption = parentElem.all(by.css('span.select-option')).first();
+    return firstOption.click();
+    
   }
   isCompanyDisplayed() {
     return this._companyConfirmationLabel.getText();
