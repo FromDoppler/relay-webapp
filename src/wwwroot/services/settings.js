@@ -20,7 +20,8 @@
       getUserApiKeys: getUserApiKeys,
       getDomain: getDomain,
       getPlansAvailable: getPlansAvailable,
-      getCountries: getCountries
+      getCountries: getCountries,
+      billingPayment: billingPayment
     };
 
     var plansCache = null;
@@ -144,12 +145,27 @@
     }
 
     function getResource(resourceFileName) {
-    var actionDescription = 'action_getting_resource';
+      var actionDescription = 'action_getting_resource';
       return $http({
         actionDescription: actionDescription,
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/resources/' + resourceFileName
       });
     }
+    
+    function billingPayment(paymentData) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/account/'
+        + auth.getAccountName()
+        + '/aggrements/';
+
+      return $http({
+        actionDescription: 'action_billing_payment',
+        method: 'POST',
+        data: paymentData,
+        url: url
+      });
+    }
+    
 }
 })();
