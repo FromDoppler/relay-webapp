@@ -31,7 +31,7 @@
     }
 
     function ensureIndustries() {
-      return ensure("indutries");
+      return ensure("industries");
     }
 
     function ensure(resource) {
