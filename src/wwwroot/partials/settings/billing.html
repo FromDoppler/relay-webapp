@@ -189,7 +189,7 @@
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'country_text' | translate}}</label>
-        <p id="countryConfirmation" tooltips tooltip-template="{{vm.country}}" tooltip-hidden="{{vm.country.length < 20}}" ng-class="vm.country.length > 20 ? 'hide': 'show'">{{vm.country}}</p>
+        <p id="countryConfirmation" tooltips tooltip-template="{{vm.country.name}}" tooltip-hidden="{{vm.country.name.length < 20}}" ng-class="vm.country.name.length > 20 ? 'hide': 'show'">{{vm.country.name}}</p>
       </div>
     </div>
     <div class="item">
