@@ -138,9 +138,9 @@
     }
     function submitBillingPayment() {
       var paymentData = { plan : planName, creditCard: { number: vm.cc.number, securityCode: vm.secCode.number, expiration: vm.expDate} };
-      settings.billingPayment(paymentData)
+      return settings.billingPayment(paymentData)
       .then(function() {
-        $location.path('/');
+        redirectToPlanSelection();
       });
     }
   }
