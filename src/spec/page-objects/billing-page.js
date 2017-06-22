@@ -31,6 +31,7 @@ class BillingPage {
     this._ccIconVisa = $('.icon-visa');
     this._ccIconMaster = $('.icon-master');
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
+    this._countrySelect =  element(by.id('country'));
   }
 
   getPlanName() {
@@ -58,7 +59,7 @@ class BillingPage {
     return this._zCodeInput.sendKeys(zCode);
   }
   setCountry(country) {
-    return this._countryInput.sendKeys(country);
+    return this.clickFirstSelectOptionText(this._countrySelect);
   }
   setCardHolder(cardHolder) {
     return this._cardHolderInput.sendKeys(cardHolder);
@@ -81,6 +82,9 @@ class BillingPage {
   clickCheckOrder() {
     return this._checkOrderButton.click();
   }
+  getFirstCountryName() {
+    return this.getFirstSelectOptionText(this._countrySelect);
+  }
   isConfirmationDisplayed() {
    var confirmationContainer = this._confirmationContainer;
 
@@ -95,6 +99,27 @@ class BillingPage {
   }
   isNameDisplayed() {
     return this._nameConfirmationLabel.getText();
+  }
+  getFirstSelectOptionText(parentElem) {
+    parentElem.click();
+
+    var firstOption = parentElem.all(by.css('span.select-option')).first();
+
+    // the library `angular-ui/ui-select` creates  the HTML
+    // but it takes a little bit to populate the values
+    // so we have to wait until the text is present.
+    browser.wait(function() {
+      return firstOption.getText() != ''
+    }, this._waitTimeout);
+
+    return firstOption.getText();
+  }
+  clickFirstSelectOptionText(parentElem)
+  {
+    parentElem.click();
+    var firstOption = parentElem.all(by.css('span.select-option')).first();
+    return firstOption.click();
+    
   }
   isCompanyDisplayed() {
     return this._companyConfirmationLabel.getText();

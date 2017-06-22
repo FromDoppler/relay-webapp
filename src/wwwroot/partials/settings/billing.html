@@ -73,9 +73,16 @@
               <label class="special uppercase" for="country">{{'country_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="country" name="country" ng-model="vm.country" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'error' : ''" class="input input--large" required />
+            <ui-select id="country" name="country" ng-model="vm.country" on-select="form.country.$modelValue = $model" required>
+              <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
+                <span ng-bind-html="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (vm.resources.countries | filter: $select.search)">
+                <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
               <div class="width--full">
-                <span class="input--error" ng-show="(vm.submitted || form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+              <span class="input--error" ng-show="(vm.submitted ||form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               </div>
             </div>
           </div>
@@ -147,7 +154,7 @@
           </div>
       </div>
       <div class="section--wrapper button--container">
-        <button class="button button--small button--white" ng-click="vm.redirectToPlanSelect();">{{'billing_change_plan_button' | translate}}</button>
+        <button class="button button--small button--white" ng-click="vm.redirectToPlanSelection();">{{'billing_change_plan_button' | translate}}</button>
         <button class="button button--small check-button" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
       </div>
     </form>
@@ -182,7 +189,7 @@
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'country_text' | translate}}</label>
-        <p id="countryConfirmation" tooltips tooltip-template="{{vm.country}}" tooltip-hidden="{{vm.country.length < 20}}" ng-class="vm.country.length > 20 ? 'hide': 'show'">{{vm.country}}</p>
+        <p id="countryConfirmation" tooltips tooltip-template="{{vm.country.name}}" tooltip-hidden="{{vm.country.name.length < 20}}" ng-class="vm.country.name.length > 20 ? 'hide': 'show'">{{vm.country.name}}</p>
       </div>
     </div>
     <div class="item">

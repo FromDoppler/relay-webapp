@@ -6,7 +6,7 @@ describe('Confirmation Page', () => {
           .module('descartableModule', ['ngMockE2E'])
           .run($httpBackend => {
              $httpBackend.whenGET(/\/resources\/industries\.json/).respond(200, [{"code": "dplr138","en": "Tobacco","es": "Tabaco"}]);
-             $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "The Bolivian people","es": "Bolivia"}]);
+             $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]);
              $httpBackend.whenGET(/\/user/).respond(200, {
                "user_email": "pbarrios+dr001@makingsense.com",
                "user_id": 7,
@@ -36,7 +36,7 @@ describe('Confirmation Page', () => {
     var confirmationPage = new ConfirmationPage();
     var industryInEnglish = "Tobacco";
     var industryInSpanish = "Tabaco";
-    var countryInEnglish = "The Bolivian people";
+    var countryInEnglish = "Bolivia, Plurinational State Of";
     var countryInSpanish = "Bolivia";
 
     // Act

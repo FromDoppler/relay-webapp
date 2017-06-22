@@ -22,7 +22,7 @@
               <ui-select-match placeholder="{{ 'select_choose_industry' | translate }}">
                   <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in (vm.industryList | filter: $select.search) track by item.code">
+              <ui-select-choices repeat="item in (vm.resources.industries | filter: $select.search) track by item.code">
                   <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
               </ui-select-choices>
           </ui-select>
@@ -34,7 +34,7 @@
               <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in (vm.countryList | filter: $select.search)">
+              <ui-select-choices repeat="item in (vm.resources.countries | filter: $select.search)">
                 <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
               </ui-select-choices>
           </ui-select>

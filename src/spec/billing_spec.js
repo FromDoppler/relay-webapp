@@ -32,6 +32,7 @@ describe('Billing Page', () => {
               "name": "PLAN-60K" }
           ]
         });
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]); 
       }));
   }
 
@@ -39,22 +40,7 @@ describe('Billing Page', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
-    browser.addMockModule('descartableModule2', () => angular
-      // This code will be executed in the browser context,
-      // so it cannot access variables from outside its scope
-      .module('descartableModule2', ['ngMockE2E'])
-      .run($httpBackend => {
-        $httpBackend.whenGET(/\/plans/).respond(200, {
-          "items": [
-            { "currency": "USD",
-              "fee": 5.90,
-              "name": "PLAN-10K"},
-            { "currency": "USD",
-              "fee": 31.8,
-              "name": "PLAN-60K" }
-          ]
-        });
-      }));
+    setupSamplePlansResponse();
 
     var billingPage = new BillingPage();
 
@@ -81,6 +67,8 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isCcIconVisaDisplayed()).toBeTruthy();
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
   });
 
@@ -98,6 +86,8 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isCcIconMastercardDisplayed()).toBeTruthy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
 
   });
 
@@ -115,6 +105,8 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isCcIconAmexDisplayed()).toBeTruthy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
   });
 
@@ -137,6 +129,46 @@ describe('Billing Page', () => {
 
   });
 
+  it('should not show credit card icons by default', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    setupSamplePlansResponse();
+
+    // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+      
+    // Assert
+    var billingPage = new BillingPage();
+    expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
+    expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
+
+  });
+
+  it('should show countries drop downs in different languages', () => {
+
+    // Arrange
+    var countryInEnglish = "Bolivia, Plurinational State Of";
+    var countryInSpanish = "Bolivia";
+    beginAuthenticatedSession();
+    setupSamplePlansResponse();
+    
+    // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
+
+    // Assert
+    var billingPage = new BillingPage();
+    expect(billingPage.getFirstCountryName()).toBe(countryInSpanish);
+
+     // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=en');
+    
+    // Assert
+    expect(billingPage.getFirstCountryName()).toBe(countryInEnglish);
+
+  });
+
   it('should show the confirmation page with all the fields filled', () => {
 
     // Arrange
@@ -150,7 +182,7 @@ describe('Billing Page', () => {
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
-    var country = 'Country Test';
+    var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
     var expDate = '0919';
@@ -176,7 +208,7 @@ describe('Billing Page', () => {
     expect(billingPage.isCompanyDisplayed()).toBe(company);
     expect(billingPage.isCityDisplayed()).toBe(city);
     expect(billingPage.isZCodeDisplayed()).toBe(zCode);
-    expect(billingPage.isCountryDisplayed()).toBe(country);
+    expect(billingPage.isCountryDisplayed()).toContain(country);
     expect(billingPage.isCardHolderDisplayed()).toBe(cardHolder);
     expect(billingPage.isCcNumberDisplayed()).toBe('************4444');
     expect(billingPage.isExpDateDisplayed()).toBe('09/19');
@@ -198,7 +230,7 @@ describe('Billing Page', () => {
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
-    var country = 'Country Test';
+    var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
     var expDate = '0919';
@@ -235,7 +267,7 @@ describe('Billing Page', () => {
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
-    var country = 'Country Test';
+    var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
     var expDate = '0919';
