@@ -209,6 +209,7 @@
   "action_register_user": "Registrando usuario",
   "action_activating_user": "Activando usuario",
   "action_adding_domain": "Activando un Dominio",
+  "action_billing_payment": "Realizando el pago",
   "action_setting_default_domain": "Activando un dominio predeterminado",
   "action_deleting_domain": "Borrando un Dominio",
   "action_getting_resource" : "Obteniendo recurso de la web",

@@ -61,6 +61,7 @@
     }
     vm.checkExpDate = checkExpDate;
     vm.submitBilling = submitBilling;
+    vm.submitBillingPayment = submitBillingPayment;
 
     vm.cc = {number: '', brand: {}, mask: ''};
     vm.secCode = {number: '', mask: ''};
@@ -134,6 +135,13 @@
       vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
       vm.viewExpDate = form.expDate.$viewValue;
+    }
+    function submitBillingPayment() {
+      var paymentData = { plan : planName, creditCard: { number: vm.cc.number, securityCode: vm.secCode.number, expiration: vm.expDate} };
+      return settings.billingPayment(paymentData)
+      .then(function() {
+        redirectToPlanSelection();
+      });
     }
   }
 
