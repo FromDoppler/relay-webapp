@@ -227,6 +227,10 @@ $input--error--color: #FFF;
 		&.error{
 			border: $suit-border-error;
 		}
+		&.input--disabled{
+			border: none;
+			background: inherit;
+		}
 
 		&.input__search{
 				width: 405px;

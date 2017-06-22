@@ -36,10 +36,11 @@
     var queryParams = $location.search();
     var planName = queryParams['plan'];
     vm.activationPromise = activate();
+    vm.redirectToPlanSelection = redirectToPlanSelection;
 
     function activate() {
       if (!planName) {
-        return $location.path('/settings/my-plan');
+        return redirectToPlanSelection();
       }
       vm.planName = planName;
       return settings.getPlansAvailable().then(function(response){
@@ -47,7 +48,7 @@
           return obj.name == planName;
         });
         if (!planSelected) {
-          return $location.path('/settings/my-plan');
+          return redirectToPlanSelection();
         }
         vm.currentCurrency = planSelected.currency;
         vm.planPrice = planSelected.fee;
@@ -62,6 +63,10 @@
       allowInvalidValue: true, //allows us to watch the value
       clearOnBlur: false
     };
+
+    function redirectToPlanSelection() {
+      $location.path('/settings/my-plan');
+    }
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
 
@@ -120,6 +125,11 @@
       if (!form.$valid) {
         return;
       }
+      vm.showConfirmation = true;
+      vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
+      vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
+      vm.viewExpDate = form.expDate.$viewValue;
+
     }
   }
 

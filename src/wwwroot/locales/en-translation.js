@@ -277,11 +277,9 @@
   "attr_metrics_and_reports": "Metrics and reports",
   "action_getting_plans": "Getting Plans",
   "upgrade_text": "Upgrade",
-  "bussiness_label": "Business",
   "address_text": "Address",
   "city_label": "City",
   "zip_code_label": "Zip Code",
-  "consumer_label": "Type of Consumer",
   "payment_method_title": "Payment methods",
   "credit_card_option": "Credit Card",
   "card_holder_label": "Cardholder",
@@ -291,5 +289,7 @@
   "billing_check_button": "Check my order",
   "price_text": "Price",
   "plan_text": "Plan",
-  "each_month": "x month"
+  "each_month": "x month",
+  "billing_change_plan_button": "Select another plan",
+  "billing_change_info_button": "Modify information"
 };
