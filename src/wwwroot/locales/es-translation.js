@@ -286,6 +286,7 @@
   "my_plan_pricing_chart_description": "Selecciona la cantidad de correos electrónicos que enviará, compara los diferentes planes y encuentra la mejor opción para tus necesidades.",
   "my_plan_pricing_chart_slider_title": "<span class='special'>{{emailsSuggestedAmount | number | numberFormat}}</span> Emails por mes",
   "buy_now": "Comprar ahora",
+  "buy_text": "Comprar",
   "cost_email":"Costo por email:",
   "attr_api": "Conexión API & SMTP",
   "attr_dkim": "Configuración DKIM",
