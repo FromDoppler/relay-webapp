@@ -114,7 +114,7 @@
               <label class="special uppercase" for="cardNumber">{{'card_number_label' | translate}}</label>
             </div>
           <div class="flex three credit-card flex--wrap" ng-class="vm.cc.brand">
-              <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
+              <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" autocomplete="off" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
             <svg class="icon icon-visa">
               <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
             </svg>
@@ -134,7 +134,7 @@
               <label class="special uppercase" for="expDate">{{'exp_date_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="expDate" name="expDate" ui-mask="99/99" ui-mask-placeholder ng-change="vm.checkExpDate(form.expDate)" ng-model="vm.expDate" ng-class="(vm.submitted || form.expDate.$dirty) && form.expDate.$invalid ? 'error' : ''"  ng-change="vm.checkExpDate(form.expDate)" class="input input--large" required />
+              <input id="expDate" name="expDate" autocomplete="off" ui-mask="99/99" ui-mask-placeholder ng-change="vm.checkExpDate(form.expDate)" ng-model="vm.expDate" ng-class="(vm.submitted || form.expDate.$dirty) && form.expDate.$invalid ? 'error' : ''"  ng-change="vm.checkExpDate(form.expDate)" class="input input--large" required />
               <div class="width--full">
                 <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.required || form.expDate.$error.mask && !form.expDate.$error.ilegal_date"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
                 <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.ilegal_date && !form.expDate.$error.required && !form.expDate.$error.mask"><i class="arrow--up"></i>{{'validation_error_exp_date_length' | translate}}</span>
@@ -146,7 +146,7 @@
               <label class="special uppercase" for="securityCode">{{'sec_code_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="secCode" ng-model="vm.secCode.number" name="secCode" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
+              <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
               <div class="width--full">
                 <span class="input--error" ng-show="(vm.submitted || form.secCode.$dirty) && form.secCode.$error.required || form.secCode.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               </div>
