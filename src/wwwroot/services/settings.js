@@ -139,16 +139,16 @@
       return plansCache;
     }
 
-    function billingPayment(agreements) {
+    function billingPayment(agreement) {
       var url = RELAY_CONFIG.baseUrl
-        + '/account/'
+        + '/accounts/'
         + auth.getAccountName()
         + '/agreements';
 
       return $http({
         actionDescription: 'action_billing_payment',
         method: 'POST',
-        data: agreements,
+        data: agreement,
         url: url
       });
     }

@@ -137,12 +137,27 @@
       vm.viewExpDate = form.expDate.$viewValue;
     }
     function submitBillingPayment() {
-      var agreements = {
-         plan : planName,
-         paymentMethod : { creditCard: { cardNumber: vm.cc.number, verificationCode: vm.secCode.number, expiryDate: vm.expDate, cardHoldersName: vm.cardHolder, cardBrand:vm.cc.brand} },
-         billingInformation: { name: vm.name, companyName:vm.company, address: vm.address, city: vm.city, zipCode: vm.zCode, countryCode: vm.country.name }
+      var agreement = {
+         planName: planName,
+         paymentMethod: {
+           creditCard: {
+             cardNumber: vm.cc.number,
+             verificationCode: vm.secCode.number,
+             expiryDate: vm.expDate,
+             cardHoldersName: vm.cardHolder,
+             cardBrand: vm.cc.brand
+           }
+         },
+         billingInformation: {
+           name: vm.name,
+           companyName:vm.company,
+           address: vm.address,
+           city: vm.city,
+           zipCode: vm.zCode,
+           countryCode: vm.country.code
+         }
       };
-      return settings.billingPayment(agreements)
+      return settings.billingPayment(agreement)
       .then(function() {
         redirectToPlanSelection();
       });
