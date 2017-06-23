@@ -185,6 +185,13 @@ header{
     }
   }
 }
+@media screen and (max-width: 325px){
+  header{
+    .header--config-menu{
+      width: 100%;
+    }
+  }
+}
 
 
 // -------------------------------------

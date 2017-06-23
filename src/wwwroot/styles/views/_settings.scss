@@ -367,13 +367,28 @@
     border-bottom: $suit-border-default;
     margin: 1em 0;
     padding-bottom: 1em;
+    align-items: flex-start;
     .flex--content-end{margin-right: 1em;}
+    label { margin-top: 0.8rem;}
+    .animate-error-container{
+      height: 0;
+      transition: height .3s ease;
+      position: relative;
+      overflow: hidden;
+      &.show{
+        height: torem(48px);
+      }
+      span { position: absolute;}
+    }
   }
 }
 .billing--plan-confirmation{
   max-height: 0;
   transition: .8s max-height 700ms;
   overflow: hidden;
+  &.show {
+    max-height: 40rem;
+  }
   .one{
     flex-grow: 1;
     max-width: 18%;
@@ -390,10 +405,6 @@
   .one:last-of-type{
     margin-right: 0;
   }
-}
-
-.billing--plan-confirmation.show{
-  max-height: 80rem;
 }
 .billing--container {
   .city--container{
@@ -415,7 +426,7 @@
       margin-right: 2%;
   }
   .billing--first-container{
-    max-height: torem(1800px);
+    max-height: 100rem;
     transition: max-height .8s ease;
     overflow: hidden;
   }
@@ -560,6 +571,9 @@
     }
   }
   .billing--plan-confirmation{
+    &.show{
+      max-height: 65rem;
+    }
     hr{ display: none;}
       padding-top: 1em;
       border-top: 1px solid #D5D2CF;
@@ -579,6 +593,10 @@
         margin-right: 0;
         margin-bottom: 5%;
     }
+    .billing--first-container{
+      margin-bottom: 1rem;
+      max-height: 125.5rem;
+    }
   }
   .billing--container{
     .city--container{
@@ -590,7 +608,7 @@
         max-width: 40%;
         margin-top: 1em;
         input{ width: 100%;}
-        span.input--error{top:torem(80px);left: torem(5px);}
+        span.input--error{top:6rem;left: torem(5px);width: torem(190px);}
       }
     }
   }

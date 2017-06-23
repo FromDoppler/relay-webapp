@@ -132,6 +132,9 @@ section {
   justify-content: center;
   align-items: center;
 }
+.flex--vertically-start{
+  align-items: flex-start;
+}
 .flex--vertically-center{
   align-items: center;
 }
@@ -359,5 +362,14 @@ a {
   }
   p{
     font-size: 0.675rem !important;
+  }
+}
+@media screen and (max-width: 325px) {
+
+  input{
+    min-width: 280px !important;
+  }
+  .selectize-input{
+    min-width: 280px !important;
   }
 }
