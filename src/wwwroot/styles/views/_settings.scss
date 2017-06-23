@@ -448,23 +448,27 @@
 .credit-card--container {
   .credit-card {
     align-items: center;
-    svg { display: none; }
     &.visa {
       svg.icon-visa {
-        display: block;
+        -webkit-filter: none; 
+        filter: none;
       }
     }
     &.mastercard {
       svg.icon-master {
-        display: block;
+        -webkit-filter: none; 
+        filter: none;
       }
     }
     &.amex {
       svg.icon-amex {
-        display: block;
+        -webkit-filter: none; 
+        filter: none;
       }
     }
     svg.icon {
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
       margin-left: 1.5em;
     }
   }
