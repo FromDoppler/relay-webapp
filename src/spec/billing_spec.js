@@ -137,7 +137,7 @@ describe('Billing Page', () => {
 
     // Act
     browser.get('/#/settings/billing?plan=PLAN-60K');
-      
+
     // Assert
     var billingPage = new BillingPage();
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
@@ -153,7 +153,7 @@ describe('Billing Page', () => {
     var countryInSpanish = "Bolivia";
     beginAuthenticatedSession();
     setupSamplePlansResponse();
-    
+
     // Act
     browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
 
@@ -163,7 +163,7 @@ describe('Billing Page', () => {
 
      // Act
     browser.get('/#/settings/billing?plan=PLAN-60K&lang=en');
-    
+
     // Assert
     expect(billingPage.getFirstCountryName()).toBe(countryInEnglish);
 
@@ -184,7 +184,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -210,7 +210,7 @@ describe('Billing Page', () => {
     expect(billingPage.isZCodeDisplayed()).toBe(zCode);
     expect(billingPage.isCountryDisplayed()).toContain(country);
     expect(billingPage.isCardHolderDisplayed()).toBe(cardHolder);
-    expect(billingPage.isCcNumberDisplayed()).toBe('************4444');
+    expect(billingPage.isCcNumberDisplayed()).toBe('************7658');
     expect(billingPage.isExpDateDisplayed()).toBe('09/19');
     expect(billingPage.isSecCodeDisplayed()).toBe('***');
     expect(billingPage.isBillingPageDisplayed()).toBeFalsy();
@@ -232,7 +232,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -269,7 +269,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -292,6 +292,43 @@ describe('Billing Page', () => {
     billingPage.clickModifyInformation();
 
     // Assert
+    expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
+    expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+  });
+
+  it('should show error if the credit card is not valid by length', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+    var name = 'TestName TestLastName';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Bolivia, Plurinational State Of';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4444444444444444';
+    var expDate = '0919';
+    var secCode = '123'
+
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+    billingPage.clickCheckOrder();
+
+    // Assert
+    expect(billingPage.isInvalidCCnumberErrorDisplayed()).toBeTruthy();
     expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
   });
