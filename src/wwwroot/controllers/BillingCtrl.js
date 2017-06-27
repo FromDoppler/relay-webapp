@@ -128,9 +128,13 @@
 
     function submitBilling(form) {
       vm.submitted = true;
+      if (!utils.validateCreditCard(vm.cc.number)) {
+        utils.setServerValidationToField($scope, $scope.form.cardNumber, 'ilegal_number');
+      }
       if (!form.$valid) {
         return;
       }
+
       vm.showConfirmation = true;
       vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
