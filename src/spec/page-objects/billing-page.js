@@ -27,11 +27,9 @@ class BillingPage {
     this._ccNumberConfirmationLabel = $('.billing--plan-confirmation #ccNumberConfirmation');
     this._expDateConfirmationLabel = $('.billing--plan-confirmation #expDateConfirmation');
     this._secCodeConfirmationLabel = $('.billing--plan-confirmation #secCodeConfirmation');
-    this._ccIconAmex = $('.icon-amex');
-    this._ccIconVisa = $('.icon-visa');
-    this._ccIconMaster = $('.icon-master');
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
     this._countrySelect =  element(by.id('country'));
+    this._creditCardContainer = $('.credit-card');
   }
 
   getPlanName() {
@@ -71,13 +69,22 @@ class BillingPage {
     return this._secCodeInput.sendKeys(secCode);
   }
   isCcIconVisaDisplayed() {
-    return this._ccIconVisa.isDisplayed();
+    return this.hasCreditCardActiveClass('visa');
   }
   isCcIconMastercardDisplayed() {
-    return this._ccIconMaster.isDisplayed();
+    return this.hasCreditCardActiveClass('mastercard');
   }
   isCcIconAmexDisplayed() {
-    return this._ccIconAmex.isDisplayed();
+    return this.hasCreditCardActiveClass('amex');
+  }
+  hasCreditCardActiveClass(name) {
+    var hasClass = this._creditCardContainer
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf(name) >= 0;
+      });
+      
+    return hasClass;
   }
   clickCheckOrder() {
     return this._checkOrderButton.click();
