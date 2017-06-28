@@ -40,7 +40,7 @@
 
       return $http({
         actionDescription: 'action_adding_domain',
-        tryHandleErrorDomainManager: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
+        tryHandleError: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
         method: 'PUT',
         data: data,
         url: url
@@ -71,7 +71,7 @@
 
       return $http({
         actionDescription: 'action_deleting_domain',
-        tryHandleErrorDomainManager: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
+        tryHandleError: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
         method: 'DELETE',
         data: {},
         url: url
@@ -154,7 +154,7 @@
 
       return $http({
         actionDescription: 'action_billing_payment',
-        tryHandleErrorBilling: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
+        tryHandleError: function(rejection){ console.log("1");console.log(rejection); return tryHandleErrorBilling(rejection, onExpectedError); },
         method: 'POST',
         data: agreement,
         url: url
