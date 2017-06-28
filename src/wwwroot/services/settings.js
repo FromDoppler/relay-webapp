@@ -40,7 +40,7 @@
 
       return $http({
         actionDescription: 'action_adding_domain',
-        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
+        tryHandleErrorDomainManager: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
         method: 'PUT',
         data: data,
         url: url
@@ -71,19 +71,25 @@
 
       return $http({
         actionDescription: 'action_deleting_domain',
-        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
+        tryHandleErrorDomainManager: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
         method: 'DELETE',
         data: {},
         url: url
       });
     }
 
-    function tryHandleError(rejection, onExpectedError) {
-        console.log(rejection.data);
+    function tryHandleErrorDomainManager(rejection, onExpectedError) {
         if (rejection.status != 400 || !rejection.data || rejection.data.errorCode != 4) {
           return false; // not handled
         }
         return onExpectedError(rejection.data);
+    }
+
+    function tryHandleErrorBilling(rejection, onExpectedError) {
+      if (rejection.status != 400) {
+        return false; // not handled
+      }
+      return onExpectedError(rejection.data);
     }
 
     function getDomains() {
@@ -148,7 +154,7 @@
 
       return $http({
         actionDescription: 'action_billing_payment',
-        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
+        tryHandleErrorBilling: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
         method: 'POST',
         data: agreement,
         url: url
