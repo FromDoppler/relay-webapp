@@ -126,6 +126,11 @@
       }
     }
 
+    var onExpectedError = function (rejectionData) {
+      vm.paymentFailure = true;
+      return true;
+    };
+
     function submitBilling(form) {
       vm.submitted = true;
       if (!utils.validateCreditCard(vm.cc.number)) {
@@ -161,7 +166,7 @@
            countryCode: vm.country.code
          }
       };
-      return settings.billingPayment(agreement)
+      return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
         redirectToPlanSelection();
       });

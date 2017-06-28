@@ -79,6 +79,7 @@
     }
 
     function tryHandleError(rejection, onExpectedError) {
+        console.log(rejection.data);
         if (rejection.status != 400 || !rejection.data || rejection.data.errorCode != 4) {
           return false; // not handled
         }
@@ -139,7 +140,7 @@
       return plansCache;
     }
 
-    function billingPayment(agreement) {
+    function billingPayment(agreement, onExpectedError) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/'
         + auth.getAccountName()
@@ -147,6 +148,7 @@
 
       return $http({
         actionDescription: 'action_billing_payment',
+        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
         method: 'POST',
         data: agreement,
         url: url

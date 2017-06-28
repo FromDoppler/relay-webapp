@@ -215,7 +215,10 @@
       </div>
     </div>
     <div class="section--wrapper button--container">
-      <button class="button button--small button--white modify-button" ng-click="vm.showConfirmation = false">{{'billing_change_info_button' | translate}}</button>
+      <div class="detached--error-container" ng-class="vm.submitted && vm.paymentFailure ? 'show':'hide'">
+        <span class="detached--error">{{'validation_error_payment_failure' | translate}}</span>
+      </div>
+      <button class="button button--small button--white modify-button" ng-click="vm.showConfirmation = false;vm.paymentFailure = false;">{{'billing_change_info_button' | translate}}</button>
       <button class="button button--small" ng-click="vm.submitBillingPayment()">{{'buy_text' | translate}}</button>
     </div>
   </div>
