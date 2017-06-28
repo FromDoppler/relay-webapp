@@ -357,7 +357,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -376,9 +376,9 @@ describe('Billing Page', () => {
     billingPage.clickCheckOrder();
     expect(billingPage.isConfirmationDisplayed()).toBeTruthy();
     billingPage.clickBuy();
-    expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
-    // Assert
 
+    // Assert
+    expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
   });
 
 });
