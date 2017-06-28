@@ -296,7 +296,7 @@ describe('Billing Page', () => {
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
   });
 
-  it('should show error if the credit card is not valid by length', () => {
+  it('should show error if the credit card is not valid by Luhn', () => {
 
     // Arrange
     beginAuthenticatedSession();
