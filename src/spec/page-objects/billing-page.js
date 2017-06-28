@@ -30,6 +30,7 @@ class BillingPage {
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
     this._countrySelect =  element(by.id('country'));
     this._creditCardContainer = $('.credit-card');
+    this._creditCardErrorContainer = $('.credit-card .animate-error-container');
   }
 
   getPlanName() {
@@ -83,7 +84,7 @@ class BillingPage {
       .then(function(className) {
         return className.indexOf(name) >= 0;
       });
-      
+
     return hasClass;
   }
   clickCheckOrder() {
@@ -126,7 +127,7 @@ class BillingPage {
     parentElem.click();
     var firstOption = parentElem.all(by.css('span.select-option')).first();
     return firstOption.click();
-    
+
   }
   isCompanyDisplayed() {
     return this._companyConfirmationLabel.getText();
@@ -169,6 +170,15 @@ class BillingPage {
   }
   clickModifyInformation() {
     return this._modifyButton.click();
+  }
+  isInvalidCCnumberErrorDisplayed() {
+    var hasClass = this._creditCardErrorContainer
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('show') >= 0;
+      });
+
+    return hasClass;
   }
 }
 exports.BillingPage = BillingPage;

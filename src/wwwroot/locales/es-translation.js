@@ -126,6 +126,7 @@
   "validation_error_accountname_already_taken": "El account name ya está en uso.",
   "validation_error_email_already_exist": "Ya existe un usuario con esa dirección de email.",
   "validation_error_exp_date_length": "Escribe una fecha de expiración válida.",
+  "validation_error_invalid_card_number": "Escribe una tarjeta de crédito válida.",
   "date_filter_slash": "{{ date | date : 'dd/MM/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitante",

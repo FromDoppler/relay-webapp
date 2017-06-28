@@ -126,6 +126,7 @@
             </svg>
               <div class="width--full animate-error-container" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'show' : 'hide'">
                 <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.ilegal_number && !form.cardNumber.$error.required && ! form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_invalid_card_number' | translate}}</span>
               </div>
             </div>
           </div>
