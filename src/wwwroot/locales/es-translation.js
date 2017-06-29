@@ -127,6 +127,7 @@
   "validation_error_email_already_exist": "Ya existe un usuario con esa dirección de email.",
   "validation_error_exp_date_length": "Escribe una fecha de expiración válida.",
   "validation_error_invalid_card_number": "Escribe una tarjeta de crédito válida.",
+  "validation_error_payment_failure": "No pudimos realizar el pago, por favor revisa tu información.",
   "date_filter_slash": "{{ date | date : 'dd/MM/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitante",

@@ -115,6 +115,7 @@
   "validation_error_email_already_exist": "There is already an user with that email address.",
   "validation_error_exp_date_length": "Invalid Expiration Date.",
   "validation_error_invalid_card_number": "Invalid Credit Card number.",
+  "validation_error_payment_failure": "We couldn't process the payment, please check your information.",
   "date_filter_slash": "{{ date | date : 'MM/dd/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitor",

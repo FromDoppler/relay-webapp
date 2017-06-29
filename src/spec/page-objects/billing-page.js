@@ -15,6 +15,7 @@ class BillingPage {
     this._expDateInput = $('.billing--first-container #expDate');
     this._secCodeInput = $('.billing--first-container #secCode');
     this._checkOrderButton = $('.button--container .check-button');
+    this._buyButton = $('.button--container .buy-button');
     this._confirmationContainer = $('.billing--plan-confirmation');
     this._billingPageContainer = $('.billing--first-container');
     this._nameConfirmationLabel = $('.billing--plan-confirmation #nameConfirmation');
@@ -31,6 +32,7 @@ class BillingPage {
     this._countrySelect =  element(by.id('country'));
     this._creditCardContainer = $('.credit-card');
     this._creditCardErrorContainer = $('.credit-card .animate-error-container');
+    this._detachedError = $('.billing--plan-confirmation .detached--error-container');
   }
 
   getPlanName() {
@@ -89,6 +91,9 @@ class BillingPage {
   }
   clickCheckOrder() {
     return this._checkOrderButton.click();
+  }
+  clickBuy() {
+    return this._buyButton.click();
   }
   getFirstCountryName() {
     return this.getFirstSelectOptionText(this._countrySelect);
@@ -168,6 +173,16 @@ class BillingPage {
 
      return this._billingPageContainer.isDisplayed();
   }
+  isDetachedErrorDisplayed() {
+    var hasClass = this._detachedError
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('show') >= 0;
+      });
+
+    return hasClass;
+  }
+
   clickModifyInformation() {
     return this._modifyButton.click();
   }

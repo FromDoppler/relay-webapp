@@ -333,5 +333,52 @@ describe('Billing Page', () => {
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
   });
 
+  it('should show a nice error when the post return 400 error', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    browser.addMockModule('descartableModule3', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule3', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenPOST(/\/accounts\/[\w|-]*\/agreements/).respond(400, { "data": { 'errorCode': 5 } });
+      }));
+
+
+    var billingPage = new BillingPage();
+    var name = 'TestName TestLastName';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Bolivia, Plurinational State Of';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4485929253917658';
+    var expDate = '0919';
+    var secCode = '123'
+
+    // Act
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+
+    billingPage.clickCheckOrder();
+    expect(billingPage.isConfirmationDisplayed()).toBeTruthy();
+    billingPage.clickBuy();
+
+    // Assert
+    expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
+  });
 
 });
