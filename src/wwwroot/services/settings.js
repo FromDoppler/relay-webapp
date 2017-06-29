@@ -154,7 +154,7 @@
 
       return $http({
         actionDescription: 'action_billing_payment',
-        tryHandleError: function(rejection){ console.log("1");console.log(rejection); return tryHandleErrorBilling(rejection, onExpectedError); },
+        tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
         method: 'POST',
         data: agreement,
         url: url
