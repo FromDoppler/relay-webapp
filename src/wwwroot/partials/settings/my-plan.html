@@ -4,8 +4,40 @@
       {{ 'plans_text' | translate }}
     </h2>
   </div>
-  <div class="section--wrapper">
-    <hr class="default"/>
+  <div class="section--wrapper my-plan--info-container">
+    <div class="item flex flex--wrap first">
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">Price</label>
+        <p>$40 x mes</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">Emails</label>
+        <p>40.000</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">Precio por email</label>
+        <p>40.000</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <button class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">Upgrade</button>
+      </div>
+    </div>
+    <div class="item flex flex--wrap">
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">My consumption</label>
+        <p>34.000</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">Excedente</label>
+        <p>0</p>
+      </div>
+      <div class="flex two flex--wrap">
+        <label class="width--full special uppercase">Deadline</label>
+        <p>04/06/2017</p>
+      </div>
+    </div>
+  </div>
+  <div class="section--wrapper pricing-chart--container" ng-class="vm.pricingChartDisplayed ? 'show': 'hide'">
     <h5 class="special uppercase">{{ 'my_plan_pricing_chart' | translate }}</h5>
     <p>{{'my_plan_pricing_chart_description' | translate }}</p>
     <div class="section--wrapper plan--slider-container">

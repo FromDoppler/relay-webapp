@@ -26,6 +26,8 @@
     var defaultPlanName = 'PLAN-60K';
     var planItems;
     vm.langUsed = $translate.use();
+    vm.showPricingChart = showPricingChart;
+    vm.pricingChartDisplayed = false;
 
     function activate() {
       return settings.getPlansAvailable().then(function(response){
@@ -65,6 +67,10 @@
           }
         }
       };
+    }
+
+    function showPricingChart() {
+        vm.pricingChartDisplayed = true;
     }
   }
 
