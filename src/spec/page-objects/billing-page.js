@@ -36,6 +36,9 @@ class BillingPage {
     //My Plan section
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
     this._pricingChartContainer = $('.pricing-chart--container');
+    this._sliderContainerElements = element.all(by.css('.plan--slider-container div'));
+    this._myPlanPrice = $('.plan--price-big');
+    this._ticksElements = element.all(by.css('.plan--slider-container .rz-tick'));
   }
 
   getPlanName() {
@@ -203,6 +206,7 @@ class BillingPage {
   clickUpgradeButtonToDisplayPricingChart() {
     return this._myPlanPricingChartDisplayButton.click();
   }
+
   isPricingChartDisplayed() {
     var hasClass = this._pricingChartContainer
       .getAttribute('class')
@@ -211,6 +215,33 @@ class BillingPage {
       });
 
     return hasClass;
+  }
+
+  isSliderLoaded() {
+    var sliderContainer = this._sliderContainerElements.then(function(val) {
+      return val[0].getAttribute('class')
+                   .then(function(className) {
+                      return className.indexOf('rzslider') >= 0;
+                   });
+    });
+    // the library `angular-ui/ui-select` creates  the HTML
+    // but it takes a little bit to populate the values
+    // so we have to wait until the text is present.
+    browser.wait(function() {
+      return sliderContainer != false
+    }, this._waitTimeout);
+
+    return sliderContainer;
+  }
+
+  clickFirstSliderTick() {
+    var sliderContainer = this._ticksElements.then(function(val) {
+      return val[0].click();
+    });
+  }
+
+  getPlanPrice() {
+    return this._myPlanPrice.getText();
   }
 
 }

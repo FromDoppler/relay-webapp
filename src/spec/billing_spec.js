@@ -26,9 +26,13 @@ describe('Billing Page', () => {
           "items": [
             { "currency": "USD",
               "fee": 5.90,
+              "extra_delivery_cost": 0.00059000,
+              "included_deliveries": 10000.0,
               "name": "PLAN-10K"},
             { "currency": "USD",
               "fee": 31.8,
+              "extra_delivery_cost": 0.00053000,
+              "included_deliveries": 60000.0,
               "name": "PLAN-60K" }
           ]
         });
@@ -394,6 +398,39 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isPricingChartDisplayed()).toBeTruthy();
+  });
+
+  it('should load the slider', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+  });
+
+  it('should change the price when the user change slider position', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+    var planDefaultPrice = billingPage.getPlanPrice();
+
+    //Act
+    billingPage.clickFirstSliderTick();
+
+    // Assert
+    expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
   });
 
 });

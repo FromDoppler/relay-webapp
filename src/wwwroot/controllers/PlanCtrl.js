@@ -60,6 +60,7 @@
         value: defaultPlanName,
         options: {
           showSelectionBar: true,
+          showTicks: true,
           stepsArray: planItemsParsedForSlider,
           onChange: function (sliderId, modelValue) {
             vm.hideDragMe = true;
