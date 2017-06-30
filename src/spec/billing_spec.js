@@ -381,4 +381,19 @@ describe('Billing Page', () => {
     expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
   });
 
+  it('should show the pricing chart when the user click on upgrade button', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.isPricingChartDisplayed()).toBeTruthy();
+  });
+
 });

@@ -33,6 +33,9 @@ class BillingPage {
     this._creditCardContainer = $('.credit-card');
     this._creditCardErrorContainer = $('.credit-card .animate-error-container');
     this._detachedError = $('.billing--plan-confirmation .detached--error-container');
+    //My Plan section
+    this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
+    this._pricingChartContainer = $('.pricing-chart--container');
   }
 
   getPlanName() {
@@ -195,5 +198,20 @@ class BillingPage {
 
     return hasClass;
   }
+
+  //My Plan section
+  clickUpgradeButtonToDisplayPricingChart() {
+    return this._myPlanPricingChartDisplayButton.click();
+  }
+  isPricingChartDisplayed() {
+    var hasClass = this._pricingChartContainer
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('show') >= 0;
+      });
+
+    return hasClass;
+  }
+
 }
 exports.BillingPage = BillingPage;
