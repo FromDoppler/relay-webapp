@@ -20,10 +20,12 @@
       getUserApiKeys: getUserApiKeys,
       getDomain: getDomain,
       getPlansAvailable: getPlansAvailable,
-      billingPayment: billingPayment
+      billingPayment: billingPayment,
+      getCurrentPlanInfo: getCurrentPlanInfo
     };
 
     var plansCache = null;
+    var currentPlanInfoCache = null;
 
     return settingsService;
 
@@ -159,6 +161,20 @@
         data: agreement,
         url: url
       });
+    }
+
+    function getCurrentPlanInfo() {
+      currentPlanInfoCache = currentPlanInfoCache || $http({
+        actionDescription: 'action_getting_current_plan',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements' + '/current'
+      }).catch(function(reason) {
+        currentPlanInfoCache = null;
+        console.log(reason);
+        return $q.reject(reason);
+      });
+
+      return currentPlanInfoCache;
     }
 
 }

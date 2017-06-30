@@ -328,6 +328,18 @@
       }
       &:last-of-type { margin-bottom: 4rem; }
     }
+    .spinner{
+      opacity: 1;
+      transition: all 0.8s ease;
+      .sk-fading-circle {
+        width: 1rem;
+        height: 1.5rem;
+        .sk-circle:before{ background-color: $suit-main-color; }
+      }
+      &.hide{
+        opacity: 0;
+      }
+    }
   }
   .plan--box-container{
     padding-top: 2em;

@@ -28,9 +28,18 @@
     vm.langUsed = $translate.use();
     vm.showPricingChart = showPricingChart;
     vm.pricingChartDisplayed = false;
+    vm.planInfoLoader = true;
 
     function activate() {
-      return settings.getPlansAvailable().then(function(response){
+      settings.getCurrentPlanInfo().then(function(response) {
+        vm.currentPlanPrice = response.data.fee;
+        vm.currentPlanEmailsAmount = response.data.includedDeliveries;
+        vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
+      })
+      .finally(function () {
+        vm.planInfoLoader = false;
+      });
+      return settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
         changePlan(defaultPlanName);
