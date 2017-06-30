@@ -309,5 +309,12 @@
   "plan_text": "Plan",
   "each_month": "x mes",
   "billing_change_plan_button": "Seleccionar otro plan",
-  "billing_change_info_button": "Modificar información"
+  "billing_change_info_button": "Modificar información",
+  "my_plan_subtitle": "Encuentra aquí toda la información sobre tu plan y elige un nuevo plan si necesitas realizar una actualización.",
+  "amount_of_emails_text": "Cantidad de Emails",
+  "my_plan_cost_email": "Costo por email excedente",
+  "my_plan_consumption": "Mis consumos",
+  "my_plan_emails_sent": "Excedentes",
+  "my_plan_renewal_date": "Renovación de plan",
+  "change_plan_text": "Change your plan"
 };

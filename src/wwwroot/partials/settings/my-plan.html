@@ -3,36 +3,37 @@
     <h2>
       {{ 'plans_text' | translate }}
     </h2>
+    <p>{{ 'my_plan_subtitle' | translate }}</p>
   </div>
   <div class="section--wrapper my-plan--info-container">
     <div class="item flex flex--wrap first">
       <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">Price</label>
+        <label class="width--full special uppercase">{{ 'price_text' | translate }}</label>
         <p>$40 x mes</p>
       </div>
       <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">Emails</label>
+        <label class="width--full special uppercase">{{ 'amount_of_emails_text' | translate }}</label>
         <p>40.000</p>
       </div>
       <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">Precio por email</label>
+        <label class="width--full special uppercase">{{ 'my_plan_cost_email' | translate }}</label>
         <p>40.000</p>
       </div>
       <div class="flex one flex--wrap">
-        <button class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">Upgrade</button>
+        <button class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">{{ 'change_plan_text' | translate }}</button>
       </div>
     </div>
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">My consumption</label>
+        <label class="width--full special uppercase">{{ 'my_plan_consumption' | translate }}</label>
         <p>34.000</p>
       </div>
       <div class="flex one flex--wrap">
-        <label class="width--full special uppercase">Excedente</label>
+        <label class="width--full special uppercase">{{ 'my_plan_emails_sent' | translate }}</label>
         <p>0</p>
       </div>
       <div class="flex two flex--wrap">
-        <label class="width--full special uppercase">Deadline</label>
+        <label class="width--full special uppercase">{{ 'my_plan_renewal_date' | translate }}</label>
         <p>04/06/2017</p>
       </div>
     </div>

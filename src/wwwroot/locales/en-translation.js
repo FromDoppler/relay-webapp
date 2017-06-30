@@ -295,5 +295,12 @@
   "plan_text": "Plan",
   "each_month": "x month",
   "billing_change_plan_button": "Select another plan",
-  "billing_change_info_button": "Modify information"
+  "billing_change_info_button": "Modify information",
+  "my_plan_subtitle": "Find here all the information about your plan and choose a new plan if you need to do an upgrade.",
+  "amount_of_emails_text": "Amount of Emails",
+  "my_plan_cost_email" : "Cost per email out of plan",
+  "my_plan_consumption": "My consumption",
+  "my_plan_emails_sent": "Emails sent out of plan",
+  "my_plan_renewal_date": "Plan renewal",
+  "change_plan_text": "Change your plan"
 };
