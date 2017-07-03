@@ -164,17 +164,11 @@
     }
 
     function getCurrentPlanInfo() {
-      currentPlanInfoCache = currentPlanInfoCache || $http({
+      return $http({
         actionDescription: 'action_getting_current_plan',
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements' + '/current'
-      }).catch(function(reason) {
-        currentPlanInfoCache = null;
-        console.log(reason);
-        return $q.reject(reason);
       });
-
-      return currentPlanInfoCache;
     }
 
 }

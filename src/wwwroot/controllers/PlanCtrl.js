@@ -31,19 +31,21 @@
     vm.planInfoLoader = true;
 
     function activate() {
-      settings.getCurrentPlanInfo().then(function(response) {
+      var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
         vm.currentPlanPrice = response.data.fee;
         vm.currentPlanEmailsAmount = response.data.includedDeliveries;
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
+        vm.currency = response.data.currency;
       })
       .finally(function () {
         vm.planInfoLoader = false;
       });
-      return settings.getPlansAvailable().then(function(response) {
+      var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
         changePlan(defaultPlanName);
       });
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo]);
     }
 
     function changePlan(planName) {

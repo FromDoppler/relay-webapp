@@ -317,5 +317,5 @@
   "my_plan_consumption": "Mis consumos",
   "my_plan_emails_sent": "Excedentes",
   "my_plan_renewal_date": "Renovación de plan",
-  "change_plan_text": "Change your plan"
+  "change_plan_text": "Cambiar plan"
 };
