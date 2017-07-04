@@ -154,7 +154,7 @@
             </div>
           </div>
       </div>
-      <div class="section--wrapper button--container">
+      <div class="section--wrapper button--container flex--wrap">
         <button class="button button--small button--white" ng-click="vm.redirectToPlanSelection();">{{'billing_change_plan_button' | translate}}</button>
         <button class="button button--small check-button" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
       </div>
@@ -214,7 +214,7 @@
         <p id="secCodeConfirmation">{{vm.secCode.ParsedNumber}}</p>
       </div>
     </div>
-    <div class="section--wrapper button--container">
+    <div class="button--container flex--wrap">
       <div class="detached--error-container" ng-class="vm.submitted && vm.paymentFailure ? 'show':'hide'">
         <span class="detached--error">{{'validation_error_payment_failure' | translate}}</span>
       </div>
