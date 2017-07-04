@@ -4,6 +4,7 @@ describe('Billing Page', () => {
   afterEach(() => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
+    browser.removeMockModule('descartableModule4');
   });
 
   function beginAuthenticatedSession() {
@@ -12,6 +13,29 @@ describe('Billing Page', () => {
       .run((jwtHelper, auth) => {
         var permanentToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MzAzMTgsImV4cCI6MTQ4NzIyMjMxOCwiaWF0IjoxNDg0NjMwMzE4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.dQh20ukVSCP0rNXMWBh2DlPQXbP0uTaYzadRDNPXECI9lvCsgDKNXc2bToXAUQDeXw90kbHliVF-kCueW4gQLPBtMJOcHQFv6LfgspsG2jue2iMwoBC1q6UB_4xFlGoyhkRjldnQUV0oqBTzhFdXuTvQz53kRPiqILCHkd4FLl4KliBgdaDRwWz-HIjJwinMpnv_7V38CNvHlHo-q2XU0MnE3CsGXmWGoAgzN7rbeQPgI9azHXpbaUPh9n_4zjCydOSBC5tx7MtEAx3ivfFYImBPp2T2vUM-F5AwRh7hl_lMUvyQLal0S_spoT0XMGy8YhnjxXLoZeVRisWbxBmucQ';
         auth.saveToken(permanentToken);
+      }));
+  }
+
+  function setupSamplePlanInfoResponse() {
+
+    browser.addMockModule('descartableModule4', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+          "items": [
+            {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2016-07-01T00:00:00Z",
+              "currency": "USD",
+              "extraDeliveryCost": 0.04700000,
+              "fee": 82.50,
+              "includedDeliveries": 50.0}
+          ]
+        });
       }));
   }
 
@@ -26,9 +50,13 @@ describe('Billing Page', () => {
           "items": [
             { "currency": "USD",
               "fee": 5.90,
+              "extra_delivery_cost": 0.00059000,
+              "included_deliveries": 10000.0,
               "name": "PLAN-10K"},
             { "currency": "USD",
               "fee": 31.8,
+              "extra_delivery_cost": 0.00053000,
+              "included_deliveries": 60000.0,
               "name": "PLAN-60K" }
           ]
         });
@@ -379,6 +407,57 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
+  });
+
+  it('should show the pricing chart when the user click on upgrade button', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.isPricingChartDisplayed()).toBeTruthy();
+  });
+
+  it('should load the slider', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+  });
+
+  it('should change the price when the user change slider position', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+    var planDefaultPrice = billingPage.getPlanPrice();
+
+    //Act
+    billingPage.clickFirstSliderTick();
+
+    // Assert
+    expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
   });
 
 });

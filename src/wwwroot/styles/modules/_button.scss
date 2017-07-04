@@ -170,13 +170,13 @@ $input--error--color: #FFF;
 				color: $suit-accent-color;
 			}
 		}
-        &.button--disabled{
+    &.button--disabled{
 			background: lightgray;
 			border-color: lightgray;
-            &:hover{
-                cursor:default;
-            }
-        }
+      &:hover{
+      	cursor:default;
+      }
+    }
 	}
 
 	.input--error{

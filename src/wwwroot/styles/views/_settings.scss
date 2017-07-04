@@ -314,6 +314,33 @@
 }
 
 .my-plans--container {
+  .my-plan--info-container {
+    .item {
+      border-bottom: $suit-border-default;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      padding-right: 2rem;
+      &:first-of-type {
+        margin-top: 4rem;
+        padding-top: 1rem;
+        border-top: $suit-border-default;
+        div:last-of-type { justify-content: flex-end;}
+      }
+      &:last-of-type { margin-bottom: 4rem; }
+    }
+    .spinner{
+      opacity: 1;
+      transition: all 0.8s ease;
+      .sk-fading-circle {
+        width: 1rem;
+        height: 1.5rem;
+        .sk-circle:before{ background-color: $suit-main-color; }
+      }
+      &.hide{
+        opacity: 0;
+      }
+    }
+  }
   .plan--box-container{
     padding-top: 2em;
     ul {padding: 0; margin: auto;}
@@ -338,27 +365,33 @@
       color:$suit-font-color-light;
     }
   }
-  .plan--slider-container {
-    margin-top: 2em;
-    span.special {
-      font-size: $headers_h3-font-size;
-      color: $suit-accent-color;
-    }
-    div.plan--drag-container{
-      text-align: center;
-      .ok-icon {
-        @extend .transition--default;
-        opacity: 1;
-        height: 2.6875rem;
-        width: 5.6875rem;
-        &.hide{
-          opacity: 0;
+  .pricing-chart--container{
+    max-height: 0;
+    overflow: hidden;
+    @extend .transition--default;
+    &.show{max-height: 45rem;}
+    .plan--slider-container {
+      margin-top: 2em;
+      span.special {
+        font-size: $headers_h3-font-size;
+        color: $suit-accent-color;
+      }
+      div.plan--drag-container{
+        text-align: center;
+        .ok-icon {
+          @extend .transition--default;
+          opacity: 1;
+          height: 2.6875rem;
+          width: 5.6875rem;
+          &.hide{
+            opacity: 0;
+          }
         }
       }
+      .plan--price-big {
+        font-size: $headers_h2-font-size;
+      }
     }
-  }
-  .plan--price-big {
-    font-size: $headers_h2-font-size;
   }
 }
 
@@ -546,7 +579,21 @@
       height: toem(400px);
     }
   }
+
   .my-plans--container{
+    .my-plan--info-container{
+      .item {
+        div {margin-top: 1em;}
+        div:first-of-type { margin-top: 0; }
+      }
+       .item:first-of-type {
+         div:last-of-type {
+           position: absolute;
+           bottom: 0;
+           width: 100%;
+         }
+       }
+    }
     .plan--box-container{
       ul.width--half{
         width: 100%;
@@ -561,6 +608,11 @@
         }
       }
     }
+  }
+  .pricing-chart--container {
+    margin-top: 1.5em;
+    padding-top: 2em;
+    border-top: $suit-border-default;
   }
 
   .credit-card--container {

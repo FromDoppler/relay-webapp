@@ -26,13 +26,26 @@
     var defaultPlanName = 'PLAN-60K';
     var planItems;
     vm.langUsed = $translate.use();
+    vm.showPricingChart = showPricingChart;
+    vm.pricingChartDisplayed = false;
+    vm.planInfoLoader = true;
 
     function activate() {
-      return settings.getPlansAvailable().then(function(response){
+      var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
+        vm.currentPlanPrice = response.data.fee;
+        vm.currentPlanEmailsAmount = response.data.includedDeliveries;
+        vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
+        vm.currency = response.data.currency;
+      })
+      .finally(function () {
+        vm.planInfoLoader = false;
+      });
+      var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
         changePlan(defaultPlanName);
       });
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo]);
     }
 
     function changePlan(planName) {
@@ -58,6 +71,7 @@
         value: defaultPlanName,
         options: {
           showSelectionBar: true,
+          showTicks: true,
           stepsArray: planItemsParsedForSlider,
           onChange: function (sliderId, modelValue) {
             vm.hideDragMe = true;
@@ -65,6 +79,10 @@
           }
         }
       };
+    }
+
+    function showPricingChart() {
+        vm.pricingChartDisplayed = true;
     }
   }
 
