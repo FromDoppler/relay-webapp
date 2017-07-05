@@ -29,6 +29,7 @@
     vm.showPricingChart = showPricingChart;
     vm.pricingChartDisplayed = false;
     vm.planInfoLoader = true;
+    vm.planStatusInfoLoader = true;
 
     function activate() {
       var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
@@ -40,12 +41,22 @@
       .finally(function () {
         vm.planInfoLoader = false;
       });
+
+      var getCurrentPlanStatus = settings.getCurrentPlanStatus().then(function(response) {
+        vm.currentMonthlyCount = response.data.currentMonthlyCount;
+        vm.monthlyLimit = response.data.monthlyLimit;
+        vm.resetDate = response.data.resetDate;
+      })
+      .finally(function () {
+        vm.planStatusInfoLoader = false;
+      });
+
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
         changePlan(defaultPlanName);
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo]);
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getCurrentPlanStatus]);
     }
 
     function changePlan(planName) {

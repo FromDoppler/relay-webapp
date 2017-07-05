@@ -24,8 +24,6 @@ describe('Billing Page', () => {
       .module('descartableModule4', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
-          "items": [
-            {
               "planName": null,
               "paymentMethod": null,
               "billingInformation": null,
@@ -33,8 +31,12 @@ describe('Billing Page', () => {
               "currency": "USD",
               "extraDeliveryCost": 0.04700000,
               "fee": 82.50,
-              "includedDeliveries": 50.0}
-          ]
+              "includedDeliveries": 50.0
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status/).respond(200, {
+              "currentMonthlyCount": "20",
+              "monthlyLimit": "90",
+              "resetDate": "2016-07-01T00:00:00Z"
         });
       }));
   }
@@ -60,7 +62,7 @@ describe('Billing Page', () => {
               "name": "PLAN-60K" }
           ]
         });
-       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]); 
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]);
       }));
   }
 
