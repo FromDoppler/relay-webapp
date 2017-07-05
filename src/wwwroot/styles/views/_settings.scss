@@ -471,7 +471,9 @@
     div{display: inline-block;}
   }
   .button--container{
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    .detached--error-container{ margin-right: 1em; align-items: center;}
   }
   .selectize-input{
     min-width: torem(350px);
@@ -652,6 +654,9 @@
     .billing--first-container{
       margin-bottom: 1rem;
       max-height: 132rem;
+    }
+    .button--container{
+      .detached--error-container{ margin-right: 0; margin-bottom: 1em;}
     }
   }
   .billing--container{
