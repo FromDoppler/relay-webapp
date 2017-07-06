@@ -29,8 +29,8 @@ describe('Billing Page', () => {
               "billingInformation": null,
               "startDate": "2016-07-01T00:00:00Z",
               "currency": "USD",
-              "extraDeliveryCost": 0.04700000,
-              "fee": 82.50,
+              "extraDeliveryCost": 0,
+              "fee": 0,
               "includedDeliveries": 50.0
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
@@ -483,6 +483,19 @@ describe('Billing Page', () => {
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
     expect(billingPage.getRenewalDate()).toBe(dateConcat);
+  });
+
+  it('should show correct plan status values for Free Trial user', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    // Assert
+    expect(billingPage.isFreeTrialAsPriceDisplayed()).toBe(true);
   });
 
 });

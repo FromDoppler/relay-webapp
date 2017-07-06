@@ -43,6 +43,7 @@ class BillingPage {
     this._extraEmails = $('.extra-emails');
     this._renewalDate = $('.renewal-date');
     this._emailsAmount = $('.emails-amount');
+    this._myPlanPriceFreeTrial = $('.my-plan-price');
   }
 
   getPlanName() {
@@ -259,6 +260,8 @@ class BillingPage {
   getEmailsAmountForCurrentPlan() {
     return this._emailsAmount.getText();
   }
-
+  isFreeTrialAsPriceDisplayed() {
+    return this._myPlanPriceFreeTrial.isDisplayed();
+  }
 }
 exports.BillingPage = BillingPage;

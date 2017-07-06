@@ -9,7 +9,7 @@
     <div class="item flex flex--wrap first">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'price_text' | translate }}</label>
-        <p ng-show="vm.isFreeTrial">{{'free_trial_text' | translate}}</p>
+        <p ng-show="vm.isFreeTrial" class="my-plan-price">{{'free_trial_text' | translate}}</p>
         <p ng-show="!vm.isFreeTrial">{{vm.currency}} {{vm.currentPlanPrice}}</p>
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
