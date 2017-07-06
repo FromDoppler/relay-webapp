@@ -13,10 +13,12 @@
     '$translate',
     '$timeout',
     'settings',
-    '$filter'
+    '$filter',
+    'reports',
+    'moment'
   ];
 
-  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter) {
+  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -41,22 +43,26 @@
       .finally(function () {
         vm.planInfoLoader = false;
       });
-
-      var getCurrentPlanStatus = settings.getCurrentPlanStatus().then(function(response) {
-        vm.currentMonthlyCount = response.data.currentMonthlyCount;
-        vm.monthlyLimit = response.data.monthlyLimit;
-        vm.resetDate = response.data.resetDate;
-      })
-      .finally(function () {
-        vm.planStatusInfoLoader = false;
-      });
-
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
         changePlan(defaultPlanName);
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getCurrentPlanStatus]);
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]);
+    }
+
+    function getMonthConsumption() {
+      vm.extraEmailsSent = 0;
+      var firstDayFromLastMonth = moment().utc().startOf('month');
+      vm.resetDate = moment().utc().add(1, 'month').startOf('month').format('YYYY-MM-DD');
+      return reports.getRecords(firstDayFromLastMonth, null, null, 5)
+          .then(function (result) {
+            vm.currentMonthlyCount = result.deliveriesCount;
+            vm.planStatusInfoLoader = false;
+            if (vm.currentPlanEmailsAmount < vm.currentMonthlyCount) {
+              vm.extraEmailsSent = vm.currentMonthlyCount - vm.currentPlanEmailsAmount;
+            }
+          });
     }
 
     function changePlan(planName) {

@@ -14,7 +14,7 @@
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'amount_of_emails_text' | translate }}</label>
-        <p>{{vm.currentPlanEmailsAmount}}</p>
+        <p class="emails-amount">{{vm.currentPlanEmailsAmount}}</p>
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
@@ -29,17 +29,17 @@
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_consumption' | translate }}</label>
-        <p>{{vm.monthlyLimit}}</p>
+        <p class="month-consumption">{{vm.currentMonthlyCount}}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_emails_sent' | translate }}</label>
-        <p>{{vm.currentMonthlyCount}}</p>
+        <p class="extra-emails">{{vm.extraEmailsSent}}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex two flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_renewal_date' | translate }}</label>
-        <p>{{vm.resetDate}}</p>
+        <p class="renewal-date">{{vm.resetDate}}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
     </div>

@@ -33,10 +33,8 @@ describe('Billing Page', () => {
               "fee": 82.50,
               "includedDeliveries": 50.0
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status/).respond(200, {
-              "currentMonthlyCount": "20",
-              "monthlyLimit": "90",
-              "resetDate": "2016-07-01T00:00:00Z"
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
+              "itemsCount": 200
         });
       }));
   }
@@ -460,6 +458,31 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
+  });
+
+  it('should show correct plan status values', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    var dateConcat = '';
+    var date = new Date();
+    var month = ('0' + (date.getMonth() + 1 + 1)).slice(-2);
+    var year = date.getFullYear();
+    if (month > 12) {
+      month = '01';
+      year = year + 1;
+    }
+    dateConcat = dateConcat.concat(year,'-', month, '-', '01');
+
+    // Assert
+    expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
+    expect(billingPage.getMonthConsumption()).toBe('200');
+    expect(billingPage.getExtraEmails()).toBe('150');
+    expect(billingPage.getRenewalDate()).toBe(dateConcat);
   });
 
 });

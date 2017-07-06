@@ -124,7 +124,7 @@
       return num;
     }
 
-    function getRecords(from, to, filter) {
+    function getRecords(from, to, filter, perPage) {
       var accountName = auth.getAccountName();
         var url = '/accounts/' + accountName + '/deliveries';
         // TODO: UrlEncode parameters
@@ -137,6 +137,9 @@
         }
         if (to) {
           params.push('to=' + to.toISOString());
+        }
+        if (perPage) {
+          params.push('per_page=' + perPage);
         }
         if (params.length)
         {
@@ -154,7 +157,7 @@
       })
       .then(function (response) {
         var nextLink = linkUtilities.findNextLink(response.data._links);
-        return ({ records: response.data.items, nextLink: nextLink && nextLink.href });
+        return ({ records: response.data.items, nextLink: nextLink && nextLink.href, deliveriesCount: response.data.itemsCount });
       })
       .catch(function (reason) {
         $log.error(reason);
