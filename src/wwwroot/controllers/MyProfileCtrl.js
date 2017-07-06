@@ -17,7 +17,8 @@
   function MyProfileCtrl($scope, $location, $rootScope, auth, $translate, $timeout) {
     var vm = this;
     $rootScope.setSubmenues([
-      { text: 'submenu_my_profile', url: 'settings/my-profile', active: true }
+      { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
+      { text: 'submenu_my_plan', url: 'settings/my-plan', active: false }
     ]);
     vm.changePassword = changePassword;
     vm.updateValidation = updateValidation;

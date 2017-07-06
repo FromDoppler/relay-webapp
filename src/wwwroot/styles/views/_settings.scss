@@ -330,7 +330,7 @@
     }
     .spinner{
       opacity: 1;
-      transition: all 0.8s ease;
+      @extend .transition--default;
       .sk-fading-circle {
         width: 1rem;
         height: 1.5rem;

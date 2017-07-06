@@ -273,6 +273,7 @@
   "configuration_page_status": "Estado",
   "configuration_page_added": "Configurado",
   "submenu_my_profile": "Mi Cuenta",
+  "submenu_my_plan": "Mi Plan",
   "my_profile_title": "Mi Cuenta",
   "my_profile_old_password":"Actual Contraseña",
   "my_profile_old_password_error":"La contraseña que has ingresado no es correcta.",
@@ -317,5 +318,6 @@
   "my_plan_consumption": "Mis consumos",
   "my_plan_emails_sent": "Excedentes",
   "my_plan_renewal_date": "Renovación de plan",
-  "change_plan_text": "Cambiar plan"
+  "change_plan_text": "Cambiar plan",
+  "free_trial_text": "Cuenta Gratis"
 };
