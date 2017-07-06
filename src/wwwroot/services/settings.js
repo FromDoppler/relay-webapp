@@ -170,6 +170,5 @@
         url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements' + '/current'
       });
     }
-
 }
 })();

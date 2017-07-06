@@ -39,6 +39,10 @@ class BillingPage {
     this._sliderContainerElements = element.all(by.css('.plan--slider-container div'));
     this._myPlanPrice = $('.plan--price-big');
     this._ticksElements = element.all(by.css('.plan--slider-container .rz-tick'));
+    this._monthConsumption = $('.month-consumption');
+    this._extraEmails = $('.extra-emails');
+    this._renewalDate = $('.renewal-date');
+    this._emailsAmount = $('.emails-amount');
   }
 
   getPlanName() {
@@ -242,6 +246,18 @@ class BillingPage {
 
   getPlanPrice() {
     return this._myPlanPrice.getText();
+  }
+  getMonthConsumption() {
+    return this._monthConsumption.getText();
+  }
+  getRenewalDate() {
+    return this._renewalDate.getText();
+  }
+  getExtraEmails() {
+    return this._extraEmails.getText();
+  }
+  getEmailsAmountForCurrentPlan() {
+    return this._emailsAmount.getText();
   }
 
 }

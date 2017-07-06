@@ -24,8 +24,6 @@ describe('Billing Page', () => {
       .module('descartableModule4', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
-          "items": [
-            {
               "planName": null,
               "paymentMethod": null,
               "billingInformation": null,
@@ -33,8 +31,10 @@ describe('Billing Page', () => {
               "currency": "USD",
               "extraDeliveryCost": 0.04700000,
               "fee": 82.50,
-              "includedDeliveries": 50.0}
-          ]
+              "includedDeliveries": 50.0
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
+              "itemsCount": 200
         });
       }));
   }
@@ -60,7 +60,7 @@ describe('Billing Page', () => {
               "name": "PLAN-60K" }
           ]
         });
-       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]); 
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]);
       }));
   }
 
@@ -458,6 +458,31 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
+  });
+
+  it('should show correct plan status values', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    var dateConcat = '';
+    var date = new Date();
+    var month = ('0' + (date.getMonth() + 1 + 1)).slice(-2);
+    var year = date.getFullYear();
+    if (month > 12) {
+      month = '01';
+      year = year + 1;
+    }
+    dateConcat = dateConcat.concat(year,'-', month, '-', '01');
+
+    // Assert
+    expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
+    expect(billingPage.getMonthConsumption()).toBe('200');
+    expect(billingPage.getExtraEmails()).toBe('150');
+    expect(billingPage.getRenewalDate()).toBe(dateConcat);
   });
 
 });
