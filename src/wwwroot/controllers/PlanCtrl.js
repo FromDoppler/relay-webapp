@@ -22,6 +22,7 @@
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
+      { text: 'submenu_my_plan', url: 'settings/my-plan', active: true }
     ]);
     vm.hideDragMe = false;
     vm.activationPromise = activate();
@@ -39,6 +40,7 @@
         vm.currentPlanEmailsAmount = response.data.includedDeliveries;
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
         vm.currency = response.data.currency;
+        vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
       })
       .finally(function () {
         vm.planInfoLoader = false;

@@ -259,6 +259,7 @@
   "configuration_page_status": "Status",
   "configuration_page_added": "Configured",
   "submenu_my_profile": "View Profile",
+  "submenu_my_plan":"My Plan",
   "my_profile_title": "My Profile",
   "my_profile_old_password":"Current Password",
   "my_profile_old_password_error":"The password you have entered is not correct.",
@@ -303,5 +304,6 @@
   "my_plan_consumption": "My consumption",
   "my_plan_emails_sent": "Emails sent out of plan",
   "my_plan_renewal_date": "Plan renewal",
-  "change_plan_text": "Change your plan"
+  "change_plan_text": "Change your plan",
+  "free_trial_text": "Free Trial"
 };
