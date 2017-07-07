@@ -305,5 +305,8 @@
   "my_plan_emails_sent": "Emails sent out of plan",
   "my_plan_renewal_date": "Plan renewal",
   "change_plan_text": "Change your plan",
-  "free_trial_text": "Free Trial"
+  "free_trial_text": "Free Trial",
+  "success_upgrade_title":"Congratulations!",
+  "success_upgrade_text":"Your payment has been processed correctly, we will send you the receipt soon. If you have any doubt please reach out us at <a href='mailto:soporte@dopplerrelay.com'>support@dopplerrelay.com.</a>",
+  "success_upgrade_button":"Go to my plan!"
 };
