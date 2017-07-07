@@ -13,13 +13,12 @@
     '$rootScope',
     '$q',
     'utils',
-    '$scope'
+    '$scope',
+    'resources'
   ];
 
-  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, $scope) {
+  function ConfirmationCtrl($translate, signup, auth, $location, $rootScope, $q, utils, $scope, resources) {
     var vm = this;
-    var industriesPromise = signup.getIndustries();
-    var countriesPromise = signup.getCountries();
 
     vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
     vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
@@ -30,30 +29,12 @@
     vm.activationPromise = activate();
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
-    vm.industryList = [];
-    vm.countryList = [];
-
-    var deregisterLangListener = $rootScope.$on('$translateChangeSuccess', fillList);
-    //Clean up
-    $scope.$on('$destroy', deregisterLangListener);
-
-    function fillList() {
-      var lang = $translate.use();
-      industriesPromise.then(function(ret) {
-        vm.industryList = ret.data.map(function(val){
-          return { code: val.code, name: val[lang] };
-        })
-      });
-
-      countriesPromise.then(function(ret) {
-        vm.countryList = ret.data.map(function(val){
-          return { code: val.code, name: val[lang] };
-        })
-      });
-    }
 
     function activate() {
-      fillList();
+
+      resources.ensureIndustries();
+      resources.ensureCountries();
+      vm.resources = resources.data;
       
       var activationToken = $location.search()['activation'];
       if (!activationToken) {

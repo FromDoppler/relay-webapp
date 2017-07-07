@@ -19,7 +19,8 @@
     var utilsService = {
       analizePasswordComplexity: analizePasswordComplexity,
       setServerValidationToField: setServerValidationToField,
-      resetForm: resetForm
+      resetForm: resetForm,
+      replaceAllCharsExceptLast4: replaceAllCharsExceptLast4
     };
 
     return utilsService;
@@ -87,6 +88,20 @@
       }
       form.$setPristine();
       form.$setUntouched();
+    }
+
+    function replaceAllCharsExceptLast4(str) {
+      var length = str.toString().length - 4;
+      if (length < 4) {
+        return str.replace(/\S/gi, '*');;
+      }
+      return str.replace(/\S/gi,
+        function myFunction(x,i){
+          if (i < length) {
+            return "*";
+          }
+          return x;
+        });
     }
 
   }

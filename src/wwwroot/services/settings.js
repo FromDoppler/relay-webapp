@@ -19,8 +19,11 @@
       deleteDomain: deleteDomain,
       getUserApiKeys: getUserApiKeys,
       getDomain: getDomain,
-      getPlansAvailable: getPlansAvailable
+      getPlansAvailable: getPlansAvailable,
+      billingPayment: billingPayment
     };
+
+    var plansCache = null;
 
     return settingsService;
 
@@ -124,14 +127,31 @@
     }
 
     function getPlansAvailable() {
-      var url = RELAY_CONFIG.baseUrl
-        + '/plans';
-
-      return $http({
+      plansCache = plansCache || $http({
         actionDescription: 'action_getting_plans',
         method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/plans'
+      }).catch(function(reason) {
+        plansCache = null;
+        return $q.reject(reason);
+      });
+
+      return plansCache;
+    }
+
+    function billingPayment(agreement) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/'
+        + auth.getAccountName()
+        + '/agreements';
+
+      return $http({
+        actionDescription: 'action_billing_payment',
+        method: 'POST',
+        data: agreement,
         url: url
       });
     }
+
 }
 })();

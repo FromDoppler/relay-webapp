@@ -18,8 +18,7 @@ class ConfirmationPage {
     return this.getFirstSelectOptionText(this._countrySelect);
   }
 
-  getFirstSelectOptionText(parentElem)
-  {
+  getFirstSelectOptionText(parentElem) {
     parentElem.click();
 
     var firstOption = parentElem.all(by.css('span.select-option')).first();
