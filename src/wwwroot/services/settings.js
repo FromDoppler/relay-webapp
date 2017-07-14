@@ -21,7 +21,8 @@
       getDomain: getDomain,
       getPlansAvailable: getPlansAvailable,
       billingPayment: billingPayment,
-      getCurrentPlanInfo: getCurrentPlanInfo
+      getCurrentPlanInfo: getCurrentPlanInfo,
+      getStatusPlanInfo: getStatusPlanInfo
     };
 
     var plansCache = null;
@@ -168,6 +169,14 @@
         actionDescription: 'action_getting_current_plan',
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements' + '/current'
+      });
+    }
+
+    function getStatusPlanInfo() {
+      return $http({
+        actionDescription: 'action_getting_status_plan',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/status' + '/plan'
       });
     }
 }
