@@ -476,7 +476,7 @@ describe('Billing Page', () => {
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
-    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01');
+    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
   });
 
   it('should show correct plan status values for Free Trial user', () => {
