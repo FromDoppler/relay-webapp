@@ -33,8 +33,11 @@ describe('Billing Page', () => {
               "fee": 0,
               "includedDeliveries": 50.0
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
-              "itemsCount": 200
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+               "deliveriesCount": 200,
+               "startDate": "2017-07-01T01:01:01Z",
+               "endDate": "2017-08-01T01:01:01Z"
         });
       }));
   }
@@ -468,21 +471,12 @@ describe('Billing Page', () => {
     setupSamplePlanInfoResponse();
     setupSamplePlansResponse();
     var billingPage = new BillingPage();
-    var dateConcat = '';
-    var date = new Date();
-    var month = ('0' + (date.getMonth() + 1 + 1)).slice(-2);
-    var year = date.getFullYear();
-    if (month > 12) {
-      month = '01';
-      year = year + 1;
-    }
-    dateConcat = dateConcat.concat(year,'-', month, '-', '01');
 
     // Assert
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
-    expect(billingPage.getRenewalDate()).toBe(dateConcat);
+    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
   });
 
   it('should show correct plan status values for Free Trial user', () => {
