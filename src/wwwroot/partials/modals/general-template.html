@@ -1,0 +1,10 @@
+<div class="modal--wrapper ms-relay">
+  <div class="modal--outter text--center copy--container">
+    <span ng-click="vm.closeModal()">X</span>
+    <h3>{{vm.title | translate}}</h3>
+    <div>
+      <p ng-bind-html="vm.mainText | translate"></p>
+      <button class="button button--small button--right" ng-click="vm.closeModal()">{{vm.buttonText | translate}}</button>
+    </div>
+  </div>
+</div>

@@ -126,6 +126,7 @@
             </svg>
               <div class="width--full animate-error-container" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'show' : 'hide'">
                 <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.ilegal_number && !form.cardNumber.$error.required && ! form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_invalid_card_number' | translate}}</span>
               </div>
             </div>
           </div>
@@ -153,7 +154,7 @@
             </div>
           </div>
       </div>
-      <div class="section--wrapper button--container">
+      <div class="section--wrapper button--container flex--wrap">
         <button class="button button--small button--white" ng-click="vm.redirectToPlanSelection();">{{'billing_change_plan_button' | translate}}</button>
         <button class="button button--small check-button" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
       </div>
@@ -213,9 +214,12 @@
         <p id="secCodeConfirmation">{{vm.secCode.ParsedNumber}}</p>
       </div>
     </div>
-    <div class="section--wrapper button--container">
-      <button class="button button--small button--white modify-button" ng-click="vm.showConfirmation = false">{{'billing_change_info_button' | translate}}</button>
-      <button class="button button--small" ng-click="vm.submitBillingPayment()">{{'buy_text' | translate}}</button>
+    <div class="button--container flex--wrap">
+      <div class="detached--error-container" ng-class="vm.submitted && vm.paymentFailure ? 'show':'hide'">
+        <span class="detached--error">{{'validation_error_payment_failure' | translate}}</span>
+      </div>
+      <button class="button button--small button--white modify-button" ng-click="vm.showConfirmation = false;vm.paymentFailure = false;">{{'billing_change_info_button' | translate}}</button>
+      <button class="button button--small buy-button" ng-click="vm.submitBillingPayment()">{{'buy_text' | translate}}</button>
     </div>
   </div>
 </section>

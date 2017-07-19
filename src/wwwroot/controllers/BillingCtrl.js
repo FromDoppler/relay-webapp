@@ -14,7 +14,8 @@
     '$timeout',
     'settings',
     'utils',
-    'resources'
+    'resources',
+    'ModalService'
   ];
 
   var secCodeMasksByBrand = {
@@ -29,7 +30,7 @@
      'amex': '9999 999999 99999',
      'unknown': '9999 9999 9999 9999'
   };
-  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources) {
+  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -126,11 +127,20 @@
       }
     }
 
+    var onExpectedError = function (rejectionData) {
+      vm.paymentFailure = true;
+      return true;
+    };
+
     function submitBilling(form) {
       vm.submitted = true;
+      if (!utils.validateCreditCard(vm.cc.number)) {
+        utils.setServerValidationToField($scope, $scope.form.cardNumber, 'ilegal_number');
+      }
       if (!form.$valid) {
         return;
       }
+
       vm.showConfirmation = true;
       vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
@@ -157,9 +167,21 @@
            countryCode: vm.country.code
          }
       };
-      return settings.billingPayment(agreement)
+      return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
-        redirectToPlanSelection();
+        return ModalService.showModal({
+        templateUrl: 'partials/modals/general-template.html',
+        controller: 'GeneralTemplateCtrl',
+        controllerAs: 'vm',
+        inputs: {
+          title: "success_upgrade_title",
+          mainText: "success_upgrade_text",
+          buttonText: "success_upgrade_button"
+        }
+        })
+        .then(function (modal) {
+          modal.close.then(redirectToPlanSelection);
+        });
       });
     }
   }

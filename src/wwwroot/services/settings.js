@@ -20,10 +20,12 @@
       getUserApiKeys: getUserApiKeys,
       getDomain: getDomain,
       getPlansAvailable: getPlansAvailable,
-      billingPayment: billingPayment
+      billingPayment: billingPayment,
+      getCurrentPlanInfo: getCurrentPlanInfo
     };
 
     var plansCache = null;
+    var currentPlanInfoCache = null;
 
     return settingsService;
 
@@ -40,7 +42,7 @@
 
       return $http({
         actionDescription: 'action_adding_domain',
-        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
+        tryHandleError: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
         method: 'PUT',
         data: data,
         url: url
@@ -71,18 +73,25 @@
 
       return $http({
         actionDescription: 'action_deleting_domain',
-        tryHandleError: function(rejection){ return tryHandleError(rejection, onExpectedError); },
+        tryHandleError: function(rejection){ return tryHandleErrorDomainManager(rejection, onExpectedError); },
         method: 'DELETE',
         data: {},
         url: url
       });
     }
 
-    function tryHandleError(rejection, onExpectedError) {
+    function tryHandleErrorDomainManager(rejection, onExpectedError) {
         if (rejection.status != 400 || !rejection.data || rejection.data.errorCode != 4) {
           return false; // not handled
         }
         return onExpectedError(rejection.data);
+    }
+
+    function tryHandleErrorBilling(rejection, onExpectedError) {
+      if (rejection.status != 400) {
+        return false; // not handled
+      }
+      return onExpectedError(rejection.data);
     }
 
     function getDomains() {
@@ -139,7 +148,7 @@
       return plansCache;
     }
 
-    function billingPayment(agreement) {
+    function billingPayment(agreement, onExpectedError) {
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/'
         + auth.getAccountName()
@@ -147,11 +156,19 @@
 
       return $http({
         actionDescription: 'action_billing_payment',
+        tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
         method: 'POST',
         data: agreement,
         url: url
       });
     }
 
+    function getCurrentPlanInfo() {
+      return $http({
+        actionDescription: 'action_getting_current_plan',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements' + '/current'
+      });
+    }
 }
 })();

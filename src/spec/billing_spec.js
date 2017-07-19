@@ -4,6 +4,7 @@ describe('Billing Page', () => {
   afterEach(() => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
+    browser.removeMockModule('descartableModule4');
   });
 
   function beginAuthenticatedSession() {
@@ -12,6 +13,29 @@ describe('Billing Page', () => {
       .run((jwtHelper, auth) => {
         var permanentToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MzAzMTgsImV4cCI6MTQ4NzIyMjMxOCwiaWF0IjoxNDg0NjMwMzE4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.dQh20ukVSCP0rNXMWBh2DlPQXbP0uTaYzadRDNPXECI9lvCsgDKNXc2bToXAUQDeXw90kbHliVF-kCueW4gQLPBtMJOcHQFv6LfgspsG2jue2iMwoBC1q6UB_4xFlGoyhkRjldnQUV0oqBTzhFdXuTvQz53kRPiqILCHkd4FLl4KliBgdaDRwWz-HIjJwinMpnv_7V38CNvHlHo-q2XU0MnE3CsGXmWGoAgzN7rbeQPgI9azHXpbaUPh9n_4zjCydOSBC5tx7MtEAx3ivfFYImBPp2T2vUM-F5AwRh7hl_lMUvyQLal0S_spoT0XMGy8YhnjxXLoZeVRisWbxBmucQ';
         auth.saveToken(permanentToken);
+      }));
+  }
+
+  function setupSamplePlanInfoResponse() {
+
+    browser.addMockModule('descartableModule4', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2016-07-01T00:00:00Z",
+              "currency": "USD",
+              "extraDeliveryCost": 0,
+              "fee": 0,
+              "includedDeliveries": 50.0
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
+              "itemsCount": 200
+        });
       }));
   }
 
@@ -26,13 +50,17 @@ describe('Billing Page', () => {
           "items": [
             { "currency": "USD",
               "fee": 5.90,
+              "extra_delivery_cost": 0.00059000,
+              "included_deliveries": 10000.0,
               "name": "PLAN-10K"},
             { "currency": "USD",
               "fee": 31.8,
+              "extra_delivery_cost": 0.00053000,
+              "included_deliveries": 60000.0,
               "name": "PLAN-60K" }
           ]
         });
-       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]); 
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]);
       }));
   }
 
@@ -137,7 +165,7 @@ describe('Billing Page', () => {
 
     // Act
     browser.get('/#/settings/billing?plan=PLAN-60K');
-      
+
     // Assert
     var billingPage = new BillingPage();
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
@@ -153,7 +181,7 @@ describe('Billing Page', () => {
     var countryInSpanish = "Bolivia";
     beginAuthenticatedSession();
     setupSamplePlansResponse();
-    
+
     // Act
     browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
 
@@ -163,7 +191,7 @@ describe('Billing Page', () => {
 
      // Act
     browser.get('/#/settings/billing?plan=PLAN-60K&lang=en');
-    
+
     // Assert
     expect(billingPage.getFirstCountryName()).toBe(countryInEnglish);
 
@@ -184,7 +212,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -210,7 +238,7 @@ describe('Billing Page', () => {
     expect(billingPage.isZCodeDisplayed()).toBe(zCode);
     expect(billingPage.isCountryDisplayed()).toContain(country);
     expect(billingPage.isCardHolderDisplayed()).toBe(cardHolder);
-    expect(billingPage.isCcNumberDisplayed()).toBe('************4444');
+    expect(billingPage.isCcNumberDisplayed()).toBe('************7658');
     expect(billingPage.isExpDateDisplayed()).toBe('09/19');
     expect(billingPage.isSecCodeDisplayed()).toBe('***');
     expect(billingPage.isBillingPageDisplayed()).toBeFalsy();
@@ -232,7 +260,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -269,7 +297,7 @@ describe('Billing Page', () => {
     var zCode = '1234';
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
-    var creditCardNumber = '4444444444444444';
+    var creditCardNumber = '4485929253917658';
     var expDate = '0919';
     var secCode = '123'
 
@@ -296,5 +324,178 @@ describe('Billing Page', () => {
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
   });
 
+  it('should show error if the credit card is not valid by Luhn', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+    var name = 'TestName TestLastName';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Bolivia, Plurinational State Of';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4444444444444444';
+    var expDate = '0919';
+    var secCode = '123'
+
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+    billingPage.clickCheckOrder();
+
+    // Assert
+    expect(billingPage.isInvalidCCnumberErrorDisplayed()).toBeTruthy();
+    expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
+    expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+  });
+
+  it('should show a nice error when the post return 400 error', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K');
+    setupSamplePlansResponse();
+
+    browser.addMockModule('descartableModule3', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule3', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenPOST(/\/accounts\/[\w|-]*\/agreements/).respond(400, { "data": { 'errorCode': 5 } });
+      }));
+
+
+    var billingPage = new BillingPage();
+    var name = 'TestName TestLastName';
+    var company = 'Company Test';
+    var address = 'Address 123';
+    var city = 'CityTest';
+    var zCode = '1234';
+    var country = 'Bolivia, Plurinational State Of';
+    var cardHolder = 'TestName TestLastName';
+    var creditCardNumber = '4485929253917658';
+    var expDate = '0919';
+    var secCode = '123'
+
+    // Act
+    billingPage.setName(name);
+    billingPage.setCompany(company);
+    billingPage.setAddress(address);
+    billingPage.setCity(city);
+    billingPage.setZCode(zCode);
+    billingPage.setCountry(country);
+    billingPage.setCardHolder(cardHolder);
+    billingPage.setCreditCardNumber(creditCardNumber);
+    billingPage.setExpDate(expDate);
+    billingPage.setSecCode(secCode);
+
+    billingPage.clickCheckOrder();
+    expect(billingPage.isConfirmationDisplayed()).toBeTruthy();
+    billingPage.clickBuy();
+
+    // Assert
+    expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
+  });
+
+  it('should show the pricing chart when the user click on upgrade button', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.isPricingChartDisplayed()).toBeTruthy();
+  });
+
+  it('should load the slider', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+  });
+
+  it('should change the price when the user change slider position', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+    var planDefaultPrice = billingPage.getPlanPrice();
+
+    //Act
+    billingPage.clickFirstSliderTick();
+
+    // Assert
+    expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
+  });
+
+  it('should show correct plan status values', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    var dateConcat = '';
+    var date = new Date();
+    var month = ('0' + (date.getMonth() + 1 + 1)).slice(-2);
+    var year = date.getFullYear();
+    if (month > 12) {
+      month = '01';
+      year = year + 1;
+    }
+    dateConcat = dateConcat.concat(year,'-', month, '-', '01');
+
+    // Assert
+    expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
+    expect(billingPage.getMonthConsumption()).toBe('200');
+    expect(billingPage.getExtraEmails()).toBe('150');
+    expect(billingPage.getRenewalDate()).toBe(dateConcat);
+  });
+
+  it('should show correct plan status values for Free Trial user', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    // Assert
+    expect(billingPage.isFreeTrialAsPriceDisplayed()).toBe(true);
+  });
 
 });

@@ -15,6 +15,7 @@ class BillingPage {
     this._expDateInput = $('.billing--first-container #expDate');
     this._secCodeInput = $('.billing--first-container #secCode');
     this._checkOrderButton = $('.button--container .check-button');
+    this._buyButton = $('.button--container .buy-button');
     this._confirmationContainer = $('.billing--plan-confirmation');
     this._billingPageContainer = $('.billing--first-container');
     this._nameConfirmationLabel = $('.billing--plan-confirmation #nameConfirmation');
@@ -30,6 +31,19 @@ class BillingPage {
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
     this._countrySelect =  element(by.id('country'));
     this._creditCardContainer = $('.credit-card');
+    this._creditCardErrorContainer = $('.credit-card .animate-error-container');
+    this._detachedError = $('.billing--plan-confirmation .detached--error-container');
+    //My Plan section
+    this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
+    this._pricingChartContainer = $('.pricing-chart--container');
+    this._sliderContainerElements = element.all(by.css('.plan--slider-container div'));
+    this._myPlanPrice = $('.plan--price-big');
+    this._ticksElements = element.all(by.css('.plan--slider-container .rz-tick'));
+    this._monthConsumption = $('.month-consumption');
+    this._extraEmails = $('.extra-emails');
+    this._renewalDate = $('.renewal-date');
+    this._emailsAmount = $('.emails-amount');
+    this._myPlanPriceFreeTrial = $('.my-plan-price');
   }
 
   getPlanName() {
@@ -83,11 +97,14 @@ class BillingPage {
       .then(function(className) {
         return className.indexOf(name) >= 0;
       });
-      
+
     return hasClass;
   }
   clickCheckOrder() {
     return this._checkOrderButton.click();
+  }
+  clickBuy() {
+    return this._buyButton.click();
   }
   getFirstCountryName() {
     return this.getFirstSelectOptionText(this._countrySelect);
@@ -126,7 +143,7 @@ class BillingPage {
     parentElem.click();
     var firstOption = parentElem.all(by.css('span.select-option')).first();
     return firstOption.click();
-    
+
   }
   isCompanyDisplayed() {
     return this._companyConfirmationLabel.getText();
@@ -167,8 +184,84 @@ class BillingPage {
 
      return this._billingPageContainer.isDisplayed();
   }
+  isDetachedErrorDisplayed() {
+    var hasClass = this._detachedError
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('show') >= 0;
+      });
+
+    return hasClass;
+  }
+
   clickModifyInformation() {
     return this._modifyButton.click();
+  }
+  isInvalidCCnumberErrorDisplayed() {
+    var hasClass = this._creditCardErrorContainer
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('show') >= 0;
+      });
+
+    return hasClass;
+  }
+
+  //My Plan section
+  clickUpgradeButtonToDisplayPricingChart() {
+    return this._myPlanPricingChartDisplayButton.click();
+  }
+
+  isPricingChartDisplayed() {
+    var hasClass = this._pricingChartContainer
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf('show') >= 0;
+      });
+
+    return hasClass;
+  }
+
+  isSliderLoaded() {
+    var sliderContainer = this._sliderContainerElements.then(function(val) {
+      return val[0].getAttribute('class')
+                   .then(function(className) {
+                      return className.indexOf('rzslider') >= 0;
+                   });
+    });
+    // the library `angular-ui/ui-select` creates  the HTML
+    // but it takes a little bit to populate the values
+    // so we have to wait until the text is present.
+    browser.wait(function() {
+      return sliderContainer != false
+    }, this._waitTimeout);
+
+    return sliderContainer;
+  }
+
+  clickFirstSliderTick() {
+    var sliderContainer = this._ticksElements.then(function(val) {
+      return val[0].click();
+    });
+  }
+
+  getPlanPrice() {
+    return this._myPlanPrice.getText();
+  }
+  getMonthConsumption() {
+    return this._monthConsumption.getText();
+  }
+  getRenewalDate() {
+    return this._renewalDate.getText();
+  }
+  getExtraEmails() {
+    return this._extraEmails.getText();
+  }
+  getEmailsAmountForCurrentPlan() {
+    return this._emailsAmount.getText();
+  }
+  isFreeTrialAsPriceDisplayed() {
+    return this._myPlanPriceFreeTrial.isDisplayed();
   }
 }
 exports.BillingPage = BillingPage;

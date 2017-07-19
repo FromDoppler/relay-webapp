@@ -35,4 +35,7 @@ $slider-transition: all ease-out 0.15s;;
   span.rz-bar{
     background: $suit-font-color-light;
   }
+  li.rz-tick {
+    opacity: 0;
+  }
 }

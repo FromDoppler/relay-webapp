@@ -170,13 +170,13 @@ $input--error--color: #FFF;
 				color: $suit-accent-color;
 			}
 		}
-        &.button--disabled{
+    &.button--disabled{
 			background: lightgray;
 			border-color: lightgray;
-            &:hover{
-                cursor:default;
-            }
-        }
+      &:hover{
+      	cursor:default;
+      }
+    }
 	}
 
 	.input--error{
@@ -204,6 +204,27 @@ $input--error--color: #FFF;
 				}
 			}
 	}
+	.detached--error-container {
+		background: $input--error-background;
+		position: relative;
+		border-radius: 3px;
+		@extend .transition--default;
+		max-height: 0;
+		overflow: hidden;
+		display: inline-flex;
+		&.show {
+			visibility: visible;
+			max-height: torem(100px);
+		}
+		span.detached--error {
+			color: $input--error--color;
+			font-size: $font-size-small;
+			font-style: italic;
+			padding: 0.8em 1.5em;
+		}
+	}
+
+
 	.input{
 		color: $input--color;
 		@extend .border--radius;
