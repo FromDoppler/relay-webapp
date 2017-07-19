@@ -67,7 +67,7 @@ describe('Billing Page', () => {
       }));
   }
 
-  it('should show the selected plan name and price', () => {
+  it('should show the selected plan name and price in english', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
@@ -81,7 +81,24 @@ describe('Billing Page', () => {
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31.80 x month');
+    expect(billingPage.getPrice()).toBe('USD 31.80 per month');
+  });
+
+  it('should show the selected plan name and price in spanish', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+
+    // Act
+    var plan = billingPage.getPlanName();
+    var price = billingPage.getPrice();
+
+    // Assert
+    expect(plan).toBe('PLAN-60K');
+    expect(billingPage.getPrice()).toBe('USD 31.80 por mes');
   });
 
   it('should show credit card icon when complete visa credit card number', () => {

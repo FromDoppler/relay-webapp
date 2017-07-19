@@ -309,7 +309,7 @@
   "billing_check_button": "Revisar mi pedido",
   "price_text": "Precio",
   "plan_text": "Plan",
-  "each_month": "x mes",
+  "each_month": "por mes",
   "billing_change_plan_button": "Seleccionar otro plan",
   "billing_change_info_button": "Modificar información",
   "my_plan_subtitle": "Encuentra aquí toda la información sobre tu plan y elige un nuevo plan si necesitas realizar una actualización.",
