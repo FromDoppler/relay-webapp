@@ -295,7 +295,7 @@
   "billing_check_button": "Check my order",
   "price_text": "Price",
   "plan_text": "Plan",
-  "each_month": "x month",
+  "each_month": "per month",
   "billing_change_plan_button": "Select another plan",
   "billing_change_info_button": "Modify information",
   "my_plan_subtitle": "Find here all the information about your plan and choose a new plan if you need to do an upgrade.",
