@@ -496,6 +496,43 @@ describe('Billing Page', () => {
     expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
   });
 
+   it('should show correct plan status values with big numbers', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    browser.addMockModule('descartableModule4', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2016-07-01T00:00:00Z",
+              "currency": "USD",
+              "extraDeliveryCost": 0.00002000,
+              "fee": 31.80,
+              "includedDeliveries": 12000
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+               "deliveriesCount": 20000000,
+               "startDate": "2017-07-01T01:01:01Z",
+               "endDate": "2017-08-01T01:01:01Z"
+        });
+      }));
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    // Assert
+    expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12,000');
+    expect(billingPage.getMonthConsumption()).toBe('20,000,000');
+    expect(billingPage.getExtraEmails()).toBe('19,988,000');
+    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
+  });
+
   it('should show correct plan status values for Free Trial user', () => {
 
     // Arrange
