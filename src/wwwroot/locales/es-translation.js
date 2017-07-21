@@ -322,5 +322,6 @@
   "free_trial_text": "Cuenta Gratis",
   "success_upgrade_title":"¡Felicitaciones!",
   "success_upgrade_text":"El pago ha sido aceptado correctamente, te enviaremos tu comprobante de pago en breve. Si tienes alguna duda puedes ponerte en contacto con nuestro equipo escribiendo a <a href='mailto:soporte@dopplerrelay.com'>soporte@dopplerrelay.com.</a>",
-  "success_upgrade_button":"¡Ir a mi plan!"
+  "success_upgrade_button": "¡Ir a mi plan!",
+  "USD":"USD"
 };
