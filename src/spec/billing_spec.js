@@ -33,8 +33,11 @@ describe('Billing Page', () => {
               "fee": 0,
               "includedDeliveries": 50.0
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
-              "itemsCount": 200
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+               "deliveriesCount": 200,
+               "startDate": "2017-07-01T01:01:01Z",
+               "endDate": "2017-08-01T01:01:01Z"
         });
       }));
   }
@@ -64,7 +67,7 @@ describe('Billing Page', () => {
       }));
   }
 
-  it('should show the selected plan name and price', () => {
+  it('should show the selected plan name and price in english', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
@@ -78,7 +81,24 @@ describe('Billing Page', () => {
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31.80 x month');
+    expect(billingPage.getPrice()).toBe('USD 31.80 per month');
+  });
+
+  it('should show the selected plan name and price in spanish', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
+    setupSamplePlansResponse();
+
+    var billingPage = new BillingPage();
+
+    // Act
+    var plan = billingPage.getPlanName();
+    var price = billingPage.getPrice();
+
+    // Assert
+    expect(plan).toBe('PLAN-60K');
+    expect(billingPage.getPrice()).toBe('USD 31.80 por mes');
   });
 
   it('should show credit card icon when complete visa credit card number', () => {
@@ -468,21 +488,12 @@ describe('Billing Page', () => {
     setupSamplePlanInfoResponse();
     setupSamplePlansResponse();
     var billingPage = new BillingPage();
-    var dateConcat = '';
-    var date = new Date();
-    var month = ('0' + (date.getMonth() + 1 + 1)).slice(-2);
-    var year = date.getFullYear();
-    if (month > 12) {
-      month = '01';
-      year = year + 1;
-    }
-    dateConcat = dateConcat.concat(year,'-', month, '-', '01');
 
     // Assert
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
-    expect(billingPage.getRenewalDate()).toBe(dateConcat);
+    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
   });
 
   it('should show correct plan status values for Free Trial user', () => {

@@ -295,7 +295,7 @@
   "billing_check_button": "Check my order",
   "price_text": "Price",
   "plan_text": "Plan",
-  "each_month": "x month",
+  "each_month": "per month",
   "billing_change_plan_button": "Select another plan",
   "billing_change_info_button": "Modify information",
   "my_plan_subtitle": "Find here all the information about your plan and choose a new plan if you need to do an upgrade.",
@@ -308,5 +308,6 @@
   "free_trial_text": "Free Trial",
   "success_upgrade_title":"Congratulations!",
   "success_upgrade_text":"Your payment has been processed correctly, we will send you the receipt soon. If you have any doubt please reach out us at <a href='mailto:soporte@dopplerrelay.com'>support@dopplerrelay.com.</a>",
-  "success_upgrade_button":"Go to my plan!"
+  "success_upgrade_button":"Go to my plan!",
+  "USD":"$"
 };

@@ -64,6 +64,7 @@ var defaultsForCapability = {
 function onPrepare() {
   // TODO: We have to do this because in SauceLabs the screen size is not working correctly.
   browser.driver.manage().window().setSize(1280, 960);
+  browser.driver.manage().window().maximize();
   browser.addMockModule('commonModule', () => angular
     .module('commonModule', ['ngMockE2E'])
     .run(($httpBackend, jwtHelper, auth) => {

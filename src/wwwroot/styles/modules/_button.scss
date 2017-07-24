@@ -157,7 +157,7 @@ $input--error--color: #FFF;
 			background: $suit-color-status-green;
 			color: #FFF;
 			&:hover {
-				background: lighten($suit-color-status-green, 8%);
+				background: $suit-color-status-green-lighter;
 			}
 		}
 		&.button--white{

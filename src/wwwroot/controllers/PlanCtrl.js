@@ -54,12 +54,11 @@
     }
 
     function getMonthConsumption() {
-      var firstDayFromLastMonth = moment().utc().startOf('month');
-      return reports.getRecords(firstDayFromLastMonth, null, null, 5)
+      return settings.getStatusPlanInfo()
           .then(function (result) {
             vm.extraEmailsSent = 0;
-            vm.resetDate = moment().utc().add(1, 'month').startOf('month').format('YYYY-MM-DD');
-            vm.currentMonthlyCount = result.deliveriesCount;
+            vm.resetDate = result.data.endDate;
+            vm.currentMonthlyCount = result.data.deliveriesCount;
             vm.planStatusInfoLoader = false;
             if (vm.currentPlanEmailsAmount < vm.currentMonthlyCount) {
               vm.extraEmailsSent = vm.currentMonthlyCount - vm.currentPlanEmailsAmount;
