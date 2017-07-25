@@ -175,14 +175,14 @@
       jwtHelper,
       $locale) {
 
-    function applyCulture() {
-      $locale.NUMBER_FORMATS.DECIMAL_SEP = $translate.instant("NUMBER_FORMATS.DECIMAL_SEP");
-      $locale.NUMBER_FORMATS.GROUP_SEP = $translate.instant("NUMBER_FORMATS.GROUP_SEP");
+    function applyCultureFormats() {
+      $locale.NUMBER_FORMATS.DECIMAL_SEP = $translate.instant("CULTURE_FORMATS.NUMBER_FORMATS.DECIMAL_SEP");
+      $locale.NUMBER_FORMATS.GROUP_SEP = $translate.instant("CULTURE_FORMATS.NUMBER_FORMATS.GROUP_SEP");
     }
 
-    applyCulture();
+    applyCultureFormats();
 
-    $rootScope.$on('$translateChangeEnd', applyCulture);
+    $rootScope.$on('$translateChangeEnd', applyCultureFormats);
 
     $rootScope.$on('$locationChangeStart', function () {
       var queryParams = $location.search();
