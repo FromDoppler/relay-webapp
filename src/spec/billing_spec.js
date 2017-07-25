@@ -98,7 +98,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31.80 por mes');
+    expect(billingPage.getPrice()).toBe('USD 31,80 por mes');
   });
 
   it('should show credit card icon when complete visa credit card number', () => {
@@ -537,7 +537,7 @@ describe('Billing Page', () => {
 
     // Arrange
     beginAuthenticatedSession();
-    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    browser.get('/#/settings/my-plan?plan=PLAN-60K&lang=es');
     browser.addMockModule('descartableModule4', () => angular
       .module('descartableModule4', ['ngMockE2E'])
       .run($httpBackend => {

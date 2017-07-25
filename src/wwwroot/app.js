@@ -23,7 +23,34 @@
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
     })
-    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'uiSelectConfig', 'tooltipsConfProvider', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider, uiSelectConfig, tooltipsConfProvider) {
+    .config([
+      '$routeProvider', 
+      '$translateProvider', 
+      '$locationProvider', 
+      '$httpProvider', 
+      'jwtInterceptorProvider', 
+      'uiSelectConfig', 
+      'tooltipsConfProvider',
+      '$provide',
+      function (
+        $routeProvider,
+        $translateProvider,
+        $locationProvider,
+        $httpProvider,
+        jwtInterceptorProvider,
+        uiSelectConfig,
+        tooltipsConfProvider,
+        $provide) {
+
+      function makeStateful($delegate) {
+        $delegate.$stateful = true;
+        return $delegate;
+      }
+
+      $provide.decorator('dateFilter', ['$delegate', makeStateful]);
+      $provide.decorator('numberFilter', ['$delegate', makeStateful]);
+      $provide.decorator('currencyFilter', ['$delegate', makeStateful]);
+
 
       //  $locationProvider.html5Mode(true); //this apply HTML5MODE
       uiSelectConfig.theme = 'selectize';
@@ -133,7 +160,30 @@
 
     }]);
 
-  dopplerRelayModule.run(['$rootScope', 'auth', '$location', '$translate', 'jwtHelper', function ($rootScope, auth, $location, $translate, jwtHelper) {
+  dopplerRelayModule.run([
+    '$rootScope', 
+    'auth', 
+    '$location', 
+    '$translate', 
+    'jwtHelper', 
+    '$locale',
+    function (
+      $rootScope,
+      auth,
+      $location, 
+      $translate, 
+      jwtHelper,
+      $locale) {
+
+    function applyCulture() {
+      $locale.NUMBER_FORMATS.DECIMAL_SEP = $translate.instant("NUMBER_FORMATS.DECIMAL_SEP");
+      $locale.NUMBER_FORMATS.GROUP_SEP = $translate.instant("NUMBER_FORMATS.GROUP_SEP");
+    }
+
+    applyCulture();
+
+    $rootScope.$on('$translateChangeEnd', applyCulture);
+
     $rootScope.$on('$locationChangeStart', function () {
       var queryParams = $location.search();
 
