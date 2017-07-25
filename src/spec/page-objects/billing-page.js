@@ -44,8 +44,16 @@ class BillingPage {
     this._renewalDate = $('.renewal-date');
     this._emailsAmount = $('.emails-amount');
     this._myPlanPriceFreeTrial = $('.my-plan-price');
+    this._currentPlanEmailPrice = element(by.css('.current-plan-email-price p:nth-child(3)'));
+    this._currentPlanPrice = element(by.css('.current-plan-price p:nth-child(3)'));
   }
 
+  getCurrentPlanEmailPrice() {
+    return this._currentPlanEmailPrice.getText();
+  }
+  getCurrentPlanPrice() {
+    return this._currentPlanPrice.getText();
+  }
   getPlanName() {
     return this._planName.getText();
   }

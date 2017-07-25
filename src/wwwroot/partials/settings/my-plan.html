@@ -7,21 +7,21 @@
   </div>
   <div class="section--wrapper my-plan--info-container">
     <div class="item flex flex--wrap first">
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap current-plan-price">
         <label class="width--full special uppercase">{{ 'price_text' | translate }}</label>
         <p ng-show="vm.isFreeTrial" class="my-plan-price">{{'free_trial_text' | translate}}</p>
-        <p ng-show="!vm.isFreeTrial">{{vm.currency | translate}} {{vm.currentPlanPrice}}</p>
+        <p ng-show="!vm.isFreeTrial">{{vm.currency | translate}} {{vm.currentPlanPrice | number:2}}</p>
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'amount_of_emails_text' | translate }}</label>
-        <p class="emails-amount">{{vm.currentPlanEmailsAmount}}</p>
+        <p class="emails-amount">{{vm.currentPlanEmailsAmount | number}}</p>
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap current-plan-email-price">
         <label class="width--full special uppercase">{{ 'my_plan_cost_email' | translate }}</label>
         <p ng-show="vm.isFreeTrial">-</p>
-        <p ng-show="!vm.isFreeTrial">{{vm.currency | translate}} {{vm.currentPlanEmailPrice}}</p>
+        <p ng-show="!vm.isFreeTrial">{{vm.currency | translate}} {{vm.currentPlanEmailPrice | number:8}}</p>
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
@@ -31,12 +31,12 @@
     <div class="item flex flex--wrap">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_consumption' | translate }}</label>
-        <p class="month-consumption">{{vm.currentMonthlyCount}}</p>
+        <p class="month-consumption">{{vm.currentMonthlyCount | number}}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_emails_sent' | translate }}</label>
-        <p class="extra-emails">{{vm.extraEmailsSent}}</p>
+        <p class="extra-emails">{{vm.extraEmailsSent | number}}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex two flex--wrap">
