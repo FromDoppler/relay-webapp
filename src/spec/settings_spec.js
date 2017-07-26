@@ -179,6 +179,9 @@ describe('Settings Page', () => {
     //Act
     browser.get('/#/settings/domain-manager');
     var countDomainListItems = settings.countDomainListItems();
+    
+    // Move to scroll in the delete button
+    browser.executeScript('window.scrollTo(94,188);');
     settings.clickFirstDeleteButton();
 
     //Assert
