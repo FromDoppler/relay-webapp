@@ -7,7 +7,7 @@
   </div>
   <div class="section--wrapper my-plan--info-container">
     <div class="item flex flex--wrap first">
-      <div class="flex one flex--wrap current-plan-price">
+      <div class="flex one flex--wrap price">
         <label class="width--full special uppercase">{{ 'price_text' | translate }}</label>
         <p ng-show="vm.isFreeTrial" class="my-plan-price">{{'free_trial_text' | translate}}</p>
         <p ng-show="!vm.isFreeTrial">{{vm.currency | translate}} {{vm.currentPlanPrice | number:2}}</p>
@@ -18,7 +18,7 @@
         <p class="emails-amount">{{vm.currentPlanEmailsAmount | number}}</p>
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
-      <div class="flex one flex--wrap current-plan-email-price">
+      <div class="flex one flex--wrap email-price">
         <label class="width--full special uppercase">{{ 'my_plan_cost_email' | translate }}</label>
         <p ng-show="vm.isFreeTrial">-</p>
         <p ng-show="!vm.isFreeTrial">{{vm.currency | translate}} {{vm.currentPlanEmailPrice | number:8}}</p>
