@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
+  function getLocale(lang) {
+    return window['relay-translation-' + lang];
+  }
+
   var dopplerRelayModule = angular
     .module('dopplerRelay', [
         'ngRoute',
@@ -147,8 +151,8 @@
         });
 
       $translateProvider
-        .translations('en', window["relay-translation-en"])
-        .translations('es', window["relay-translation-es"])
+        .translations('en', getLocale('en'))
+        .translations('es', getLocale('es'))
         .preferredLanguage('en')
         .useSanitizeValueStrategy('sanitizeParameters');
 
@@ -176,8 +180,8 @@
       $locale) {
 
     function applyCultureFormats() {
-      $locale.NUMBER_FORMATS.DECIMAL_SEP = $translate.instant("CULTURE_FORMATS.NUMBER_FORMATS.DECIMAL_SEP");
-      $locale.NUMBER_FORMATS.GROUP_SEP = $translate.instant("CULTURE_FORMATS.NUMBER_FORMATS.GROUP_SEP");
+      var locale = getLocale($translate.use());
+      angular.merge($locale, locale['CULTURE_FORMATS']);
     }
 
     applyCultureFormats();
