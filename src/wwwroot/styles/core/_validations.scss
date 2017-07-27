@@ -1,0 +1,37 @@
+form div.validation-error-fluid {
+    position: relative;
+    margin: 0 0 0 0;
+    padding-left: 0.4375em;
+    font-size: .875em;
+    padding-top: .35rem;
+    white-space: nowrap;
+    width: 100%;
+    transition: .3s all ease;                
+    max-height: 0; 
+    opacity: 0;
+    &.show {
+        opacity: 1;
+        max-height: 60px;
+    }
+    span {
+        background: #df3434;
+        color: white;
+        padding: 0.625em 0.9375em;
+        display: inline-block;
+        border-radius: 3px;
+        font-style: italic;
+    }
+    .arrow--up {
+        position: absolute;
+        left: 1.5em;
+        border-width: 0 8px 8px;
+        top: 0;
+        border-color: transparent transparent #df3434;
+    }
+    &.green {
+        background: $suit-color-status-green;
+        .arrow--up{
+            border-color: transparent transparent $suit-color-status-green;
+        }
+    }
+}
