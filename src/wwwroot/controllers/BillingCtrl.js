@@ -114,19 +114,9 @@
       var currentDate = new Date();
       var currentYear = currentDate.getFullYear().toString().slice(2);
       var currentMonth = currentDate.getMonth() + 1;
-      if (input.$modelValue) {
+      if (input.$modelValue && input.$modelValue.length == 4) {
         var year = input.$modelValue.slice(2);
         var month = input.$modelValue.slice(0,2);
-      }
-      if (input.$modelValue && input.$modelValue.length == 4) {
-        var currentDate = new Date();
-        var currentYear = currentDate.getFullYear().toString().slice(2);
-        var currentMonth = currentDate.getMonth() + 1;
-        if (input.$modelValue) {
-          var year = input.$modelValue.slice(2);
-          var month = input.$modelValue.slice(0,2);
-        }
-
         if (year < currentYear || month > 12) {
           utils.setServerValidationToField($scope, $scope.form.expDate, 'ilegal_date');
         }
