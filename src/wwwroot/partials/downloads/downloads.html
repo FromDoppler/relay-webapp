@@ -1,4 +1,4 @@
-
+﻿
 <section class="downloads--grid">
   <div class="section--wrapper section--table" ng-show="records.length !== 0">
     <div class="activity--title-container">
@@ -19,8 +19,8 @@
         </tr>
         <tr class="column-records" ng-repeat="r in records">
           <td>{{r.name}}</td>
-          <td>{{r.start_date | date:'MMM':'+0' | translate}} {{r.start_date | date:'dd, yyyy':'+0'}}</td>
-          <td>{{r.end_date | date:'MMM':'+0' | translate}} {{r.end_date | date:'dd, yyyy':'+0'}}</td>
+          <td>{{r.start_date | date :'mediumDate' :'+0'}}</td>
+          <td>{{r.end_date | date :'mediumDate' :'+0'}}</td>
           <td>
             <a ng-show="r.file_path" href="{{r.file_path}}">{{'downloads_grid_download' | translate}}</a>
             <p ng-show="!r.file_path && !r.processed">

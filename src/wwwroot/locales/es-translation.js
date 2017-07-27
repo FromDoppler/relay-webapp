@@ -328,6 +328,24 @@
     "NUMBER_FORMATS": {
       "DECIMAL_SEP": ",",
       "GROUP_SEP": "."
+      },
+    "DATETIME_FORMATS": {
+        "SHORTMONTH": [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dic"
+        ],
+        "mediumDate": "dd MMM, yyyy",
+        "short": "dd/MM/yyyy HH:mm:ss"
     }
   }
 };

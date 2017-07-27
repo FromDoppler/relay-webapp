@@ -27,7 +27,7 @@ describe('Billing Page', () => {
               "planName": null,
               "paymentMethod": null,
               "billingInformation": null,
-              "startDate": "2016-07-01T00:00:00Z",
+              "startDate": "2017-07-01T00:00:00Z",
               "currency": "USD",
               "extraDeliveryCost": 0,
               "fee": 0,
@@ -493,7 +493,7 @@ describe('Billing Page', () => {
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
-    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
+    expect(billingPage.getRenewalDate()).toBe('Aug 01, 2017');
   });
 
   it('should show correct plan status values with number separators in english', () => {
