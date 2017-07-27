@@ -31,7 +31,7 @@ class BillingPage {
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
     this._countrySelect =  element(by.id('country'));
     this._creditCardContainer = $('.credit-card');
-    this._creditCardErrorContainer = $('.credit-card .animate-error-container');
+    this._creditCardErrorContainer = $('.credit-card .validation-error-fluid');
     this._detachedError = $('.billing--plan-confirmation .detached--error-container');
     //My Plan section
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
