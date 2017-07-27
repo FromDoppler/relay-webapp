@@ -66,6 +66,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/directives/enter.js',
       __dirname + '/wwwroot/directives/spinner.js',
       __dirname + '/wwwroot/directives/validation-errors.js',
+      __dirname + '/wwwroot/directives/validation-errors-fluid.js',
       __dirname + '/wwwroot/directives/email-format-validation.js',
       __dirname + '/wwwroot/filters/numberFormat.js',
       __dirname + '/wwwroot/services/auth.js',
