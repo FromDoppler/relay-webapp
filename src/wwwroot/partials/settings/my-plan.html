@@ -41,7 +41,7 @@
       </div>
       <div class="flex two flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_renewal_date' | translate }}</label>
-        <p class="renewal-date">{{ vm.resetDate | amUtc | amDateFormat:'YYYY-MM-DD' }}</p>
+        <p class="renewal-date">{{ vm.resetDate | date : 'mediumDate' }}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
     </div>
