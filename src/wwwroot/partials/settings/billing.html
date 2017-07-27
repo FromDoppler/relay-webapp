@@ -26,10 +26,7 @@
               <label class="special uppercase" for="name">{{'downloads_grid_name_header' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="name" name="name" ng-model="vm.name" ng-class="(vm.submitted || form.name.$dirty) && form.name.$invalid ? 'error' : ''" class="input input--large" required />
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.name.$dirty) && form.name.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.name.$dirty) && form.name.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
+              <input id="name" name="name" ng-model="vm.name" class="input input--large" validation-errors-fluid required/>              
             </div>
           </div>
           <div class="item flex">
@@ -37,10 +34,7 @@
               <label class="special uppercase" for="company">{{'company_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="company" name="company" ng-model="vm.company" ng-class="(vm.submitted || form.company.$dirty) && form.company.$invalid ? 'error' : ''" class="input input--large" required />
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.company.$dirty) && form.company.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.company.$dirty) && form.company.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
+              <input id="company" name="company" ng-model="vm.company" class="input input--large" validation-errors-fluid required />              
             </div>
           </div>
           <div class="item flex">
@@ -48,10 +42,7 @@
               <label class="special uppercase" for="address">{{'address_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="address" name="address" ng-model="vm.address" ng-class="(vm.submitted || form.address.$dirty) && form.address.$invalid ? 'error' : ''" class="input input--large" required />
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.address.$dirty) && form.address.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.address.$dirty) && form.address.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
+              <input id="address" name="address" ng-model="vm.address" class="input input--large" validation-errors-fluid required />              
             </div>
           </div>
           <div class="item flex">
@@ -59,12 +50,16 @@
                 <label class="special uppercase" for="city">{{'city_label' | translate}}</label>
               </div>
               <div class="flex three flex--vertically-start city--container">
-                <input id="city" name="city" ng-model="vm.city" ng-class="(vm.submitted || form.city.$dirty) && form.city.$invalid ? 'error' : ''" class="input input--large" required />
-                <span class="input--error" ng-show="(vm.submitted || form.city.$dirty) && form.city.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-                <div class="flex flex--vertically-start zip--container">
-                  <label class="special uppercase" for="zCode">{{'zip_code_label' | translate}}</label>
-                  <input id="zCode" name="zCode" ng-model="vm.zCode" ng-class="(vm.submitted || form.zCode.$dirty) && form.zCode.$invalid ? 'error' : ''" class="input input--small width--half" required />
-                  <span class="input--error" ng-show="(vm.submitted || form.zCode.$dirty) && form.zCode.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <div class="flex one flex--vertically-start flex--wrap">
+                  <input id="city" name="city" ng-model="vm.city"class="input input--large" validation-errors-fluid required />
+                </div>
+                <div class="flex one flex--vertically-start zip--container">
+                  <div class="flex one flex--vertically-start flex--wrap label">
+                    <label class="special uppercase" for="zCode">{{'zip_code_label' | translate}}</label>
+                  </div>
+                  <div class="flex three flex--vertically-start flex--wrap">
+                    <input id="zCode" name="zCode" ng-model="vm.zCode" validation-errors-fluid class="input input--small width--half" required />
+                  </div>
                 </div>
               </div>
           </div>
@@ -73,7 +68,7 @@
               <label class="special uppercase" for="country">{{'country_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-            <ui-select id="country" name="country" ng-model="vm.country" on-select="form.country.$modelValue = $model" required>
+            <ui-select id="country" name="country" ng-model="vm.country" on-select="form.country.$modelValue = $model" validation-errors-fluid required>
               <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
@@ -81,9 +76,6 @@
                 <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.country.$dirty) && form.country.$invalid ? 'show' : 'hide'">
-              <span class="input--error" ng-show="(vm.submitted ||form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
             </div>
           </div>
       </div>
@@ -103,31 +95,28 @@
               <label class="special uppercase" for="cardHolder">{{'card_holder_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" ng-class="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$invalid ? 'error' : ''" class="input input--large" required />
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.cardHolder.$dirty) && form.cardHolder.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
+              <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" class="input input--large" validation-errors-fluid  required />              
             </div>
           </div>
           <div class="item flex">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="cardNumber">{{'card_number_label' | translate}}</label>
             </div>
-          <div class="flex three credit-card flex--wrap" ng-class="vm.cc.brand">
-              <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" autocomplete="off" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'error' : ''" class="input input--large" required/>
-            <svg class="icon icon-visa">
-              <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
-            </svg>
-            <svg class="icon icon-master">
-              <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
-            </svg>
-            <svg class="icon icon-amex">
-              <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
-            </svg>
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.required || form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-                <span class="input--error" ng-show="(vm.submitted || form.cardNumber.$dirty) && form.cardNumber.$error.ilegal_number && !form.cardNumber.$error.required && ! form.cardNumber.$error.mask"><i class="arrow--up"></i>{{'validation_error_invalid_card_number' | translate}}</span>
-              </div>
+          <div class="flex three credit-card flex--wrap flex--vertically-start" ng-class="vm.cc.brand">
+            <div class="flex one flex--wrap">
+              <input id="cc.number" ng-model="vm.cc.number" name="cardNumber" autocomplete="off" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" class="input input--large" validation-errors-fluid required />
+            </div>
+            <div class="flex three flex--vertically-center cards-icons--container">
+              <svg class="icon icon-visa">
+                <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
+              </svg>
+              <svg class="icon icon-master">
+                <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
+              </svg>
+              <svg class="icon icon-amex">
+                <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
+              </svg>   
+            </div>           
             </div>
           </div>
           <div class="item flex">
@@ -135,11 +124,7 @@
               <label class="special uppercase" for="expDate">{{'exp_date_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="expDate" name="expDate" autocomplete="off" ui-mask="99/99" ui-mask-placeholder ng-change="vm.checkExpDate(form.expDate)" ng-model="vm.expDate" ng-class="(vm.submitted || form.expDate.$dirty) && form.expDate.$invalid ? 'error' : ''"  ng-change="vm.checkExpDate(form.expDate)" class="input input--large" required />
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.expDate.$dirty) && form.expDate.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.required || form.expDate.$error.mask && !form.expDate.$error.ilegal_date"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-                <span class="input--error" ng-show="(vm.submitted || form.expDate.$dirty) && form.expDate.$error.ilegal_date && !form.expDate.$error.required && !form.expDate.$error.mask"><i class="arrow--up"></i>{{'validation_error_exp_date_length' | translate}}</span>
-              </div>
+              <input id="expDate" name="expDate" autocomplete="off" ui-mask="99/99" ng-change="vm.checkExpDate(form.expDate)" ui-mask-placeholder ui-options="vm.maskOptions" ng-model="vm.expDate" class="input input--large" validation-errors-fluid required />              
             </div>
           </div>
           <div class="item flex">
@@ -147,10 +132,7 @@
               <label class="special uppercase" for="securityCode">{{'sec_code_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'error' : ''" class="input input--extra-small" required />
-              <div class="width--full animate-error-container" ng-class="(vm.submitted || form.secCode.$dirty) && form.secCode.$invalid ? 'show' : 'hide'">
-                <span class="input--error" ng-show="(vm.submitted || form.secCode.$dirty) && form.secCode.$error.required || form.secCode.$error.mask"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              </div>
+              <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" class="input input--extra-small" validation-errors-fluid  required />              
             </div>
           </div>
       </div>
