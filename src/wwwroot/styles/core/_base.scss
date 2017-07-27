@@ -55,9 +55,18 @@ p.main--subtitle{
   &.with-submenu{
     min-height: calc(100vh - 247px);
   }
-
-.selectize-input.selectize-focus {
-    border-color: $suit-accent-color-light !important;
+  .selectize-input.selectize-focus {
+    border-color: #C0BCB8 !important;
+    background-color: #fff !important;
+  }
+  .selectize-input {
+    background-image: none !important;
+    background-color: $suit-color-bright !important;
+    box-shadow: none !important;
+  }
+  .ui-select-container.open .selectize-input {
+    background-image: none !important;
+    background-color: #fff !important;
   }
 }
 
