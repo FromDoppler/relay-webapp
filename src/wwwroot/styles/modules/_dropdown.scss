@@ -8,6 +8,7 @@
 //   Variables
 // -------------------------------------
 $suit-font-color:           #7F7972;
+$suit-font-black:           #303030;
 // -------------------------------------
 //   Base
 // -------------------------------------
@@ -20,7 +21,7 @@ $suit-font-color:           #7F7972;
 .selectize-dropdown{
   border-top: 1px solid #d0d0d0 !important;
   .active{
-    color: $suit-accent-color-light !important;
+    color: $suit-font-black !important;
   }
 }
 
