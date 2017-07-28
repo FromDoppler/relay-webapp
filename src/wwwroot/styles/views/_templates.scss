@@ -40,7 +40,10 @@
 }
 .templates--information{
   background-color: $suit-background-bright;
-  .information-fields{ @include col(1/2, $cycle : 2); padding:torem(10px) 0 0 0;  margin-top: 3%;}
+  .information-fields{ width:47%; padding:torem(10px) 0 0 0;  margin-top: 3%; display: inline-block;
+   &:first-of-type{ margin-right: 3%;}
+   &:last-of-type{ margin-left: 3%;}
+  }
   h4{margin:torem(30px) 0 0 0;}
 }
 .templates--custom{
@@ -193,6 +196,13 @@
     }
 }
 @media screen and (max-width: 768px) {
+  .templates--information{
+    .information-fields{
+      width: 100%;
+      &:first-of-type { margin-right: 0;}
+      &:last-of-type { margin-left: 0;}
+    }
+  }
   .templates--custom {
     li { width: 100% !important; }
     .button--large{ width: 100%; margin-top: 1rem;}
