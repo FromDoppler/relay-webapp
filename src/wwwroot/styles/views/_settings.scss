@@ -588,7 +588,10 @@
   .my-plans--container{
     .my-plan--info-container{
       .item {
-        div {margin-top: 1em;}
+        div {          
+          margin-top: 1em;
+          .hide{display: none;}
+        }
         div:first-of-type { margin-top: 0; }
       }
        .item:first-of-type {
