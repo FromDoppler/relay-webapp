@@ -81,7 +81,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31.80 per month');
+    expect(billingPage.getPrice()).toBe('$ 31.80 per month');
   });
 
   it('should show the selected plan name and price in spanish', () => {
