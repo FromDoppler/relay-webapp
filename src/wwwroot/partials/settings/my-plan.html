@@ -60,12 +60,12 @@
     <div class="section--wrapper plan--box-container">
       <ul class="width--half">
         <li class="special">{{vm.planName}}</li>
-        <li>{{'cost_email' | translate}} &#36;{{vm.costEmail | number:5}}</li>
+        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.costEmail | number:5}}</li>
         <li>{{'attr_api' | translate}}</li>
         <li>{{'attr_dkim' | translate}}</li>
         <li>{{'attr_metrics_and_reports' | translate}}</li>
         <li>
-          <p class="special plan--price-big">${{vm.planPrice | number:2 | numberFormat}}</p>
+          <p class="special plan--price-big">{{vm.currency | translate}} {{vm.planPrice | number:2 | numberFormat}}</p>
           <a class="button button--small button--green" href="#/settings/billing?plan={{vm.planName}}">{{'buy_now' | translate}}</a>
         </li>
       </ul>
