@@ -13,7 +13,7 @@
     </div>
     <div>
       <label class="uppercase">{{ 'price_text' | translate }}</label>
-      <h4 class="special plan-price">{{vm.currentCurrency}} {{vm.planPrice | number:2 }} {{ 'each_month' | translate }}</h4>
+      <h4 class="special plan-price">{{vm.currentCurrency | translate}} {{vm.planPrice | number:2 }} {{ 'each_month' | translate }}</h4>
     </div>
   </div>
   <div class="billing--first-container" ng-class="vm.showConfirmation ? 'hide':'show'">
