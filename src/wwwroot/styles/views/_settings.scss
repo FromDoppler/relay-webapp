@@ -102,50 +102,11 @@
           opacity: .3;
           cursor: auto;
         }
-      }
+      }  
       .dropdown--container{
         display: inline-block;
         width: 12em;
-        .ui-select-choices-row:hover{
-          background-color: #eae6e5 !important;
-        }
-        .selectize-dropdown, .selectize-input, .selectize-input input{
-          font-size: 16px;
-        }
-        .selectize-control.single .selectize-input:after {
-          position: static;
-          display: inline-block;
-          margin-left: 8px;
-          margin-bottom: 2px;
-        }
-        .selectize-dropdown {
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-          border: none !important;
-          width: 68%;
-          left: 14%;
-          .active{
-            color: $suit-main-color !important;
-            background-color: #FFF;
-          }
-        }
-        .disabled{
-          color: $suit-main-color;
-          opacity: .3;
-          .ui-select-choices-row-inner{
-            cursor: default !important;
-          }
-        }
-        //This it's an ugly fix because the plugin has some bugs with the search being disbled.
-        .ui-select-search-hidden,.ng-hide{
-          display: none !important;
-        }
-        .selectize-input{
-          border: none;
-          background: inherit;
-          background-color: inherit !important;
-          box-shadow: none;
-        }
-      }
+      }    
     }
     &.disabled td:first-of-type{
       opacity: 0.5;
