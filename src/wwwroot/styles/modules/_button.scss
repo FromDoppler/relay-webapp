@@ -115,7 +115,7 @@ $input--error--color: #FFF;
 		border: 1px solid $suit-color-bright;
 		background-color: $suit-accent-color;
 		text-transform: uppercase;
-		color: $suit-color-bright;
+		color: $suit-font-color-bright;
 		outline: none;
 		min-width: 210px;
 		max-height: 62px;
@@ -229,12 +229,12 @@ $input--error--color: #FFF;
 		color: $input--color;
 		@extend .border--radius;
 		@extend .input--size;
-		border: 1px solid #C0BCB8;
+		border: 1px solid $suit-font-color-border-grey;
 		display: inline-block;
 		vertical-align: top;
 		text-align: left;
 		font-size: $p-font-size-normal;
-		background-color: $suit-color-bright;
+		background-color: $suit-color-input;
 		@extend .transition--default;
 		@include placeholder{
 			color: $suit-font-color-placeholder;
@@ -243,7 +243,8 @@ $input--error--color: #FFF;
 		};
 		&:active, &:focus{
 			outline:none;
-			background: #fff;
+			background: $suit-font-color-bright;
+			border-color: $suit-font-color-border-active;
 		}
 		&.error{
 			border: $suit-border-error;
