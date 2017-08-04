@@ -57,6 +57,8 @@
       return settings.getStatusPlanInfo()
           .then(function (result) {
             vm.extraEmailsSent = 0;
+            vm.isAccountClosed = result.data.accountClosed;
+            vm.accountEndDate = result.data.accountEndDate;
             vm.resetDate = result.data.endDate;
             vm.currentMonthlyCount = result.data.deliveriesCount;
             vm.planStatusInfoLoader = false;

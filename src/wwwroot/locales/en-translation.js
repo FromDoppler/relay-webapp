@@ -334,5 +334,9 @@
         "mediumDate": "MMM dd, yyyy",
         "short": "MM/dd/yyyy HH:mm:ss"
     }
-  }
+  },
+  "my_plan_free_trial_end_label": "End date of your free trial",
+  "my_plan_account_end_label": "End date of your account",
+  "my_plan_free_trial_closed" : "You free trial has expired.",
+  "my_plan_account_closed": "Your account has expired."
 };
