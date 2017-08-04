@@ -348,5 +348,6 @@
         "mediumDate": "dd MMM, yyyy",
         "short": "dd/MM/yyyy HH:mm:ss"
     }
-  }
+  },
+  "my_plan_account_closed": "Tu cuenta ha sido cancelada o tu cuenta gratis ha expirado"
 };

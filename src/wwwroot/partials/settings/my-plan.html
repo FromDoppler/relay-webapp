@@ -41,7 +41,8 @@
       </div>
       <div class="flex two flex--wrap">
         <label class="width--full special uppercase">{{ 'my_plan_renewal_date' | translate }}</label>
-        <p class="renewal-date">{{ vm.resetDate | date :'mediumDate' :'+0' }}</p>
+        <p class="renewal-date" ng-if="!vm.isAccountClosed">{{ vm.resetDate | date :'mediumDate' :'+0' }}</p>
+        <p class="renewal-date" ng-if="vm.isAccountClosed">{{ 'my_plan_account_closed' | translate }}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
     </div>

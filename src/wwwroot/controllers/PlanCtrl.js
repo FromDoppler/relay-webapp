@@ -58,6 +58,7 @@
           .then(function (result) {
             vm.extraEmailsSent = 0;
             vm.resetDate = result.data.endDate;
+            vm.isAccountClosed = result.data.accountClosed;            
             vm.currentMonthlyCount = result.data.deliveriesCount;
             vm.planStatusInfoLoader = false;
             if (vm.currentPlanEmailsAmount < vm.currentMonthlyCount) {

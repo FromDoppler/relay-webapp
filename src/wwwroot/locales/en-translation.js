@@ -334,5 +334,6 @@
         "mediumDate": "MMM dd, yyyy",
         "short": "MM/dd/yyyy HH:mm:ss"
     }
-  }
+  },
+  "my_plan_account_closed": "Your account has been canceled or your trial has expired"
 };
