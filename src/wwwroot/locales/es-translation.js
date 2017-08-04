@@ -349,5 +349,8 @@
         "short": "dd/MM/yyyy HH:mm:ss"
     }
   },
-  "my_plan_account_closed": "Tu cuenta ha sido cancelada o tu cuenta gratis ha expirado"
+  "my_plan_free_trial_end_label": "Fecha de finalización de tu prueba gratuita",
+  "my_plan_account_end_label": "Fecha de finalización de tu cuenta",
+  "my_plan_free_trial_closed" : "Tu prueba gratuita ha expirado.",
+  "my_plan_account_closed": "Tu cuenta ha sido cancelada."
 };
