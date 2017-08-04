@@ -352,5 +352,5 @@
   "my_plan_free_trial_end_label": "Fecha de prueba gratuita",
   "my_plan_account_end_label": "Finalización de cuenta",
   "my_plan_free_trial_closed" : "Tu demo gratuita ha finalizado.",
-  "my_plan_account_closed": "Tu demo gratuita ha finalizado."
+  "my_plan_account_closed": "Tu cuenta ha finalizado."
 };
