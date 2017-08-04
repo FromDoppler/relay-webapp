@@ -58,24 +58,8 @@
           .then(function (result) {
             vm.extraEmailsSent = 0;
             vm.isAccountClosed = result.data.accountClosed;
-            if (result.data.accountEndDate) {
-              vm.resetDate = result.data.accountEndDate;
-              if (vm.isFreeTrial){
-                vm.labelDate = 'my_plan_free_trial_end_label';
-              } else {
-                vm.labelDate = 'my_plan_account_end_label';
-              }
-            } else if (!result.data.accountEndDate) {
-              vm.labelDate = 'my_plan_renewal_date';
-              vm.resetDate = result.data.endDate;
-            }
-            if (vm.isAccountClosed) {
-              if (vm.isFreeTrial) {
-                vm.accountClosedError = 'my_plan_free_trial_closed';
-              } else {
-                vm.accountClosedError = 'my_plan_account_closed';
-              }
-            }
+            vm.accountEndDate = result.data.accountEndDate;
+            vm.resetDate = result.data.endDate;
             vm.currentMonthlyCount = result.data.deliveriesCount;
             vm.planStatusInfoLoader = false;
             if (vm.currentPlanEmailsAmount < vm.currentMonthlyCount) {

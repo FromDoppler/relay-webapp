@@ -335,8 +335,8 @@
         "short": "MM/dd/yyyy HH:mm:ss"
     }
   },
-  "my_plan_free_trial_end_label": "Free trial end date",
-  "my_plan_account_end_label": "Account end date",
-  "my_plan_free_trial_closed" : "Your trial has expired.",
-  "my_plan_account_closed": "Your account has been canceled."
+  "my_plan_free_trial_end_label": "End date of your free trial",
+  "my_plan_account_end_label": "End date of your account",
+  "my_plan_free_trial_closed" : "You free trial has expired.",
+  "my_plan_account_closed": "Your account has expired."
 };
