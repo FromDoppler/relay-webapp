@@ -47,7 +47,7 @@
   h4{margin:torem(30px) 0 0 0;}
 }
 .templates--custom{
-  background-color: $suit-background-default;
+  background-color: inherit;
   .flex:first-of-type{margin:torem(30px) 0 0 0; .flex{align-items: center;}}
   label{margin-right: torem(20px);}
   input.input{width: calc(100% - 695px);}
