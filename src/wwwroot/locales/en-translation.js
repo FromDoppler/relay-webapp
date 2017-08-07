@@ -113,7 +113,8 @@
   "validation_error_maxlength": "Text is too long.",
   "validation_error_accountname_already_taken": "Account name already taken.",
   "validation_error_email_already_exist": "There is already an user with that email address.",
-  "validation_error_exp_date_length": "Invalid Expiration Date.",
+  "validation_error_ilegal_date": "Invalid Expiration Date.",
+  "validation_error_mask": "Invalid Format.",
   "validation_error_invalid_card_number": "Invalid Credit Card number.",
   "validation_error_payment_failure": "We couldn't process the payment, please check your information.",
   "date_filter_slash": "{{ date | date : 'MM/dd/yyyy hh:mm:ss a' : 'UTC' }}",
@@ -309,5 +310,33 @@
   "success_upgrade_title":"Congratulations!",
   "success_upgrade_text":"Your payment has been processed correctly, we will send you the receipt soon. If you have any doubt please reach out us at <a href='mailto:soporte@dopplerrelay.com'>support@dopplerrelay.com.</a>",
   "success_upgrade_button":"Go to my plan!",
-  "USD":"$"
+  "USD":"$",
+  "CULTURE_FORMATS": {
+    "NUMBER_FORMATS": {
+      "DECIMAL_SEP": ".",
+      "GROUP_SEP": ","
+      },
+    "DATETIME_FORMATS": {
+        "SHORTMONTH": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        ],
+        "mediumDate": "MMM dd, yyyy",
+        "short": "MM/dd/yyyy HH:mm:ss"
+    }
+  },
+  "my_plan_free_trial_end_label": "End date of your free trial",
+  "my_plan_account_end_label": "End date of your account",
+  "my_plan_free_trial_closed" : "You free trial has expired.",
+  "my_plan_account_closed": "Your account has expired."
 };

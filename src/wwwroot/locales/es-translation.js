@@ -125,7 +125,8 @@
   "validation_error_maxlength": "Texto demasiado largo.",
   "validation_error_accountname_already_taken": "El account name ya está en uso.",
   "validation_error_email_already_exist": "Ya existe un usuario con esa dirección de email.",
-  "validation_error_exp_date_length": "Escribe una fecha de expiración válida.",
+  "validation_error_ilegal_date": "Escribe una fecha de expiración válida.",
+  "validation_error_mask": "Escribe un formato válido.",
   "validation_error_invalid_card_number": "Escribe una tarjeta de crédito válida.",
   "validation_error_payment_failure": "No pudimos realizar el pago, por favor revisa tu información.",
   "date_filter_slash": "{{ date | date : 'dd/MM/yyyy hh:mm:ss a' : 'UTC' }}",
@@ -323,5 +324,33 @@
   "success_upgrade_title":"¡Felicitaciones!",
   "success_upgrade_text":"El pago ha sido aceptado correctamente, te enviaremos tu comprobante de pago en breve. Si tienes alguna duda puedes ponerte en contacto con nuestro equipo escribiendo a <a href='mailto:soporte@dopplerrelay.com'>soporte@dopplerrelay.com.</a>",
   "success_upgrade_button": "¡Ir a mi plan!",
-  "USD":"USD"
+  "USD":"USD",
+  "CULTURE_FORMATS": {
+    "NUMBER_FORMATS": {
+      "DECIMAL_SEP": ",",
+      "GROUP_SEP": "."
+      },
+    "DATETIME_FORMATS": {
+        "SHORTMONTH": [
+            "Ene",
+            "Feb",
+            "Mar",
+            "Abr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dic"
+        ],
+        "mediumDate": "dd MMM, yyyy",
+        "short": "dd/MM/yyyy HH:mm:ss"
+    }
+  },
+  "my_plan_free_trial_end_label": "Fecha de prueba gratuita",
+  "my_plan_account_end_label": "Finalización de cuenta",
+  "my_plan_free_trial_closed" : "Tu demo gratuita ha finalizado.",
+  "my_plan_account_closed": "Tu cuenta ha finalizado."
 };

@@ -31,7 +31,7 @@ class BillingPage {
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
     this._countrySelect =  element(by.id('country'));
     this._creditCardContainer = $('.credit-card');
-    this._creditCardErrorContainer = $('.credit-card .animate-error-container');
+    this._creditCardErrorContainer = $('.credit-card .validation-error-fluid');
     this._detachedError = $('.billing--plan-confirmation .detached--error-container');
     //My Plan section
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
@@ -44,8 +44,16 @@ class BillingPage {
     this._renewalDate = $('.renewal-date');
     this._emailsAmount = $('.emails-amount');
     this._myPlanPriceFreeTrial = $('.my-plan-price');
+    this._currentPlanEmailPrice = element(by.css('.email-price p:nth-child(3)'));
+    this._currentPlanPrice = element(by.css('.price p:nth-child(3)'));
   }
 
+  getCurrentPlanEmailPrice() {
+    return this._currentPlanEmailPrice.getText();
+  }
+  getCurrentPlanPrice() {
+    return this._currentPlanPrice.getText();
+  }
   getPlanName() {
     return this._planName.getText();
   }

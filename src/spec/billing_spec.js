@@ -27,7 +27,7 @@ describe('Billing Page', () => {
               "planName": null,
               "paymentMethod": null,
               "billingInformation": null,
-              "startDate": "2016-07-01T00:00:00Z",
+              "startDate": "2017-07-01T00:00:00Z",
               "currency": "USD",
               "extraDeliveryCost": 0,
               "fee": 0,
@@ -81,7 +81,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31.80 per month');
+    expect(billingPage.getPrice()).toBe('$ 31.80 per month');
   });
 
   it('should show the selected plan name and price in spanish', () => {
@@ -98,7 +98,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31.80 por mes');
+    expect(billingPage.getPrice()).toBe('USD 31,80 por mes');
   });
 
   it('should show credit card icon when complete visa credit card number', () => {
@@ -493,7 +493,81 @@ describe('Billing Page', () => {
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('50');
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
-    expect(billingPage.getRenewalDate()).toBe('2017-08-01 01:01 +00:00');
+    expect(billingPage.getRenewalDate()).toBe('Aug 01, 2017');
+  });
+
+  it('should show correct plan status values with number separators in english', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    browser.addMockModule('descartableModule4', () => angular
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2016-07-01T00:00:00Z",
+              "currency": "USD",
+              "extraDeliveryCost": 0.00002000,
+              "fee": 122231.80,
+              "includedDeliveries": 12000
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+               "deliveriesCount": 20000000,
+               "startDate": "2017-07-01T01:01:01Z",
+               "endDate": "2017-08-01T01:01:01Z"
+        });
+      }));
+
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    // Assert
+    expect(billingPage.getCurrentPlanPrice()).toBe('$ 122,231.80');
+    expect(billingPage.getCurrentPlanEmailPrice()).toBe('$ 0.00002000');
+    expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12,000');
+    expect(billingPage.getMonthConsumption()).toBe('20,000,000');
+    expect(billingPage.getExtraEmails()).toBe('19,988,000');
+  });
+
+  it('should show correct plan status values with number separators in spanish', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K&lang=es');
+    browser.addMockModule('descartableModule4', () => angular
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2016-07-01T00:00:00Z",
+              "currency": "USD",
+              "extraDeliveryCost": 0.00002000,
+              "fee": 122231.80,
+              "includedDeliveries": 12000
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+               "deliveriesCount": 20000000,
+               "startDate": "2017-07-01T01:01:01Z",
+               "endDate": "2017-08-01T01:01:01Z"
+        });
+      }));
+
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    // Assert
+    expect(billingPage.getCurrentPlanPrice()).toBe('USD 122.231,80');
+    expect(billingPage.getCurrentPlanEmailPrice()).toBe('USD 0,00002000');
+    expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12.000');
+    expect(billingPage.getMonthConsumption()).toBe('20.000.000');
+    expect(billingPage.getExtraEmails()).toBe('19.988.000');
   });
 
   it('should show correct plan status values for Free Trial user', () => {

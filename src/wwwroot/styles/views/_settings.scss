@@ -102,49 +102,11 @@
           opacity: .3;
           cursor: auto;
         }
-      }
+      }  
       .dropdown--container{
         display: inline-block;
         width: 12em;
-        .ui-select-choices-row:hover{
-          background-color: #eae6e5 !important;
-        }
-        .selectize-dropdown, .selectize-input, .selectize-input input{
-          font-size: 16px;
-        }
-        .selectize-control.single .selectize-input:after {
-          position: static;
-          display: inline-block;
-          margin-left: 8px;
-          margin-bottom: 2px;
-        }
-        .selectize-dropdown {
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-          border: none !important;
-          width: 68%;
-          left: 14%;
-          .active{
-            color: $suit-main-color !important;
-            background-color: #FFF;
-          }
-        }
-        .disabled{
-          color: $suit-main-color;
-          opacity: .3;
-          .ui-select-choices-row-inner{
-            cursor: default !important;
-          }
-        }
-        //This it's an ugly fix because the plugin has some bugs with the search being disbled.
-        .ui-select-search-hidden,.ng-hide{
-          display: none !important;
-        }
-        .selectize-input{
-          border: none;
-          background: inherit;
-          box-shadow: none;
-        }
-      }
+      }    
     }
     &.disabled td:first-of-type{
       opacity: 0.5;
@@ -450,6 +412,7 @@
       span.input--error{position: absolute; top:torem(60px);}
       label{margin-right: 1em;}
       span.input--error{left: torem(85px);}
+      .label{ min-width: 9.40rem;}
     }
   }
 
@@ -481,8 +444,10 @@
 }
 
 .credit-card--container {
+  .cards-icons--container {
+    min-height: torem(50px);
+  }
   .credit-card {
-    align-items: center;
     &.visa {
       svg.icon-visa {
         -webkit-filter: none; 
@@ -585,7 +550,10 @@
   .my-plans--container{
     .my-plan--info-container{
       .item {
-        div {margin-top: 1em;}
+        div {          
+          margin-top: 1em;
+          .hide{display: none;}
+        }
         div:first-of-type { margin-top: 0; }
       }
        .item:first-of-type {
@@ -619,9 +587,11 @@
 
   .credit-card--container {
     .credit-card {
-      flex-direction: row-reverse;
       svg {
         margin-top: torem(4px);
+      }
+      svg:first-of-type {
+        margin-left: torem(5px);
       }
       .width--full {
         margin-top: -1.6em;

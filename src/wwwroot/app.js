@@ -1,6 +1,10 @@
 (function () {
   'use strict';
 
+  function getLocale(lang) {
+    return window['relay-translation-' + lang];
+  }
+
   var dopplerRelayModule = angular
     .module('dopplerRelay', [
         'ngRoute',
@@ -23,7 +27,34 @@
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
     })
-    .config(['$routeProvider', '$translateProvider', '$locationProvider', '$httpProvider', 'jwtInterceptorProvider', 'uiSelectConfig', 'tooltipsConfProvider', function ($routeProvider, $translateProvider, $locationProvider, $httpProvider, jwtInterceptorProvider, uiSelectConfig, tooltipsConfProvider) {
+    .config([
+      '$routeProvider', 
+      '$translateProvider', 
+      '$locationProvider', 
+      '$httpProvider', 
+      'jwtInterceptorProvider', 
+      'uiSelectConfig', 
+      'tooltipsConfProvider',
+      '$provide',
+      function (
+        $routeProvider,
+        $translateProvider,
+        $locationProvider,
+        $httpProvider,
+        jwtInterceptorProvider,
+        uiSelectConfig,
+        tooltipsConfProvider,
+        $provide) {
+
+      function makeStateful($delegate) {
+        $delegate.$stateful = true;
+        return $delegate;
+      }
+
+      $provide.decorator('dateFilter', ['$delegate', makeStateful]);
+      $provide.decorator('numberFilter', ['$delegate', makeStateful]);
+      $provide.decorator('currencyFilter', ['$delegate', makeStateful]);
+
 
       //  $locationProvider.html5Mode(true); //this apply HTML5MODE
       uiSelectConfig.theme = 'selectize';
@@ -120,8 +151,8 @@
         });
 
       $translateProvider
-        .translations('en', window["relay-translation-en"])
-        .translations('es', window["relay-translation-es"])
+        .translations('en', getLocale('en'))
+        .translations('es', getLocale('es'))
         .preferredLanguage('en')
         .useSanitizeValueStrategy('sanitizeParameters');
 
@@ -133,7 +164,30 @@
 
     }]);
 
-  dopplerRelayModule.run(['$rootScope', 'auth', '$location', '$translate', 'jwtHelper', function ($rootScope, auth, $location, $translate, jwtHelper) {
+  dopplerRelayModule.run([
+    '$rootScope', 
+    'auth', 
+    '$location', 
+    '$translate', 
+    'jwtHelper', 
+    '$locale',
+    function (
+      $rootScope,
+      auth,
+      $location, 
+      $translate, 
+      jwtHelper,
+      $locale) {
+
+    function applyCultureFormats() {
+      var locale = getLocale($translate.use());
+      angular.merge($locale, locale['CULTURE_FORMATS']);
+    }
+
+    applyCultureFormats();
+
+    $rootScope.$on('$translateChangeEnd', applyCultureFormats);
+
     $rootScope.$on('$locationChangeStart', function () {
       var queryParams = $location.search();
 

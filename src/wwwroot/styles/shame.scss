@@ -28,12 +28,14 @@ form .ng-invalid-strength {
 }
 
 form .ng-invalid.ng-touched.ng-dirty.error,
+form .ng-invalid.ng-touched.ng-dirty,
 form .ng-invalid.ng-touched.ng-dirty.ng-invalid-required,
 form .ng-invalid.ng-touched.ng-dirty.error:focus,
 form .ng-invalid-pattern.ng-dirty,
 form .ng-invalid-pattern.ng-dirty:focus,
 form .ng-invalid-same.ng-dirty,
 form .ng-invalid-same.ng-dirty:focus,
+form .ng-invalid-mask.ng-touched.ng-dirty,
 form.ng-submitted .ng-invalid.ng-invalid-required .selectize-input,
 form.ng-submitted .ng-invalid,
 form.ng-submitted .ng-invalid:focus {
