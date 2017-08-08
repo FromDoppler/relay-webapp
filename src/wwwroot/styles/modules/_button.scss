@@ -160,6 +160,13 @@ $input--error--color: #FFF;
 				background: $suit-color-status-green-lighter;
 			}
 		}
+		&.button--violet{
+			background: $suit-color-status-violet;
+			color: #FFF;
+			&:hover {
+				background: $suit-color-status-violet-lighter;
+			}
+		}
 		&.button--white{
 			background: transparent;
 			color: $suit-accent-color;
