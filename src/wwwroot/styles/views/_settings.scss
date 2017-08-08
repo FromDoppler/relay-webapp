@@ -305,10 +305,49 @@
   }
   .plan--box-container{
     padding-top: 2em;
-    ul {padding: 0; margin: auto;}
-    li:first-of-type {
-      background-color: $suit-color-status-green;
-      border-color: $suit-color-status-green;
+    ul {
+      padding: 0; 
+      margin: auto; 
+      display: inline-block;
+      @extend .transition--default;
+      width: 47.4%;
+      .special{
+        @extend .transition--default;
+      }
+      &.hide {
+        display: none;
+      }
+      &.basic {
+        li.special {
+          border-color: $suit-color-status-violet;
+          background-color: $suit-color-status-violet;
+        }
+        li:last-of-type {
+          a { background-color: $suit-color-status-violet; }
+          //padding-top: 2.75em;
+        }
+      }
+      &.pro {
+        li.special {
+          border-color: $suit-color-status-green;
+          background-color: $suit-color-status-green;
+        }
+        li:last-of-type {
+          a { background-color: $suit-color-status-green; }
+        }
+      }
+      &.premium {
+        li.special {
+          border-color: $suit-accent-color;
+          background-color: $suit-accent-color;
+        }
+         li:last-of-type {
+          a { background-color: $suit-accent-color; }
+        }
+      }
+    }
+    ul:first-of-type { margin-right: 4%;}
+    li.special {
       color: $suit-background-default;
       width: 100%;
       padding: 1em;
@@ -317,7 +356,8 @@
       border-bottom: $suit-border-default;
       text-align: center;
       color: initial;
-      padding: 1em 0;
+      padding: 0.5em 0 1em 0;
+      h2 { margin-bottom: 0.3em; }
     }
     li {
       list-style-type: none;
@@ -325,13 +365,19 @@
       border-right: $suit-border-default;
       padding:  0.5em 1em;
       color:$suit-font-color-light;
+      .hidden-feature { 
+        opacity: 0;
+        @extend .transition--default;
+        &.show{opacity: 1;}
+      }
+      
     }
   }
   .pricing-chart--container{
     max-height: 0;
     overflow: hidden;
     @extend .transition--default;
-    &.show{max-height: 45rem;}
+    &.show{max-height: 73rem;}
     .plan--slider-container {
       margin-top: 2em;
       span.special {
@@ -349,9 +395,6 @@
             opacity: 0;
           }
         }
-      }
-      .plan--price-big {
-        font-size: $headers_h2-font-size;
       }
     }
   }
@@ -565,15 +608,14 @@
        }
     }
     .plan--box-container{
-      ul.width--half{
+      ul{
         width: 100%;
+        margin-bottom: 2em;
+        &:first-of-type{margin-right: 0;}
         li:last-of-type{
           padding: 1em;
           button{
             margin-top: 1.5em;
-          }
-          p.plan--price-big{
-            font-size: $headers_h3-font-size !important;
           }
         }
       }

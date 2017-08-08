@@ -48,7 +48,7 @@
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
-        changePlan(defaultPlanName);
+        changePlan(defaultPlanDeliveries);
       });
       return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]);
     }
@@ -68,31 +68,71 @@
           });
     }
 
-    function changePlan(planName) {
       var selectedItem = planItems.find(function(obj){
         return obj.name == planName;
+    function changePlan(planDeliveries) {
+      var selectedItems = planItems.filter(function(obj){
+        return obj.included_deliveries == planDeliveries;
       });
-      if (!selectedItem) {
-        selectedItem = planItems[0];
+
+      if (!selectedItems) {
+        selectedItems = planItems[0];
         vm.hideDragMe = true;
       }
-      vm.emailsSuggestedAmount = selectedItem.included_deliveries;
-      vm.planName = selectedItem.name;
-      vm.planPrice = selectedItem.fee;
-      vm.costEmail = selectedItem.extra_delivery_cost;
+
+      var basic = selectedItems.find(function(plan){
+        return plan.type != "pro";
+      });
+      var pro = selectedItems.find(function(plan){
+        return plan.type == "pro";
+      });
+      
+      if (!basic) {
+        vm.showPremiumPlanBox = true;
+
+        vm.leftPlanName = pro.name;
+        vm.leftPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+        vm.leftCostEmail = pro.extra_delivery_cost;
+
+        vm.rightPlanName = 'Premium';
+        vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+        vm.rightCostEmail = pro.extra_delivery_cost;
+      } else {
+        vm.showPremiumPlanBox = false;
+
+        vm.leftPlanName = basic.name;
+        vm.leftPlanPrice = basic.fee;
+        vm.leftCostEmail = basic.extra_delivery_cost;
+
+        vm.rightPlanName = pro.name;
+        vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+        vm.rightCostEmail = pro.extra_delivery_cost;
+      }
     }
 
     function loadSlider() {
-      planItems = $filter('orderBy')(planItems,'included_deliveries');
-      var planItemsParsedForSlider = planItems.map(function(plan){
-        return { value : plan.name};
-      });
+      function removeDuplicates(arr){
+        var o = {};
+        for(var e = 0; e < arr.length; e++) {
+          o[arr[e]] = true;
+        }
+        return Object.keys(o);
+      }
+
+      var items = vm.wtfPlans.map(function(plan) {
+        return parseInt(plan.included_deliveries);
+      });      
+      items = removeDuplicates(items);
+      items.sort(function(a, b) {
+        return a - b;
+      }); // agregar polyfill de sort
+
       vm.slider = {
-        value: defaultPlanName,
+        value: defaultPlanDeliveries,
         options: {
           showSelectionBar: true,
           showTicks: true,
-          stepsArray: planItemsParsedForSlider,
+          stepsArray: items,
           onChange: function (sliderId, modelValue) {
             vm.hideDragMe = true;
             changePlan(modelValue);

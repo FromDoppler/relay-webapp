@@ -63,15 +63,48 @@
       </svg></div>
     </div>
     <div class="section--wrapper plan--box-container">
-      <ul class="width--half">
-        <li class="special">{{vm.planName}}</li>
-        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.costEmail | number:5}}</li>
+      <ul ng-class="!vm.showPremiumPlanBox ? 'basic':'pro'">
+        <li class="special">
+          <span ng-if="!vm.showPremiumPlanBox">{{ 'basic_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
+          <span ng-if="vm.showPremiumPlanBox">{{ 'pro_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
+        </li>
+        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.leftCostEmail | number:5}}</li>
         <li>{{'attr_api' | translate}}</li>
         <li>{{'attr_dkim' | translate}}</li>
         <li>{{'attr_metrics_and_reports' | translate}}</li>
+        <li class="strong">
+          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'attr_dedicated_ip' | translate}}</span>
+        </li>
         <li>
-          <p class="special plan--price-big">{{vm.currency | translate}} {{vm.planPrice | number:2 | numberFormat}}</p>
-          <a class="button button--small button--green" href="#/settings/billing?plan={{vm.planName}}">{{'buy_now' | translate}}</a>
+          <span class="hidden-feature">-</span>
+        </li>
+        <li>
+          <span class="hidden-feature">-</span>
+        </li>
+        <li class="strong">
+          <h2 class="special plan--price-big">{{vm.currency | translate}} {{vm.leftPlanPrice | number:2 | numberFormat}}</h2>
+          <a class="button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'buy_now' | translate}}</a>
+        </li>
+      </ul>
+      <ul ng-class="!vm.showPremiumPlanBox ? 'pro':'premium'">
+        <li class="special">
+          <span ng-if="!vm.showPremiumPlanBox">{{ 'pro_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
+          <span ng-if="vm.showPremiumPlanBox">{{ 'premium_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
+        </li>
+        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.rightCostEmail | number:5}}</li>
+        <li>{{'attr_api' | translate}}</li>
+        <li>{{'attr_dkim' | translate}}</li>
+        <li>{{'attr_metrics_and_reports' | translate}}</li>
+        <li class="strong">{{'attr_dedicated_ip' | translate}}</li>
+        <li class="strong">
+          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'account_manager_text' | translate}}</span>
+        </li>
+        <li>
+          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'vip_support_text' | translate}}</span>
+        </li>
+        <li>
+          <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
+          <a class="button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}"><span ng-if="!vm.showPremiumPlanBox">{{'buy_now' | translate}}</span><span ng-if="vm.showPremiumPlanBox">Contact Us</span></a>          
         </li>
       </ul>
     </div>
