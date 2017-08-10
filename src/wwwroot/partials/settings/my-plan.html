@@ -97,10 +97,20 @@
         <li>{{'attr_metrics_and_reports' | translate}}</li>
         <li class="strong">{{'attr_dedicated_ip' | translate}}</li>
         <li class="strong">
-          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'account_manager_text' | translate}}</span>
+          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">
+            {{'account_manager_text' | translate}}
+            <svg class="icon star-icon">
+              <use xlink:href="/images/sprite.svg#doppler-icon-star-icon"></use>
+            </svg>
+          </span>
         </li>
         <li>
-          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'vip_support_text' | translate}}</span>
+          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">
+            {{'vip_support_text' | translate}}
+            <svg class="icon star-icon">
+              <use xlink:href="/images/sprite.svg#doppler-icon-star-icon"></use>
+            </svg>
+          </span>
         </li>
         <li>
           <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>

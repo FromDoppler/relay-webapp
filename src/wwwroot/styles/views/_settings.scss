@@ -370,7 +370,10 @@
         @extend .transition--default;
         &.show{opacity: 1;}
       }
-      
+      .star-icon{
+        width: torem(12px);
+        fill: $suit-accent-color;
+      }
     }
   }
   .pricing-chart--container{
