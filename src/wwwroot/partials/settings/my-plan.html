@@ -73,13 +73,21 @@
         <li>{{'attr_dkim' | translate}}</li>
         <li>{{'attr_metrics_and_reports' | translate}}</li>
         <li class="strong">
-          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'attr_dedicated_ip' | translate}}</span>
+          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'attr_dedicated_ip' | translate}} {{vm.ipsPlanCount}}</span>
         </li>
         <li>
-          <span class="hidden-feature">-</span>
+          <span class="hidden-feature">
+            <svg class="icon star-icon">
+              <use xlink:href="/images/sprite.svg#doppler-icon-star-icon"></use>
+            </svg>
+          </span>
         </li>
         <li>
-          <span class="hidden-feature">-</span>
+          <span class="hidden-feature">
+            <svg class="icon star-icon">
+              <use xlink:href="/images/sprite.svg#doppler-icon-star-icon"></use>
+            </svg>
+          </span>
         </li>
         <li class="strong">
           <h2 class="special plan--price-big">{{vm.currency | translate}} {{vm.leftPlanPrice | number:2 | numberFormat}}</h2>
@@ -95,7 +103,10 @@
         <li>{{'attr_api' | translate}}</li>
         <li>{{'attr_dkim' | translate}}</li>
         <li>{{'attr_metrics_and_reports' | translate}}</li>
-        <li class="strong">{{'attr_dedicated_ip' | translate}}</li>
+        <li class="strong">
+          <span ng-if="!vm.showPremiumPlanBox">{{'attr_dedicated_ip' | translate}} {{vm.ipsPlanCount}}</span>
+          <span ng-if="vm.showPremiumPlanBox">{{'attr_dedicated_ip_premium' | translate}}</span>
+        </li>
         <li class="strong">
           <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">
             {{'account_manager_text' | translate}}

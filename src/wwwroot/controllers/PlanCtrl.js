@@ -15,10 +15,11 @@
     'settings',
     '$filter',
     'reports',
-    'moment'
+    'moment',
+    'utils'
   ];
 
-  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment) {
+  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment, utils) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -26,7 +27,7 @@
     ]);
     vm.hideDragMe = false;
     vm.activationPromise = activate();
-    var defaultPlanDeliveries = '80000';
+    var defaultPlanDeliveries = '60000';
     var planItems;
     vm.langUsed = $translate.use();
     vm.showPricingChart = showPricingChart;
@@ -94,34 +95,29 @@
         vm.leftCostEmail = pro.extra_delivery_cost;
 
         vm.rightPlanName = 'Premium';
-        vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
         vm.rightCostEmail = pro.extra_delivery_cost;
       } else {
-        vm.showPremiumPlanBox = false;
+        vm.showPremiumPlanBox = false;        
 
         vm.leftPlanName = basic.name;
         vm.leftPlanPrice = basic.fee;
         vm.leftCostEmail = basic.extra_delivery_cost;
-
-        vm.rightPlanName = pro.name;
-        vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
-        vm.rightCostEmail = pro.extra_delivery_cost;
+        if (pro) {
+          vm.ipsPlanCount = pro.ips_count;
+          vm.rightPlanName = pro.name;
+          vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+          vm.rightCostEmail = pro.extra_delivery_cost;
+        } else {
+          vm.hideDragMe = true;
+        }
       }
     }
 
     function loadSlider() {
-      function removeDuplicates(arr){
-        var o = {};
-        for(var e = 0; e < arr.length; e++) {
-          o[arr[e]] = true;
-        }
-        return Object.keys(o);
-      }
-
-      var items = vm.wtfPlans.map(function(plan) {
+      var items = planItems.map(function(plan) {
         return parseInt(plan.included_deliveries);
       });      
-      items = removeDuplicates(items);
+      items = utils.removeDuplicates(items);
       items.sort(function(a, b) {
         return a - b;
       });
