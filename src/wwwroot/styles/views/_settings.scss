@@ -365,6 +365,11 @@
       border-right: $suit-border-default;
       padding:  0.5em 1em;
       color:$suit-font-color-light;
+      .hidden-feature-by-display { 
+        display: none;
+        transition: none;
+        &.show{display: inline-block;}
+      }
       .hidden-feature { 
         opacity: 0;
         @extend .transition--default;

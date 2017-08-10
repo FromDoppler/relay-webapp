@@ -386,5 +386,7 @@
   "PLAN-PRO-350K": "350k",
   "PLAN-PRO-400K": "400k",
   "vip_support_text": "Soporte VIP",
-  "account_manager_text": "Ejecutivo de cuenta exclusivo"
+  "account_manager_text": "Ejecutivo de cuenta exclusivo",
+  "contact_us_text": "Contáctanos",
+  "contact_premium_plan_subject": "Consulta Doppler Relay Premium"
 };

@@ -372,5 +372,7 @@
   "PLAN-PRO-350K": "350k",
   "PLAN-PRO-400K": "400k",
   "vip_support_text": "VIP Support",
-  "account_manager_text": "Account manager"
+  "account_manager_text": "Account manager",
+  "contact_us_text": "Contact Us",
+  "contact_premium_plan_subject": "Doppler Relay Premium Quote"
 };

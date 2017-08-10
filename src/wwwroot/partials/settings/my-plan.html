@@ -114,7 +114,8 @@
         </li>
         <li>
           <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
-          <a class="button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}"><span ng-if="!vm.showPremiumPlanBox">{{'buy_now' | translate}}</span><span ng-if="vm.showPremiumPlanBox">Contact Us</span></a>          
+          <a ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}"><span ng-if="!vm.showPremiumPlanBox">{{'buy_now' | translate}}</a>
+          <a ng-class="vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="mailto:comercial@dopplerrelay.com?subject={{'contact_premium_plan_subject' | translate}}">{{'contact_us_text' | translate}}</a>
         </li>
       </ul>
     </div>
