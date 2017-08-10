@@ -385,7 +385,7 @@
     max-height: 0;
     overflow: hidden;
     @extend .transition--default;
-    &.show{max-height: 73rem;}
+    &.show{max-height:83rem;}
     .plan--slider-container {
       margin-top: 2em;
       span.special {

@@ -26,7 +26,7 @@
     ]);
     vm.hideDragMe = false;
     vm.activationPromise = activate();
-    var defaultPlanName = 'PLAN-60K';
+    var defaultPlanDeliveries = '80000';
     var planItems;
     vm.langUsed = $translate.use();
     vm.showPricingChart = showPricingChart;
@@ -68,9 +68,8 @@
           });
     }
 
-      var selectedItem = planItems.find(function(obj){
-        return obj.name == planName;
     function changePlan(planDeliveries) {
+      vm.emailsSuggestedAmount = planDeliveries;
       var selectedItems = planItems.filter(function(obj){
         return obj.included_deliveries == planDeliveries;
       });
@@ -125,7 +124,7 @@
       items = removeDuplicates(items);
       items.sort(function(a, b) {
         return a - b;
-      }); // agregar polyfill de sort
+      });
 
       vm.slider = {
         value: defaultPlanDeliveries,
