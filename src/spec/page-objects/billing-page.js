@@ -44,6 +44,7 @@ class BillingPage {
     this._renewalDate = $('.renewal-date');
     this._emailsAmount = $('.emails-amount');
     this._myPlanPriceFreeTrial = $('.my-plan-price');
+    this._rightPlanBox = $('.plan--box-container .pro');
     this._currentPlanEmailPrice = element(by.css('.email-price p:nth-child(3)'));
     this._currentPlanPrice = element(by.css('.price p:nth-child(3)'));
   }
@@ -255,6 +256,9 @@ class BillingPage {
 
   getPlanPrice() {
     return this._myPlanPrice.getText();
+  }
+  isRightPlanBoxDisplayed() {
+    return this._rightPlanBox.isDisplayed();
   }
   getMonthConsumption() {
     return this._monthConsumption.getText();
