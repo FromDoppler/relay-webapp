@@ -480,6 +480,24 @@ describe('Billing Page', () => {
     expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
   });
 
+  it('should show the new box for Pro and premium plan', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+
+    //Act
+    billingPage.clickFirstSliderTick();
+
+    // Assert
+    expect(billingPage.isRightPlanBoxDisplayed()).toBe(true);
+  });
+
   it('should show correct plan status values', () => {
 
     // Arrange

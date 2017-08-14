@@ -21,7 +21,8 @@
       setServerValidationToField: setServerValidationToField,
       resetForm: resetForm,
       replaceAllCharsExceptLast4: replaceAllCharsExceptLast4,
-      validateCreditCard : validateCreditCard
+      validateCreditCard : validateCreditCard,
+      removeDuplicates: removeDuplicates
     };
 
     return utilsService;
@@ -128,6 +129,14 @@
 
     	return (nCheck % 10) == 0;
     }
+
+    function removeDuplicates(arr){
+        var o = {};
+        for(var e = 0; e < arr.length; e++) {
+          o[arr[e]] = true;
+        }
+        return Object.keys(o);
+      }
 
   }
 })();

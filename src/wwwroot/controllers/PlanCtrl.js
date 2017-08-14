@@ -15,10 +15,11 @@
     'settings',
     '$filter',
     'reports',
-    'moment'
+    'moment',
+    'utils'
   ];
 
-  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment) {
+  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment, utils) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -26,7 +27,7 @@
     ]);
     vm.hideDragMe = false;
     vm.activationPromise = activate();
-    var defaultPlanName = 'PLAN-60K';
+    var defaultPlanDeliveries = '60000';
     var planItems;
     vm.langUsed = $translate.use();
     vm.showPricingChart = showPricingChart;
@@ -48,7 +49,7 @@
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
         loadSlider();
-        changePlan(defaultPlanName);
+        changePlan(defaultPlanDeliveries);
       });
       return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]);
     }
@@ -68,31 +69,65 @@
           });
     }
 
-    function changePlan(planName) {
-      var selectedItem = planItems.find(function(obj){
-        return obj.name == planName;
+    function changePlan(planDeliveries) {
+      vm.emailsSuggestedAmount = planDeliveries;
+      var selectedItems = planItems.filter(function(obj){
+        return obj.included_deliveries == planDeliveries;
       });
-      if (!selectedItem) {
-        selectedItem = planItems[0];
+
+      if (!selectedItems) {
+        selectedItems = planItems[0];
         vm.hideDragMe = true;
       }
-      vm.emailsSuggestedAmount = selectedItem.included_deliveries;
-      vm.planName = selectedItem.name;
-      vm.planPrice = selectedItem.fee;
-      vm.costEmail = selectedItem.extra_delivery_cost;
+
+      var basic = selectedItems.find(function(plan){
+        return plan.type != "pro";
+      });
+      var pro = selectedItems.find(function(plan){
+        return plan.type == "pro";
+      });
+      
+      if (!basic) {
+        vm.showPremiumPlanBox = true;
+
+        vm.leftPlanName = pro.name;
+        vm.leftPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+        vm.leftCostEmail = pro.extra_delivery_cost;
+
+        vm.rightPlanName = 'Premium';
+        vm.rightCostEmail = pro.extra_delivery_cost;
+      } else {
+        vm.showPremiumPlanBox = false;        
+
+        vm.leftPlanName = basic.name;
+        vm.leftPlanPrice = basic.fee;
+        vm.leftCostEmail = basic.extra_delivery_cost;
+        if (pro) {
+          vm.ipsPlanCount = pro.ips_count;
+          vm.rightPlanName = pro.name;
+          vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+          vm.rightCostEmail = pro.extra_delivery_cost;
+        } else {
+          vm.hideDragMe = true;
+        }
+      }
     }
 
     function loadSlider() {
-      planItems = $filter('orderBy')(planItems,'included_deliveries');
-      var planItemsParsedForSlider = planItems.map(function(plan){
-        return { value : plan.name};
+      var items = planItems.map(function(plan) {
+        return parseInt(plan.included_deliveries);
+      });      
+      items = utils.removeDuplicates(items);
+      items.sort(function(a, b) {
+        return a - b;
       });
+
       vm.slider = {
-        value: defaultPlanName,
+        value: defaultPlanDeliveries,
         options: {
           showSelectionBar: true,
           showTicks: true,
-          stepsArray: planItemsParsedForSlider,
+          stepsArray: items,
           onChange: function (sliderId, modelValue) {
             vm.hideDragMe = true;
             changePlan(modelValue);
