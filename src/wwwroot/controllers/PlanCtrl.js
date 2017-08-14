@@ -37,7 +37,7 @@
 
     function activate() {
       var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
-        vm.currentPlanPrice = response.data.fee;
+        vm.currentPlanPrice = response.data.fee + response.data.ips_count * response.data.cost_by_ip;
         vm.currentPlanEmailsAmount = response.data.includedDeliveries;
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
         vm.currency = response.data.currency;
