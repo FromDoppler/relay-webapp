@@ -29,6 +29,8 @@ describe('Billing Page', () => {
               "billingInformation": null,
               "startDate": "2017-07-01T00:00:00Z",
               "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
               "extraDeliveryCost": 0,
               "fee": 0,
               "includedDeliveries": 50.0
@@ -529,6 +531,8 @@ describe('Billing Page', () => {
               "startDate": "2016-07-01T00:00:00Z",
               "currency": "USD",
               "extraDeliveryCost": 0.00002000,
+              "ips_count": 0,
+              "cost_by_ip": 0,
               "fee": 122231.80,
               "includedDeliveries": 12000
         });
@@ -565,6 +569,8 @@ describe('Billing Page', () => {
               "billingInformation": null,
               "startDate": "2016-07-01T00:00:00Z",
               "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
               "extraDeliveryCost": 0.00002000,
               "fee": 122231.80,
               "includedDeliveries": 12000

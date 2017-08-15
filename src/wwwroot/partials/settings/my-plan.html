@@ -50,6 +50,13 @@
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
     </div>
+    <div class="item flex flex--wrap">
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{ 'attr_dedicated_ip_premium' | translate }}</label>
+        <p ng-show="!vm.planStatusInfoLoader" class="ip-count">{{ vm.ipsPlanCount }}</p>
+        <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
+      </div>     
+    </div>
   </div>
   <div class="section--wrapper pricing-chart--container" ng-class="vm.pricingChartDisplayed ? 'show': 'hide'">
     <h5 class="special uppercase">{{ 'my_plan_pricing_chart' | translate }}</h5>
