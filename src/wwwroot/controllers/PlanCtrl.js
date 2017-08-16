@@ -34,14 +34,16 @@
     vm.pricingChartDisplayed = false;
     vm.planInfoLoader = true;
     vm.planStatusInfoLoader = true;
+    vm.ipsPlanCount = 0;
 
     function activate() {
       var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
-        vm.currentPlanPrice = response.data.fee + response.data.ips_count * response.data.cost_by_ip;
+        vm.currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
         vm.currentPlanEmailsAmount = response.data.includedDeliveries;
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
         vm.currency = response.data.currency;
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
+        vm.currentIpsPlanCount = response.data.ips_count || 0;
       })
       .finally(function () {
         vm.planInfoLoader = false;
@@ -91,7 +93,7 @@
         vm.showPremiumPlanBox = true;
 
         vm.leftPlanName = pro.name;
-        vm.leftPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+        vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
         vm.leftCostEmail = pro.extra_delivery_cost;
 
         vm.rightPlanName = 'Premium';
@@ -105,10 +107,8 @@
         if (pro) {
           vm.ipsPlanCount = pro.ips_count;
           vm.rightPlanName = pro.name;
-          vm.rightPlanPrice = pro.fee + pro.ips_count * pro.cost_by_ip;
+          vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
           vm.rightCostEmail = pro.extra_delivery_cost;
-        } else {
-          vm.hideDragMe = true;
         }
       }
     }
