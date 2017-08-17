@@ -549,7 +549,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getCurrentPlanPrice()).toBe('$ 122,231.80');
-    expect(billingPage.getCurrentPlanEmailPrice()).toBe('$ 0.00002000');
+    expect(billingPage.getCurrentPlanEmailPrice()).toBe('$ 0.00002');
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12,000');
     expect(billingPage.getMonthConsumption()).toBe('20,000,000');
     expect(billingPage.getExtraEmails()).toBe('19,988,000');
@@ -588,7 +588,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getCurrentPlanPrice()).toBe('USD 122.231,80');
-    expect(billingPage.getCurrentPlanEmailPrice()).toBe('USD 0,00002000');
+    expect(billingPage.getCurrentPlanEmailPrice()).toBe('USD 0,00002');
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12.000');
     expect(billingPage.getMonthConsumption()).toBe('20.000.000');
     expect(billingPage.getExtraEmails()).toBe('19.988.000');
