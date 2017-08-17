@@ -58,7 +58,7 @@
           return redirectToPlanSelection();
         }
         vm.currentCurrency = planSelected.currency;
-        vm.planPrice = planSelected.fee;
+        vm.planPrice = planSelected.fee + (planSelected.ips_count * planSelected.cost_by_ip || 0);
       });
     }
     vm.checkExpDate = checkExpDate;
