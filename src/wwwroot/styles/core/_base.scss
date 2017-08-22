@@ -347,6 +347,10 @@ a {
     background-color: $suit-color-status-green !important;
 }
 
+.background--violet {background-color: $suit-color-status-violet;}
+.background--green {background-color: $suit-color-status-green;}
+.background--orange {background-color: $suit-accent-color;}
+
 @media screen and (max-width: 1024px) {
   .section--wrapper {
     max-width: 95%;

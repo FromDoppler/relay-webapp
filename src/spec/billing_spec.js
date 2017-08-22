@@ -29,6 +29,8 @@ describe('Billing Page', () => {
               "billingInformation": null,
               "startDate": "2017-07-01T00:00:00Z",
               "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
               "extraDeliveryCost": 0,
               "fee": 0,
               "includedDeliveries": 50.0
@@ -480,6 +482,24 @@ describe('Billing Page', () => {
     expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
   });
 
+  it('should show the new box for Pro and premium plan', () => {
+
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    setupSamplePlanInfoResponse();
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+    expect(billingPage.isSliderLoaded()).toBeTruthy();
+
+    //Act
+    billingPage.clickFirstSliderTick();
+
+    // Assert
+    expect(billingPage.isRightPlanBoxDisplayed()).toBe(true);
+  });
+
   it('should show correct plan status values', () => {
 
     // Arrange
@@ -511,6 +531,8 @@ describe('Billing Page', () => {
               "startDate": "2016-07-01T00:00:00Z",
               "currency": "USD",
               "extraDeliveryCost": 0.00002000,
+              "ips_count": 0,
+              "cost_by_ip": 0,
               "fee": 122231.80,
               "includedDeliveries": 12000
         });
@@ -527,7 +549,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getCurrentPlanPrice()).toBe('$ 122,231.80');
-    expect(billingPage.getCurrentPlanEmailPrice()).toBe('$ 0.00002000');
+    expect(billingPage.getCurrentPlanEmailPrice()).toBe('$ 0.00002');
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12,000');
     expect(billingPage.getMonthConsumption()).toBe('20,000,000');
     expect(billingPage.getExtraEmails()).toBe('19,988,000');
@@ -547,6 +569,8 @@ describe('Billing Page', () => {
               "billingInformation": null,
               "startDate": "2016-07-01T00:00:00Z",
               "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
               "extraDeliveryCost": 0.00002000,
               "fee": 122231.80,
               "includedDeliveries": 12000
@@ -564,7 +588,7 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getCurrentPlanPrice()).toBe('USD 122.231,80');
-    expect(billingPage.getCurrentPlanEmailPrice()).toBe('USD 0,00002000');
+    expect(billingPage.getCurrentPlanEmailPrice()).toBe('USD 0,00002');
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12.000');
     expect(billingPage.getMonthConsumption()).toBe('20.000.000');
     expect(billingPage.getExtraEmails()).toBe('19.988.000');
