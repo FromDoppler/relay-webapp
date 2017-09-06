@@ -44,16 +44,20 @@
         vm.currency = response.data.currency;
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
+        if (!vm.isFreeTrial)
+          vm.hideDragMe = true;
+          defaultPlanDeliveries = response.data.includedDeliveries;
       })
       .finally(function () {
         vm.planInfoLoader = false;
       });
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
+      });
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function() {        
         loadSlider();
         changePlan(defaultPlanDeliveries);
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]);
     }
 
     function getMonthConsumption() {
@@ -91,7 +95,11 @@
       
       if (!basic) {
         vm.showPremiumPlanBox = true;
-
+        if (defaultPlanDeliveries == pro.included_deliveries) {
+          vm.isCurrentPlanPro = true;
+        } else {
+          vm.isCurrentPlanPro = false;
+        }
         vm.leftPlanName = pro.name;
         vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
         vm.leftCostEmail = pro.extra_delivery_cost;
@@ -99,8 +107,12 @@
         vm.rightPlanName = 'Premium';
         vm.rightCostEmail = pro.extra_delivery_cost;
       } else {
-        vm.showPremiumPlanBox = false;        
-
+        vm.showPremiumPlanBox = false;     
+        if (defaultPlanDeliveries == basic.included_deliveries) {
+          vm.isCurrentPlan = true;
+        } else {
+          vm.isCurrentPlan = false;
+        }
         vm.leftPlanName = basic.name;
         vm.leftPlanPrice = basic.fee;
         vm.leftCostEmail = basic.extra_delivery_cost;

@@ -16,7 +16,7 @@
       <h4 class="special plan-price">{{vm.currentCurrency | translate}} {{vm.planPrice | number:2 }} {{ 'each_month' | translate }}</h4>
     </div>
   </div>
-  <div class="billing--first-container" ng-class="vm.showConfirmation ? 'hide':'show'">
+  <div class="billing--first-container" ng-class="[ {true: 'hide', false: 'show'}[vm.showConfirmation],{true: 'no-transitions'}[vm.downgrade] ]">
     <form id="form" name="form" novalidate>
       <div class="section--wrapper billing--container">
         <hr class="default"/>
@@ -142,7 +142,7 @@
       </div>
     </form>
   </div>
-  <div class="section--wrapper billing--plan-confirmation" ng-class="vm.showConfirmation ? 'show':'hide'">
+  <div class="section--wrapper billing--plan-confirmation" ng-class="[ {true: 'show', false: 'hide'}[vm.showConfirmation],{true: 'no-transitions'}[vm.downgrade] ]">
     <hr class="default" />
     <div class="item">
       <h3>{{ 'billing_address_title' | translate }}</h3>
@@ -200,7 +200,7 @@
       <div class="detached--error-container" ng-class="vm.submitted && vm.paymentFailure ? 'show':'hide'">
         <span class="detached--error">{{'validation_error_payment_failure' | translate}}</span>
       </div>
-      <button class="button button--small button--white modify-button" ng-click="vm.showConfirmation = false;vm.paymentFailure = false;">{{'billing_change_info_button' | translate}}</button>
+      <button class="button button--small button--white modify-button" ng-click="vm.cancelAction()"><span ng-if="!vm.downgrade">{{'billing_change_info_button' | translate}}</span><span ng-if="vm.downgrade">Volver a My Plan</span></button>
       <button class="button button--small buy-button" ng-click="vm.submitBillingPayment()">{{'buy_text' | translate}}</button>
     </div>
   </div>

@@ -40,6 +40,7 @@
     var planName = queryParams['plan'];
     vm.activationPromise = activate();
     vm.redirectToPlanSelection = redirectToPlanSelection;
+    vm.cancelAction = cancelAction;
 
     function activate() {
 
@@ -59,6 +60,13 @@
         }
         vm.currentCurrency = planSelected.currency;
         vm.planPrice = planSelected.fee + (planSelected.ips_count * planSelected.cost_by_ip || 0);
+        return settings.getCurrentPlanInfo().then(function(response) {
+          var includedDeliveries = response.data.includedDeliveries;
+          if (includedDeliveries > planSelected.included_deliveries) {
+            vm.showConfirmation = true;
+            vm.downgrade = true;
+          }
+        });
       });
     }
     vm.checkExpDate = checkExpDate;
@@ -74,6 +82,13 @@
 
     function redirectToPlanSelection() {
       $location.path('/settings/my-plan');
+    }
+    
+    function cancelAction() {
+      if (!vm.downgrade) {
+        vm.showConfirmation = false;vm.paymentFailure = false;
+      }
+      redirectToPlanSelection();
     }
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);

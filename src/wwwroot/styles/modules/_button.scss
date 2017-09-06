@@ -177,8 +177,8 @@ $input--error--color: #FFF;
 			}
 		}
     &.button--disabled{
-			background: lightgray;
-			border-color: lightgray;
+			background: lightgray !important;
+			border-color: lightgray !important;
       &:hover{
       	cursor:default;
       }
