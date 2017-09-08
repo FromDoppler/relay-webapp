@@ -1,4 +1,4 @@
-﻿window['relay-translation-es'] = {
+window['relay-translation-es'] = {
   "doppler_relay": "Hola Doppler Relay",
   "doppler_url_link": "https://app2.fromdoppler.com/Registration/Register/StartRegistration/?id=es&origin=relayapp",
   "log_out": "Salir",
@@ -414,5 +414,10 @@
   "upgrade_plan_exclamation": "¡Contrata ahora!",
   "free_trial_header_almost_ended_text" : "Tu prueba gratuita termina en {{ trialDaysLeft }} días, para seguir enviando tus emails transaccionales elige un plan.",
   "free_trial_header_end_today_text" : "Tu prueba gratuita termina hoy, para seguir enviando tus emails transaccionales elige un plan.",
-  "free_trial_header_trial_text": "Tu cuenta se encuentra en la versión de prueba gratuita, si necesitas enviar más emails elige un plan."
+  "free_trial_header_trial_text": "Tu cuenta se encuentra en la versión de prueba gratuita, si necesitas enviar más emails elige un plan.",
+  "downgrade_popup_title": "¿Seguro que quieres cambiar de plan?",
+  "downgrade_popup_main_text": "Haciendo click en ¨confirmar¨ se modificará la cantidad de Emails que puedes enviar a partir del primer día del mes siguiente.",
+  "downgrade_popup_confirm_text": "Escribe ¨CAMBIAR¨ para confirmar.",
+  "downgrade_popup_cancel_button": "Cancelar esta acción",
+  "confirm_text": "Confirmar"
 };
