@@ -225,7 +225,7 @@
           mainText: "downgrade_popup_main_text",
           descriptionInput: "downgrade_popup_confirm_text",
           confirmationWord: "downgrade_popup_confirm_word",
-          actionSuccess: downgrade,
+          actionSuccess: downgradeAction,
           cancelButtonText: "downgrade_popup_cancel_button",
           buttonText: "confirm_text"
         }
@@ -235,7 +235,7 @@
       });
     }
     function downgradeAction() {
-      //action Downgrade
+      return settings.downgrade(onExpectedError);
     }
     function cancelAction() {
       if (!vm.downgrade) {

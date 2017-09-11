@@ -164,6 +164,21 @@
       });
     }
 
+    function downgrade() {
+      var url = RELAY_CONFIG.baseUrl
+      + '/accounts/'
+      + auth.getAccountName()
+      + '/agreements'
+      + '/next';
+
+    return $http({
+      actionDescription: 'action_billing_downgrade',
+      tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
+      method: 'PUT',
+      url: url
+    });
+    }
+
     function getCurrentPlanInfo() {
       return $http({
         actionDescription: 'action_getting_current_plan',
