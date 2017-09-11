@@ -46,7 +46,7 @@
         vm.currentIpsPlanCount = response.data.ips_count || 0;
         if (!vm.isFreeTrial)
           vm.hideDragMe = true;
-          defaultPlanDeliveries = response.data.includedDeliveries;
+          defaultPlanDeliveries = response.data.includedDeliveries.toString();
       })
       .finally(function () {
         vm.planInfoLoader = false;
@@ -96,9 +96,9 @@
       if (!basic) {
         vm.showPremiumPlanBox = true;
         if (defaultPlanDeliveries == pro.included_deliveries) {
-          vm.isCurrentPlanPro = true;
+          vm.isLeftCurrentPlan = true;
         } else {
-          vm.isCurrentPlanPro = false;
+          vm.isLeftCurrentPlan = false;
         }
         vm.leftPlanName = pro.name;
         vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
@@ -109,14 +109,15 @@
       } else {
         vm.showPremiumPlanBox = false;     
         if (defaultPlanDeliveries == basic.included_deliveries) {
-          vm.isCurrentPlan = true;
+          vm.isLeftCurrentPlan = true;
         } else {
-          vm.isCurrentPlan = false;
+          vm.isLeftCurrentPlan = false;
         }
         vm.leftPlanName = basic.name;
         vm.leftPlanPrice = basic.fee;
         vm.leftCostEmail = basic.extra_delivery_cost;
         if (pro) {
+          vm.isRightCurrentPlan = true;
           vm.ipsPlanCount = pro.ips_count;
           vm.rightPlanName = pro.name;
           vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);

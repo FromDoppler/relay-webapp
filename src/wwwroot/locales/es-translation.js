@@ -129,6 +129,7 @@ window['relay-translation-es'] = {
   "validation_error_mask": "Escribe un formato válido.",
   "validation_error_invalid_card_number": "Escribe una tarjeta de crédito válida.",
   "validation_error_payment_failure": "No pudimos realizar el pago, por favor revisa tu información.",
+  "validation_error_pattern": "Por favor revisa el texto ingresado",
   "date_filter_slash": "{{ date | date : 'dd/MM/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitante",
@@ -419,5 +420,6 @@ window['relay-translation-es'] = {
   "downgrade_popup_main_text": "Haciendo click en ¨confirmar¨ se modificará la cantidad de Emails que puedes enviar a partir del primer día del mes siguiente.",
   "downgrade_popup_confirm_text": "Escribe ¨CAMBIAR¨ para confirmar.",
   "downgrade_popup_cancel_button": "Cancelar esta acción",
-  "confirm_text": "Confirmar"
+  "confirm_text": "Confirmar",
+  "downgrade_popup_confirm_word": "CAMBIAR"
 };

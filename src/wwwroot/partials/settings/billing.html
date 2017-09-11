@@ -175,10 +175,10 @@
         <p id="countryConfirmation" tooltips tooltip-template="{{vm.country.name}}" tooltip-hidden="{{vm.country.name.length < 20}}" ng-class="vm.country.name.length > 20 ? 'hide': 'show'">{{vm.country.name}}</p>
       </div>
     </div>
-    <div class="item">
+    <div class="item" ng-if="!vm.downgrade">
       <h3>{{ 'payment_method_title' | translate }}</h3>
     </div>
-    <div class="item flex flex--wrap">
+    <div class="item flex flex--wrap" ng-if="!vm.downgrade">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'card_holder_label' | translate}}</label>
         <p id="cardHolderConfirmation" tooltips tooltip-template="{{vm.cardHolder}}" tooltip-hidden="{{vm.cardHolder.length < 20}}" ng-class="vm.cardHolder.length > 20 ? 'hide': 'show'">{{vm.cardHolder}}</p>
@@ -201,7 +201,7 @@
         <span class="detached--error">{{'validation_error_payment_failure' | translate}}</span>
       </div>
       <button class="button button--small button--white modify-button" ng-click="vm.cancelAction()"><span ng-if="!vm.downgrade">{{'billing_change_info_button' | translate}}</span><span ng-if="vm.downgrade">Volver a My Plan</span></button>
-      <button class="button button--small buy-button" ng-click="vm.submitBillingPayment()">{{'buy_text' | translate}}</button>
+      <button class="button button--small buy-button" ng-click="vm.submitBillingPayment()"><span ng-if="!vm.downgrade">{{'buy_text' | translate}}</span><span ng-if="vm.downgrade">Confirmar Downgrade</span></button>
     </div>
   </div>
 </section>
