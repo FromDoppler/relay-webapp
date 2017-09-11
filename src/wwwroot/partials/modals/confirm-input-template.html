@@ -1,16 +1,19 @@
 <div class="modal--wrapper ms-relay">
-    <div class="modal--outter text--center copy--container">
-      <span ng-click="vm.closeModal()">X</span>
+    <div class="modal--outter text--center confirm-input--container">
+      <span class="close--button" ng-click="vm.closeModal()">X</span>
       <h3>{{vm.title | translate}}</h3>
-      <div>
-        <p ng-bind-html="vm.mainText | translate"></p>
-        <p ng-bind-html="vm.descriptionInput | translate"></p>
-        <input class="input input--extra-small" ng-model="vm.confirmationText" type="text" placeholder="vm.inputPlaceHolder" maxlength="100" ng-maxlength="100"required />        
-      </div>
-      <div>
-        <button class="button button--small button--left" ng-click="vm.closeModal()">{{vm.cancelButtonText | translate}}</button>
-        <button class="button button--small button--right" ng-click="vm.action()">{{vm.buttonText | translate}}</button>
-      </div>
+      <form id="form" name="form" novalidate>
+        <div>
+            <p ng-bind-html="vm.mainText | translate"></p>
+            <p ng-bind-html="vm.descriptionInput | translate"></p>
+            <div class="input-container">
+                <input id="confirm" class="input input--extra-small" name="confirm" ng-pattern="vm.confirmationWord" ng-model="vm.confirm" type="text" maxlength="100" ng-maxlength="100" validation-errors-fluid required />
+            </div>
+        </div>
+        <div class="buttons-container">
+            <button class="button button--small button--left button--white" ng-click="vm.closeModal()">{{vm.cancelButtonText | translate}}</button>
+            <button class="button button--small button--right" ng-click="vm.actionSuccess(form)">{{vm.buttonText | translate}}</button>
+        </div>
+      </form>
     </div>
 </div>
-  

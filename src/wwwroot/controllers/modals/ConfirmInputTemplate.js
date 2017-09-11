@@ -10,22 +10,26 @@
       'title',
       'mainText',
       'descriptionInput',
-      'inputPlaceHolder',
-      'action',
+      'confirmationWord',
+      'actionSuccess',
       'cancelButtonText',
-      'buttonText'
+      'buttonText',
+      '$translate'
     ];
   
-    function ConfirmInputTemplate(close, title, mainText, descriptionInput, inputPlaceHolder, action, cancelButtonText, buttonText) {
+    function ConfirmInputTemplate(close, title, mainText, descriptionInput, confirmationWord, actionSuccess, cancelButtonText, buttonText, $translate) {
       var vm = this;
       vm.title = title;
       vm.mainText = mainText;
       vm.descriptionInput = descriptionInput;
-      vm.inputPlaceHolder = inputPlaceHolder;
       vm.cancelButtonText = cancelButtonText;
       vm.buttonText = buttonText;
-      vm.action = function(){
-        action();
+      vm.confirmationWord = $translate.instant(confirmationWord);
+      vm.actionSuccess = function(form) {
+        if(!form.$valid) {
+          return;
+        }
+        actionSuccess();
       }
       vm.closeModal = function() {
         close();
