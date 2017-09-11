@@ -133,9 +133,9 @@
         </li>
         <li>
           <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'buy_now' | translate}}</a>
-          <a ng-class="vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="mailto:comercial@dopplerrelay.com?subject={{'contact_premium_plan_subject' | translate}}">{{'contact_us_text' | translate}}</a>
-          <a class="button button--small button--disabled hidden-feature-by-display" ng-show="vm.isRightCurrentPlan">{{'buy_now' | translate}}</a>
+          <a ng-class="!vm.showPremiumPlanBox && !vm.isRightCurrentPlan ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'buy_now' | translate}}</a>
+          <a ng-class="vm.showPremiumPlanBox && !vm.isRightCurrentPlan ? 'show':''" class="hidden-feature-by-display button button--small" href="mailto:comercial@dopplerrelay.com?subject={{'contact_premium_plan_subject' | translate}}">{{'contact_us_text' | translate}}</a>
+          <a class="button button--small button--disabled hidden-feature-by-display" ng-class="vm.isRightCurrentPlan ? 'show':''">{{'buy_now' | translate}}</a>
         </li>
       </ul>
     </div>

@@ -43,10 +43,12 @@
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
         vm.currency = response.data.currency;
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
+        vm.isPro = response.data.ips_count ? true : false;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
-        if (!vm.isFreeTrial)
+        if (!vm.isFreeTrial){
           vm.hideDragMe = true;
           defaultPlanDeliveries = response.data.includedDeliveries.toString();
+        }
       })
       .finally(function () {
         vm.planInfoLoader = false;
@@ -55,8 +57,9 @@
         planItems = response.data.items;
       });
       return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function() {        
-        loadSlider();
+        
         changePlan(defaultPlanDeliveries);
+        loadSlider();
       });
     }
 
@@ -81,10 +84,16 @@
         return obj.included_deliveries == planDeliveries;
       });
 
-      if (!selectedItems) {
-        selectedItems = planItems[0];
+      if (selectedItems.length < 1) {
+        var newPlanSuggestedByDeliveries = planItems.reduce(function(prev, curr) {
+          return (Math.abs(curr - planDeliveries) < Math.abs(prev - planDeliveries) ? curr : prev);
+        });
+        selectedItems = planItems.filter(function(obj){
+          return obj.included_deliveries == newPlanSuggestedByDeliveries.included_deliveries;
+        });
+        vm.emailsSuggestedAmount = newPlanSuggestedByDeliveries.included_deliveries;
         vm.hideDragMe = true;
-      }
+      }   
 
       var basic = selectedItems.find(function(plan){
         return plan.type != "pro";
@@ -92,13 +101,15 @@
       var pro = selectedItems.find(function(plan){
         return plan.type == "pro";
       });
-      
+
       if (!basic) {
         vm.showPremiumPlanBox = true;
-        if (defaultPlanDeliveries == pro.included_deliveries) {
-          vm.isLeftCurrentPlan = true;
-        } else {
-          vm.isLeftCurrentPlan = false;
+        if (!vm.isFreeTrial) {
+          if (defaultPlanDeliveries == pro.included_deliveries) {
+            vm.isLeftCurrentPlan = true;
+          } else {
+            vm.isLeftCurrentPlan = false;
+          }
         }
         vm.leftPlanName = pro.name;
         vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
@@ -107,17 +118,25 @@
         vm.rightPlanName = 'Premium';
         vm.rightCostEmail = pro.extra_delivery_cost;
       } else {
-        vm.showPremiumPlanBox = false;     
-        if (defaultPlanDeliveries == basic.included_deliveries) {
-          vm.isLeftCurrentPlan = true;
-        } else {
-          vm.isLeftCurrentPlan = false;
+        vm.showPremiumPlanBox = false;  
+        if (!vm.isFreeTrial) {
+          if (defaultPlanDeliveries == basic.included_deliveries && !vm.isPro) {
+            vm.isLeftCurrentPlan = true;
+          } else {
+            vm.isLeftCurrentPlan = false;
+          }
         }
         vm.leftPlanName = basic.name;
         vm.leftPlanPrice = basic.fee;
         vm.leftCostEmail = basic.extra_delivery_cost;
         if (pro) {
-          vm.isRightCurrentPlan = true;
+          if (!vm.isFreeTrial) {
+            if (defaultPlanDeliveries == pro.included_deliveries && vm.isPro) {
+              vm.isRightCurrentPlan = true;
+            } else {
+              vm.isRightCurrentPlan = false;
+            }
+          }
           vm.ipsPlanCount = pro.ips_count;
           vm.rightPlanName = pro.name;
           vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
@@ -127,9 +146,10 @@
     }
 
     function loadSlider() {
+      
       var items = planItems.map(function(plan) {
         return parseInt(plan.included_deliveries);
-      });      
+      });
       items = utils.removeDuplicates(items);
       items.sort(function(a, b) {
         return a - b;
