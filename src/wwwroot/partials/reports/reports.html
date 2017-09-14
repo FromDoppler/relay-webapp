@@ -1,3 +1,18 @@
+<section class="filter--section" ng-show="!noLimits">
+  <div class="section--wrapper-flex send--limits-container">
+      <div class="flex one flex--center">
+        <h2>{{maxRateDailyLimit | number | numberFormat}}</h2>
+        <h5 class="uppercase">{{'daily_limit_title' | translate }}</h5>
+      </div>
+      <div class="flex one flex--center flex--wrap">
+        <h5 class="uppercase">{{'daily_limit_used' | translate}}</h5>
+        <div class="width--full flex--wrap"><progress class="width--full" value="{{progressLimitValue}}" max="{{maxRateDailyLimitBar}}"></progress>
+          <div class="flex flex--between"><span>0</span><span>{{maxRateDailyLimit | number | numberFormat}}</span></div>          
+        </div>
+      </div>
+  </div>
+</section>
+
 <section class="filter--section">
   <div class="filter section--wrapper">
     <label>{{'reports_filter_label' | translate}}</label>
