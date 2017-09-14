@@ -407,5 +407,7 @@ window['relay-translation-en'] = {
   "downgrade_popup_confirm_text": "Write 'CHANGE' to confirm.",
   "downgrade_popup_cancel_button": "Cancel this action",
   "confirm_text": "Confirm",
-  "downgrade_popup_confirm_word": "CHANGE"
+  "downgrade_popup_confirm_word": "CHANGE",
+  "downgrade_confirmation_button": "Confirm downgrade",
+  "downgrade_confirmation_cancel_button": "Back to my plan"
 };

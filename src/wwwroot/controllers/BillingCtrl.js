@@ -61,8 +61,8 @@
         vm.currentCurrency = planSelected.currency;
         vm.planPrice = planSelected.fee + (planSelected.ips_count * planSelected.cost_by_ip || 0);
         return settings.getCurrentPlanInfo().then(function(response) {
-          var includedDeliveries = response.data.includedDeliveries;
-          if (includedDeliveries > planSelected.included_deliveries) {
+          var currentFinalPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
+          if (currentFinalPrice > vm.planPrice) {
             vm.showConfirmation = true;
             vm.downgrade = true;
           }
@@ -87,6 +87,7 @@
     function cancelAction() {
       if (!vm.downgrade) {
         vm.showConfirmation = false;vm.paymentFailure = false;
+        return;
       }
       redirectToPlanSelection();
     }

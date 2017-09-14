@@ -42,7 +42,7 @@
         vm.currentPlanEmailsAmount = response.data.includedDeliveries;
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
         vm.currency = response.data.currency;
-        vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
+        vm.isFreeTrial = response.data.fee && response.data.extraDeliveryCost ? false : true;
         vm.isPro = response.data.ips_count ? true : false;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
         if (!vm.isFreeTrial){
@@ -56,8 +56,7 @@
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function() {        
-        
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function() {
         changePlan(defaultPlanDeliveries);
         loadSlider();
       });
@@ -86,11 +85,12 @@
 
       if (selectedItems.length < 1) {
         var newPlanSuggestedByDeliveries = planItems.reduce(function(prev, curr) {
-          return (Math.abs(curr - planDeliveries) < Math.abs(prev - planDeliveries) ? curr : prev);
+          return (Math.abs(curr.included_deliveries - planDeliveries) < Math.abs(prev.included_deliveries - planDeliveries) ? curr : prev);
         });
         selectedItems = planItems.filter(function(obj){
           return obj.included_deliveries == newPlanSuggestedByDeliveries.included_deliveries;
         });
+        defaultPlanDeliveries = newPlanSuggestedByDeliveries.included_deliveries.toString();
         vm.emailsSuggestedAmount = newPlanSuggestedByDeliveries.included_deliveries;
         vm.hideDragMe = true;
       }   
@@ -146,7 +146,6 @@
     }
 
     function loadSlider() {
-      
       var items = planItems.map(function(plan) {
         return parseInt(plan.included_deliveries);
       });
@@ -156,7 +155,7 @@
       });
 
       vm.slider = {
-        value: defaultPlanDeliveries,
+        value: defaultPlanDeliveries.toString(),
         options: {
           showSelectionBar: true,
           showTicks: true,
