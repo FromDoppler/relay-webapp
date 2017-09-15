@@ -29,7 +29,7 @@
     $scope.noLimits = true;
 
     function loadRateLimits() {
-      reports.getStatusPlanLimits()
+      return reports.getStatusPlanLimits()
       .then(function (result) {        
         $scope.maxRateDailyLimitBar = 50;
 
