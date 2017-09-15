@@ -5,6 +5,7 @@ class ReportsPage {
     this._daterangepickerEl = $('.daterangepicker');
     this._droppedEl = $('.dropped-count');
     this._deliverabilityPercentageEl = $('.deliverability-percentage');
+    this._maxRateDailyLimit = $('.send--limits-container .max-daily-limit');
   }
 
   clickDropdown(){
@@ -15,6 +16,9 @@ class ReportsPage {
   }
   getDeliverabilityPercentage(){
     return this._deliverabilityPercentageEl.getText();
+  }
+  isMaxRateDailyLimitDisplayed() {
+    return this._maxRateDailyLimit.isDisplayed();
   }
 
 }

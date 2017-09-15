@@ -18,6 +18,7 @@
   ];
 
   function ReportsCtrl($scope, reports, auth, $location, constants, $translate, ModalService, $rootScope, moment) {
+    loadRateLimits();
     applyFilter();
     $scope.moreThanOneDay = false;
     $scope.canSearch = true;
@@ -25,7 +26,22 @@
     $scope.curSection = $location.path().substring(1);
     $scope.deliveriesSummary = {};
     $scope.eventsSummary = {};
+    $scope.noLimits = true;
 
+    function loadRateLimits() {
+      return reports.getStatusPlanLimits()
+      .then(function (result) {        
+        $scope.maxRateDailyLimitBar = 50;
+
+        if (result.daily){
+          $scope.noLimits = false;
+          var progressUsedValue = result.daily.limit - result.daily.remaining;
+          $scope.maxRateDailyLimit = result.daily.limit;
+          
+          $scope.progressLimitValue = Math.ceil((progressUsedValue / result.daily.limit) * 50);
+        }
+      });
+    }    
 
     var todayLabel = $translate.instant('reports_filter_label_today');
     var yesterdayLabel = $translate.instant('reports_filter_label_last_day');

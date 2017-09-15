@@ -102,6 +102,18 @@ section {
   @include center($suit-wrapper-width);
   position: relative;
 }
+
+.section--wrapper-flex {
+  @include center($suit-wrapper-width);
+  display: flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
 .bottom--line {border-bottom: 1px solid $suit-color-grey-line; padding-top: 0.7em}
 .width--full {
   width: 100%;
@@ -154,6 +166,9 @@ section {
 .flex--direction-column{
   flex-direction: column;
 }
+.flex--direction-row{
+  flex-direction: row;
+}
 .flex{
   &.one{
     flex:1;
@@ -167,6 +182,41 @@ section {
 }
 .uppercase{
   text-transform: uppercase;
+}
+
+progress {
+  /* style rules */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border: 0;
+  background: #CFECE3;
+  border-radius: 20px;  
+}
+progress::-webkit-progress-bar {
+  /* style rules */
+  border: 0;
+  background: #CFECE3;
+  border-radius: 20px;
+}
+progress::-webkit-progress-value {
+  /* style rules */
+  border: 0;
+  background: #5EBFA2;
+  border-radius: 20px;
+}
+progress::-moz-progress-bar {
+  /* style rules */
+  border: 0;
+  background: #5EBFA2;
+  border-radius: 20px;
+}
+progress::-moz-progress-value {
+  /* style rules */
+  border: 0;
+  background: #5EBFA2;
+  border-radius: 20px;
 }
 
 .hidden--label{
