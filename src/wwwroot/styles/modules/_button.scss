@@ -86,9 +86,8 @@ $input--error--color: #FFF;
 
 	.button--size{
 		vertical-align: middle;
-
 		&.button--extra-small{
-			padding: toem(5px);
+			padding: toem(10px) toem(20px);
 			min-width: 100px;
 			font-size: $font-size-tiny;
 		}
@@ -168,7 +167,7 @@ $input--error--color: #FFF;
 			}
 		}
 		&.button--white{
-			background: transparent;
+			background: #FFF;
 			color: $suit-accent-color;
 			border-color: $suit-accent-color-light;
 			&:hover{

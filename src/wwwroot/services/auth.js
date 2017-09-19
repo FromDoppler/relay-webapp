@@ -11,9 +11,10 @@
     '$q',
     'jwtHelper',
     'RELAY_CONFIG',
-    '$rootScope'
+    '$rootScope',
+    'moment'
   ];
-  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope) {
+  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope, moment) {
 
     var authService = {
       saveToken: saveToken,
@@ -29,7 +30,8 @@
       forgotPassword: forgotPassword,
       resetPassword: resetPassword,
       getApiToken: getApiToken,
-      changePassword: changePassword
+      changePassword: changePassword,
+      getFreeTrialEndDate: getFreeTrialEndDate
     };
 
     var decodedToken = null;
@@ -212,6 +214,22 @@
           "old_password": old_pass,
           "password": newPass
         }
+      });
+    }
+
+    function getFreeTrialEndDate() {
+      return $http({
+        actionDescription: 'Gathering Free Trial end date',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + getAccountName()  + '/status/limits'
+      }).then(function (response) {
+        if (!response.data.freeTrialEndDate){
+          return null;
+        }
+        return moment(response.data.freeTrialEndDate).toDate();
+      })
+      .catch(function (reason) {
+        return $q.reject(reason);
       });
     }
   }

@@ -17,6 +17,8 @@
   ];
 
   function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route) {
+    $rootScope.freeTrialEndDate = auth.getFreeTrialEndDate;
+    
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
     };
