@@ -83,6 +83,25 @@
       $rootScope.isNewUser = false;
     }
 
+    if ($rootScope.isFreeTrialEnded) {
+      ModalService.showModal({
+        templateUrl: 'partials/modals/general-template.html',
+        controller: 'GeneralTemplateCtrl',
+        controllerAs: 'vm',
+        inputs: {
+          title: "free_trial_ended_popup_title",
+          mainText: "free_trial_ended_popup_subtitle",
+          buttonText: "free_trial_ended_popup_button_text",
+          action: redirectToPlanSelection
+        }
+        });
+        $rootScope.isFreeTrialEnded = false;
+    }
+
+    function redirectToPlanSelection() {
+      $location.path('/settings/my-plan');
+    }
+
     changeDateRange();
 
     function applyFilter () {

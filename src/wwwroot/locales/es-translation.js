@@ -407,6 +407,9 @@
   "contact_premium_plan_subject": "Consulta Doppler Relay Premium",
   "daily_limit_title": "Límite de envío diario",
   "daily_limit_used": "Consumo diario realizado",
+  "free_trial_ended_popup_title":"¡Oops!  Tu prueba gratuita ha expirado",
+  "free_trial_ended_popup_subtitle": "Has alcanzado los 30 días de tu prueba gratuita, si no quieres interrumpir la experiencia de tus clientes, contrata un plan y continúa enviando tus Emails Transaccionales.",
+  "free_trial_ended_popup_button_text": "¡Contrata un plan!"
   "free_trial_header_ended_text": "Tu prueba gratuita ha terminado, para continuar enviando tus Emails Transaccionales contrata un plan.",
   "upgrade_plan_exclamation": "¡Contrata ahora!",
   "free_trial_header_almost_ended_text" : "Tu prueba gratuita termina en {{ trialDaysLeft }} días, para seguir enviando tus emails transaccionales elige un plan.",
