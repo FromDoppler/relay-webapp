@@ -4,6 +4,13 @@ describe('Login page', () => {
   it('should show switch language message in inverse language', () => {
 
     // Arrange
+    browser.addMockModule('descartableModule', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run($httpBackend => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+    }));
     var loginPage = new LoginPage();
     var inEnglish = "Speak English? Change it here";
     var inSpanish = "¿Hablas Español? Cámbialo aquí";
@@ -38,6 +45,9 @@ describe('Login page', () => {
         $httpBackend.whenPUT(/\/user\/password\/recover/).respond(201, {
           'message': 'We have sent an email to your email address to continue with the registration process...'
         });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "data" : ""
+       });
       }));
 
     var loginPage = new LoginPage();
