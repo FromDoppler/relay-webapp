@@ -396,5 +396,6 @@
   "free_trial_header_ended_text": "Your Free Trial has ended, please to keep sending your transactional emails do an upgrade.",
   "upgrade_plan_exclamation": "Upgrade now!",
   "free_trial_header_almost_ended_text" : "Your free trial is ending in {{ trialDaysLeft }} days, please to keep sending your transactional emails do an upgrade.",
-  "free_trial_header_trial_text": "Your account is on the free trial version, if need to send more emails choose a plan."
+  "free_trial_header_end_today_text" : "Your free trial is ending today, please to keep sending your transactional emails do an upgrade.",
+  "free_trial_header_trial_text": "Your account is on the free trial version, if you need to send more emails choose a plan."
 };

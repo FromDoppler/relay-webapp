@@ -13,11 +13,12 @@
     'auth',
     '$log',
     'ModalService',
-    '$route'
+    '$route',
+    '$interval'
   ];
 
-  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route) {
-    $rootScope.freeTrialEndDate = auth.getFreeTrialEndDate;
+  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval) {
+    $rootScope.getFreeTrialEndDate = auth.getFreeTrialEndDate;
     
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
@@ -26,6 +27,51 @@
     $rootScope.getTermsAndConditionsVersion = function () {
       return 1;
     };
+     
+    var loaderFreeTrial = function () {
+      auth.updateLocalStorage().then(function(freeTrialEndDate){
+        UpdateTrialHeader(freeTrialEndDate);
+      });
+    }
+    loaderFreeTrial();
+    $interval(loaderFreeTrial, 10000);
+
+
+  function UpdateTrialHeader(freeTrialEndDate) {
+    $rootScope.isFreeTrialEnded = false;
+    $rootScope.isFreeTrialAlmostEnded = false;
+    $rootScope.isFreeTrialHeader = false;
+    $rootScope.isFreeTrialEndToday = false;    
+    var todayDate = moment().toDate();
+    var daysLeft = moment(freeTrialEndDate).diff(todayDate, "days");
+    $rootScope.isFreeTrialHeader = !!freeTrialEndDate.freeTrialEndDate;
+    $rootScope.trialDaysLeft = daysLeft;
+
+    if (moment(freeTrialEndDate) <= todayDate) {
+      $rootScope.isFreeTrialEnded = true;
+      $rootScope.isFreeTrialAlmostEnded = false;
+      $rootScope.showFreeTrialHeader = false;
+      $rootScope.isFreeTrialEndToday = false;
+    }
+    if (daysLeft <= 10 && daysLeft > 0) {
+      $rootScope.isFreeTrialAlmostEnded = true;
+      $scope.isFreeTrialEnded = false;
+      $scope.showFreeTrialHeader = false;
+      $rootScope.isFreeTrialEndToday = false;
+    }
+    if (daysLeft == 0) {
+      $rootScope.isFreeTrialEndToday = true;
+      $rootScope.isFreeTrialAlmostEnded = false;
+      $scope.isFreeTrialEnded = false;
+      $scope.showFreeTrialHeader = false;
+    }
+    if (freeTrialEndDate && !$rootScope.isFreeTrialEnded && !$rootScope.isFreeTrialAlmostEnded && daysLeft != 0) {
+      $rootScope.showFreeTrialHeader = true;
+      $rootScope.isFreeTrialEnded = false;
+      $rootScope.isFreeTrialAlmostEnded = false;
+      $rootScope.isFreeTrialEndToday = false;
+    }
+}
 
     $rootScope.getAccountName = auth.getAccountName;
     $rootScope.getFullName = auth.getFullName;

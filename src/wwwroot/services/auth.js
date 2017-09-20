@@ -31,7 +31,7 @@
       resetPassword: resetPassword,
       getApiToken: getApiToken,
       changePassword: changePassword,
-      getFreeTrialEndDate: getFreeTrialEndDate
+      updateLocalStorage: updateLocalStorage
     };
 
     var decodedToken = null;
@@ -217,20 +217,37 @@
       });
     }
 
-    function getFreeTrialEndDate() {
+    function getLimitsByAccount() {
       return $http({
         actionDescription: 'Gathering Free Trial end date',
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + getAccountName()  + '/status/limits'
       }).then(function (response) {
-        if (!response.data.freeTrialEndDate){
-          return null;
-        }
-        return moment(response.data.freeTrialEndDate).toDate();
-      })
-      .catch(function (reason) {
-        return $q.reject(reason);
+        return response;
       });
+    }
+
+    function updateLocalStorage() {
+      return getLimitsByAccount().then(function(limits) {        
+      var freeTrialEndDate = getStoreInStorage('FreeTrialExpiredNotificatedOn');
+      if (!freeTrialEndDate) {
+        storeInStorage(limits.freeTrialEndDate);
+        return getStoreInStorage('FreeTrialExpiredNotificatedOn');
+      }
+      if (limits.freeTrialEndDate != freeTrialEndDate) {
+        storeInStorage(limits.freeTrialEndDate);
+        return getStoreInStorage('FreeTrialExpiredNotificatedOn');
+      }
+      return freeTrialEndDate;
+      });
+    }
+
+    function storeInStorage(key) {
+      $window.localStorage.setItem('FreeTrialExpiredNotificatedOn', key);
+    }
+
+    function getStoreInStorage(key) {
+      return $window.localStorage.getItem(key);
     }
   }
 })();

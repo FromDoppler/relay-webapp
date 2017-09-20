@@ -410,5 +410,6 @@
   "free_trial_header_ended_text": "Tu prueba gratuita ha terminado, para continuar enviando tus Emails Transaccionales contrata un plan.",
   "upgrade_plan_exclamation": "¡Contrata ahora!",
   "free_trial_header_almost_ended_text" : "Tu prueba gratuita termina en {{ trialDaysLeft }} días, para seguir enviando tus emails transaccionales elige un plan.",
+  "free_trial_header_end_today_text" : "Tu prueba gratuita termina hoy, para seguir enviando tus emails transaccionales elige un plan.",
   "free_trial_header_trial_text": "Tu cuenta se encuentra en la versión de prueba gratuita, si necesitas enviar más emails elige un plan."
 };
