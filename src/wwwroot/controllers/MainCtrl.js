@@ -28,8 +28,10 @@
       return 1;
     };
      
+    $rootScope.modalOpened = false;
+    
     var loaderFreeTrial = function () {
-      auth.getLimitsByAccount().then(function(limits){          
+      auth.getLimitsByAccount().then(function(limits){
         if (limits.freeTrialEndDate) {
           UpdateTrialHeader(limits.freeTrialEndDate);
         }
@@ -40,7 +42,7 @@
 
     $rootScope.freeTrialStatus = null;
 
-  function UpdateTrialHeader(freeTrialEndDate) {    
+  function UpdateTrialHeader(freeTrialEndDate) {
     if (!freeTrialEndDate) {
       $rootScope.freeTrialStatus = null;
       return;
@@ -63,7 +65,22 @@
         isFreeTrialAlmostEnded : false,
         isFreeTrialEndToday : false
       }
-      
+      if(!auth.getFreeTrialNotificationFromStorage() && !$rootScope.modalOpened) {
+        $rootScope.modalOpened = true;
+        ModalService.showModal({
+          templateUrl: 'partials/modals/general-template.html',
+          controller: 'GeneralTemplateCtrl',
+          controllerAs: 'vm',
+          inputs: {
+            title: "free_trial_ended_popup_title",
+            mainText: "free_trial_ended_popup_subtitle",
+            buttonText: "free_trial_ended_popup_button_text",
+            action: freeTrialNotificated
+          }
+        }).then(function (modal) {
+          modal.close.then(toggleModalStatus);
+        });
+      }
     }
     if (daysLeft <= 10 && daysLeft > 0) {
       $rootScope.freeTrialStatus = {
@@ -81,6 +98,15 @@
         isFreeTrialEndToday : true
       }
     }
+
+    function freeTrialNotificated () {
+      auth.addFreeTrialNotificationToStorage(todayDate);
+      $location.path('/settings/my-plan');
+    }
+    function toggleModalStatus() {
+      $rootScope.modalOpened = false;
+    }         
+    
 }
 
     $rootScope.getAccountName = auth.getAccountName;

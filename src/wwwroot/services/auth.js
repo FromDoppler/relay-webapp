@@ -31,7 +31,9 @@
       resetPassword: resetPassword,
       getApiToken: getApiToken,
       changePassword: changePassword,  
-      getLimitsByAccount: getLimitsByAccount
+      getLimitsByAccount: getLimitsByAccount,
+      getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
+      addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage
     };
 
     var decodedToken = null;
@@ -223,6 +225,14 @@
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + getAccountName()  + '/status/limits'
       });
+    }   
+
+    function addFreeTrialNotificationToStorage(date) {
+      $window.localStorage.setItem('freeTrialNotificationOn', date);
+    }
+
+    function getFreeTrialNotificationFromStorage() {
+      return $window.localStorage.getItem('freeTrialNotificationOn');
     }
   }
 })();

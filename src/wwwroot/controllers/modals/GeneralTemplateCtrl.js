@@ -27,6 +27,7 @@
         return;
       }
       action();
+      close();
     };
   }
 })();

@@ -395,7 +395,7 @@
   "daily_limit_used": "Emails sent today",
   "free_trial_ended_popup_title":"Your free trial has expired!",
   "free_trial_ended_popup_subtitle": "You’ve completed your 30 Days Free Trial. If you don’t want to interrupt your customers’ experience please do an upgrade and keep sending your transactional emails.",
-  "free_trial_ended_popup_button_text": "Do the upgrade!"
+  "free_trial_ended_popup_button_text": "Do the upgrade!",
   "free_trial_header_ended_text": "Your Free Trial has ended, please to keep sending your transactional emails do an upgrade.",
   "upgrade_plan_exclamation": "Upgrade now!",
   "free_trial_header_almost_ended_text" : "Your free trial is ending in {{ trialDaysLeft }} days, please to keep sending your transactional emails do an upgrade.",
