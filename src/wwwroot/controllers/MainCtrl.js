@@ -29,47 +29,57 @@
     };
      
     var loaderFreeTrial = function () {
-      auth.updateLocalStorage().then(function(freeTrialEndDate){
-        UpdateTrialHeader(freeTrialEndDate);
+      auth.getLimitsByAccount().then(function(limits){          
+        if (limits.freeTrialEndDate) {
+          UpdateTrialHeader(limits.freeTrialEndDate);
+        }
       });
     }
     loaderFreeTrial();
     $interval(loaderFreeTrial, 10000);
 
+    $rootScope.freeTrialStatus = null;
 
-  function UpdateTrialHeader(freeTrialEndDate) {
-    $rootScope.isFreeTrialEnded = false;
-    $rootScope.isFreeTrialAlmostEnded = false;
-    $rootScope.isFreeTrialHeader = false;
-    $rootScope.isFreeTrialEndToday = false;    
+  function UpdateTrialHeader(freeTrialEndDate) {    
+    if (!freeTrialEndDate) {
+      $rootScope.freeTrialStatus = null;
+      return;
+    }
+
     var todayDate = moment().toDate();
     var daysLeft = moment(freeTrialEndDate).diff(todayDate, "days");
-    $rootScope.isFreeTrialHeader = !!freeTrialEndDate.freeTrialEndDate;
-    $rootScope.trialDaysLeft = daysLeft;
+
+    $rootScope.freeTrialStatus = {
+      trialDaysLeft : daysLeft,
+      isFreeTrialEnded : false,
+      isFreeTrialAlmostEnded : false,
+      isFreeTrialEndToday : false
+    }
 
     if (moment(freeTrialEndDate) <= todayDate) {
-      $rootScope.isFreeTrialEnded = true;
-      $rootScope.isFreeTrialAlmostEnded = false;
-      $rootScope.showFreeTrialHeader = false;
-      $rootScope.isFreeTrialEndToday = false;
+      $rootScope.freeTrialStatus = {
+        trialDaysLeft : daysLeft,
+        isFreeTrialEnded : true,
+        isFreeTrialAlmostEnded : false,
+        isFreeTrialEndToday : false
+      }
+      
     }
     if (daysLeft <= 10 && daysLeft > 0) {
-      $rootScope.isFreeTrialAlmostEnded = true;
-      $scope.isFreeTrialEnded = false;
-      $scope.showFreeTrialHeader = false;
-      $rootScope.isFreeTrialEndToday = false;
+      $rootScope.freeTrialStatus = {
+        trialDaysLeft : daysLeft,
+        isFreeTrialEnded : false,
+        isFreeTrialAlmostEnded : true,
+        isFreeTrialEndToday : false
+      }
     }
     if (daysLeft == 0) {
-      $rootScope.isFreeTrialEndToday = true;
-      $rootScope.isFreeTrialAlmostEnded = false;
-      $scope.isFreeTrialEnded = false;
-      $scope.showFreeTrialHeader = false;
-    }
-    if (freeTrialEndDate && !$rootScope.isFreeTrialEnded && !$rootScope.isFreeTrialAlmostEnded && daysLeft != 0) {
-      $rootScope.showFreeTrialHeader = true;
-      $rootScope.isFreeTrialEnded = false;
-      $rootScope.isFreeTrialAlmostEnded = false;
-      $rootScope.isFreeTrialEndToday = false;
+      $rootScope.freeTrialStatus = {
+        trialDaysLeft : daysLeft,
+        isFreeTrialEnded : false,
+        isFreeTrialAlmostEnded : false,
+        isFreeTrialEndToday : true
+      }
     }
 }
 

@@ -30,8 +30,8 @@
       forgotPassword: forgotPassword,
       resetPassword: resetPassword,
       getApiToken: getApiToken,
-      changePassword: changePassword,
-      updateLocalStorage: updateLocalStorage
+      changePassword: changePassword,  
+      getLimitsByAccount: getLimitsByAccount
     };
 
     var decodedToken = null;
@@ -225,29 +225,6 @@
       }).then(function (response) {
         return response;
       });
-    }
-
-    function updateLocalStorage() {
-      return getLimitsByAccount().then(function(limits) {        
-      var freeTrialEndDate = getStoreInStorage('FreeTrialExpiredNotificatedOn');
-      if (!freeTrialEndDate) {
-        storeInStorage(limits.freeTrialEndDate);
-        return getStoreInStorage('FreeTrialExpiredNotificatedOn');
-      }
-      if (limits.freeTrialEndDate != freeTrialEndDate) {
-        storeInStorage(limits.freeTrialEndDate);
-        return getStoreInStorage('FreeTrialExpiredNotificatedOn');
-      }
-      return freeTrialEndDate;
-      });
-    }
-
-    function storeInStorage(key) {
-      $window.localStorage.setItem('FreeTrialExpiredNotificatedOn', key);
-    }
-
-    function getStoreInStorage(key) {
-      return $window.localStorage.getItem(key);
     }
   }
 })();
