@@ -18,7 +18,6 @@
   ];
 
   function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval) {
-    $rootScope.getFreeTrialEndDate = auth.getFreeTrialEndDate;
     
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
@@ -28,10 +27,13 @@
       return 1;
     };
      
+    var freeTrialNotification = auth.getFreeTrialNotificationFromStorage();
+    var modalOpened = false;
+    
     var loaderFreeTrial = function () {
-      auth.getLimitsByAccount().then(function(limits){          
+      auth.getLimitsByAccount().then(function(limits){
         if (limits.freeTrialEndDate) {
-          UpdateTrialHeader(limits.freeTrialEndDate);
+          UpdateTrialHeader(moment(limits.freeTrialEndDate).toDate());
         }
       });
     }
@@ -40,12 +42,11 @@
 
     $rootScope.freeTrialStatus = null;
 
-  function UpdateTrialHeader(freeTrialEndDate) {    
+  function UpdateTrialHeader(freeTrialEndDate) {
     if (!freeTrialEndDate) {
       $rootScope.freeTrialStatus = null;
       return;
     }
-
     var todayDate = moment().toDate();
     var daysLeft = moment(freeTrialEndDate).diff(todayDate, "days");
 
@@ -56,14 +57,35 @@
       isFreeTrialEndToday : false
     }
 
-    if (moment(freeTrialEndDate) <= todayDate) {
+    if (freeTrialEndDate <= todayDate) {
       $rootScope.freeTrialStatus = {
         trialDaysLeft : daysLeft,
         isFreeTrialEnded : true,
         isFreeTrialAlmostEnded : false,
         isFreeTrialEndToday : false
       }
-      
+
+      if (!modalOpened) {        
+        if(!freeTrialNotification || freeTrialNotification <= freeTrialEndDate) {
+          modalOpened = true;
+          ModalService.showModal({
+            templateUrl: 'partials/modals/general-template.html',
+            controller: 'GeneralTemplateCtrl',
+            controllerAs: 'vm',
+            inputs: {
+              title: "free_trial_ended_popup_title",
+              mainText: "free_trial_ended_popup_subtitle",
+              buttonText: "free_trial_ended_popup_button_text",
+              action: freeTrialNotificated
+            }
+          }).then(function (modal) {
+            modal.close.then(function() {
+              modalOpened = false;
+              $location.path('/settings/my-plan');
+            });
+          });
+        }
+      }
     }
     if (daysLeft <= 10 && daysLeft > 0) {
       $rootScope.freeTrialStatus = {
@@ -81,6 +103,12 @@
         isFreeTrialEndToday : true
       }
     }
+
+    function freeTrialNotificated () {
+      auth.addFreeTrialNotificationToStorage(todayDate);
+      freeTrialNotification = todayDate;
+    }
+    
 }
 
     $rootScope.getAccountName = auth.getAccountName;

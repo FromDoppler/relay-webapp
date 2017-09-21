@@ -176,7 +176,8 @@
         inputs: {
           title: "success_upgrade_title",
           mainText: "success_upgrade_text",
-          buttonText: "success_upgrade_button"
+          buttonText: "success_upgrade_button",
+          action: null
         }
         })
         .then(function (modal) {
