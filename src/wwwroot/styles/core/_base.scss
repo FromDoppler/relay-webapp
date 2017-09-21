@@ -55,6 +55,12 @@ p.main--subtitle{
   &.with-submenu{
     min-height: calc(100vh - 247px);
   }
+  &.with-free-trial-submenu{
+    min-height: calc(100vh - 260px);
+  }
+  &.with-submenu-and-free-trial{
+    min-height: calc(100vh - 287px);
+  }
   .selectize-input.selectize-focus {
     border-color: #C0BCB8 !important;
     background-color: #fff !important;

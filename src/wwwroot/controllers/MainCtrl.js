@@ -13,10 +13,13 @@
     'auth',
     '$log',
     'ModalService',
-    '$route'
+    '$route',
+    '$interval'
   ];
 
-  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route) {
+  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval) {
+    $rootScope.getFreeTrialEndDate = auth.getFreeTrialEndDate;
+    
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
     };
@@ -24,6 +27,61 @@
     $rootScope.getTermsAndConditionsVersion = function () {
       return 1;
     };
+     
+    var loaderFreeTrial = function () {
+      auth.getLimitsByAccount().then(function(limits){          
+        if (limits.freeTrialEndDate) {
+          UpdateTrialHeader(limits.freeTrialEndDate);
+        }
+      });
+    }
+    loaderFreeTrial();
+    $interval(loaderFreeTrial, 10000);
+
+    $rootScope.freeTrialStatus = null;
+
+  function UpdateTrialHeader(freeTrialEndDate) {    
+    if (!freeTrialEndDate) {
+      $rootScope.freeTrialStatus = null;
+      return;
+    }
+
+    var todayDate = moment().toDate();
+    var daysLeft = moment(freeTrialEndDate).diff(todayDate, "days");
+
+    $rootScope.freeTrialStatus = {
+      trialDaysLeft : daysLeft,
+      isFreeTrialEnded : false,
+      isFreeTrialAlmostEnded : false,
+      isFreeTrialEndToday : false
+    }
+
+    if (moment(freeTrialEndDate) <= todayDate) {
+      $rootScope.freeTrialStatus = {
+        trialDaysLeft : daysLeft,
+        isFreeTrialEnded : true,
+        isFreeTrialAlmostEnded : false,
+        isFreeTrialEndToday : false
+      }
+      
+    }
+    if (daysLeft <= 10 && daysLeft > 0) {
+      $rootScope.freeTrialStatus = {
+        trialDaysLeft : daysLeft,
+        isFreeTrialEnded : false,
+        isFreeTrialAlmostEnded : true,
+        isFreeTrialEndToday : false
+      }
+    }
+    if (daysLeft == 0) {
+      $rootScope.freeTrialStatus = {
+        trialDaysLeft : daysLeft,
+        isFreeTrialEnded : false,
+        isFreeTrialAlmostEnded : false,
+        isFreeTrialEndToday : true
+      }
+    }
+}
 
     $rootScope.getAccountName = auth.getAccountName;
     $rootScope.getFullName = auth.getFullName;

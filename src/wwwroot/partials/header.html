@@ -1,4 +1,20 @@
 ﻿      <!--<a ng-click="logOut()">Log Out</a>-->
+<section class="header free-trial ms-relay" ng-if="freeTrialStatus">
+  <div class="flex flex--center">
+    <p>
+      <strong>
+        <span ng-show="freeTrialStatus.isFreeTrialEnded">{{'free_trial_header_ended_text' | translate}}</span>
+        <span ng-show="freeTrialStatus.isFreeTrialAlmostEnded">{{'free_trial_header_almost_ended_text' | translate:{trialDaysLeft:freeTrialStatus.trialDaysLeft} }}</span>
+        <span ng-show="freeTrialStatus.isFreeTrialEndToday">{{'free_trial_header_end_today_text' | translate}}</span>
+        <span ng-show="!freeTrialStatus.isFreeTrialEnded && !freeTrialStatus.isFreeTrialAlmostEnded && !freeTrialStatus.isFreeTrialEndToday">{{'free_trial_header_trial_text' | translate}}</span>
+      </strong>
+    </p>
+    <a class="button button--extra-small button--white" href="#/settings/my-plan">
+      <strong>{{'upgrade_plan_exclamation' | translate}}</strong>
+    </a>
+  </div>
+</section>
+
 <section class="header no-padding ms-relay" ng-class="isPermanentAuthed() ? 'logged' : 'login'">
   <div class="section--wrapper">
     <nav>

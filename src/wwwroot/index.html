@@ -39,7 +39,7 @@
 </head>
 <body ng-controller="MainCtrl">
   <header id="header" ng-controller="HeaderCtrl" ng-class="{true: 'logged',false: 'login'}[isAuthed()]" ng-include="'partials/header.html'"></header>
-  <main class="main-container ms-relay" ng-view ng-class="isSubmenuVisible() ? 'with-submenu': ''"></main>
+  <main class="main-container ms-relay" ng-view ng-class="[{true: 'with-submenu'}[isSubmenuVisible()],{true:'with-submenu-and-free-trial',false:'with-free-trial-submenu'}[isSubmenuVisible() && isFreeTrial()]]"></main>
   <footer id="footer" class="footer" ng-include="'partials/footer.html'"></footer>
   <!-- inject:js -->
   <!-- When you update it, please remember to edit karma.conf.js and gulpfile.js -->

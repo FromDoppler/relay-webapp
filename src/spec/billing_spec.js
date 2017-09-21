@@ -66,6 +66,9 @@ describe('Billing Page', () => {
           ]
         });
        $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]);
+       $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+         "data" : ""
+      });
       }));
   }
 
