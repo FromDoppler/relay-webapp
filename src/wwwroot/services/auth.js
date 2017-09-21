@@ -232,7 +232,7 @@
     }
 
     function getFreeTrialNotificationFromStorage() {
-      return $window.localStorage.getItem('freeTrialNotificationOn');
+      return moment($window.localStorage.getItem('freeTrialNotificationOn')).toDate();
     }
   }
 })();

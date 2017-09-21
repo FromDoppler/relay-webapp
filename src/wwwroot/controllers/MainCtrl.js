@@ -18,7 +18,6 @@
   ];
 
   function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval) {
-    $rootScope.getFreeTrialEndDate = auth.getFreeTrialEndDate;
     
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
@@ -28,13 +27,13 @@
       return 1;
     };
      
-    $rootScope.getFreeTrialNotificationFromStorage = auth.getFreeTrialNotificationFromStorage();
+    var freeTrialNotification = auth.getFreeTrialNotificationFromStorage();
     var modalOpened = false;
     
     var loaderFreeTrial = function () {
       auth.getLimitsByAccount().then(function(limits){
         if (limits.freeTrialEndDate) {
-          UpdateTrialHeader(limits.freeTrialEndDate);
+          UpdateTrialHeader(moment(limits.freeTrialEndDate).toDate());
         }
       });
     }
@@ -48,7 +47,6 @@
       $rootScope.freeTrialStatus = null;
       return;
     }
-
     var todayDate = moment().toDate();
     var daysLeft = moment(freeTrialEndDate).diff(todayDate, "days");
 
@@ -59,19 +57,16 @@
       isFreeTrialEndToday : false
     }
 
-    if (moment(freeTrialEndDate) <= todayDate) {
+    if (freeTrialEndDate <= todayDate) {
       $rootScope.freeTrialStatus = {
         trialDaysLeft : daysLeft,
         isFreeTrialEnded : true,
         isFreeTrialAlmostEnded : false,
         isFreeTrialEndToday : false
       }
-      console.log(moment($rootScope.getFreeTrialNotificationFromStorage).toDate());
-      console.log( moment(freeTrialEndDate).toDate());
-      console.log(moment($rootScope.getFreeTrialNotificationFromStorage) <= moment(freeTrialEndDate));
+
       if (!modalOpened) {        
-        if(!$rootScope.getFreeTrialNotificationFromStorage || moment($rootScope.getFreeTrialNotificationFromStorage).toDate() <= moment(freeTrialEndDate).toDate()) {
-          console.log(modalOpened);
+        if(!freeTrialNotification || freeTrialNotification <= freeTrialEndDate) {
           modalOpened = true;
           ModalService.showModal({
             templateUrl: 'partials/modals/general-template.html',
@@ -86,6 +81,7 @@
           }).then(function (modal) {
             modal.close.then(function() {
               modalOpened = false;
+              $location.path('/settings/my-plan');
             });
           });
         }
@@ -110,8 +106,7 @@
 
     function freeTrialNotificated () {
       auth.addFreeTrialNotificationToStorage(todayDate);
-      $rootScope.getFreeTrialNotificationFromStorage = auth.getFreeTrialNotificationFromStorage();
-      $location.path('/settings/my-plan');
+      freeTrialNotification = todayDate;
     }
     
 }
