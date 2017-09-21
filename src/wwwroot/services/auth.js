@@ -222,8 +222,6 @@
         actionDescription: 'Gathering Free Trial end date',
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + getAccountName()  + '/status/limits'
-      }).then(function (response) {
-        return response;
       });
     }
   }
