@@ -31,11 +31,13 @@
     var modalOpened = false;
     
     var loaderFreeTrial = function () {
-      auth.getLimitsByAccount().then(function(limits){
-        if (limits.freeTrialEndDate) {
-          UpdateTrialHeader(moment(limits.freeTrialEndDate).toDate());
-        }
-      });
+      if (auth.getUserName() != null) {
+        auth.getLimitsByAccount().then(function(limits) {
+          if (limits.freeTrialEndDate) {
+            UpdateTrialHeader(moment(limits.freeTrialEndDate).toDate());
+          }
+        });
+      }
     }
     loaderFreeTrial();
     $interval(loaderFreeTrial, 10000);
