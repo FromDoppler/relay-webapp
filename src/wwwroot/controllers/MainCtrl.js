@@ -33,8 +33,8 @@
     var loaderFreeTrial = function () {
       if (auth.getUserName() != null) {
         auth.getLimitsByAccount().then(function(limits) {
-          if (limits.freeTrialEndDate) {
-            UpdateTrialHeader(moment(limits.freeTrialEndDate).toDate());
+          if (limits.data.freeTrialEndDate) {
+            UpdateTrialHeader(moment(limits.data.freeTrialEndDate).toDate());
           }
         });
       }
