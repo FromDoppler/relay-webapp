@@ -25,11 +25,23 @@ describe('Reports page', () => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
           "items": []
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries\//).respond(200, {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
           "items": []
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
           "items": [ { "dropped": 3 }, { "dropped": 2 } ]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "daily": {
+            "limit": 400,
+            "remaining": 400,
+            "reset": "2017-09-16T00:00:00Z"
+          },
+          "hourly": {
+            "limit": 200,
+            "remaining": 200,
+            "reset": "2017-09-15T16:00:00Z"
+          }
         });
       }));
     var reportsPage = new ReportsPage();
@@ -52,11 +64,23 @@ describe('Reports page', () => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
           "items": []
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries\//).respond(200, {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
           "items": []
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
           "items": [ { "dropped": 0 }, { "dropped": 0 } ]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "daily": {
+            "limit": 400,
+            "remaining": 400,
+            "reset": "2017-09-16T00:00:00Z"
+          },
+          "hourly": {
+            "limit": 200,
+            "remaining": 200,
+            "reset": "2017-09-15T16:00:00Z"
+          }
         });
       }));
     var reportsPage = new ReportsPage();
@@ -79,11 +103,23 @@ describe('Reports page', () => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
           "items": []
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries\//).respond(200, {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
           "items": []
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
           "items": [{'total': 4, 'sent': 1, 'dropped': 1 }, {'total': 6, 'sent': 4, 'dropped': 2 }]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "daily": {
+            "limit": 400,
+            "remaining": 400,
+            "reset": "2017-09-16T00:00:00Z"
+          },
+          "hourly": {
+            "limit": 200,
+            "remaining": 200,
+            "reset": "2017-09-15T16:00:00Z"
+          }
         });
       }));
     var reportsPage = new ReportsPage();
@@ -107,11 +143,23 @@ describe('Reports page', () => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
           "items": []
         });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries\//).respond(200, {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
           "items": []
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
           "items": [{ 'total': 4, 'sent': 2, 'dropped': 0 }, { 'total': 6, 'sent': 6, 'dropped': 0 }]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "daily": {
+            "limit": 400,
+            "remaining": 400,
+            "reset": "2017-09-16T00:00:00Z"
+          },
+          "hourly": {
+            "limit": 200,
+            "remaining": 200,
+            "reset": "2017-09-15T16:00:00Z"
+          }
         });
       }));
     var reportsPage = new ReportsPage();
@@ -122,5 +170,74 @@ describe('Reports page', () => {
     // Assert
     expect(reportsPage.getDroppedEl()).toEqual('0');
     expect(reportsPage.getDeliverabilityPercentage()).toEqual('80.00%');
+  });
+
+  it('should show the daily limits for accounts that have limits ', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
+          "items": []
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
+          "items": []
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
+          "items": [{ 'total': 4, 'sent': 2, 'dropped': 0 }, { 'total': 6, 'sent': 6, 'dropped': 0 }]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "daily": {
+            "limit": 400,
+            "remaining": 400,
+            "reset": "2017-09-16T00:00:00Z"
+          },
+          "hourly": {
+            "limit": 200,
+            "remaining": 200,
+            "reset": "2017-09-15T16:00:00Z"
+          }
+        });
+      }));
+    var reportsPage = new ReportsPage();
+
+    // Act
+    browser.get('/#/reports');
+
+    // Assert
+    expect(reportsPage.isMaxRateDailyLimitDisplayed()).toEqual(true);
+  });
+
+  it('should not show the daily limits for accounts that do not have limits', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
+          "items": []
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
+          "items": []
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
+          "items": [{ 'total': 4, 'sent': 2, 'dropped': 0 }, { 'total': 6, 'sent': 6, 'dropped': 0 }]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "noLimits": true,
+        });
+      }));
+    var reportsPage = new ReportsPage();
+
+    // Act
+    browser.get('/#/reports');
+
+    // Assert
+    expect(reportsPage.isMaxRateDailyLimitDisplayed()).toEqual(false);
   });
 });

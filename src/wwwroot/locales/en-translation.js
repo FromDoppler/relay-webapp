@@ -390,5 +390,7 @@
   "vip_support_text": "VIP Support",
   "account_manager_text": "Account manager",
   "contact_us_text": "Contact Us",
-  "contact_premium_plan_subject": "Doppler Relay Premium Quote"
+  "contact_premium_plan_subject": "Doppler Relay Premium Quote",
+  "daily_limit_title": "Daily sending limit",
+  "daily_limit_used": "Emails sent today"
 };

@@ -404,5 +404,7 @@
   "vip_support_text": "Soporte VIP",
   "account_manager_text": "Ejecutivo de cuenta exclusivo",
   "contact_us_text": "Contáctanos",
-  "contact_premium_plan_subject": "Consulta Doppler Relay Premium"
+  "contact_premium_plan_subject": "Consulta Doppler Relay Premium",
+  "daily_limit_title": "Límite de envío diario",
+  "daily_limit_used": "Consumo diario realizado"
 };

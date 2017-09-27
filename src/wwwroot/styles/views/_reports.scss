@@ -158,11 +158,24 @@
   }
 }
 
-/* TODO: ask Santi to take a look at this since is breaking sass gulp task
-@include keyframes(loading-animation) {
-  0% {transform:rotate(0deg);}
-  100% {transform:rotate(-360deg);}
-}*/
+.section--wrapper-flex {
+  &.send--limits-container {
+    flex-wrap: wrap;
+    div.one {
+      h2 {
+        margin-right: .5rem;
+      }
+      h5 { color: $suit-font-color-light;}
+      border: $suit-border-default;
+      border-radius: 3px;
+      padding: 1.5em;
+    }
+    div.one:last-of-type {
+      margin-left: 1rem;
+      padding: 0.85em 1.5em;
+    }
+  }
+}
 
 
 @media screen and (max-width: 768px) {
@@ -193,6 +206,21 @@
 
   .box{
     @include stack();
+  }
+
+  .section--wrapper-flex {
+    max-width: 95%;
+    &.send--limits-container {      
+      div.one {
+        padding: 1em 0.5em;
+        min-width: 100%;
+      }
+      div.one:last-of-type {
+        margin-top: 1em; 
+        margin-left: 0; 
+        flex-wrap: wrap;
+      }
+    }
   }
 
 }

@@ -23,7 +23,8 @@
       getReportRequests: getReportRequests,
       createReportRequest: createReportRequest,
       getDeliveriesAggregations: getDeliveriesAggregations,
-      getEventsAggregations: getEventsAggregations
+      getEventsAggregations: getEventsAggregations,
+      getStatusPlanLimits: getStatusPlanLimits
     };
 
     return reportsService;
@@ -189,6 +190,20 @@
         method: 'POST',
         url: RELAY_CONFIG.baseUrl + '/reports/reportrequest',
         data: data
+      });
+    }
+
+    function getStatusPlanLimits(reportRequest) {
+      return $http({
+        actionDescription: 'Gathering status plan',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName()  + '/status/limits'
+      }).then(function (response) {
+        return (response.data);
+      })
+      .catch(function (reason) {
+        $log.error(reason.error.detail);
+        return $q.reject(reason);
       });
     }
 
