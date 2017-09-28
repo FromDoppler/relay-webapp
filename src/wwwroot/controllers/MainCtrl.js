@@ -74,14 +74,19 @@
               title: "free_trial_ended_popup_title",
               mainText: "free_trial_ended_popup_subtitle",
               buttonText: "free_trial_ended_popup_button_text",
-              action: freeTrialNotificated
+              action: function() {
+                $location.path('/settings/my-plan');
+              }
             }
           }).then(function (modal) {
             modal.close.then(function() {
               modalOpened = false;
-              $location.path('/settings/my-plan');
             });
           });
+
+          // Store it as soon it is shown
+          auth.addFreeTrialNotificationToStorage(todayDate);
+          freeTrialNotification = todayDate;
         }
       }
     }
@@ -101,12 +106,6 @@
         isFreeTrialEndToday : true
       }
     }
-
-    function freeTrialNotificated () {
-      auth.addFreeTrialNotificationToStorage(todayDate);
-      freeTrialNotification = todayDate;
-    }
-    
 }
 
     $rootScope.getAccountName = auth.getAccountName;
