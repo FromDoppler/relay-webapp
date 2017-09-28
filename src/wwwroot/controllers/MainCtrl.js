@@ -30,13 +30,13 @@
     var freeTrialNotification = auth.getFreeTrialNotificationFromStorage();
     var modalOpened = false;
     
-    var loaderFreeTrial = function () {
+    var loadLimits = function () {
       auth.getLimitsByAccount().then(function(limit) {
         UpdateTrialHeader(limit.endDate);
       });
     }
-    loaderFreeTrial();
-    $interval(loaderFreeTrial, 10000);
+    loadLimits();
+    $interval(loadLimits, 10000);
 
     $rootScope.freeTrialStatus = null;
 
