@@ -31,12 +31,9 @@
     var modalOpened = false;
     
     var loaderFreeTrial = function () {
-      if (auth.getUserName() != null) {
-        auth.getLimitsByAccount()
-        .then(function(limit) {
-          UpdateTrialHeader(limit.endDate);
-        });
-      }
+      auth.getLimitsByAccount().then(function(limit) {
+        UpdateTrialHeader(limit.endDate);
+      });
     }
     loaderFreeTrial();
     $interval(loaderFreeTrial, 10000);

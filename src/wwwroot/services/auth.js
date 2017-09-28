@@ -220,10 +220,17 @@
     }
 
     function getLimitsByAccount() {
+      var accountName = getAccountName();
+
+      if (!accountName) {
+        // limits have no sense in this scenario
+        return $q.when({});
+      }
+
       return $http({
         actionDescription: 'Gathering Free Trial end date',
         method: 'GET',
-        url: RELAY_CONFIG.baseUrl + '/accounts/' + getAccountName()  + '/status/limits'
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountName  + '/status/limits'
       })
       .then(function (response) {
         return {
