@@ -271,7 +271,11 @@
     }
 
     function getFreeTrialNotificationFromStorage() {
-      return moment($window.localStorage.getItem('freeTrialNotificationOn')).toDate();
+      var storedData = $window.localStorage.getItem('freeTrialNotificationOn');
+      if (!storedData) {
+        return null;
+      }
+      return moment(storedData).toDate();
     }
   }
 })();
