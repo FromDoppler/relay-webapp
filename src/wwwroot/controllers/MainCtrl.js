@@ -30,18 +30,13 @@
     var freeTrialNotification = auth.getFreeTrialNotificationFromStorage();
     var modalOpened = false;
     
-    var loaderFreeTrial = function () {
-      if (auth.getUserName() != null) {
-        auth.getLimitsByAccount()
-        .then(function(limit) {
-          if (limit.endDate) {
-            UpdateTrialHeader(moment(limit.endDate).toDate());
-          }
-        });
-      }
+    var loadLimits = function () {
+      auth.getLimitsByAccount().then(function(limit) {
+        UpdateTrialHeader(limit.endDate);
+      });
     }
-    loaderFreeTrial();
-    $interval(loaderFreeTrial, 10000);
+    loadLimits();
+    $interval(loadLimits, 10000);
 
     $rootScope.freeTrialStatus = null;
 
@@ -158,6 +153,7 @@
 
     $rootScope.logOut = function () {
       auth.logOut();
+      loadLimits();
       $location.path('/login');
     };
 
