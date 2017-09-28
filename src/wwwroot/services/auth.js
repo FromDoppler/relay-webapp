@@ -226,9 +226,38 @@
         url: RELAY_CONFIG.baseUrl + '/accounts/' + getAccountName()  + '/status/limits'
       })
       .then(function (response) {
-        return response.data;
+        return {
+          monthly: mapLimit(response.data.monthly),
+          daily: mapLimit(response.data.daily),
+          hourly: mapLimit(response.data.hourly),
+          noLimits: !!response.data.noLimits,
+          endDate: mapDate(response.data.endDate)
+        };
       });
-    }   
+    }
+
+    function mapLimit(responseLimit)
+    {
+      if (!responseLimit) {
+        return null;
+      }
+
+      return {
+        limit: responseLimit.limit,
+        remaining: responseLimit.remaining,
+        reset: mapDate(responseLimit.reset)
+      }
+    }
+
+    function mapDate(responseDate)
+    {
+      if (!responseDate) {
+        return null;
+      }
+
+      // TODO: parse date without using moment
+      return (moment(responseDate).toDate())
+    }
 
     function addFreeTrialNotificationToStorage(date) {
       $window.localStorage.setItem('freeTrialNotificationOn', date);

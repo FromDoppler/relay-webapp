@@ -34,9 +34,7 @@
       if (auth.getUserName() != null) {
         auth.getLimitsByAccount()
         .then(function(limit) {
-          if (limit.endDate) {
-            UpdateTrialHeader(moment(limit.endDate).toDate());
-          }
+          UpdateTrialHeader(limit.endDate);
         });
       }
     }
