@@ -153,6 +153,7 @@
 
     $rootScope.logOut = function () {
       auth.logOut();
+      loadLimits();
       $location.path('/login');
     };
 
