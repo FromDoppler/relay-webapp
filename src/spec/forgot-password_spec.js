@@ -22,6 +22,9 @@ describe('Forgot password', () => {
       .module('descartableModule', ['ngMockE2E'])
       .run($httpBackend => {
         $httpBackend.whenPUT(/\/user\/password\/recover/).respond(500, {});
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "data" : ""
+       });
       }));
 
     var loginPage = new LoginPage();
@@ -45,6 +48,9 @@ describe('Forgot password', () => {
         $httpBackend.whenPUT(/\/user\/password\/recover/).respond(201, {
           'message': 'We have sent an email to your email address to continue with the registration process...'
         });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "data" : ""
+       });
       }));
 
     var loginPage = new LoginPage();

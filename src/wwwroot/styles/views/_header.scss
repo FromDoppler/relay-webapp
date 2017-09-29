@@ -145,6 +145,14 @@ header{
     font-size: $font-size-tiny !important;
     margin-right: 2em !important;
   }
+  .free-trial{
+    padding: torem(9px);
+    background: $suit-accent-color;
+    color: $suit-font-color-bright;
+    a { 
+      margin-left: torem(15px);
+    }
+  }
 }
 
 @media screen and (max-height: 750px){

@@ -33,6 +33,13 @@ describe('Confirmation Page', () => {
   it('should load drop downs in different languages', () => {
 
     // Arrange
+    browser.addMockModule('descartableModule2', () => angular
+    .module('descartableModule2', ['ngMockE2E'])
+    .run($httpBackend => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+      });
+    }));
     var confirmationPage = new ConfirmationPage();
     var industryInEnglish = "Tobacco";
     var industryInSpanish = "Tabaco";

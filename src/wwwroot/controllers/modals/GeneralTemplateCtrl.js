@@ -9,15 +9,24 @@
     'close',
     'title',
     'mainText',
-    'buttonText'
+    'buttonText',
+    'action'
   ];
 
-  function GeneralTemplateCtrl(close, title, mainText, buttonText) {
+  function GeneralTemplateCtrl(close, title, mainText, buttonText, action) {
     var vm = this;
     vm.title = title;
     vm.mainText = mainText;
     vm.buttonText = buttonText;
+    vm.closeIcon = function() {
+      close();
+    };
     vm.closeModal = function() {
+      if (!action) {
+        close();
+        return;
+      }
+      action();
       close();
     };
   }

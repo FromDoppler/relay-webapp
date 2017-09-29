@@ -11,9 +11,10 @@
     '$q',
     'jwtHelper',
     'RELAY_CONFIG',
-    '$rootScope'
+    '$rootScope',
+    'moment'
   ];
-  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope) {
+  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope, moment) {
 
     var authService = {
       saveToken: saveToken,
@@ -29,7 +30,10 @@
       forgotPassword: forgotPassword,
       resetPassword: resetPassword,
       getApiToken: getApiToken,
-      changePassword: changePassword
+      changePassword: changePassword,  
+      getLimitsByAccount: getLimitsByAccount,
+      getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
+      addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage
     };
 
     var decodedToken = null;
@@ -213,6 +217,65 @@
           "password": newPass
         }
       });
+    }
+
+    function getLimitsByAccount() {
+      var accountName = getAccountName();
+
+      if (!accountName) {
+        // limits have no sense in this scenario
+        return $q.when({});
+      }
+
+      return $http({
+        actionDescription: 'Gathering Free Trial end date',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountName  + '/status/limits'
+      })
+      .then(function (response) {
+        return {
+          monthly: mapLimit(response.data.monthly),
+          daily: mapLimit(response.data.daily),
+          hourly: mapLimit(response.data.hourly),
+          noLimits: !!response.data.noLimits,
+          endDate: mapDate(response.data.endDate)
+        };
+      });
+    }
+
+    function mapLimit(responseLimit)
+    {
+      if (!responseLimit) {
+        return null;
+      }
+
+      return {
+        limit: responseLimit.limit,
+        remaining: responseLimit.remaining,
+        reset: mapDate(responseLimit.reset)
+      }
+    }
+
+    function mapDate(responseDate)
+    {
+      if (!responseDate) {
+        return null;
+      }
+
+      // TODO: parse date without using moment
+      return (moment(responseDate).toDate())
+    }
+
+    function addFreeTrialNotificationToStorage(date) {
+      $window.localStorage.setItem('freeTrialNotificationOn', date);
+    }
+
+    function getFreeTrialNotificationFromStorage() {
+      var storedData = $window.localStorage.getItem('freeTrialNotificationOn');
+      if (!storedData) {
+        return null;
+      }
+      return moment(storedData).toDate();
     }
   }
 })();
