@@ -267,7 +267,7 @@
     }
 
     function addFreeTrialNotificationToStorage(date) {
-      $window.localStorage.setItem('freeTrialNotificationOn', date);
+      $window.localStorage.setItem('freeTrialNotificationOn', date.toISOString());
     }
 
     function getFreeTrialNotificationFromStorage() {
