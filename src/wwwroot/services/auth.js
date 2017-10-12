@@ -11,10 +11,9 @@
     '$q',
     'jwtHelper',
     'RELAY_CONFIG',
-    '$rootScope',
-    'moment'
+    '$rootScope'
   ];
-  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope, moment) {
+  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope) {
 
     var authService = {
       saveToken: saveToken,
@@ -262,8 +261,7 @@
         return null;
       }
 
-      // TODO: parse date without using moment
-      return (moment(responseDate).toDate())
+      return new Date(responseDate);
     }
 
     function addFreeTrialNotificationToStorage(date) {
@@ -271,11 +269,7 @@
     }
 
     function getFreeTrialNotificationFromStorage() {
-      var storedData = $window.localStorage.getItem('freeTrialNotificationOn');
-      if (!storedData) {
-        return null;
-      }
-      return moment(storedData).toDate();
+      return mapDate($window.localStorage.getItem('freeTrialNotificationOn'));
     }
   }
 })();
