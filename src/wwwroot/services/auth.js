@@ -228,7 +228,8 @@
       }
 
       return $http({
-        actionDescription: 'Gathering Free Trial end date',
+        actionDescription: 'Gathering account limits',
+        avoidStandarErrorHandling: true,
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + accountName  + '/status/limits'
       })

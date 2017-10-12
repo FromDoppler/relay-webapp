@@ -30,17 +30,20 @@
     var freeTrialNotification = auth.getFreeTrialNotificationFromStorage();
     var modalOpened = false;
     
-    var loadLimits = function () {
-      auth.getLimitsByAccount().then(function(limit) {
-        UpdateTrialHeader(limit.endDate);
-      });
-    }
+    $rootScope.freeTrialStatus = null;
+    $rootScope.accountLimits = { };
     loadLimits();
     $interval(loadLimits, 10000);
 
-    $rootScope.freeTrialStatus = null;
+  function loadLimits() {
+    auth.getLimitsByAccount()
+      .then(updateLimitsAndTrialData)
+      .catch($log.error);
+  }
 
-  function UpdateTrialHeader(freeTrialEndDate) {
+  function updateLimitsAndTrialData(limits) {
+    $rootScope.accountLimits = limits;
+    var freeTrialEndDate = limits.endDate;
     if (!freeTrialEndDate) {
       $rootScope.freeTrialStatus = null;
       return;
