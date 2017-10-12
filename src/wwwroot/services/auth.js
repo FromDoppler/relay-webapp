@@ -237,7 +237,7 @@
           monthly: mapLimit(response.data.monthly),
           daily: mapLimit(response.data.daily),
           hourly: mapLimit(response.data.hourly),
-          noLimits: !!response.data.noLimits,
+          hasLimits: !response.data.noLimits,
           endDate: mapDate(response.data.endDate)
         };
       });
