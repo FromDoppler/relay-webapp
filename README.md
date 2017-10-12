@@ -80,6 +80,8 @@ Tests runs by Karma and are written under Jasmine framework. And we can run them
 
 Each file placed inside `test` folder with a filename ending with `.spec.js` will be interpreted as a test file.
 
+Since Protractor uses Selenium and Selenium is a Java application, [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) is required.
+
 ## Generate secure credentials for Travis + SauceLabs
 
 The following steps are required to generate the SauceLabs secure credentials for Travis:
