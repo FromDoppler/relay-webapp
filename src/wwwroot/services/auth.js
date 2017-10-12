@@ -221,9 +221,8 @@
 
     function getLimitsByAccount() {
       var accountName = getAccountName();
-
-      if (!accountName) {
-        // limits have no sense in this scenario
+      if (!decodedToken || decodedToken.relay_temporal_token || !accountName) {
+        // limits have no sense in these scenarios
         return $q.when({});
       }
 
