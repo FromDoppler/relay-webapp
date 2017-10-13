@@ -1,4 +1,4 @@
-﻿window['relay-translation-en'] = {
+window['relay-translation-en'] = {
   "doppler_relay": "Hello Doppler Relay",
   "doppler_url_link": "https://app2.fromdoppler.com/Registration/Register/StartRegistration/?id=en&origin=relayapp",
   "log_out": "Log out",
@@ -117,6 +117,7 @@
   "validation_error_mask": "Invalid Format.",
   "validation_error_invalid_card_number": "Invalid Credit Card number.",
   "validation_error_payment_failure": "We couldn't process the payment, please check your information.",
+  "validation_error_pattern": "Please check the text",
   "date_filter_slash": "{{ date | date : 'MM/dd/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitor",
@@ -400,5 +401,13 @@
   "upgrade_plan_exclamation": "Upgrade now!",
   "free_trial_header_almost_ended_text" : "Your free trial is ending in {{ trialDaysLeft }} days, please to keep sending your transactional emails do an upgrade.",
   "free_trial_header_end_today_text" : "Your free trial is ending today, please to keep sending your transactional emails do an upgrade.",
-  "free_trial_header_trial_text": "Your account is on the free trial version, if you need to send more emails choose a plan."
+  "free_trial_header_trial_text": "Your account is on the free trial version, if you need to send more emails choose a plan.",
+  "downgrade_popup_title": "Are you sure you want to change your plan?",
+  "downgrade_popup_main_text": "Clicking on 'confirm' you will change the amount of Emails you can send from the first day of next month.",
+  "downgrade_popup_confirm_text": "Write 'CHANGE' to confirm.",
+  "downgrade_popup_cancel_button": "Cancel this action",
+  "confirm_text": "Confirm",
+  "downgrade_popup_confirm_word": "CHANGE",
+  "downgrade_confirmation_button": "Confirm downgrade",
+  "downgrade_confirmation_cancel_button": "Back to my plan"
 };

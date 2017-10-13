@@ -1,4 +1,4 @@
-﻿<section class="my-plans--container">
+<section class="my-plans--container">
   <div class="section--wrapper">
     <h2>
       {{ 'plans_text' | translate }}
@@ -27,7 +27,7 @@
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
-        <button ng-show="vm.isFreeTrial" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">{{ 'change_plan_text' | translate }}</button>
+        <button class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">{{ 'change_plan_text' | translate }}</button>
       </div>
     </div>
     <div class="item flex flex--wrap">
@@ -98,7 +98,8 @@
         </li>
         <li class="strong">
           <h2 class="special plan--price-big">{{vm.currency | translate}} {{vm.leftPlanPrice | number:2 | numberFormat}}</h2>
-          <a class="button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'buy_now' | translate}}</a>
+          <a class="button button--small hidden-feature-by-display" ng-class="!vm.isLeftCurrentPlan ? 'show':''" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'buy_now' | translate}}</a>
+          <a class="button button--small button--disabled hidden-feature-by-display" ng-class="vm.isLeftCurrentPlan ? 'show':''">{{'buy_now' | translate}}</a>
         </li>
       </ul>
       <ul ng-class="!vm.showPremiumPlanBox ? 'pro':'premium'">
@@ -132,8 +133,9 @@
         </li>
         <li>
           <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}"><span ng-if="!vm.showPremiumPlanBox">{{'buy_now' | translate}}</a>
-          <a ng-class="vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
+          <a ng-class="!vm.showPremiumPlanBox && !vm.isRightCurrentPlan ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'buy_now' | translate}}</a>
+          <a ng-class="vm.showPremiumPlanBox && !vm.isRightCurrentPlan ? 'show':''" class="hidden-feature-by-display button button--small" href="mailto:comercial@dopplerrelay.com?subject={{'contact_premium_plan_subject' | translate}}">{{'contact_us_text' | translate}}</a>
+          <a class="button button--small button--disabled hidden-feature-by-display" ng-class="vm.isRightCurrentPlan ? 'show':''">{{'buy_now' | translate}}</a>
         </li>
       </ul>
     </div>

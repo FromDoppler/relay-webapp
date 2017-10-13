@@ -29,6 +29,7 @@ class BillingPage {
     this._expDateConfirmationLabel = $('.billing--plan-confirmation #expDateConfirmation');
     this._secCodeConfirmationLabel = $('.billing--plan-confirmation #secCodeConfirmation');
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
+    this._containerModifyButton = $('.billing--plan-confirmation');
     this._countrySelect =  element(by.id('country'));
     this._creditCardContainer = $('.credit-card');
     this._creditCardErrorContainer = $('.credit-card .validation-error-fluid');
@@ -37,7 +38,7 @@ class BillingPage {
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
     this._pricingChartContainer = $('.pricing-chart--container');
     this._sliderContainerElements = element.all(by.css('.plan--slider-container div'));
-    this._myPlanPrice = $('.plan--price-big');
+    this._myPlanPrice = $('.basic .plan--price-big');
     this._ticksElements = element.all(by.css('.plan--slider-container .rz-tick'));
     this._monthConsumption = $('.month-consumption');
     this._extraEmails = $('.extra-emails');
@@ -47,6 +48,8 @@ class BillingPage {
     this._rightPlanBox = $('.plan--box-container .pro');
     this._currentPlanEmailPrice = element(by.css('.email-price p:nth-child(3)'));
     this._currentPlanPrice = element(by.css('.price p:nth-child(3)'));
+    this._buyPlanButton = $('.plan--box-container .basic .button');
+    this._downgradeOpenPopupButton = $('.button--container span.downgrade');    
   }
 
   getCurrentPlanEmailPrice() {
@@ -119,7 +122,14 @@ class BillingPage {
     return this.getFirstSelectOptionText(this._countrySelect);
   }
   isConfirmationDisplayed() {
-   var confirmationContainer = this._confirmationContainer;
+    var hasClass = this._confirmationContainer
+    .getAttribute('class')
+    .then(function(className) {
+      return className.indexOf('show') >= 0;
+    });
+
+  return hasClass;
+   /*var confirmationContainer = this._confirmationContainer;
 
    // the library `angular-ui/ui-select` creates  the HTML
    // but it takes a little bit to populate the values
@@ -128,7 +138,7 @@ class BillingPage {
      return confirmationContainer.isDisplayed() != false
    }, this._waitTimeout);
 
-    return this._confirmationContainer.isDisplayed();
+    return this._confirmationContainer.isDisplayed();*/
   }
   isNameDisplayed() {
     return this._nameConfirmationLabel.getText();
@@ -202,6 +212,20 @@ class BillingPage {
 
     return hasClass;
   }
+  isCancelButtonDisplayed(){
+    var containerModifyButton = this._containerModifyButton;
+    
+        // the library `angular-ui/ui-select` creates  the HTML
+        // but it takes a little bit to populate the values
+        // so we have to wait until the text is present.
+        browser.wait(function() {
+          return containerModifyButton.isDisplayed() != false
+        }, this._waitTimeout);
+    
+         return this._containerModifyButton.isDisplayed();
+
+    return modifyButton;
+  }
 
   clickModifyInformation() {
     return this._modifyButton.click();
@@ -274,6 +298,12 @@ class BillingPage {
   }
   isFreeTrialAsPriceDisplayed() {
     return this._myPlanPriceFreeTrial.isDisplayed();
+  }
+  clickBasicButton() {
+    return this._buyPlanButton.click();
+  }
+  isButtonOpenDowngradePopupDisplayed() {
+    return this._downgradeOpenPopupButton.isDisplayed();
   }
 }
 exports.BillingPage = BillingPage;

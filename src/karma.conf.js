@@ -57,6 +57,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/controllers/modals/WelcomeCtrl.js',
       __dirname + '/wwwroot/controllers/modals/ErrorCtrl.js',
       __dirname + '/wwwroot/controllers/modals/GeneralTemplateCtrl.js',
+      __dirname + '/wwwroot/controllers/modals/ConfirmInputTemplate.js',
       __dirname + '/wwwroot/controllers/SettingsCtrl.js',
       __dirname + '/wwwroot/controllers/RegistrationCtrl.js',
       __dirname + '/wwwroot/controllers/BillingCtrl.js',
