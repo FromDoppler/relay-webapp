@@ -45,6 +45,9 @@
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
         vm.isUpdatePlanAllowed = response.data.endDate ? false : true;
+        if (!vm.isFreeTrial){
+           vm.hideDragMe = true;
+        }       
       })
       .finally(function () {
         vm.planInfoLoader = false;
