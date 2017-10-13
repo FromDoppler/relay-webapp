@@ -11,10 +11,9 @@
     '$q',
     'jwtHelper',
     'RELAY_CONFIG',
-    '$rootScope',
-    'moment'
+    '$rootScope'
   ];
-  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope, moment) {
+  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope) {
 
     var authService = {
       saveToken: saveToken,
@@ -221,14 +220,14 @@
 
     function getLimitsByAccount() {
       var accountName = getAccountName();
-
-      if (!accountName) {
-        // limits have no sense in this scenario
+      if (!decodedToken || decodedToken.relay_temporal_token || !accountName) {
+        // limits have no sense in these scenarios
         return $q.when({});
       }
 
       return $http({
-        actionDescription: 'Gathering Free Trial end date',
+        actionDescription: 'Gathering account limits',
+        avoidStandarErrorHandling: true,
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + accountName  + '/status/limits'
       })
@@ -237,7 +236,7 @@
           monthly: mapLimit(response.data.monthly),
           daily: mapLimit(response.data.daily),
           hourly: mapLimit(response.data.hourly),
-          noLimits: !!response.data.noLimits,
+          hasLimits: !response.data.noLimits,
           endDate: mapDate(response.data.endDate)
         };
       });
@@ -262,20 +261,15 @@
         return null;
       }
 
-      // TODO: parse date without using moment
-      return (moment(responseDate).toDate())
+      return new Date(responseDate);
     }
 
     function addFreeTrialNotificationToStorage(date) {
-      $window.localStorage.setItem('freeTrialNotificationOn', date);
+      $window.localStorage.setItem('freeTrialNotificationOn', date.toISOString());
     }
 
     function getFreeTrialNotificationFromStorage() {
-      var storedData = $window.localStorage.getItem('freeTrialNotificationOn');
-      if (!storedData) {
-        return null;
-      }
-      return moment(storedData).toDate();
+      return mapDate($window.localStorage.getItem('freeTrialNotificationOn'));
     }
   }
 })();
