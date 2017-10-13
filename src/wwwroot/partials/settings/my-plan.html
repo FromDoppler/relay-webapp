@@ -98,7 +98,8 @@
         </li>
         <li class="strong">
           <h2 class="special plan--price-big">{{vm.currency | translate}} {{vm.leftPlanPrice | number:2 | numberFormat}}</h2>
-          <a class="button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'buy_now' | translate}}</a>
+          <a ng-class="vm.leftPlanPrice > vm.currentPlanPrice ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'buy_now' | translate}}</a>
+          <a ng-class="vm.leftPlanPrice <= vm.currentPlanPrice ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
         </li>
       </ul>
       <ul ng-class="!vm.showPremiumPlanBox ? 'pro':'premium'">
@@ -132,8 +133,8 @@
         </li>
         <li>
           <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}"><span ng-if="!vm.showPremiumPlanBox">{{'buy_now' | translate}}</a>
-          <a ng-class="vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
+          <a ng-class="!vm.showPremiumPlanBox && vm.rightPlanPrice > vm.currentPlanPrice ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}"><span ng-if="!vm.showPremiumPlanBox">{{'buy_now' | translate}}</a>
+          <a ng-class="vm.showPremiumPlanBox || vm.rightPlanPrice <= vm.currentPlanPrice ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
         </li>
       </ul>
     </div>
