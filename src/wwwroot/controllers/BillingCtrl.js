@@ -67,10 +67,13 @@
             vm.company = response.data.billingInformation.companyName;
             vm.address = response.data.billingInformation.address;
             vm.city = response.data.billingInformation.city;
-            vm.zCode = response.data.billingInformation.zipCode;            
-            vm.country = vm.resources.countries.find(function(obj){
-              return obj.code == response.data.billingInformation.countryCode;
-            });
+            vm.zCode = response.data.billingInformation.zipCode;       
+            resources.ensureCountries().then(function(){
+              vm.country = vm.resources.countries.find(function(obj){
+                return obj.code == response.data.billingInformation.countryCode;
+              });
+            });     
+            
           }
         });
 
