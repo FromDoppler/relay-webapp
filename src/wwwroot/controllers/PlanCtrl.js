@@ -99,20 +99,25 @@
         vm.leftPlanName = pro.name;
         vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
         vm.leftCostEmail = pro.extra_delivery_cost;
+        vm.disableLeftPlan = isCurrentPlan(pro);
 
         vm.rightPlanName = 'Premium';
         vm.rightCostEmail = pro.extra_delivery_cost;
+        vm.disableRightPlan = false;
       } else {
         vm.showPremiumPlanBox = false;        
 
         vm.leftPlanName = basic.name;
         vm.leftPlanPrice = basic.fee;
         vm.leftCostEmail = basic.extra_delivery_cost;
+        vm.disableLeftPlan = isCurrentPlan(basic);
+
         if (pro) {
           vm.ipsPlanCount = pro.ips_count;
           vm.rightPlanName = pro.name;
           vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
           vm.rightCostEmail = pro.extra_delivery_cost;
+          vm.disableRightPlan = isCurrentPlan(pro);
         }
       }
     }
@@ -143,6 +148,11 @@
     function showPricingChart() {
         vm.pricingChartDisplayed = true;
     }
+
+    function isCurrentPlan(plan){
+      return plan.included_deliveries == vm.currentPlanEmailsAmount && vm.currentIpsPlanCount == plan.ips_count        
+    }
+
   }
 
 })();
