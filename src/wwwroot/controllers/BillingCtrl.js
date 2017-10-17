@@ -62,6 +62,11 @@
 
         return settings.getCurrentPlanInfo().then(function(response) {
           
+          var currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
+          if(currentPlanPrice >= vm.planPrice){
+            return redirectToPlanSelection();
+          }
+
           if(response.data.billingInformation){
             vm.name = response.data.billingInformation.name;
             vm.company = response.data.billingInformation.companyName;
