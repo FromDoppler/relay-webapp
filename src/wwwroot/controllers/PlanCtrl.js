@@ -44,11 +44,9 @@
         vm.currency = response.data.currency;
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
-        vm.isUpdatePlanAllowed = response.data.endDate ? false : true;
-        if (!vm.isFreeTrial){
-          defaultPlanDeliveries = response.data.includedDeliveries.toString(); 
-          vm.hideDragMe = true;
-        }       
+        vm.allowChangePlan = !response.data.endDate;
+        vm.hideDragMe = !vm.isFreeTrial;
+        defaultPlanDeliveries = !vm.isFreeTrial ? response.data.includedDeliveries.toString() : defaultPlanDeliveries; 
       })
       .finally(function () {
         vm.planInfoLoader = false;

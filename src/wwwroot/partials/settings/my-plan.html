@@ -27,7 +27,7 @@
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
-        <button ng-show="vm.isUpdatePlanAllowed" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">{{ 'change_plan_text' | translate }}</button>
+        <button ng-show="vm.allowChangePlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart()">{{ 'change_plan_text' | translate }}</button>
       </div>
     </div>
     <div class="item flex flex--wrap">
