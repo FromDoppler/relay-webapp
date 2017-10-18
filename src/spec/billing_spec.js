@@ -206,6 +206,7 @@ describe('Billing Page', () => {
     var countryInSpanish = "Bolivia";
     beginAuthenticatedSession();
     setupSamplePlansResponse();
+    setupSamplePlanInfoResponse();
 
     // Act
     browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
@@ -228,6 +229,7 @@ describe('Billing Page', () => {
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
     setupSamplePlansResponse();
+    setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
     var name = 'TestName TestLastName';
@@ -276,6 +278,7 @@ describe('Billing Page', () => {
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
     setupSamplePlansResponse();
+    setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
     var name = '';
@@ -313,6 +316,7 @@ describe('Billing Page', () => {
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
     setupSamplePlansResponse();
+    setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
     var name = 'TestName TestLastName';
@@ -355,6 +359,7 @@ describe('Billing Page', () => {
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
     setupSamplePlansResponse();
+    setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
     var name = 'TestName TestLastName';
@@ -392,6 +397,7 @@ describe('Billing Page', () => {
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
     setupSamplePlansResponse();
+    setupSamplePlanInfoResponse();
 
     browser.addMockModule('descartableModule3', () => angular
       // This code will be executed in the browser context,
