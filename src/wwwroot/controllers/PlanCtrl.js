@@ -46,7 +46,8 @@
         vm.currentIpsPlanCount = response.data.ips_count || 0;
         vm.isUpdatePlanAllowed = response.data.endDate ? false : true;
         if (!vm.isFreeTrial){
-           vm.hideDragMe = true;
+          defaultPlanDeliveries = response.data.includedDeliveries.toString(); 
+          vm.hideDragMe = true;
         }       
       })
       .finally(function () {
@@ -54,10 +55,12 @@
       });
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
-        loadSlider();
-        changePlan(defaultPlanDeliveries);
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]);
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function(){        
+        ensureValidDefaultPlanDelivery();
+        loadSlider();
+        changePlan(defaultPlanDeliveries);        
+      });
     }
 
     function getMonthConsumption() {
@@ -151,6 +154,20 @@
 
     function isCurrentPlan(plan){
       return plan.included_deliveries == vm.currentPlanEmailsAmount && vm.currentIpsPlanCount == plan.ips_count        
+    }
+
+    function ensureValidDefaultPlanDelivery(){           
+      var selectedItems = planItems.filter(function(obj){
+        return obj.included_deliveries == defaultPlanDeliveries;
+      });
+
+      if (selectedItems.length < 1) {
+        var defaultPlanSuggested = planItems.reduce(function(prev, curr) {
+          return (Math.abs(curr.included_deliveries - defaultPlanDeliveries) < Math.abs(prev.included_deliveries - defaultPlanDeliveries) ? curr : prev);
+        });    
+        
+        defaultPlanDeliveries = defaultPlanSuggested.included_deliveries.toString();
+      }      
     }
 
   }
