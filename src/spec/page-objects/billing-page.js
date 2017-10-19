@@ -47,6 +47,7 @@ class BillingPage {
     this._rightPlanBox = $('.plan--box-container .pro');
     this._currentPlanEmailPrice = element(by.css('.email-price p:nth-child(3)'));
     this._currentPlanPrice = element(by.css('.price p:nth-child(3)'));
+    this._sliderEmailsPerMonth = $('.plan--slider-container p span.special');
   }
 
   getCurrentPlanEmailPrice() {
@@ -67,17 +68,32 @@ class BillingPage {
   setName(name) {
     return this._nameInput.sendKeys(name);
   }
+  getName() {
+    return this._nameInput.getAttribute('value')
+  }
   setCompany(company) {
     return this._companyInput.sendKeys(company);
+  }
+  getCompany() {
+    return this._companyInput.getAttribute('value')
   }
   setAddress(address) {
     return this._addressInput.sendKeys(address);
   }
+  getAddress() {
+    return this._addressInput.getAttribute('value')
+  }
   setCity(city) {
     return this._cityInput.sendKeys(city);
   }
+  getCity() {
+    return this._cityInput.getAttribute('value')
+  }
   setZCode(zCode) {
     return this._zCodeInput.sendKeys(zCode);
+  }
+  getZCode() {
+    return this._zCodeInput.getAttribute('value')
   }
   setCountry(country) {
     return this.clickFirstSelectOptionText(this._countrySelect);
@@ -274,6 +290,9 @@ class BillingPage {
   }
   isFreeTrialAsPriceDisplayed() {
     return this._myPlanPriceFreeTrial.isDisplayed();
+  }
+  getSliderEmailsPerMonth() {
+    return this._sliderEmailsPerMonth.getText();
   }
 }
 exports.BillingPage = BillingPage;
