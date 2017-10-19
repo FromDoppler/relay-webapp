@@ -33,6 +33,8 @@ class BillingPage {
     this._creditCardContainer = $('.credit-card');
     this._creditCardErrorContainer = $('.credit-card .validation-error-fluid');
     this._detachedError = $('.billing--plan-confirmation .detached--error-container');
+    this._basicPlanDisplayedButton = $(".plan--box-container .basic a.show");
+    this._proPlanDisplayedButton = $(".plan--box-container .pro a.show");
     //My Plan section
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
     this._pricingChartContainer = $('.pricing-chart--container');
@@ -293,6 +295,19 @@ class BillingPage {
   }
   getSliderEmailsPerMonth() {
     return this._sliderEmailsPerMonth.getText();
+  }
+  getBasicButtonText(){
+    return this._basicPlanDisplayedButton.getText();
+  }
+
+  isProPlanButtonDisabled(){
+    var hasClass = this._proPlanDisplayedButton
+    .getAttribute('class')
+    .then(function(className) {
+      return className.indexOf('button--disabled') >= 0;
+    });
+
+    return hasClass;
   }
 }
 exports.BillingPage = BillingPage;

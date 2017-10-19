@@ -63,6 +63,14 @@ describe('Billing Page', () => {
               "extra_delivery_cost": 0.00053000,
               "included_deliveries": 60000.0,
               "name": "PLAN-60K" },
+            { "currency": "USD",
+              "fee": 40,
+              "extra_delivery_cost": 0.00053000,
+              "included_deliveries": 60000.0,
+              "type":"pro",
+              "ips_count":1,
+              "cost_by_ip": 5,
+              "name": "PLAN-PRO-60K" },
               { "currency": "USD",
               "fee": 51.8,
               "extra_delivery_cost": 0.00051000,
@@ -591,6 +599,49 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
+  });
+
+  it('should show a disabled button for current plan and contact us for downgrade', () => {
+    
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    
+    browser.addMockModule('descartableModule4', () => angular
+    // This code will be executed in the browser context,
+    // so it cannot access variables from outside its scope
+    .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2017-07-01T00:00:00Z",
+              "currency": "USD",
+              "ips_count": 1,
+              "cost_by_ip": 5,
+              "extraDeliveryCost": 0,
+              "fee": 45,
+              "includedDeliveries": 60000
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+              "deliveriesCount": 200,
+              "startDate": "2017-07-01T01:01:01Z",
+              "endDate": "2017-08-01T01:01:01Z"
+        });
+      }));
+    
+    
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    billingPage.clickUpgradeButtonToDisplayPricingChart();
+
+    // Assert
+    expect(billingPage.getBasicButtonText()).toBe('CONTACT US');
+    expect(billingPage.isProPlanButtonDisabled()).toBeTruthy();
   });
 
   it('should show the new box for Pro and premium plan', () => {
