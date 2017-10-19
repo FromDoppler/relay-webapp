@@ -505,6 +505,46 @@ describe('Billing Page', () => {
     expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
   });
 
+  it('should not show change plan button when agreement is scheduled', () => {
+    
+        // Arrange
+        beginAuthenticatedSession();        
+        browser.addMockModule('descartableModule4', () => angular
+        // This code will be executed in the browser context,
+        // so it cannot access variables from outside its scope
+        .module('descartableModule4', ['ngMockE2E'])
+          .run($httpBackend => {
+            $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+                  "planName": null,
+                  "paymentMethod": null,
+                  "billingInformation": null,
+                  "startDate": "2017-07-01T00:00:00Z",
+                  "endDate": "2017-08-01T00:00:00Z",
+                  "currency": "USD",
+                  "ips_count": 0,
+                  "cost_by_ip": 0,
+                  "extraDeliveryCost": 0,
+                  "fee": 50,
+                  "includedDeliveries": 75000
+            });
+    
+            $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+                  "deliveriesCount": 200,
+                  "startDate": "2017-07-01T01:01:01Z",
+                  "endDate": "2017-08-01T01:01:01Z"
+            });
+          }));
+        
+        setupSamplePlansResponse();
+        var billingPage = new BillingPage();
+    
+        //Act
+        browser.get('/#/settings/my-plan?plan=PLAN-60K');
+    
+        // Assert
+        expect(billingPage.isChangePlanButtonDisplayed()).toBeFalsy();
+      });
+  
   it('should show the pricing chart when the user click on upgrade button', () => {
 
     // Arrange

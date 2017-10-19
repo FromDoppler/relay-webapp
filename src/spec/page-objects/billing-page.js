@@ -239,6 +239,10 @@ class BillingPage {
     return this._myPlanPricingChartDisplayButton.click();
   }
 
+  isChangePlanButtonDisplayed(){
+    return this._myPlanPricingChartDisplayButton.isDisplayed();
+  }
+
   isPricingChartDisplayed() {
     var hasClass = this._pricingChartContainer
       .getAttribute('class')
