@@ -33,6 +33,8 @@ class BillingPage {
     this._creditCardContainer = $('.credit-card');
     this._creditCardErrorContainer = $('.credit-card .validation-error-fluid');
     this._detachedError = $('.billing--plan-confirmation .detached--error-container');
+    this._basicPlanDisplayedButton = $(".plan--box-container .basic a.show");
+    this._proPlanDisplayedButton = $(".plan--box-container .pro a.show");
     //My Plan section
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
     this._pricingChartContainer = $('.pricing-chart--container');
@@ -47,6 +49,7 @@ class BillingPage {
     this._rightPlanBox = $('.plan--box-container .pro');
     this._currentPlanEmailPrice = element(by.css('.email-price p:nth-child(3)'));
     this._currentPlanPrice = element(by.css('.price p:nth-child(3)'));
+    this._sliderEmailsPerMonth = $('.plan--slider-container p span.special');
   }
 
   getCurrentPlanEmailPrice() {
@@ -67,17 +70,32 @@ class BillingPage {
   setName(name) {
     return this._nameInput.sendKeys(name);
   }
+  getName() {
+    return this._nameInput.getAttribute('value')
+  }
   setCompany(company) {
     return this._companyInput.sendKeys(company);
+  }
+  getCompany() {
+    return this._companyInput.getAttribute('value')
   }
   setAddress(address) {
     return this._addressInput.sendKeys(address);
   }
+  getAddress() {
+    return this._addressInput.getAttribute('value')
+  }
   setCity(city) {
     return this._cityInput.sendKeys(city);
   }
+  getCity() {
+    return this._cityInput.getAttribute('value')
+  }
   setZCode(zCode) {
     return this._zCodeInput.sendKeys(zCode);
+  }
+  getZCode() {
+    return this._zCodeInput.getAttribute('value')
   }
   setCountry(country) {
     return this.clickFirstSelectOptionText(this._countrySelect);
@@ -221,6 +239,10 @@ class BillingPage {
     return this._myPlanPricingChartDisplayButton.click();
   }
 
+  isChangePlanButtonDisplayed(){
+    return this._myPlanPricingChartDisplayButton.isDisplayed();
+  }
+
   isPricingChartDisplayed() {
     var hasClass = this._pricingChartContainer
       .getAttribute('class')
@@ -274,6 +296,22 @@ class BillingPage {
   }
   isFreeTrialAsPriceDisplayed() {
     return this._myPlanPriceFreeTrial.isDisplayed();
+  }
+  getSliderEmailsPerMonth() {
+    return this._sliderEmailsPerMonth.getText();
+  }
+  getBasicButtonText(){
+    return this._basicPlanDisplayedButton.getText();
+  }
+
+  isProPlanButtonDisabled(){
+    var hasClass = this._proPlanDisplayedButton
+    .getAttribute('class')
+    .then(function(className) {
+      return className.indexOf('button--disabled') >= 0;
+    });
+
+    return hasClass;
   }
 }
 exports.BillingPage = BillingPage;

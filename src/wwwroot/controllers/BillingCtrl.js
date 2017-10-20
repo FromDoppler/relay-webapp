@@ -59,6 +59,29 @@
         }
         vm.currentCurrency = planSelected.currency;
         vm.planPrice = planSelected.fee + (planSelected.ips_count * planSelected.cost_by_ip || 0);
+
+        return settings.getCurrentPlanInfo().then(function(response) {
+          
+          var currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
+          if(currentPlanPrice >= vm.planPrice){
+            return redirectToPlanSelection();
+          }
+
+          if(response.data.billingInformation){
+            vm.name = response.data.billingInformation.name;
+            vm.company = response.data.billingInformation.companyName;
+            vm.address = response.data.billingInformation.address;
+            vm.city = response.data.billingInformation.city;
+            vm.zCode = response.data.billingInformation.zipCode;       
+            resources.ensureCountries().then(function(){
+              vm.country = vm.resources.countries.find(function(obj){
+                return obj.code == response.data.billingInformation.countryCode;
+              });
+            });     
+            
+          }
+        });
+
       });
     }
     vm.checkExpDate = checkExpDate;

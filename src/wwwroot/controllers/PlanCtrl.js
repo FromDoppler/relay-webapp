@@ -44,16 +44,21 @@
         vm.currency = response.data.currency;
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
+        vm.allowChangePlan = !response.data.endDate;
+        vm.hideDragMe = !vm.isFreeTrial;
+        defaultPlanDeliveries = !vm.isFreeTrial ? response.data.includedDeliveries.toString() : defaultPlanDeliveries; 
       })
       .finally(function () {
         vm.planInfoLoader = false;
       });
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
-        loadSlider();
-        changePlan(defaultPlanDeliveries);
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]);
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function(){        
+        ensureValidDefaultPlanDelivery();
+        loadSlider();
+        changePlan(defaultPlanDeliveries);        
+      });
     }
 
     function getMonthConsumption() {
@@ -95,20 +100,25 @@
         vm.leftPlanName = pro.name;
         vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
         vm.leftCostEmail = pro.extra_delivery_cost;
+        vm.disableLeftPlan = isCurrentPlan(pro);
 
         vm.rightPlanName = 'Premium';
         vm.rightCostEmail = pro.extra_delivery_cost;
+        vm.disableRightPlan = false;
       } else {
         vm.showPremiumPlanBox = false;        
 
         vm.leftPlanName = basic.name;
         vm.leftPlanPrice = basic.fee;
         vm.leftCostEmail = basic.extra_delivery_cost;
+        vm.disableLeftPlan = isCurrentPlan(basic);
+
         if (pro) {
           vm.ipsPlanCount = pro.ips_count;
           vm.rightPlanName = pro.name;
           vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
           vm.rightCostEmail = pro.extra_delivery_cost;
+          vm.disableRightPlan = isCurrentPlan(pro);
         }
       }
     }
@@ -139,6 +149,25 @@
     function showPricingChart() {
         vm.pricingChartDisplayed = true;
     }
+
+    function isCurrentPlan(plan){
+      return plan.included_deliveries == vm.currentPlanEmailsAmount && vm.currentIpsPlanCount == plan.ips_count        
+    }
+
+    function ensureValidDefaultPlanDelivery(){           
+      var selectedItems = planItems.filter(function(obj){
+        return obj.included_deliveries == defaultPlanDeliveries;
+      });
+
+      if (selectedItems.length < 1) {
+        var defaultPlanSuggested = planItems.reduce(function(prev, curr) {
+          return (Math.abs(curr.included_deliveries - defaultPlanDeliveries) < Math.abs(prev.included_deliveries - defaultPlanDeliveries) ? curr : prev);
+        });    
+        
+        defaultPlanDeliveries = defaultPlanSuggested.included_deliveries.toString();
+      }      
+    }
+
   }
 
 })();
