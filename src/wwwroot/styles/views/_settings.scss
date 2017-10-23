@@ -323,7 +323,7 @@
           background-color: $suit-color-status-violet;
         }
         li:last-of-type {
-          a { background-color: $suit-color-status-violet; }
+          a:not(.button--disabled) { background-color: $suit-color-status-violet; }
           //padding-top: 2.75em;
         }
       }
@@ -333,7 +333,7 @@
           background-color: $suit-color-status-green;
         }
         li:last-of-type {
-          a { background-color: $suit-color-status-green; }
+          a:not(.button--disabled) { background-color: $suit-color-status-green; }
         }
       }
       &.premium {
@@ -342,7 +342,7 @@
           background-color: $suit-accent-color;
         }
          li:last-of-type {
-          a { background-color: $suit-accent-color; }
+          a:not(.button--disabled) { background-color: $suit-accent-color; }
         }
       }
     }
