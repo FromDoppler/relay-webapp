@@ -40,6 +40,7 @@
     var planName = queryParams['plan'];
     vm.activationPromise = activate();
     vm.redirectToPlanSelection = redirectToPlanSelection;
+    vm.cancelAction = cancelAction;
 
     function activate() {
 
@@ -64,7 +65,8 @@
           
           var currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
           if(currentPlanPrice >= vm.planPrice){
-            return redirectToPlanSelection();
+            vm.showConfirmation = true;
+            vm.downgrade = true;
           }
 
           if(response.data.billingInformation){
@@ -170,6 +172,10 @@
       vm.viewExpDate = form.expDate.$viewValue;
     }
     function submitBillingPayment() {
+      if (vm.downgrade) {
+        downgrade();
+        return;
+      }
       var agreement = {
          planName: planName,
          paymentMethod: {
@@ -207,6 +213,36 @@
           modal.close.then(redirectToPlanSelection);
         });
       });
+    }
+
+    function downgrade() {
+      ModalService.showModal({
+        templateUrl: 'partials/modals/confirm-input-template.html',
+        controller: 'ConfirmInputTemplate',
+        controllerAs: 'vm',
+        inputs: {
+          title: "downgrade_popup_title",
+          mainText: "downgrade_popup_main_text",
+          descriptionInput: "downgrade_popup_confirm_text",
+          confirmationWord: "downgrade_popup_confirm_word",
+          actionSuccess: downgrade,
+          cancelButtonText: "downgrade_popup_cancel_button",
+          buttonText: "confirm_text"
+        }
+      })
+      .then(function (modal) {
+        modal.close.then(redirectToPlanSelection);
+      });
+    }
+    function downgradeAction() {
+      //action Downgrade
+    }
+    function cancelAction() {
+      if (!vm.downgrade) {
+        vm.showConfirmation = false;
+        vm.paymentFailure = false;
+      }
+      redirectToPlanSelection();
     }
   }
 
