@@ -122,7 +122,11 @@
         controllerAs: 'vm',
         inputs: inputs
       }).then(function (modal) {
-        modal.close.then(callback || $route.reload);
+        modal.close.then(function (result) {
+          if (result) {
+            (callback || $route.reload)();
+          }
+        });
       });
     }
 
