@@ -115,42 +115,40 @@
     $rootScope.getFullName = auth.getFullName;
     $rootScope.getAccountId = auth.getAccountId;
 
-    $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, callback, buttonText) {
-      callback = callback || $route.reload;
-      ModalService.showModal({
+    var addErrorInternal = function(inputs, callback) {
+      return ModalService.showModal({
         templateUrl: 'partials/modals/error.html',
         controller: 'ErrorCtrl',
         controllerAs: 'vm',
-        inputs: {
-          description: error,
-          actionDescription: actionDescription,
-          rejectionTitle: rejectionTitle || '',
-          statusCode: statusCode,
-          errorCode: errorCode,
-          isAuthorizationModal: false,
-          buttonText: buttonText || 'error_popup_button'
-        }
+        inputs: inputs
       }).then(function (modal) {
-        modal.close.then(callback);
+        modal.close.then(callback || $route.reload);
       });
+    }
+
+    $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, callback, buttonText) {
+      var inputs = {
+        description: error,
+        actionDescription: actionDescription,
+        rejectionTitle: rejectionTitle || '',
+        statusCode: statusCode,
+        errorCode: errorCode,
+        isAuthorizationModal: false,
+        buttonText: buttonText || 'error_popup_button'
+      };
+      return addErrorInternal(inputs, callback);
     };
 
     $rootScope.addAuthorizationError = function (error, statusCode, errorCode, callback) {
-      ModalService.showModal({
-        templateUrl: 'partials/modals/error.html',
-        controller: 'ErrorCtrl',
-        controllerAs: 'vm',
-        inputs: {
-          description: error,
-          actionDescription: null,
-          rejectionTitle: null,
-          statusCode: statusCode,
-          errorCode: errorCode,
-          isAuthorizationModal: true
-        }
-      }).then(function (modal) {
-        modal.close.then(callback);
-      });
+      var inputs = {
+        description: error,
+        actionDescription: null,
+        rejectionTitle: null,
+        statusCode: statusCode,
+        errorCode: errorCode,
+        isAuthorizationModal: true
+      };
+      return addErrorInternal(inputs, callback);
     };
 
     $rootScope.logOut = function () {
