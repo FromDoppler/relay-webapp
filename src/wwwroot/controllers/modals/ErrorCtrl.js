@@ -27,8 +27,6 @@
     vm.errorCode = errorCode;
     vm.isAuthorizationModal = isAuthorizationModal;
     vm.buttonText = buttonText;
-    vm.closeModal = function() {
-      close(vm.statusCode);
-    };
+    vm.closeModal = close;
   }
 })();
