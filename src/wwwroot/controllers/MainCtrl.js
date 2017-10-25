@@ -143,7 +143,7 @@
       return addErrorInternal(inputs, callback);
     };
 
-    $rootScope.addAuthorizationError = function (error, statusCode, errorCode, callback) {
+    $rootScope.addAuthorizationError = function (error, statusCode, errorCode) {
       var inputs = {
         description: error,
         actionDescription: null,
@@ -152,7 +152,7 @@
         errorCode: errorCode,
         isAuthorizationModal: true
       };
-      return addErrorInternal(inputs, callback);
+      return addErrorInternal(inputs, $rootScope.logOut);
     };
 
     $rootScope.logOut = function () {

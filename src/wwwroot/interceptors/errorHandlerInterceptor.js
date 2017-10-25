@@ -10,15 +10,15 @@ angular.module('dopplerRelay')
         switch (rejection.status) {
           case 401: //Unauthorized by token expired
             if (rejection.data.errorCode == 3) {
-              $rootScope.addAuthorizationError('error_handler_401.3', null, null, $rootScope.logOut);
+              $rootScope.addAuthorizationError('error_handler_401.3', null, null);
             } else {
-              $rootScope.addAuthorizationError('error_handler_401/3', rejection.status, rejection.data.errorCode, $rootScope.logOut);
+              $rootScope.addAuthorizationError('error_handler_401/3', rejection.status, rejection.data.errorCode);
             }
             break;
           case 403: //Forbidden and Unauthorized
             // TODO: The problem could be different than expired token, so maybe it is better to show a more ambiguous message
             // For example: open a new windows and login with a different user, and try to do something in the first window
-            $rootScope.addAuthorizationError('error_handler_401/3', rejection.status, rejection.data.errorCode, $rootScope.logOut);
+            $rootScope.addAuthorizationError('error_handler_401/3', rejection.status, rejection.data.errorCode);
             break;
           case 404: //Not Found
             $rootScope.addError('error_handler_404', actionDescription, rejectionTitle);
