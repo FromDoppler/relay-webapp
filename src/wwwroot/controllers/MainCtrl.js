@@ -150,7 +150,8 @@
         rejectionTitle: null,
         statusCode: statusCode,
         errorCode: errorCode,
-        isAuthorizationModal: true
+        isAuthorizationModal: true,
+        buttonText: 'error_popup_button_401/3'
       };
       return addErrorInternal(inputs, $rootScope.logOut);
     };
