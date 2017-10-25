@@ -132,11 +132,11 @@
 
     $rootScope.addError = function (error, actionDescription, rejectionTitle, statusCode, errorCode, callback, buttonText) {
       var inputs = {
-        description: error,
-        actionDescription: actionDescription,
+        description: error || null,
+        actionDescription: actionDescription || null,
         rejectionTitle: rejectionTitle || '',
-        statusCode: statusCode,
-        errorCode: errorCode,
+        statusCode: statusCode || null,
+        errorCode: errorCode || null,
         isAuthorizationModal: false,
         buttonText: buttonText || 'error_popup_button'
       };
@@ -145,11 +145,11 @@
 
     $rootScope.addAuthorizationError = function (error, statusCode, errorCode) {
       var inputs = {
-        description: error,
+        description: error || null,
         actionDescription: null,
         rejectionTitle: null,
-        statusCode: statusCode,
-        errorCode: errorCode,
+        statusCode: statusCode || null,
+        errorCode: errorCode || null,
         isAuthorizationModal: true,
         buttonText: 'error_popup_button_401/3'
       };
