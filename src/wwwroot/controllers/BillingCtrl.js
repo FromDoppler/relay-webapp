@@ -172,6 +172,11 @@
       vm.viewExpDate = form.expDate.$viewValue;
     }
     function submitBillingPayment() {
+      if (vm.downgrade) {
+        downgrade();
+        return;
+      }
+
       var agreement = {
         planName: planName,
         paymentMethod: {
@@ -193,11 +198,6 @@
         }
      };
 
-      if (vm.downgrade) {
-        downgrade(agreement);
-        return;
-      }
-      
       return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
         return ModalService.showModal({
@@ -217,7 +217,7 @@
       });
     }
 
-    function downgrade(agreement) {
+    function downgrade() {
       ModalService.showModal({
         templateUrl: 'partials/modals/confirm-input-template.html',
         controller: 'ConfirmInputTemplate',
@@ -236,8 +236,11 @@
         modal.close.then(redirectToPlanSelection);
       });
     }
-    function downgradeAction(agreement) {
-      return settings.downgrade(agreement, onExpectedError);
+    function downgradeAction() {   
+      var agreement = { planName: planName };
+      return settings.downgrade(agreement, onExpectedError).then(function(){
+        redirectToPlanSelection();
+      });      
     }
     function cancelAction() {
       if (!vm.downgrade) {

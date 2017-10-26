@@ -22,7 +22,8 @@
       getPlansAvailable: getPlansAvailable,
       billingPayment: billingPayment,
       getCurrentPlanInfo: getCurrentPlanInfo,
-      getStatusPlanInfo: getStatusPlanInfo
+      getStatusPlanInfo: getStatusPlanInfo,
+      downgrade: downgrade
     };
 
     var plansCache = null;
