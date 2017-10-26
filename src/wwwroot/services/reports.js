@@ -172,10 +172,6 @@
         url: RELAY_CONFIG.baseUrl + '/reports/reportrequests'
       }).then(function (response) {
         return (response.data.items);
-      })
-      .catch(function (reason) {
-        $log.error(reason.error.detail);
-        return $q.reject(reason);
       });
     }
 

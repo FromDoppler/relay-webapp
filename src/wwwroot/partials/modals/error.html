@@ -1,17 +1,17 @@
 <div class="modal--wrapper ms-relay">
   <div class="modal--outter text--center error-container">
-    <span ng-click="vm.closeModal()">X</span>
+    <span ng-click="vm.closeModal(false)">X</span>
     <h3>{{'error_popup_title' | translate}}</h3>
-    <div ng-if="!vm.isAuthorizationModal">
-      <p ng-if="!vm.rejectionTitle" ng-bind-html="vm.errorMessage | translate:{action:vm.actionDescription}"></p>
-      <p ng-if="vm.rejectionTitle" ng-bind-html="vm.errorMessage | translate:{action:vm.actionDescription, rejectionTitle:vm.rejectionTitle}"></p>
-      <p>{{'error_popup_description' | translate}}</p>
-      <button class="button button--large button--right" ng-click="vm.closeModal()">{{vm.buttonText | translate}}</button>
-    </div>
-    <div ng-if="vm.isAuthorizationModal">
-      <p ng-bind-html="vm.errorMessage | translate:{statusCode:vm.statusCode, errorCode:vm.errorCode}"></p>
-      <p ng-bind-html="error_popup_description_401/3 | translate"></p>
-      <button class="button button--large button--right" ng-click="vm.closeModal()">{{'error_popup_button_401/3' | translate}}</button>
+
+    <div>
+      <p ng-if="!vm.isAuthorizationModal && !vm.rejectionTitle" ng-bind-html="vm.errorMessage | translate:{action:vm.actionDescription}"></p>
+      <p ng-if="!vm.isAuthorizationModal && vm.rejectionTitle" ng-bind-html="vm.errorMessage | translate:{action:vm.actionDescription, rejectionTitle:vm.rejectionTitle}"></p>
+      <p ng-if="vm.isAuthorizationModal" ng-bind-html="vm.errorMessage | translate:{statusCode:vm.statusCode, errorCode:vm.errorCode}"></p>
+
+      <p ng-if="!vm.isAuthorizationModal">{{'error_popup_description' | translate}}</p>
+      <p ng-if="vm.isAuthorizationModal">{{'error_popup_description_401/3' | translate}}</p>
+
+      <button class="button button--large button--right" ng-click="vm.closeModal(true)">{{vm.buttonText | translate}}</button>
     </div>
   </div>
 </div>
