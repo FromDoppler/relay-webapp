@@ -243,6 +243,7 @@
       if (!vm.downgrade) {
         vm.showConfirmation = false;
         vm.paymentFailure = false;
+        return;
       }
       redirectToPlanSelection();
     }
