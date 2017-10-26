@@ -172,30 +172,32 @@
       vm.viewExpDate = form.expDate.$viewValue;
     }
     function submitBillingPayment() {
+      var agreement = {
+        planName: planName,
+        paymentMethod: {
+          creditCard: {
+            cardNumber: vm.cc.number,
+            verificationCode: vm.secCode.number,
+            expiryDate: vm.expDate,
+            cardHoldersName: vm.cardHolder,
+            cardBrand: vm.cc.brand
+          }
+        },
+        billingInformation: {
+          name: vm.name,
+          companyName:vm.company,
+          address: vm.address,
+          city: vm.city,
+          zipCode: vm.zCode,
+          countryCode: vm.country.code
+        }
+     };
+
       if (vm.downgrade) {
-        downgrade();
+        downgrade(agreement);
         return;
       }
-      var agreement = {
-         planName: planName,
-         paymentMethod: {
-           creditCard: {
-             cardNumber: vm.cc.number,
-             verificationCode: vm.secCode.number,
-             expiryDate: vm.expDate,
-             cardHoldersName: vm.cardHolder,
-             cardBrand: vm.cc.brand
-           }
-         },
-         billingInformation: {
-           name: vm.name,
-           companyName:vm.company,
-           address: vm.address,
-           city: vm.city,
-           zipCode: vm.zCode,
-           countryCode: vm.country.code
-         }
-      };
+      
       return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
         return ModalService.showModal({
@@ -215,7 +217,7 @@
       });
     }
 
-    function downgrade() {
+    function downgrade(agreement) {
       ModalService.showModal({
         templateUrl: 'partials/modals/confirm-input-template.html',
         controller: 'ConfirmInputTemplate',
@@ -234,8 +236,8 @@
         modal.close.then(redirectToPlanSelection);
       });
     }
-    function downgradeAction() {
-      return settings.downgrade(onExpectedError);
+    function downgradeAction(agreement) {
+      return settings.downgrade(agreement, onExpectedError);
     }
     function cancelAction() {
       if (!vm.downgrade) {

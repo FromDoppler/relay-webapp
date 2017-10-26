@@ -164,7 +164,7 @@
       });
     }
 
-    function downgrade() {
+    function downgrade(agreement, onExpectedError) {
       var url = RELAY_CONFIG.baseUrl
       + '/accounts/'
       + auth.getAccountName()
@@ -175,6 +175,7 @@
       actionDescription: 'action_billing_downgrade',
       tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
       method: 'PUT',
+      data: agreement,
       url: url
     });
     }
