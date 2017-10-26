@@ -171,13 +171,13 @@
       + '/agreements'
       + '/next';
 
-    return $http({
-      actionDescription: 'action_billing_downgrade',
-      tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
-      method: 'PUT',
-      data: agreement,
-      url: url
-    });
+      return $http({
+        actionDescription: 'action_billing_downgrade',
+        tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
+        method: 'PUT',
+        data: agreement,
+        url: url
+      });
     }
 
     function getCurrentPlanInfo() {

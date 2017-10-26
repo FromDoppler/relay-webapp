@@ -117,7 +117,7 @@
   "validation_error_mask": "Invalid Format.",
   "validation_error_invalid_card_number": "Invalid Credit Card number.",
   "validation_error_payment_failure": "We couldn't process the payment, please check your information.",
-  "validation_error_pattern":"Please check the text",
+  "validation_error_pattern": "Please check the text",
   "date_filter_slash": "{{ date | date : 'MM/dd/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitor",
