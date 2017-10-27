@@ -117,6 +117,7 @@
   "validation_error_mask": "Invalid Format.",
   "validation_error_invalid_card_number": "Invalid Credit Card number.",
   "validation_error_payment_failure": "We couldn't process the payment, please check your information.",
+  "validation_error_pattern": "Please check the text",
   "date_filter_slash": "{{ date | date : 'MM/dd/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitor",
@@ -201,6 +202,7 @@
   "action_activating_user": "Activating user",
   "action_adding_domain": "Adding a Domain",
   "action_billing_payment": "Doing the payment",
+  "action_billing_downgrade": "Doing the downgrade",
   "action_setting_default_domain": "Setting a default Domain",
   "action_deleting_domain": "Deleting a Domain",
   "action_getting_resource" : "Getting web resource",
@@ -308,6 +310,7 @@
   "my_plan_emails_sent": "Emails sent out of plan",
   "my_plan_renewal_date": "Plan renewal",
   "change_plan_text": "Change your plan",
+  "change_plan": "Change plan",
   "free_trial_text": "Free Trial",
   "success_upgrade_title":"Congratulations!",
   "success_upgrade_text":"Your payment has been processed correctly, we will send you the receipt soon. If you have any doubt please reach out us at <a href='mailto:soporte@dopplerrelay.com'>support@dopplerrelay.com.</a>",
@@ -400,5 +403,13 @@
   "upgrade_plan_exclamation": "Upgrade now!",
   "free_trial_header_almost_ended_text" : "Your free trial is ending in {{ trialDaysLeft }} days, please to keep sending your transactional emails do an upgrade.",
   "free_trial_header_end_today_text" : "Your free trial is ending today, please to keep sending your transactional emails do an upgrade.",
-  "free_trial_header_trial_text": "Your account is on the free trial version, if you need to send more emails choose a plan."
+  "free_trial_header_trial_text": "Your account is on the free trial version, if you need to send more emails choose a plan.",
+  "downgrade_popup_title": "Are you sure you want to change your plan?",
+  "downgrade_popup_main_text": "Clicking on 'confirm' you will change the amount of Emails you can send from the first day of next month.",
+  "downgrade_popup_confirm_text": "Write 'CHANGE' to confirm.",
+  "downgrade_popup_cancel_button": "Cancel this action",
+  "confirm_text": "Confirm",
+  "downgrade_popup_confirm_word": "CHANGE",
+  "downgrade_confirmation_button": "Confirm downgrade",
+  "downgrade_confirmation_cancel_button": "Back to my plan"
 };

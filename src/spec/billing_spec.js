@@ -680,7 +680,7 @@ describe('Billing Page', () => {
     billingPage.clickUpgradeButtonToDisplayPricingChart();
 
     // Assert
-    expect(billingPage.getBasicButtonText()).toBe('CONTACT US');
+    expect(billingPage.getBasicButtonText()).toBe('CHANGE PLAN');
     expect(billingPage.isProPlanButtonDisabled()).toBeTruthy();
   });
 

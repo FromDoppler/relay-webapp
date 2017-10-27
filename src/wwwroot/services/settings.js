@@ -22,7 +22,8 @@
       getPlansAvailable: getPlansAvailable,
       billingPayment: billingPayment,
       getCurrentPlanInfo: getCurrentPlanInfo,
-      getStatusPlanInfo: getStatusPlanInfo
+      getStatusPlanInfo: getStatusPlanInfo,
+      downgrade: downgrade
     };
 
     var plansCache = null;
@@ -159,6 +160,22 @@
         actionDescription: 'action_billing_payment',
         tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
         method: 'POST',
+        data: agreement,
+        url: url
+      });
+    }
+
+    function downgrade(agreement, onExpectedError) {
+      var url = RELAY_CONFIG.baseUrl
+      + '/accounts/'
+      + auth.getAccountName()
+      + '/agreements'
+      + '/next';
+
+      return $http({
+        actionDescription: 'action_billing_downgrade',
+        tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
+        method: 'PUT',
         data: agreement,
         url: url
       });

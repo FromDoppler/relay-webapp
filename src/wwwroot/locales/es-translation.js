@@ -129,6 +129,7 @@
   "validation_error_mask": "Escribe un formato válido.",
   "validation_error_invalid_card_number": "Escribe una tarjeta de crédito válida.",
   "validation_error_payment_failure": "No pudimos realizar el pago, por favor revisa tu información.",
+  "validation_error_pattern": "Por favor revisa el texto ingresado",
   "date_filter_slash": "{{ date | date : 'dd/MM/yyyy hh:mm:ss a' : 'UTC' }}",
   "utc": "UTC",
   "name_placeholder_confirmation": "Visitante",
@@ -213,6 +214,7 @@
   "action_activating_user": "Activando usuario",
   "action_adding_domain": "Activando un Dominio",
   "action_billing_payment": "Realizando el pago",
+  "action_billing_downgrade": "Realizando el cambio de plan",
   "action_setting_default_domain": "Activando un dominio predeterminado",
   "action_deleting_domain": "Borrando un Dominio",
   "action_getting_resource" : "Obteniendo recurso de la web",
@@ -322,6 +324,7 @@
   "my_plan_emails_sent": "Excedentes",
   "my_plan_renewal_date": "Renovación de plan",
   "change_plan_text": "Cambiar plan",
+  "change_plan": "Cambiar plan",
   "free_trial_text": "Cuenta Gratis",
   "success_upgrade_title":"¡Felicitaciones!",
   "success_upgrade_text":"El pago ha sido aceptado correctamente, te enviaremos tu comprobante de pago en breve. Si tienes alguna duda puedes ponerte en contacto con nuestro equipo escribiendo a <a href='mailto:soporte@dopplerrelay.com'>soporte@dopplerrelay.com.</a>",
@@ -414,5 +417,13 @@
   "upgrade_plan_exclamation": "¡Contrata ahora!",
   "free_trial_header_almost_ended_text" : "Tu prueba gratuita termina en {{ trialDaysLeft }} días, para seguir enviando tus emails transaccionales elige un plan.",
   "free_trial_header_end_today_text" : "Tu prueba gratuita termina hoy, para seguir enviando tus emails transaccionales elige un plan.",
-  "free_trial_header_trial_text": "Tu cuenta se encuentra en la versión de prueba gratuita, si necesitas enviar más emails elige un plan."
+  "free_trial_header_trial_text": "Tu cuenta se encuentra en la versión de prueba gratuita, si necesitas enviar más emails elige un plan.",
+  "downgrade_popup_title": "¿Seguro que quieres cambiar de plan?",
+  "downgrade_popup_main_text": "Haciendo click en ¨confirmar¨ se modificará la cantidad de Emails que puedes enviar a partir del primer día del mes siguiente.",
+  "downgrade_popup_confirm_text": "Escribe ¨CAMBIAR¨ para confirmar.",
+  "downgrade_popup_cancel_button": "Cancelar esta acción",
+  "confirm_text": "Confirmar",
+  "downgrade_popup_confirm_word": "CAMBIAR",
+  "downgrade_confirmation_button": "Confirmar cambio",
+  "downgrade_confirmation_cancel_button": "Volver a mi plan"
 };

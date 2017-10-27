@@ -32,7 +32,7 @@
     top: 50%;
     transform: translate(-50%,-50%);
     padding: 4em;
-    span{
+    span.close--button{
       font-size: 1.5em;
       color: $suit-accent-color;
       position: absolute;
@@ -53,8 +53,34 @@
   }
 }
 
+.confirm-input--container{
+  .buttons-container:last-of-type{
+    margin-top: 3rem;
+  }
+  button:first-of-type{
+    margin-right: 1rem;
+  }
+  .input-container{
+    display: inline-block;
+  }
+  .validation-error-fluid{
+    text-align: left;
+  }
+}
+
 @media screen and (max-width: 800px){
+  
   .modal--outter{
     padding: 5% !important;
+    width: 85% !important;
+    &.confirm-input--container{
+      input{
+        min-width: 200px !important;
+      }
+      button:first-of-type{
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
   }
 }
