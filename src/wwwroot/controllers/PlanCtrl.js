@@ -94,6 +94,8 @@
         return plan.type == "pro";
       });
       
+      vm.ipsPlanCount = pro ? pro.ips_count : 0;
+
       if (!basic) {
         vm.showPremiumPlanBox = true;
 
@@ -114,7 +116,6 @@
         vm.disableLeftPlan = isCurrentPlan(basic);
 
         if (pro) {
-          vm.ipsPlanCount = pro.ips_count;
           vm.rightPlanName = pro.name;
           vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
           vm.rightCostEmail = pro.extra_delivery_cost;
