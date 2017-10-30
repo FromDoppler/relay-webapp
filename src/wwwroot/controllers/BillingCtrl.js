@@ -40,6 +40,7 @@
     var planName = queryParams['plan'];
     vm.activationPromise = activate();
     vm.redirectToPlanSelection = redirectToPlanSelection;
+    vm.cancelAction = cancelAction;
 
     function activate() {
 
@@ -64,7 +65,8 @@
           
           var currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
           if(currentPlanPrice >= vm.planPrice){
-            return redirectToPlanSelection();
+            vm.showConfirmation = true;
+            vm.downgrade = true;
           }
 
           if(response.data.billingInformation){
@@ -170,26 +172,32 @@
       vm.viewExpDate = form.expDate.$viewValue;
     }
     function submitBillingPayment() {
+      if (vm.downgrade) {
+        downgrade();
+        return;
+      }
+
       var agreement = {
-         planName: planName,
-         paymentMethod: {
-           creditCard: {
-             cardNumber: vm.cc.number,
-             verificationCode: vm.secCode.number,
-             expiryDate: vm.expDate,
-             cardHoldersName: vm.cardHolder,
-             cardBrand: vm.cc.brand
-           }
-         },
-         billingInformation: {
-           name: vm.name,
-           companyName:vm.company,
-           address: vm.address,
-           city: vm.city,
-           zipCode: vm.zCode,
-           countryCode: vm.country.code
-         }
-      };
+        planName: planName,
+        paymentMethod: {
+          creditCard: {
+            cardNumber: vm.cc.number,
+            verificationCode: vm.secCode.number,
+            expiryDate: vm.expDate,
+            cardHoldersName: vm.cardHolder,
+            cardBrand: vm.cc.brand
+          }
+        },
+        billingInformation: {
+          name: vm.name,
+          companyName:vm.company,
+          address: vm.address,
+          city: vm.city,
+          zipCode: vm.zCode,
+          countryCode: vm.country.code
+        }
+     };
+
       return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
         return ModalService.showModal({
@@ -207,6 +215,40 @@
           modal.close.then(redirectToPlanSelection);
         });
       });
+    }
+
+    function downgrade() {
+      ModalService.showModal({
+        templateUrl: 'partials/modals/confirm-input-template.html',
+        controller: 'ConfirmInputTemplate',
+        controllerAs: 'vm',
+        inputs: {
+          title: "downgrade_popup_title",
+          mainText: "downgrade_popup_main_text",
+          descriptionInput: "downgrade_popup_confirm_text",
+          confirmationWord: "downgrade_popup_confirm_word",
+          actionSuccess: downgradeAction,
+          cancelButtonText: "downgrade_popup_cancel_button",
+          buttonText: "confirm_text"
+        }
+      })
+      .then(function (modal) {
+        modal.close.then(redirectToPlanSelection);
+      });
+    }
+    function downgradeAction() {   
+      var agreement = { planName: planName };
+      return settings.downgrade(agreement, onExpectedError).then(function(){
+        redirectToPlanSelection();
+      });      
+    }
+    function cancelAction() {
+      if (!vm.downgrade) {
+        vm.showConfirmation = false;
+        vm.paymentFailure = false;
+        return;
+      }
+      redirectToPlanSelection();
     }
   }
 

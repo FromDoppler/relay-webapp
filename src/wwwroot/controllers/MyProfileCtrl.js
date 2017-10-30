@@ -47,10 +47,11 @@
         }, 1500);
       })
       .catch(function(rejectionData){
-        if (rejectionData.data.errorCode == 2 && rejectionData.data.status == 401) {
+        var data = rejectionData.data || { };
+        if (data.errorCode == 2 && data.status == 401) {
           vm.wrongOldPassword = true;
         } else {
-          $rootScope.addError('action_updating_password', rejectionData.data.detail, rejectionData.data.title, rejectionData.data.status, rejectionData.data.errorCode);
+          $rootScope.addError('action_updating_password', data.detail, data.title, data.status, data.errorCode);
         }
       });
     }

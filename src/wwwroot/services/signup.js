@@ -43,12 +43,13 @@
         return response;
       })
       .catch(function (reason) {
+        var data = reason.data || { };
         if (reason.status == 401) {
-          return { getUserError: true, detail: reason.data.detail };
+          return { getUserError: true, detail: data.detail };
         }
         else {
-          var actionDescription = !reason.config.actionDescription ? '' : reason.config.actionDescription;
-          var actionTitle = reason.data && reason.data.title || '';
+          var actionDescription = reason.config && reason.config.actionDescription || '';
+          var actionTitle = data.title || '';
           if (actionTitle == '') {
             $rootScope.addError('error_handler_unexpected', actionDescription, reason);
           }
@@ -76,12 +77,13 @@
         return response;
       })
       .catch(function (reason) {
+        var data = reason.data || { };
         if (reason.status == 401) {
-          return { getApiKeyError: true, detail: reason.data.detail };
+          return { getApiKeyError: true, detail: data.detail };
         }
         else {
-          var actionDescription = !reason.config.actionDescription ? '' : reason.config.actionDescription;
-          var actionTitle = reason.data && reason.data.title || '';
+          var actionDescription = reason.config && reason.config.actionDescription || '';
+          var actionTitle = data.title || '';
           if (actionTitle == '') {
             $rootScope.addError('error_handler_unexpected', actionDescription, reason);
           }
