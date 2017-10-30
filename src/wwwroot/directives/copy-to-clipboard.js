@@ -20,7 +20,8 @@
             template: '<button class="button button--extra-small" tooltips tooltip-side="bottom" tooltip-template="{{copyTooltipMessageKey | translate}}" tooltip-show-trigger="click" tooltip-hidden="{{tooltipHidden}}">{{buttonTextKey | translate}}</button>',
             link: function (scope, element, attrs) {
                 if (Clipboard.isSupported() ){
-                    var clipboard = new Clipboard(element[0], {
+                    var button = element.find("button")[0];
+                    var clipboard = new Clipboard(button, {
                         target: function () { 
                             return $(scope.copyTarget)[0]; 
                         }
