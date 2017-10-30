@@ -469,7 +469,7 @@ describe('Billing Page', () => {
       // so it cannot access variables from outside its scope
       .module('descartableModule3', ['ngMockE2E'])
       .run($httpBackend => {
-        $httpBackend.whenPOST(/\/accounts\/[\w|-]*\/agreements/).respond(400, { "data": { 'errorCode': 5 } });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/agreements\/current/).respond(400, { "data": { 'errorCode': 5 } });
       }));
 
 
