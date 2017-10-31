@@ -154,7 +154,6 @@
     }
 
     var onExpectedError = function (rejectionData) {
-      vm.processingPayment = false;
       vm.paymentFailure = true;
       return true;
     };
@@ -178,7 +177,7 @@
         downgrade();
         return;
       }
-    
+
       var agreement = {
         planName: planName,
         paymentMethod: {
@@ -218,6 +217,8 @@
         .then(function (modal) {
           modal.close.then(redirectToPlanSelection);
         });
+      }).finally(function(){
+        vm.processingPayment = false;
       });
     }
 
