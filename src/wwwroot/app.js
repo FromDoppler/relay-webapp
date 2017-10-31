@@ -171,13 +171,15 @@
     '$translate', 
     'jwtHelper', 
     '$locale',
+    'utils',
     function (
       $rootScope,
       auth,
       $location, 
       $translate, 
       jwtHelper,
-      $locale) {
+      $locale,
+      utils) {
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
@@ -195,6 +197,7 @@
       if (queryLang) {
         $location.search('lang', null);
         $translate.use(queryLang);
+        utils.setPreferredLanguage(queryLang);
       }
 
       var queryTemporalToken = queryParams['temporalToken'];

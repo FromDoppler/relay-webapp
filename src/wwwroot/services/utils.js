@@ -22,7 +22,9 @@
       resetForm: resetForm,
       replaceAllCharsExceptLast4: replaceAllCharsExceptLast4,
       validateCreditCard : validateCreditCard,
-      removeDuplicates: removeDuplicates
+      removeDuplicates: removeDuplicates,
+      getPreferredLanguage: getPreferredLanguage,
+      setPreferredLanguage: setPreferredLanguage
     };
 
     return utilsService;
@@ -137,6 +139,14 @@
         }
         return Object.keys(o);
       }
+
+    function getPreferredLanguage(){
+      return $window.localStorage.getItem('lang');
+    }
+
+    function setPreferredLanguage(key){
+      $window.localStorage.setItem('lang', key);
+    }
 
   }
 })();
