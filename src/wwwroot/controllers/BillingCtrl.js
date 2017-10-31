@@ -96,6 +96,7 @@
       allowInvalidValue: true, //allows us to watch the value
       clearOnBlur: false
     };
+    vm.processingPayment = false;
 
     function redirectToPlanSelection() {
       $location.path('/settings/my-plan');
@@ -153,6 +154,7 @@
     }
 
     var onExpectedError = function (rejectionData) {
+      vm.processingPayment = false;
       vm.paymentFailure = true;
       return true;
     };
@@ -176,7 +178,7 @@
         downgrade();
         return;
       }
-
+    
       var agreement = {
         planName: planName,
         paymentMethod: {
@@ -197,6 +199,8 @@
           countryCode: vm.country.code
         }
      };
+
+     vm.processingPayment = true;
 
       return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
