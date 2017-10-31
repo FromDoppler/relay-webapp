@@ -154,12 +154,13 @@
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/'
         + auth.getAccountName()
-        + '/agreements';
+        + '/agreements'
+        + '/current';
 
       return $http({
         actionDescription: 'action_billing_payment',
         tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
-        method: 'POST',
+        method: 'PUT',
         data: agreement,
         url: url
       });
