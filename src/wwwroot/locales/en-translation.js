@@ -411,5 +411,6 @@
   "confirm_text": "Confirm",
   "downgrade_popup_confirm_word": "CHANGE",
   "downgrade_confirmation_button": "Confirm downgrade",
-  "downgrade_confirmation_cancel_button": "Back to my plan"
+  "downgrade_confirmation_cancel_button": "Back to my plan",
+  "upgrade_link": "Upgrade Now"
 };

@@ -425,5 +425,6 @@
   "confirm_text": "Confirmar",
   "downgrade_popup_confirm_word": "CAMBIAR",
   "downgrade_confirmation_button": "Confirmar cambio",
-  "downgrade_confirmation_cancel_button": "Volver a mi plan"
+  "downgrade_confirmation_cancel_button": "Volver a mi plan",
+  "upgrade_link": "Cambiar plan"
 };
