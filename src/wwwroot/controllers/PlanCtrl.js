@@ -49,7 +49,7 @@
         defaultPlanDeliveries = !vm.isFreeTrial ? response.data.includedDeliveries.toString() : defaultPlanDeliveries; 
         if (!vm.hasScheduledPlan) {
           settings.getNextPlan().then(function(response){
-            vm.nextPlan = response.data.includedDeliveries;
+            vm.nextPlanIncludedDeliveries = response.data.includedDeliveries;
           });
         }
       })
