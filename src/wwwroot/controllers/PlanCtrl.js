@@ -47,6 +47,11 @@
         vm.allowChangePlan = !response.data.endDate;
         vm.hideDragMe = !vm.isFreeTrial;
         defaultPlanDeliveries = !vm.isFreeTrial ? response.data.includedDeliveries.toString() : defaultPlanDeliveries; 
+        if (!vm.allowChangePlan) {
+          settings.getNextPlan().then(function(response){
+            vm.nextPlan = response.data.includedDeliveries;
+          });
+        }
       })
       .finally(function () {
         vm.planInfoLoader = false;

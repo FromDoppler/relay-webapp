@@ -412,5 +412,8 @@
   "downgrade_popup_confirm_word": "CHANGE",
   "downgrade_confirmation_button": "Confirm downgrade",
   "downgrade_confirmation_cancel_button": "Back to my plan",
-  "upgrade_link": "Upgrade Now"
+  "upgrade_link": "Upgrade Now",
+  "scheduled_plan_message": "This is the plan that you will have from the following month.",
+  "my_plan_next_plan": "New Plan *",
+  "action_getting_next_plan": "Getting next plan"
 };

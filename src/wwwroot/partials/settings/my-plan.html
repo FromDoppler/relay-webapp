@@ -55,7 +55,15 @@
         <label class="width--full special uppercase">{{ 'attr_dedicated_ip_premium' | translate }}</label>
         <p ng-show="!vm.planStatusInfoLoader" class="ip-count">{{ vm.currentIpsPlanCount }}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
-      </div>     
+      </div>
+      <div class="flex three flex--wrap" ng-if="!vm.allowChangePlan">
+          <label class="width--full special uppercase">{{ 'my_plan_next_plan' | translate }}</label>
+          <p class="extra-emails">{{vm.nextPlan | number}}</p>
+          <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
+      </div>
+    </div>
+    <div class="flex flex--wrap scheduled--plan-message" ng-if="!vm.allowChangePlan">
+        <p><i>&#42; {{ 'scheduled_plan_message' | translate }}</i></p>
     </div>
   </div>
   <div id="pricing-chart--container" class="section--wrapper pricing-chart--container" ng-class="vm.pricingChartDisplayed ? 'show': 'hide'">
