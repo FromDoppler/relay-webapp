@@ -44,10 +44,10 @@
         vm.currency = response.data.currency;
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
-        vm.allowChangePlan = !response.data.endDate;
+        vm.hasScheduledPlan = !response.data.endDate;
         vm.hideDragMe = !vm.isFreeTrial;
         defaultPlanDeliveries = !vm.isFreeTrial ? response.data.includedDeliveries.toString() : defaultPlanDeliveries; 
-        if (!vm.allowChangePlan) {
+        if (!vm.hasScheduledPlan) {
           settings.getNextPlan().then(function(response){
             vm.nextPlan = response.data.includedDeliveries;
           });

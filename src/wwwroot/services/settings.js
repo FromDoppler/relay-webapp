@@ -186,7 +186,7 @@
       return $http({
         actionDescription: 'action_getting_current_plan',
         method: 'GET',
-        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements' + '/next'
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements/next'
       });
     }
 
