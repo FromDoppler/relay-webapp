@@ -428,6 +428,6 @@
   "downgrade_confirmation_cancel_button": "Volver a mi plan",
   "upgrade_link": "Cambiar plan",
   "scheduled_plan_message": "Este es el plan que tendrás a partir del mes siguiente.",
-  "my_plan_next_plan": "Nuevo Plan *",
+  "my_plan_next_plan": "Nuevo Plan",
   "action_getting_next_plan": "Obteniendo el nuevo plan"
 };

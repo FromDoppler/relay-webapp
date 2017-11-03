@@ -58,7 +58,7 @@
       </div>
       <div class="flex three flex--wrap" ng-if="!vm.hasScheduledPlan">
           <label class="width--full special uppercase">{{ 'my_plan_next_plan' | translate }}</label>
-          <p class="extra-emails">{{vm.nextPlan | number}}</p>
+          <p class="extra-emails">{{vm.nextPlan | number}} &#42;</p>
           <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
     </div>
