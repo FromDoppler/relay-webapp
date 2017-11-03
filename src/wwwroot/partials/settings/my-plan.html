@@ -27,7 +27,7 @@
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
-        <button ng-show="vm.allowChangePlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'change_plan_text' | translate }}</button>
+        <button ng-show="vm.hasScheduledPlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'change_plan_text' | translate }}</button>
       </div>
     </div>
     <div class="item flex flex--wrap">
@@ -55,7 +55,15 @@
         <label class="width--full special uppercase">{{ 'attr_dedicated_ip_premium' | translate }}</label>
         <p ng-show="!vm.planStatusInfoLoader" class="ip-count">{{ vm.currentIpsPlanCount }}</p>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
-      </div>     
+      </div>
+      <div class="flex three flex--wrap" ng-if="!vm.hasScheduledPlan">
+          <label class="width--full special uppercase">{{ 'my_plan_next_plan' | translate }}</label>
+          <p class="extra-emails">{{vm.nextPlanIncludedDeliveries | number}} &#42;</p>
+          <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
+      </div>
+    </div>
+    <div class="flex flex--wrap scheduled--plan-message" ng-if="!vm.hasScheduledPlan">
+        <p><i>&#42; {{ 'scheduled_plan_message' | translate }}</i></p>
     </div>
   </div>
   <div id="pricing-chart--container" class="section--wrapper pricing-chart--container" ng-class="vm.pricingChartDisplayed ? 'show': 'hide'">
