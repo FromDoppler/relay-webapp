@@ -42,9 +42,17 @@
         </div>
       </div>
       <div class="flex margin--bottom-inputs">
-        <div class="wrapper-input width--full">
-          <label class="label--regular" for="phoneNumber">{{'phone_number' | translate}}:</label>
-          <input class="input input--large width--full" ng-model="vm.phoneNumber" name="phoneNumber" placeholder="{{'phone_number' | translate}}" ng-pattern="vm.regexPhoneNumber" required />
+        <div class="wrapper-input width--full margin--right-inputs flex one flex--wrap">
+            <label class="label--regular" for="phoneNumber">{{'country_phone_number' | translate}}:</label>
+            <input class="input input--extra-small width--full" ng-model="vm.phoneNumber" name="phoneNumber" placeholder="{{'phone_number' | translate}}" ng-pattern="vm.regexPhoneNumber" required />
+        </div>
+        <div class="wrapper-input width--full margin--right-inputs flex one flex--wrap">
+            <label class="label--regular" for="phoneNumber">{{'area_phone_number' | translate}}:</label>
+            <input class="input input--small width--full" ng-model="vm.phoneNumber" name="phoneNumber" placeholder="{{'phone_number' | translate}}" ng-pattern="vm.regexPhoneNumber" required />
+        </div>
+        <div class="wrapper-input width--full flex two flex--wrap">
+          <label class="label--regular" for="phoneNumber">{{'phone_number' | translate}}:</label>          
+          <input class="input input--medium width--full" ng-model="vm.phoneNumber" name="phoneNumber" placeholder="{{'phone_number' | translate}}" ng-pattern="vm.regexPhoneNumber" required />
           <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
           <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$invalid && !form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
         </div>
