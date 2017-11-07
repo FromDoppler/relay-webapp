@@ -429,5 +429,7 @@
   "upgrade_link": "Cambiar plan",
   "scheduled_plan_message": "Este es el plan que tendrás a partir del mes siguiente.",
   "my_plan_next_plan": "Nuevo Plan",
-  "action_getting_next_plan": "Obteniendo el nuevo plan"
+  "action_getting_next_plan": "Obteniendo el nuevo plan",
+  "country_phone_number": "Cod. de Pais",
+  "area_phone_number": "Cod. de Área"
 };
