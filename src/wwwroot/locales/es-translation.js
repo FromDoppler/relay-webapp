@@ -431,5 +431,5 @@
   "my_plan_next_plan": "Nuevo Plan",
   "action_getting_next_plan": "Obteniendo el nuevo plan",
   "country_phone_number": "Cod. de Pais",
-  "area_phone_number": "Cod. de Area"
+  "area_phone_number": "Cod. de Área"
 };
