@@ -169,6 +169,9 @@ section {
 .flex--vertically-center{
   align-items: center;
 }
+.flex--vertically-end{
+  align-items: flex-end;
+}
 .flex--left{
   justify-content: center;
   align-items: left;
@@ -189,6 +192,12 @@ section {
   &.three{
     flex:3;
   }
+}
+.flex-one {
+  flex:1;
+}
+.flex-two {
+  flex:2;
 }
 .uppercase{
   text-transform: uppercase;
