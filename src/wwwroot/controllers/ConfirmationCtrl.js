@@ -90,7 +90,8 @@
       }
       var pass = form.pass.$modelValue || null;
       var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
-      return signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, form.phoneNumber.$modelValue, form.country.$modelValue.code, checkTerms)
+      var parsedPhoneNumber = form.countryPhoneNumber.$modelValue + '-' + form.areaPhoneNumber.$modelValue + '-' + form.phoneNumber.$modelValue;
+      return signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, parsedPhoneNumber, form.country.$modelValue.code, checkTerms)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {

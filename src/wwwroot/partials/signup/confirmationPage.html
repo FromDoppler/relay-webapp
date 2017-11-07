@@ -44,13 +44,13 @@
       <div class="confirmation--password-container margin--bottom-inputs flex--vertically-start">
           <div class="wrapper-input flex-one">
               <label class="label--regular" for="countryPhoneNumber">{{'country_phone_number' | translate}}:</label>
-              <input class="input input--extra-small width--full" ng-model="vm.countryPhoneNumber" name="countryPhoneNumber" ng-pattern="vm.regexPhoneNumber" required />
+              <input class="input input--extra-small width--full" ng-model="vm.countryPhoneNumber" name="countryPhoneNumber" ng-pattern="vm.regexCodePhoneNumber" required />
               <span class="input--error" ng-show="(vm.submitted ||form.countryPhoneNumber.$dirty) && form.countryPhoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               <span class="input--error" ng-show="(vm.submitted ||form.countryPhoneNumber.$dirty) && form.countryPhoneNumber.$invalid && !form.countryPhoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
           </div>
           <div class="wrapper-input flex-one margin--right-inputs">
               <label class="label--regular" for="areaPhoneNumber">{{'area_phone_number' | translate}}:</label>
-              <input class="input input--extra-small width--full" ng-model="vm.areaPhoneNumber" name="areaPhoneNumber" ng-pattern="vm.regexPhoneNumber" required />
+              <input class="input input--extra-small width--full" ng-model="vm.areaPhoneNumber" name="areaPhoneNumber" ng-pattern="vm.regexCodePhoneNumber" required />
               <span class="input--error" ng-show="(vm.submitted ||form.areaPhoneNumber.$dirty) && form.areaPhoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
               <span class="input--error" ng-show="(vm.submitted ||form.areaPhoneNumber.$dirty) && form.areaPhoneNumber.$invalid && !form.areaPhoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
           </div>
