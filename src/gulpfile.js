@@ -289,6 +289,16 @@ gulp.task('web.config', function () {
   .pipe(gulp.dest(paths.build));
 });
 
+/**
+ * Copy hcheck.png file into build.
+ */
+gulp.task('hcheck.png', function () {
+  return gulp.src([
+    paths.app + '/hcheck.png'
+  ])
+  .pipe(gulp.dest(paths.build));
+});
+
 
 gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials'], function () {
   var revAll = new RevAll();
@@ -420,7 +430,8 @@ gulp.task('test', [
 gulp.task('build', ['clean'], function () {
   gulp.start(
     'build-html',
-    'web.config'
+    'web.config',
+    'hcheck.png'
   );
 });
 
