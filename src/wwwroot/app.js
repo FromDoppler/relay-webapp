@@ -173,6 +173,7 @@
     '$rootScope', 
     'auth', 
     '$location', 
+    '$window', 
     '$translate', 
     'jwtHelper', 
     '$locale',
@@ -181,6 +182,7 @@
       $rootScope,
       auth,
       $location, 
+      $window, 
       $translate, 
       jwtHelper,
       $locale,
@@ -221,6 +223,15 @@
 
       verifyAuthorization($location, auth);
     });
+
+    if ($window.ga) {
+      $rootScope.$on('$locationChangeSuccess', function () {
+        $window.ga('send', {
+          'hitType': 'pageview',
+          'screenName' : $location.url()
+        }); 
+      });
+    }
   }]);
 
   //// Uncomment if you want to mock HTTP calls
