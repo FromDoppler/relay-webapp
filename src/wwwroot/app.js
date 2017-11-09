@@ -146,6 +146,11 @@
           controller: 'BillingCtrl',
           controllerAs: 'vm'
         })
+        .when('/signup/succeed', {
+          templateUrl: 'partials/signup/succeed.html',
+          controller: 'SucceedRegistrationCtrl',
+          controllerAs: 'vm'
+        })        
         .otherwise({
           redirectTo: '/reports'
         });
@@ -230,8 +235,8 @@
 
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login'];
-    var requireTemporalAuthUrls = ['/reset-password', '/signup/registration'];
+    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed'];
+    var requireTemporalAuthUrls = ['/reset-password'];
 
     // TODO: optimize it
     var currentPath = $location.$$path;

@@ -147,6 +147,10 @@ section {
   border-right: 1px solid $suit-color-grey-line;
 }
 
+.text--center {
+  text-align: center;
+}
+
 .flex{
   display: flex;
 }
@@ -438,6 +442,9 @@ a {
   }
 }
 @media screen and (max-width: 750px) {
+  .main-container{
+    min-height: calc(100vh - 173px);
+  }
 
   h3 {
     font-size:1rem !important;

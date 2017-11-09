@@ -1,5 +1,5 @@
 ﻿      <!--<a ng-click="logOut()">Log Out</a>-->
-<section class="header free-trial ms-relay" ng-if="freeTrialStatus">
+<section class="header free-trial ms-relay" ng-if="freeTrialStatus && isPermanentAuthed()">
   <div class="flex flex--center">
     <p>
       <strong>
