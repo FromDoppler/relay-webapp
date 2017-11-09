@@ -47,7 +47,7 @@
         account_name: vm.accountName,
         company: vm.company,
         termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
-        recaptchaResponse: form.recaptchaResponse.$modelValue
+        recaptchaResponse: form.recaptchaResponse
       };
 
       var onExpectedError = function (rejectionData) {

@@ -95,6 +95,7 @@ gulp.task('build-scripts-lib', function () {
     paths.lib + '/angular-tooltips/dist/angular-tooltips.min.js',
     paths.lib + '/clipboard/dist/clipboard.min.js',
     paths.lib + '/angularjs-slider/dist/rzslider.min.js',
+    paths.lib + '/angular-recaptcha/release/angular-recaptcha.min.js'
   ])
   .pipe(concat('lib.min.js'))
   .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
