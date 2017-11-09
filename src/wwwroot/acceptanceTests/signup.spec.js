@@ -432,37 +432,18 @@ describe('Signup', () => {
 
   describe('Registration', () => {
     describe('initial status', () => {
-      it('should show the registration page correctly with the temporal token', () => {
+      it('should show the registration page correctly', () => {
         // Arrange
         var { $location, $scope, auth, jwtHelper } = createContext();
         expect(auth.isAuthed()).toBe(false);
-        jwtHelper.isTokenExpired = () => false;
 
         // Act
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MjAxMjEsImV4cCI6MTQ4NDYyMzcyMSwiaWF0IjoxNDg0NjIwMTIxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwidW5pcXVlX25hbWUiOiJhbW9zY2hpbmkrMUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9vbl9wYXNzd29yZF9yZXNldCI6dHJ1ZX0.dEFvbFzwmMDckjTPdih2WjC5fkkXMEirOxQcptJOh_vUtOU8c6psldSt4TsfL6znkFi2df9I4LVDnLUHVZG_PClkukqvQZ_EKJrUdx4PhGeRn9GL_bpYlOXr_G4VPs9h4s20Rq8fWDC4uYKIncXgQtP-po1VZHez8RyRv-xVUKTRouFfdt29usu_DPscvpVFn0P_J4qxkGnWcsHWGmexEVBbMP8_W_YCxz23FgH8vjkNo54j1wWFsOfxzZivNG92kgPcTE4PVXxn4y4yRmRS03m1mpnEL46CZ127utyhRSg91f4Imz3kgM6t4cpacxObUOMWdw86kL2flSbYUh4pxQ'});
         $scope.$apply(); // To run app.js code
 
         // Assert
         expect($location.path()).toBe('/signup/registration');
-        expect(auth.isAuthed()).toBe(true);
-        expect(auth.isTemporarilyAuthed()).toBe(true);
-      });
-
-      it('should not be able to get into the registration page without the temporal token', () => {
-        // Arrange
-        var { $location, $scope, auth, jwtHelper } = createContext();
         expect(auth.isAuthed()).toBe(false);
-        jwtHelper.isTokenExpired = () => false;
-
-        // Act
-        $location.path('/signup/registration');
-        $scope.$apply(); // To run app.js code
-
-        // Assert
-        expect($location.path()).toBe('/temporal-token-error');
-        expect(auth.isAuthed()).toBe(false);
-        expect(auth.isTemporarilyAuthed()).toBe(false);
       });
     });
 
@@ -478,11 +459,10 @@ describe('Signup', () => {
           url => url.endsWith('/user/registration?lang=en'),
           '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":"1qaz2WSX","account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1}'
         ).respond(200, {
-          "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ3NjI2NjYsImV4cCI6MTQ4NzM1NDY2NiwiaWF0IjoxNDg0NzYyNjY2LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.CaW8TdRwf77FzfyQB20AgE9Sd13k4RBeMgwBwJuCgg03NI0fhu7nTx7YPoTKQNxkU-3C3PhvJQHqDI2pU6ThS8dKsRHeJZoT8OxwiFbOYmnii33WcpmkVcLoUbfA8aXcVVFVTiXGN8LngE9Mml8nd7udxtvxcwv9uDMh0-u-FACBxrmX66Cth2_pNL6AzkAC91rRvf3MTUZ8IXOMbsxTaSMydsPqhtqlPoczbTYHaLCW0JRyANKNqhPMHRH14rfZLUyfOPC1_l4VgnQHt7_w95rJm5nFLsWk10Ji8ALoB-i8q5WUDQcKqwGt2Ar2z8ruRyjdx1aHTY5x-f0MFTTTGw"
+          
         });
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MjAxMjEsImV4cCI6MTQ4NDYyMzcyMSwiaWF0IjoxNDg0NjIwMTIxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwidW5pcXVlX25hbWUiOiJhbW9zY2hpbmkrMUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9vbl9wYXNzd29yZF9yZXNldCI6dHJ1ZX0.dEFvbFzwmMDckjTPdih2WjC5fkkXMEirOxQcptJOh_vUtOU8c6psldSt4TsfL6znkFi2df9I4LVDnLUHVZG_PClkukqvQZ_EKJrUdx4PhGeRn9GL_bpYlOXr_G4VPs9h4s20Rq8fWDC4uYKIncXgQtP-po1VZHez8RyRv-xVUKTRouFfdt29usu_DPscvpVFn0P_J4qxkGnWcsHWGmexEVBbMP8_W_YCxz23FgH8vjkNo54j1wWFsOfxzZivNG92kgPcTE4PVXcxn4y4yRmRS03m1mpnEL46CZ127utyhRSg91f4Imz3kgM6t4cpacxObUOMWdw86kL2flSbYUh4pxQ'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -501,8 +481,7 @@ describe('Signup', () => {
         // Assert
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
-        expect($location.path()).toBe('/signup/registration');
-        expect(controller.emailRegistered).not.toBeNull();
+        expect($location.path()).toBe('/signup/succeed');
       });
 
       it('should not set the flag when the creation returns an Unexpected error', () => {
@@ -517,7 +496,6 @@ describe('Signup', () => {
         ).respond(500, "Unexpected error");
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MjAxMjEsImV4cCI6MTQ4NDYyMzcyMSwiaWF0IjoxNDg0NjIwMTIxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwidW5pcXVlX25hbWUiOiJhbW9zY2hpbmkrMUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9vbl9wYXNzd29yZF9yZXNldCI6dHJ1ZX0.dEFvbFzwmMDckjTPdih2WjC5fkkXMEirOxQcptJOh_vUtOU8c6psldSt4TsfL6znkFi2df9I4LVDnLUHVZG_PClkukqvQZ_EKJrUdx4PhGeRn9GL_bpYlOXr_G4VPs9h4s20Rq8fWDC4uYKIncXgQtP-po1VZHez8RyRv-xVUKTRouFfdt29usu_DPscvpVFn0P_J4qxkGnWcsHWGmexEVBbMP8_W_YCxz23FgH8vjkNo54j1wWFsOfxzZivNG92kgPcTE4PVXxn4y4yRmRS03m1mpnEL46CZ127utyhRSg91f4Imz3kgM6t4cpacxObUOMWdw86kL2flSbYUh4pxQ'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -561,7 +539,6 @@ describe('Signup', () => {
         });
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODU4NzA1NTcsImV4cCI6MTUxNDc3NTYwMCwiaWF0IjoxNDg1ODcwNTUzLCJpc3MiOiJodHRwOi8vYXBpLmRvcHBsZXJyZWxheS5jb20iLCJyZWxheV90ZW1wb3JhbF90b2tlbiI6dHJ1ZSwicmVsYXlfaW50ZXJuYWxfYWRtaW5fdG9rZW4iOnRydWV9.fn_Prus5LjVG-gQDGGfjFl-QwuW4GJZU7LasqJzfW3uw-JlsyrnCODIxScvOn6h4xjfWt6VP-6M3ExHLyYPrO64OtK92L6gKKLSS_3GDALo-wpDKh-5djjdhl6tAWuVTrbJVHVcDWpiNHKfHtaag7GLf5Us-Lufk3RqNW-StYG54-RhTM-e_R-Mq5hLzK0vf5m8DHiY1KdVRgV_vw5eetz1-vu-1sRyHS4walr1KQHzvPsXZl9ip8UM8Uc2WEPo9_AUelCAgn7zbpS8XMWedoDRmox_yXnwdv1NAXOlvIg2p9f6RjZxRKZTZkh_JwopzG9MK1peVflCgQOJoIg95qg'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -608,7 +585,6 @@ describe('Signup', () => {
         });
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODU4NzA1NTcsImV4cCI6MTUxNDc3NTYwMCwiaWF0IjoxNDg1ODcwNTUzLCJpc3MiOiJodHRwOi8vYXBpLmRvcHBsZXJyZWxheS5jb20iLCJyZWxheV90ZW1wb3JhbF90b2tlbiI6dHJ1ZSwicmVsYXlfaW50ZXJuYWxfYWRtaW5fdG9rZW4iOnRydWV9.fn_Prus5LjVG-gQDGGfjFl-QwuW4GJZU7LasqJzfW3uw-JlsyrnCODIxScvOn6h4xjfWt6VP-6M3ExHLyYPrO64OtK92L6gKKLSS_3GDALo-wpDKh-5djjdhl6tAWuVTrbJVHVcDWpiNHKfHtaag7GLf5Us-Lufk3RqNW-StYG54-RhTM-e_R-Mq5hLzK0vf5m8DHiY1KdVRgV_vw5eetz1-vu-1sRyHS4walr1KQHzvPsXZl9ip8UM8Uc2WEPo9_AUelCAgn7zbpS8XMWedoDRmox_yXnwdv1NAXOlvIg2p9f6RjZxRKZTZkh_JwopzG9MK1peVflCgQOJoIg95qg'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -656,7 +632,6 @@ describe('Signup', () => {
         });
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODU4NzA1NTcsImV4cCI6MTUxNDc3NTYwMCwiaWF0IjoxNDg1ODcwNTUzLCJpc3MiOiJodHRwOi8vYXBpLmRvcHBsZXJyZWxheS5jb20iLCJyZWxheV90ZW1wb3JhbF90b2tlbiI6dHJ1ZSwicmVsYXlfaW50ZXJuYWxfYWRtaW5fdG9rZW4iOnRydWV9.fn_Prus5LjVG-gQDGGfjFl-QwuW4GJZU7LasqJzfW3uw-JlsyrnCODIxScvOn6h4xjfWt6VP-6M3ExHLyYPrO64OtK92L6gKKLSS_3GDALo-wpDKh-5djjdhl6tAWuVTrbJVHVcDWpiNHKfHtaag7GLf5Us-Lufk3RqNW-StYG54-RhTM-e_R-Mq5hLzK0vf5m8DHiY1KdVRgV_vw5eetz1-vu-1sRyHS4walr1KQHzvPsXZl9ip8UM8Uc2WEPo9_AUelCAgn7zbpS8XMWedoDRmox_yXnwdv1NAXOlvIg2p9f6RjZxRKZTZkh_JwopzG9MK1peVflCgQOJoIg95qg'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -694,7 +669,6 @@ describe('Signup', () => {
         ).respond(202);
 
         $location.path('/signup/registration');
-        $location.search({ temporalToken: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODU4NzA1NTcsImV4cCI6MTUxNDc3NTYwMCwiaWF0IjoxNDg1ODcwNTUzLCJpc3MiOiJodHRwOi8vYXBpLmRvcHBsZXJyZWxheS5jb20iLCJyZWxheV90ZW1wb3JhbF90b2tlbiI6dHJ1ZSwicmVsYXlfaW50ZXJuYWxfYWRtaW5fdG9rZW4iOnRydWV9.fn_Prus5LjVG-gQDGGfjFl-QwuW4GJZU7LasqJzfW3uw-JlsyrnCODIxScvOn6h4xjfWt6VP-6M3ExHLyYPrO64OtK92L6gKKLSS_3GDALo-wpDKh-5djjdhl6tAWuVTrbJVHVcDWpiNHKfHtaag7GLf5Us-Lufk3RqNW-StYG54-RhTM-e_R-Mq5hLzK0vf5m8DHiY1KdVRgV_vw5eetz1-vu-1sRyHS4walr1KQHzvPsXZl9ip8UM8Uc2WEPo9_AUelCAgn7zbpS8XMWedoDRmox_yXnwdv1NAXOlvIg2p9f6RjZxRKZTZkh_JwopzG9MK1peVflCgQOJoIg95qg'});
 
         // Act
         var controller = createController('RegistrationCtrl');
@@ -713,7 +687,7 @@ describe('Signup', () => {
         // Assert
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
-        expect($location.path()).toBe('/signup/registration');
+        expect($location.path()).toBe('/signup/succeed');
       });
     });
   });
