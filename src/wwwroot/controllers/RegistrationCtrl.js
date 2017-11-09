@@ -13,10 +13,11 @@
     'utils',
     '$translate',
     '$timeout',
-    "Slug"
+    "Slug",
+    '$location'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
