@@ -54,6 +54,11 @@
         <div class="wrapper-input width--full">
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
+        <div
+        vc-recaptcha
+        key="'6Lc9_zcUAAAAAOmTrpRyhwwhVYk0taWIGdD3F1Jk'" 
+        ng-model="form.recaptchaResponse"
+        ></div>
         <div class="wrapper-input width--full">
           <button class="button button--medium" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
         </div>

@@ -22,7 +22,8 @@
         'slugifier',
         '720kb.tooltips',
         'rzModule',
-        'ui.mask'
+        'ui.mask',
+        'vcRecaptcha'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
