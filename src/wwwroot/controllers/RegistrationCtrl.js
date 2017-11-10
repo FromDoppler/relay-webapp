@@ -14,10 +14,11 @@
     '$translate',
     '$timeout',
     "Slug",
-    '$location'
+    '$location',
+    'vcRecaptchaService'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, recaptcha) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
@@ -52,6 +53,7 @@
 
       var onExpectedError = function (rejectionData) {
         var handled = false;
+        recaptcha.reload();
 
         var accountNameError = rejectionData.errors.find(function (error) {
           return error.key == "account_name";
