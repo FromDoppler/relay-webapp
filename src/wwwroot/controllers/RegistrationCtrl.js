@@ -33,7 +33,7 @@
         vm.accountName = Slug.slugify(vm.company);
       }
     }
-    vm.recaptchaAvailable = !!(recaptcha && recaptcha.getInstance());
+    vm.recaptchaAvailable = !!recaptcha;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
