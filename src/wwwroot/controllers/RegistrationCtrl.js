@@ -14,10 +14,11 @@
     '$translate',
     '$timeout',
     "Slug",
-    '$location'
+    '$location',
+    'vcRecaptchaService'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, recaptcha) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
@@ -32,6 +33,7 @@
         vm.accountName = Slug.slugify(vm.company);
       }
     }
+    vm.recaptchaAvailable = !!(recaptcha && recaptcha.getInstance());
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
@@ -46,12 +48,15 @@
         password: vm.password,
         account_name: vm.accountName,
         company: vm.company,
-        termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null
+        termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
+        recaptchaResponse: form.recaptchaResponse
       };
 
       var onExpectedError = function (rejectionData) {
         var handled = false;
-
+        if (vm.recaptchaAvailable){
+          recaptcha.reload();
+        }
         var accountNameError = rejectionData.errors.find(function (error) {
           return error.key == "account_name";
         });
