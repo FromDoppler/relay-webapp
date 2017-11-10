@@ -27,7 +27,8 @@ describe('Signup', () => {
           $location: context.$location,
           $rootScope: context.$rootScope,
           $scope: context.$scope,
-          auth: auth
+          auth: auth,
+          vcRecaptchaService: null
         })
       }
     });

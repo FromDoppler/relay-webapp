@@ -55,6 +55,7 @@
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
           <div
+          ng-if="vm.recaptchaAvailable"
           class="captcha--container"
           vc-recaptcha
           id="registration"

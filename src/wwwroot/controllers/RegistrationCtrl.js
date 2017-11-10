@@ -33,6 +33,7 @@
         vm.accountName = Slug.slugify(vm.company);
       }
     }
+    vm.recaptchaAvailable = !!(recaptcha && recaptcha.getInstance());
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
@@ -53,8 +54,9 @@
 
       var onExpectedError = function (rejectionData) {
         var handled = false;
-        recaptcha.reload();
-
+        if (vm.recaptchaAvailable){
+          recaptcha.reload();
+        }
         var accountNameError = rejectionData.errors.find(function (error) {
           return error.key == "account_name";
         });
