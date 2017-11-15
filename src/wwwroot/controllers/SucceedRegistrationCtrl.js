@@ -6,15 +6,26 @@
       .controller('SucceedRegistrationCtrl', SucceedRegistrationCtrl);
   
       SucceedRegistrationCtrl.$inject = [
-      'utils'
+      'auth',
+      '$translate',
+      '$location'
     ];
   
-    function SucceedRegistrationCtrl(utils) {
+    function SucceedRegistrationCtrl(auth, $translate, $location) {
         var vm = this;
-        vm.getCurrentLanguage = getCurrentLanguage;
+        var queryParams = $location.search();
+        var email = queryParams['email'];
+        if (!email) {
+            $location.path('/');
+        }
+        vm.resendEmail = resendEmail;
+        vm.resendFinished = false;
 
-        function getCurrentLanguage() {
-            return utils.getPreferredLanguage();
+        function resendEmail() {
+            auth.forgotPassword(email, $translate.use())
+            .then(function (result) {
+                vm.resendFinished = true;
+            });
         }
     }
   

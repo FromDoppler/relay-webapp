@@ -2,10 +2,14 @@
     <div class="section--wrapper text--center">
         <h2>{{ 'succeed_registration_title' | translate }}</h2>
         <p>{{ 'succeed_registration_text_1' | translate }}</p>
-        <svg class="icon" width="200px" height="28px">
-            <use xlink:href="/images/sprite.svg#doppler-icon-sing-up-succeed"></use>
-        </svg>
-        <p>{{ 'succeed_registration_text_2' | translate }} <a href="https://help.dopplerrelay.com/{{vm.getCurrentLanguage()}}/">{{ 'reports_activity_period_table_td_resend' | translate }}</a></p>        
+        <div>
+            <svg class="icon">
+                <use xlink:href="/images/sprite.svg#doppler-icon-sing-up-succeed"></use>
+            </svg>
+        </div>
+        <div class="description--container">
+            <p class="description--link" ng-class="!vm.resendFinished ? 'show' : 'hide'">{{ 'succeed_registration_text_2' | translate }} <a ng-click="vm.resendEmail();">{{ 'reports_activity_period_table_td_resend' | translate }}</a></p>
+            <p class="description--link" ng-class="vm.resendFinished ? 'show' : 'hide'">{{ 'succeed_registration_text_2' | translate }}</p>
+        </div>
     </div>
 </section>
-      
