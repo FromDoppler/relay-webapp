@@ -1,5 +1,5 @@
 ﻿<section class="registration">
-  <div class="flex flex--center flex--direction-column section--wrapper">
+  <div class="flex flex--center flex--direction-column section--wrapper width--half text--center">
     <h2>{{'registration_title' | translate}}</h2>
     <p>{{'registration_subtitle' | translate}}</p>
   </div>
@@ -54,6 +54,9 @@
         <div class="wrapper-input width--full">
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
+      </div>
+      <div class="flex input-container submit">
+        <div class="margin-right">
           <div
           ng-if="vm.recaptchaAvailable"
           class="captcha--container"
@@ -65,9 +68,9 @@
           <div class="width--full">
             <span class="input--error" ng-show="vm.submitted && !form.recaptchaResponse"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
           </div>
-        
+        </div>
         <div class="wrapper-input width--full">
-          <button class="button button--medium" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
+          <button class="button button--large" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
         </div>
       </div>
     </div>

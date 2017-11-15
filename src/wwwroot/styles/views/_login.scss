@@ -273,15 +273,17 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
       .margin-right{
         margin-right: 2em;
       }
-  }
-  .captcha--container{
-    margin-bottom: 0 !important;
-    margin-top: 1rem !important;
+      &.submit{
+        align-items: flex-start !important;
+      }
   }
 }
 @media screen and (max-width: 800px){
     .registration{
       height: inherit;
+      .width--half:first-of-type {
+        width: 100%;
+      }
       .section--wrapper-input {
         div:first-of-type {
           input { max-width: 1em; margin-left: 2.5%; min-width: 0 !important;}
