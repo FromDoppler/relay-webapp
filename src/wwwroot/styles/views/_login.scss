@@ -288,6 +288,18 @@ body{ height: 100%;max-height: 100%;min-height: 690px;}
       }
   }
 }
+
+.succeed--container{
+  svg {
+    height: 195px;
+    width: 250px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  a{
+    color: $suit-accent-color;
+  }
+}
 @media screen and (max-width: 800px){
     .registration{
       height: inherit;
