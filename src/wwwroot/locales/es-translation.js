@@ -433,7 +433,8 @@
   "country_phone_number": "Cod. de Pais",
   "area_phone_number": "Cod. de Área",
   "succeed_registration_title": "Gracias por registrarte",
-  "succeed_registration_text_1": "Revisa tu casilla, te hemos enviado un Email donde podrás activar tu cuenta y empezar a utilizar Doppler Relay.",
-  "succeed_registration_text_2": "Mientras tanto puedes revisar nuestro Help Center.",
-  "succeed_registration_button": "Ir al Help Center"
+  "succeed_registration_text_1": "Revisa tu casilla de correo, te hemos enviado un email de activación para que puedas empezar a utilizar Doppler Relay.",
+  "succeed_registration_text_2": "¿No has recibido el Email?.",
+  "succeed_registration_text_3": "Revisa tu casilla, te hemos enviado de nuevo el Email de activación.",
+  "succeed_registration_link": "Reenvíalo"
 };

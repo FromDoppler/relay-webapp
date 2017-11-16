@@ -8,10 +8,11 @@
       SucceedRegistrationCtrl.$inject = [
       'auth',
       '$translate',
-      '$location'
+      '$location',
+      'vcRecaptchaService'
     ];
   
-    function SucceedRegistrationCtrl(auth, $translate, $location) {
+    function SucceedRegistrationCtrl(auth, $translate, $location, vcRecaptchaService) {
         var vm = this;
         var queryParams = $location.search();
         var email = queryParams['email'];
@@ -20,13 +21,34 @@
         }
         vm.resendEmail = resendEmail;
         vm.resendFinished = false;
+        vm.setResponse = setResponse;
+        vm.setWidgetId = setWidgetId;
+        vm.captchaExpiration = captchaExpiration;
+
+        function setWidgetId (widgetId) {
+            vm.widgetId = widgetId;
+        };
+        
+        function captchaExpiration () {
+            vcRecaptchaService.reload(vm.widgetId);
+            vm.response = null;
+        };
 
         function resendEmail() {
-            auth.forgotPassword(email, $translate.use())
+            vcRecaptchaService.reload(vm.widgetId);
+            vcRecaptchaService.execute(vm.widgetId);
+        }
+
+        function setResponse (response) {
+            auth.forgotPassword(email, $translate.use(), response)
             .then(function (result) {
-                vm.resendFinished = true;
+                 vm.resendFinished = true;
+            })
+            .catch(function (result){
+                 captchaExpiration();
             });
         }
+        
     }
   
   })();

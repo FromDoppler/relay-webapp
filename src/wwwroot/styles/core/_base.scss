@@ -207,6 +207,10 @@ section {
   text-transform: uppercase;
 }
 
+.grecaptcha-badge{
+  z-index: 999;
+}
+
 progress {
   /* style rules */
   -webkit-appearance: none;

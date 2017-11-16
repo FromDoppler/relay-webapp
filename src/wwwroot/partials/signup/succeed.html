@@ -8,8 +8,18 @@
             </svg>
         </div>
         <div class="description--container">
-            <p class="description--link" ng-class="!vm.resendFinished ? 'show' : 'hide'">{{ 'succeed_registration_text_2' | translate }} <a ng-click="vm.resendEmail();">{{ 'reports_activity_period_table_td_resend' | translate }}</a></p>
-            <p class="description--link" ng-class="vm.resendFinished ? 'show' : 'hide'">{{ 'succeed_registration_text_2' | translate }}</p>
+            <form method="post" id="form" name="form" novalidate>                 
+                <p class="description--link" ng-class="!vm.resendFinished ? 'show' : 'hide'">{{ 'succeed_registration_text_2' | translate }} <a ng-click="vm.resendEmail();">{{ 'succeed_registration_link' | translate }}</a></p>
+            <div
+            vc-recaptcha
+            size="invisible"
+            key="'6LcUBzkUAAAAAA4EeY8kAHcyLXRxnuR_qHA9L_2t'"
+            on-create="vm.setWidgetId(widgetId)"
+            on-success="vm.setResponse(response)"
+            on-expire="vm.captchaExpiration()"
+            data-badge="bottomright"></div>
+            <p class="description--link" ng-class="vm.resendFinished ? 'show' : 'hide'">{{ 'succeed_registration_text_3' | translate }}</p>
+            </form>
         </div>
     </div>
 </section>
