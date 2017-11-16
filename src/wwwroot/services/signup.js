@@ -131,7 +131,8 @@
         method: 'POST',
         url: RELAY_CONFIG.baseUrl + '/user/registration?lang=' + language,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'g-recaptcha-response': newUser.recaptchaResponse
         },
         data: {
           'user_email': newUser.user_email,

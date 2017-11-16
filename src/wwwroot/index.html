@@ -26,6 +26,7 @@
     }
   </script>
 
+
   <link rel="icon" type="image/x-icon" href="http://www.dopplerrelay.com/favicon.ico" />
   <!-- inject:css -->
   <link rel="stylesheet" type="text/css" href="tmp/styles.css">
@@ -39,7 +40,7 @@
 </head>
 <body ng-controller="MainCtrl">
   <header id="header" ng-controller="HeaderCtrl" ng-class="{true: 'logged',false: 'login'}[isAuthed()]" ng-include="'partials/header.html'"></header>
-  <main class="main-container ms-relay" ng-view ng-class="[{true: 'with-submenu'}[isSubmenuVisible()],{true:'with-submenu-and-free-trial'}[isSubmenuVisible() && !!freeTrialStatus],{true: 'with-free-trial-submenu'}[!!freeTrialStatus]]"></main>
+  <main class="main-container ms-relay" autoscroll="true" ng-view ng-class="[{true: 'with-submenu'}[isSubmenuVisible()],{true:'with-submenu-and-free-trial'}[isSubmenuVisible() && !!freeTrialStatus],{true: 'with-free-trial-submenu'}[!!freeTrialStatus]]"></main>
   <footer id="footer" class="footer" ng-include="'partials/footer.html'"></footer>
   <!-- inject:js -->
   <!-- When you update it, please remember to edit karma.conf.js and gulpfile.js -->
@@ -65,6 +66,9 @@
   <script src="lib/angular-click-outside/clickoutside.directive.js"></script>
   <script src="lib/angular-scroll/angular-scroll.min.js"></script>
   <script src="lib/angularjs-slider/dist/rzslider.min.js"></script>
+  
+<!-- Captcha -->
+<script type="text/javascript" src="lib/angular-recaptcha/release/angular-recaptcha.js"></script>
   <script src="locales/en-translation.js"></script>
   <script src="locales/es-translation.js"></script>
   <script src="polyfills/array.prototype.filter.js"></script>
@@ -95,6 +99,7 @@
   <script src="controllers/MyProfileCtrl.js"></script>
   <script src="controllers/PlanCtrl.js"></script>
   <script src="controllers/BillingCtrl.js"></script>
+  <script src="controllers/SucceedRegistrationCtrl.js"></script>  
   <script src="interceptors/errorHandlerInterceptor.js"></script>
   <script src="directives/c3chart.js"></script>
   <script src="directives/dropdown.js"></script>

@@ -96,6 +96,7 @@
       allowInvalidValue: true, //allows us to watch the value
       clearOnBlur: false
     };
+    vm.processingPayment = false;
 
     function redirectToPlanSelection() {
       $location.path('/settings/my-plan');
@@ -198,6 +199,8 @@
         }
      };
 
+     vm.processingPayment = true;
+
       return settings.billingPayment(agreement, onExpectedError)
       .then(function() {
         return ModalService.showModal({
@@ -214,6 +217,8 @@
         .then(function (modal) {
           modal.close.then(redirectToPlanSelection);
         });
+      }).finally(function(){
+        vm.processingPayment = false;
       });
     }
 

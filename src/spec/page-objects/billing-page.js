@@ -50,6 +50,7 @@ class BillingPage {
     this._currentPlanEmailPrice = element(by.css('.email-price p:nth-child(3)'));
     this._currentPlanPrice = element(by.css('.price p:nth-child(3)'));
     this._sliderEmailsPerMonth = $('.plan--slider-container p span.special');
+    this._downgradeMessage = $('.scheduled--plan-message');
   }
 
   getCurrentPlanEmailPrice() {
@@ -312,6 +313,10 @@ class BillingPage {
     });
 
     return hasClass;
+  }
+
+  isDowngradeMessageDisplayed() {    
+    return this._downgradeMessage.isDisplayed();
   }
 }
 exports.BillingPage = BillingPage;

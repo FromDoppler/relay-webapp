@@ -411,5 +411,15 @@
   "confirm_text": "Confirm",
   "downgrade_popup_confirm_word": "CHANGE",
   "downgrade_confirmation_button": "Confirm downgrade",
-  "downgrade_confirmation_cancel_button": "Back to my plan"
+  "downgrade_confirmation_cancel_button": "Back to my plan",
+  "upgrade_link": "Upgrade Now",
+  "scheduled_plan_message": "This is the plan that you will have from the following month.",
+  "my_plan_next_plan": "New Plan",
+  "action_getting_next_plan": "Getting next plan",
+  "country_phone_number": "Country Code",
+  "area_phone_number": "Area Code",
+  "succeed_registration_title": "Thanks for registering",
+  "succeed_registration_text_1": "Check out your inbox, we have sent you an Email where you can activate your account and start using Doppler Relay.",
+  "succeed_registration_text_2": "In the meanwhile you can check our Help Center.",
+  "succeed_registration_button": "Go to Help Center"
 };

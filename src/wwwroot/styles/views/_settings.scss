@@ -290,6 +290,9 @@
       }
       &:last-of-type { margin-bottom: 4rem; }
     }
+    .scheduled--plan-message {
+      margin-bottom: 4rem;
+    }
     .spinner{
       opacity: 1;
       @extend .transition--default;
@@ -406,6 +409,9 @@
         }
       }
     }
+  }
+  .scheduled--plan-message{
+    p { font-size: $font-size-small; }
   }
 }
 

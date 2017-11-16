@@ -1,5 +1,5 @@
 ﻿      <!--<a ng-click="logOut()">Log Out</a>-->
-<section class="header free-trial ms-relay" ng-if="freeTrialStatus">
+<section class="header free-trial ms-relay" ng-if="freeTrialStatus && isPermanentAuthed()">
   <div class="flex flex--center">
     <p>
       <strong>
@@ -46,7 +46,8 @@
       </a>
     </nav>
     <nav ng-if="isPermanentAuthed()">
-      <div click-outside="hideConfigDropDown()" class="right-container">
+      <a class="upgrade--link" href="#/settings/my-plan">{{'upgrade_link' | translate}}</a>
+      <div click-outside="hideConfigDropDown()" class="right-container">        
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
           <div class="first-container">

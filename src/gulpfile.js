@@ -95,6 +95,7 @@ gulp.task('build-scripts-lib', function () {
     paths.lib + '/angular-tooltips/dist/angular-tooltips.min.js',
     paths.lib + '/clipboard/dist/clipboard.min.js',
     paths.lib + '/angularjs-slider/dist/rzslider.min.js',
+    paths.lib + '/angular-recaptcha/release/angular-recaptcha.min.js'
   ])
   .pipe(concat('lib.min.js'))
   .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
@@ -289,6 +290,16 @@ gulp.task('web.config', function () {
   .pipe(gulp.dest(paths.build));
 });
 
+/**
+ * Copy hcheck.png file into build.
+ */
+gulp.task('hcheck.png', function () {
+  return gulp.src([
+    paths.app + '/hcheck.png'
+  ])
+  .pipe(gulp.dest(paths.build));
+});
+
 
 gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials'], function () {
   var revAll = new RevAll();
@@ -420,7 +431,8 @@ gulp.task('test', [
 gulp.task('build', ['clean'], function () {
   gulp.start(
     'build-html',
-    'web.config'
+    'web.config',
+    'hcheck.png'
   );
 });
 

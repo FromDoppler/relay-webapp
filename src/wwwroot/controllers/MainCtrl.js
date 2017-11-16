@@ -14,11 +14,16 @@
     '$log',
     'ModalService',
     '$route',
-    '$interval'
+    '$interval',
+    '$translate',
+    'utils'
   ];
 
-  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval) {
-    
+  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval, $translate, utils) {
+     
+    var key = utils.getPreferredLanguage();
+    $translate.use(key);
+
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
     };

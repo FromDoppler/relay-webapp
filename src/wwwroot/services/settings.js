@@ -23,7 +23,8 @@
       billingPayment: billingPayment,
       getCurrentPlanInfo: getCurrentPlanInfo,
       getStatusPlanInfo: getStatusPlanInfo,
-      downgrade: downgrade
+      downgrade: downgrade,
+      getNextPlan: getNextPlan
     };
 
     var plansCache = null;
@@ -154,12 +155,13 @@
       var url = RELAY_CONFIG.baseUrl
         + '/accounts/'
         + auth.getAccountName()
-        + '/agreements';
+        + '/agreements'
+        + '/current';
 
       return $http({
         actionDescription: 'action_billing_payment',
         tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
-        method: 'POST',
+        method: 'PUT',
         data: agreement,
         url: url
       });
@@ -178,6 +180,13 @@
         method: 'PUT',
         data: agreement,
         url: url
+      });
+    }
+    function getNextPlan() {
+      return $http({
+        actionDescription: 'action_getting_current_plan',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements/next'
       });
     }
 

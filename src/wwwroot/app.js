@@ -22,7 +22,8 @@
         'slugifier',
         '720kb.tooltips',
         'rzModule',
-        'ui.mask'
+        'ui.mask',
+        'vcRecaptcha'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
@@ -146,6 +147,11 @@
           controller: 'BillingCtrl',
           controllerAs: 'vm'
         })
+        .when('/signup/succeed', {
+          templateUrl: 'partials/signup/succeed.html',
+          controller: 'SucceedRegistrationCtrl',
+          controllerAs: 'vm'
+        })        
         .otherwise({
           redirectTo: '/reports'
         });
@@ -168,16 +174,20 @@
     '$rootScope', 
     'auth', 
     '$location', 
+    '$window', 
     '$translate', 
     'jwtHelper', 
     '$locale',
+    'utils',
     function (
       $rootScope,
       auth,
       $location, 
+      $window, 
       $translate, 
       jwtHelper,
-      $locale) {
+      $locale,
+      utils) {
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
@@ -195,6 +205,7 @@
       if (queryLang) {
         $location.search('lang', null);
         $translate.use(queryLang);
+        utils.setPreferredLanguage(queryLang);
       }
 
       var queryTemporalToken = queryParams['temporalToken'];
@@ -213,6 +224,15 @@
 
       verifyAuthorization($location, auth);
     });
+
+    if ($window.ga) {
+      $rootScope.$on('$locationChangeSuccess', function () {
+        $window.ga('send', {
+          'hitType': 'pageview',
+          'screenName' : $location.url()
+        }); 
+      });
+    }
   }]);
 
   //// Uncomment if you want to mock HTTP calls
@@ -227,8 +247,8 @@
 
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login'];
-    var requireTemporalAuthUrls = ['/reset-password', '/signup/registration'];
+    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed'];
+    var requireTemporalAuthUrls = ['/reset-password'];
 
     // TODO: optimize it
     var currentPath = $location.$$path;

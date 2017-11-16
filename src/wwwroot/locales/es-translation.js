@@ -425,5 +425,15 @@
   "confirm_text": "Confirmar",
   "downgrade_popup_confirm_word": "CAMBIAR",
   "downgrade_confirmation_button": "Confirmar cambio",
-  "downgrade_confirmation_cancel_button": "Volver a mi plan"
+  "downgrade_confirmation_cancel_button": "Volver a mi plan",
+  "upgrade_link": "Cambiar plan",
+  "scheduled_plan_message": "Este es el plan que tendrás a partir del mes siguiente.",
+  "my_plan_next_plan": "Nuevo Plan",
+  "action_getting_next_plan": "Obteniendo el nuevo plan",
+  "country_phone_number": "Cod. de Pais",
+  "area_phone_number": "Cod. de Área",
+  "succeed_registration_title": "Gracias por registrarte",
+  "succeed_registration_text_1": "Revisa tu casilla, te hemos enviado un Email donde podrás activar tu cuenta y empezar a utilizar Doppler Relay.",
+  "succeed_registration_text_2": "Mientras tanto puedes revisar nuestro Help Center.",
+  "succeed_registration_button": "Ir al Help Center"
 };

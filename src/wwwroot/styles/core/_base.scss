@@ -147,6 +147,10 @@ section {
   border-right: 1px solid $suit-color-grey-line;
 }
 
+.text--center {
+  text-align: center;
+}
+
 .flex{
   display: flex;
 }
@@ -169,6 +173,9 @@ section {
 .flex--vertically-center{
   align-items: center;
 }
+.flex--vertically-end{
+  align-items: flex-end;
+}
 .flex--left{
   justify-content: center;
   align-items: left;
@@ -189,6 +196,12 @@ section {
   &.three{
     flex:3;
   }
+}
+.flex-one {
+  flex:1;
+}
+.flex-two {
+  flex:2;
 }
 .uppercase{
   text-transform: uppercase;
@@ -429,6 +442,9 @@ a {
   }
 }
 @media screen and (max-width: 750px) {
+  .main-container{
+    min-height: calc(100vh - 173px);
+  }
 
   h3 {
     font-size:1rem !important;

@@ -469,7 +469,7 @@ describe('Billing Page', () => {
       // so it cannot access variables from outside its scope
       .module('descartableModule3', ['ngMockE2E'])
       .run($httpBackend => {
-        $httpBackend.whenPOST(/\/accounts\/[\w|-]*\/agreements/).respond(400, { "data": { 'errorCode': 5 } });
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/agreements\/current/).respond(400, { "data": { 'errorCode': 5 } });
       }));
 
 
@@ -809,4 +809,32 @@ describe('Billing Page', () => {
     expect(billingPage.isFreeTrialAsPriceDisplayed()).toBe(true);
   });
 
+  it('should show a message when the user is waiting for a downgrade in my plan page', () => {
+    
+      // Arrange
+      beginAuthenticatedSession();
+      browser.get('/#/settings/my-plan');
+      setupSamplePlanInfoResponse();
+      setupSamplePlansResponse();
+
+      browser.addMockModule('descartableModule4', () => angular
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/next/).respond(200, {
+              "planName": "PLAN-80K",
+              "billingInformation": null,
+              "startDate": "2017-12-01T00:00:00Z",
+              "currency": "USD",
+              "extraDeliveryCost": 0.00050000,
+              "fee": 40.00,
+              "includedDeliveries": 80000.0,
+              "ips_count": 0,
+              "cost_by_ip": 0.00,
+        });
+      }));
+      var billingPage = new BillingPage();
+  
+      // Assert
+      expect(billingPage.isDowngradeMessageDisplayed()).toBe(true);
+  });
 });
