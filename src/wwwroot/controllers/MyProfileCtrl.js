@@ -22,25 +22,31 @@
     ]);
     vm.changePassword = changePassword;
     vm.updateValidation = updateValidation;
+    vm.changeUsername = changeUsername;
+    vm.resetPasswordContainer = resetPasswordContainer;
+    vm.resetUsernameContainer = resetUsernameContainer;
+   
+    vm.username = auth.getUserName();
 
-    function updateValidation(newPass, confNewPass) {
-      if (!$scope.form.pass.$modelValue || !$scope.form.confPass.$modelValue) {
-        $scope.form.confPass.$setValidity('same', null);
-      } else if ($scope.form.pass.$modelValue != $scope.form.confPass.$modelValue) {
-        $scope.form.confPass.$setValidity('same', false);
+    function updateValidation(form) {
+      if (!form.pass.$modelValue || !form.confPass.$modelValue) {
+        form.confPass.$setValidity('same', null);
+      } else if (form.pass.$modelValue != form.confPass.$modelValue) {
+        form.confPass.$setValidity('same', false);
       } else {
-        $scope.form.confPass.$setValidity('same', true);
+        form.confPass.$setValidity('same', true);
       }
     }
 
     function changePassword(form) {
-      vm.submitted = true;
+      vm.passSubmitted = true;
+
       if (form.pass.$modelValue != form.confPass.$modelValue || !form.$valid) {
         return;
       }
       auth.changePassword(form.oldPass.$modelValue, form.pass.$modelValue, $translate.use())
       .then(function() {
-        vm.showChangePassContainer = false;
+        resetPasswordContainer();
         vm.changePasswordSuccess = true;
         $timeout(function(){
           vm.changePasswordSuccess = false;
@@ -54,6 +60,42 @@
           $rootScope.addError('action_updating_password', data.detail, data.title, data.status, data.errorCode);
         }
       });
+    }
+
+    function changeUsername(form) {
+      vm.usernameSubmitted = true;
+
+      if (!form.$valid) {
+        return;
+      }
+      
+      //TODO: call API
+      // ..changeUsername(form.username, $translate.use())
+      //  .then(function() {
+          vm.emailActivationPending = true;
+          resetUsernameContainer();
+      //  })
+      //  .catch(function(rejectionData){
+      //    var data = rejectionData.data || { };
+      //    if (data.errorCode == 2 && data.status == 401) {
+      //      vm.existingEmail = true;
+      //    } else {
+      //      $rootScope.addError('action_updating_email', data.detail, data.title, data.status, data.errorCode);
+      //    }
+      //  });
+      
+    }
+
+    function resetUsernameContainer(){
+      vm.showUserNameContainer = false;
+      vm.username = auth.getUserName();
+    }
+
+    function resetPasswordContainer(){
+      vm.showChangePassContainer = false;
+      vm.pass = '';
+      vm.oldPass = '';
+      vm.confPass = '';
     }
   }
 
