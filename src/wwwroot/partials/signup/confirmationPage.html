@@ -1,6 +1,6 @@
 <section class="filter--section signup--confirmation-details">
   <form method="post" id="form" name="form" ng-submit="vm.activateUser(form)" novalidate>
-  <div class="filter section--wrapper">
+  <div class="filter section--wrapper flex--direction-column">
     <h2>{{ vm.name }}{{'confirmation_title' | translate}}</h2>
     <p>{{'confirmation_subtitle' | translate}}</p>
     <div class="confirmation--info-wrapper">
@@ -8,11 +8,9 @@
         <div>
         <label>{{'confirmation_username' | translate}}</label><span class="confirmation--detail" name="userName">{{ vm.userName }}</span>
         </div>
-        <div class="wrapper-input">
+        <div class="wrapper-input flex--wrap">
           <label class="label--regular" for="domain">{{'confirmation_domain_simple' | translate}}</label>
-          <input class="input input--large" ng-pattern="vm.regexDomain" ng-model="vm.domain" name="domain" required />
-          <span class="input--error" ng-show="(vm.submitted ||form.domain.$dirty) && form.domain.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-          <span class="input--error" ng-show="(vm.submitted ||form.domain.$dirty) && form.domain.$invalid && !form.domain.$error.required"><i class="arrow--up"></i>{{'domain_not_allowed' | translate}}</span>
+          <input class="input input--large" ng-pattern="vm.regexDomain" ng-model="vm.domain" name="domain" validation-errors-fluid required />          
         </div>
       </div>
       <div class="flex margin--bottom-inputs">
@@ -41,28 +39,22 @@
           <span class="input--error" ng-show="(vm.submitted ||form.country.$dirty) && form.country.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
       </div>
-      <div class="confirmation--password-container margin--bottom-inputs flex--vertically-start">
-          <div class="wrapper-input flex-one">
-              <label class="label--regular" for="countryPhoneNumber">{{'country_phone_number' | translate}}:</label>
-              <input class="input input--extra-small width--full" ng-model="vm.countryPhoneNumber" name="countryPhoneNumber" ng-pattern="vm.regexCodePhoneNumber" required />
-              <span class="input--error" ng-show="(vm.submitted ||form.countryPhoneNumber.$dirty) && form.countryPhoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              <span class="input--error" ng-show="(vm.submitted ||form.countryPhoneNumber.$dirty) && form.countryPhoneNumber.$invalid && !form.countryPhoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
+      <div class="confirmation--phone-container margin--bottom-inputs flex flex--vertically-start">
+          <div class="wrapper-input flex one margin--right-inputs flex--wrap">
+            <label class="label--regular" for="countryPhoneNumber">{{'country_phone_number' | translate}}:</label>
+            <input class="input input--extra-small width--full" ng-model="vm.countryPhoneNumber" name="countryPhoneNumber" ng-pattern="vm.regexCodePhoneNumber" validation-errors-fluid required />
           </div>
-          <div class="wrapper-input flex-one margin--right-inputs">
-              <label class="label--regular" for="areaPhoneNumber">{{'area_phone_number' | translate}}:</label>
-              <input class="input input--extra-small width--full" ng-model="vm.areaPhoneNumber" name="areaPhoneNumber" ng-pattern="vm.regexCodePhoneNumber" required />
-              <span class="input--error" ng-show="(vm.submitted ||form.areaPhoneNumber.$dirty) && form.areaPhoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              <span class="input--error" ng-show="(vm.submitted ||form.areaPhoneNumber.$dirty) && form.areaPhoneNumber.$invalid && !form.areaPhoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
+          <div class="wrapper-input flex one margin--right-inputs flex--wrap">
+            <label class="label--regular" for="areaPhoneNumber">{{'area_phone_number' | translate}}:</label>
+            <input class="input input--extra-small width--full" ng-model="vm.areaPhoneNumber" name="areaPhoneNumber" ng-pattern="vm.regexCodePhoneNumber" validation-errors-fluid required />
           </div>
-          <div class="wrapper-input flex-two">
-              <label class="label--regular" for="phoneNumber">{{'phone_number' | translate}}:</label>          
-              <input class="input input--extra-medium width--full" ng-model="vm.phoneNumber" name="phoneNumber" ng-pattern="vm.regexPhoneNumber" required />
-              <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-              <span class="input--error" ng-show="(vm.submitted ||form.phoneNumber.$dirty) && form.phoneNumber.$invalid && !form.phoneNumber.$error.required"><i class="arrow--up"></i>{{'phone_number_not_allowed' | translate}}</span>
-            </div>
-        </div>
+          <div class="wrapper-input flex two flex--wrap">
+            <label class="label--regular" for="phoneNumber">{{'phone_number' | translate}}:</label>          
+            <input class="input input--extra-medium width--full" ng-model="vm.phoneNumber" name="phoneNumber" ng-pattern="vm.regexPhoneNumber" validation-errors-fluid required />
+          </div>
+      </div>
       <div class="confirmation--password-container">
-        <div class="wrapper-input">
+        <div class="wrapper-input margin--right-inputs">
           <label class="label--regular" for="password">{{'password_simple' | translate}}</label>
           <input class="input input--medium" ng-model="pass" type="password" name="pass" pass="pass" ng-change="vm.updateValidation(form)" maxlength="100" ng-maxlength="100" password-complex-validation required />
           <span class="input--error" ng-show="(vm.submitted || form.pass.$dirty) && form.pass.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
