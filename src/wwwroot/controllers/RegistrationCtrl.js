@@ -78,7 +78,7 @@
 
       signup.registerUser(user, $translate.use(), onExpectedError)
         .then(function (result) {
-          $location.path('/signup/succeed');
+          $location.url('/signup/succeed?email='+ vm.email);
         });
     }
   }
