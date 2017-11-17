@@ -30,7 +30,7 @@
       <h3>{{'login_forgot_title' | translate}}</h3>
       <p>{{'login_forgot_subtitle' | translate}}</p>
       <div class="forgot--input-container">
-        <input class="input input--large" ng-class="{true: 'error'}[submittedForgot && forgotForm.forgotEmail.$invalid]" id="forgotEmail" type="email" name="forgotEmail" ng-model="forgotEmail" ng-change="vm.removeSucceed(forgotEmail)" ng-minlength="3" placeholder="{{'login_forgot_placeholder' | translate}}" required />
+        <input class="input input--large" ng-class="{true: 'error'}[submittedForgot && forgotForm.forgotEmail.$invalid]" id="forgotEmail" type="email" name="forgotEmail" ng-model="forgotEmail" ng-change="vm.removeSucceed()" ng-minlength="3" placeholder="{{'login_forgot_placeholder' | translate}}" required />
         <div
         vc-recaptcha
         required="false"

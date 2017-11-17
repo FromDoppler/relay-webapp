@@ -55,7 +55,7 @@
       });
     };
 
-    function removeSucceed(forgotEmail) {
+    function removeSucceed() {
       if (vm.forgotSuccessful) {
         vm.forgotSuccessful = false;
       }
