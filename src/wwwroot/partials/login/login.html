@@ -37,7 +37,7 @@
         size="invisible"
         key="'6LdsJDkUAAAAAIS3Yekw_VhggSKszU5KM8uycfhS'"
         on-create="vm.setWidgetId(widgetId)"
-        on-success="vm.setResponse(response)"
+        on-success="vm.setCaptchaResponse(response)"
         on-expire="vm.reloadCaptcha()"
         data-badge="bottomright"></div>
         <span class="input--error" ng-show="submittedForgot && forgotForm.forgotEmail.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>

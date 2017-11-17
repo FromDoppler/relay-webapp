@@ -22,6 +22,9 @@
     vm.submitLogin = submitLogin;
     vm.removeSucceed = removeSucceed;
     vm.submitForgot = submitForgot;
+    vm.setCaptchaResponse = setCaptchaResponse;
+    vm.setWidgetId = setWidgetId;
+    vm.reloadCaptcha = reloadCaptcha;
 
     function updateValidation(loginform) {
       if (loginform && loginform.email) {
@@ -61,27 +64,18 @@
       }
     }
 
+    function setWidgetId (widgetId) {
+      vm.widgetId = widgetId;
+    };
+
     function submitForgot(forgotForm) {      
       if (forgotForm.$invalid) {
         return;
       }
       vcRecaptchaService.execute(vm.widgetId);
     };
-
-    vm.setResponse = setResponse;
-    vm.setWidgetId = setWidgetId;
-    vm.reloadCaptcha = reloadCaptcha;
-
-    function setWidgetId (widgetId) {
-        vm.widgetId = widgetId;
-    };
     
-    function reloadCaptcha () {
-        vcRecaptchaService.reload(vm.widgetId);
-        vm.response = null;
-    };
-
-    function setResponse (response) {
+    function setCaptchaResponse (response) {
       if(!response){
         reloadCaptcha();
         return;
@@ -95,5 +89,11 @@
         reloadCaptcha();
       });
     }
+
+    function reloadCaptcha () {
+      vcRecaptchaService.reload(vm.widgetId);
+      vm.response = null;
+    };
+
   }
 })();

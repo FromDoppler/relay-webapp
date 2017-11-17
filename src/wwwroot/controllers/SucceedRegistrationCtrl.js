@@ -21,24 +21,19 @@
         }
         vm.resendEmail = resendEmail;
         vm.resent = false;
-        vm.setResponse = setResponse;
+        vm.setCaptchaResponse = setCaptchaResponse;
         vm.setWidgetId = setWidgetId;
         vm.reloadCaptcha = reloadCaptcha;
 
         function setWidgetId (widgetId) {
             vm.widgetId = widgetId;
-        };
-        
-        function reloadCaptcha () {
-            vcRecaptchaService.reload(vm.widgetId);
-            vm.response = null;
-        };
+        };        
 
         function resendEmail() {
             vcRecaptchaService.execute(vm.widgetId);
         }
 
-        function setResponse (response) {
+        function setCaptchaResponse (response) {
             if(!response){
                 reloadCaptcha();
                 return;
@@ -51,6 +46,11 @@
                 reloadCaptcha();
            });
         }
+
+        function reloadCaptcha () {
+            vcRecaptchaService.reload(vm.widgetId);
+            vm.response = null;
+        };
     }
   
   })();

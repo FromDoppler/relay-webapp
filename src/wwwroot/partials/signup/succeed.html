@@ -15,7 +15,7 @@
             size="invisible"
             key="'6LdsJDkUAAAAAIS3Yekw_VhggSKszU5KM8uycfhS'"
             on-create="vm.setWidgetId(widgetId)"
-            on-success="vm.setResponse(response)"
+            on-success="vm.setCaptchaResponse(response)"
             on-expire="vm.reloadCaptcha()"
             data-badge="bottomright"></div>
             <p class="description--link" ng-class="vm.resent ? 'show' : 'hide'">{{ 'succeed_registration_text_3' | translate }}</p>
