@@ -5,14 +5,14 @@
       <h4>{{'login_subtitle' | translate}}</h4>
       <div class="section--wrapper-input">
         <label for="email">{{'login_email_label' | translate}}</label>
-        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.email.$invalid]" id="email" type="email" name="email" ng-model="email" ng-minlength="3" placeholder="{{'login_email_placeholder' | translate}}" ng-change="vm.updateValidation(loginForm)" required autofill />
+        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.email.$invalid]" id="email" type="email" name="email" ng-model="vm.email" ng-minlength="3" placeholder="{{'login_email_placeholder' | translate}}" ng-change="vm.updateValidation(loginForm)" required autofill />
         <span class="input--error" ng-show="submitted && loginform.email.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="submitted && loginform.email.$error.email && !loginform.email.$error.error"><i class="arrow--up"></i>{{'login_error_invalid_email' | translate}}</span>
         <span class="input--error" ng-show="submitted && loginform.email.$error.error && !loginform.email.$error.required"><i class="arrow--up"></i>{{'login_error_invalid_account' | translate}}</span>
       </div>
       <div class="section--wrapper-input password--container">
         <label for="password">{{'login_pass_label' | translate}}</label>
-        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.password.$invalid]" id="password" type="password" name="password" ng-model="password" placeholder="{{'login_pass_placeholder' | translate}}" ng-change="vm.updateValidation(loginForm)" required autofill />
+        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.password.$invalid]" id="password" type="password" name="password" ng-model="vm.password" placeholder="{{'login_pass_placeholder' | translate}}" ng-change="vm.updateValidation(loginForm)" required autofill />
         <span class="input--error" ng-show="submitted && loginform.password.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="submitted && loginform.password.$error.error && !loginform.password.$error.required"><i class="arrow--up"></i>{{'login_error_invalid_account' | translate}}</span>
       </div>

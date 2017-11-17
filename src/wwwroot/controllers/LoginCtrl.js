@@ -44,8 +44,8 @@
       }
 
       var credentials = {
-        username: loginform.email.$modelValue,
-        password: loginform.password.$modelValue
+        username: vm.email,
+        password: vm.password
       };
 
       auth.login(credentials).then(function (result) {
