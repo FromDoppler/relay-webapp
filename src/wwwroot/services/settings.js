@@ -24,7 +24,8 @@
       getCurrentPlanInfo: getCurrentPlanInfo,
       getStatusPlanInfo: getStatusPlanInfo,
       downgrade: downgrade,
-      getNextPlan: getNextPlan
+      getNextPlan: getNextPlan,
+      requestEmailChange: requestEmailChange
     };
 
     var plansCache = null;
@@ -203,6 +204,21 @@
         actionDescription: 'action_getting_status_plan',
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/status' + '/plan'
+      });
+    }
+
+    function requestEmailChange(email, lang) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/user/email/change'
+        + '?lang='+ lang;
+
+      return $http({
+        actionDescription: 'action_requesting_email_change',
+        method: 'POST',
+        data: {
+          'user_email': email
+        },
+        url: url
       });
     }
 }

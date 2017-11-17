@@ -11,10 +11,11 @@
     '$rootScope',
     'auth',
     '$translate',
-    '$timeout'
+    '$timeout',
+    'settings'
   ];
 
-  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate, $timeout) {
+  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
@@ -69,20 +70,19 @@
         return;
       }
       
-      //TODO: call API
-      // ..changeUsername(form.username, $translate.use())
-      //  .then(function() {
+       settings.requestEmailChange(form.username, $translate.use())
+        .then(function() {
           vm.emailActivationPending = true;
           resetUsernameContainer();
-      //  })
-      //  .catch(function(rejectionData){
-      //    var data = rejectionData.data || { };
-      //    if (data.errorCode == 2 && data.status == 401) {
-      //      vm.existingEmail = true;
-      //    } else {
-      //      $rootScope.addError('action_updating_email', data.detail, data.title, data.status, data.errorCode);
-      //    }
-      //  });
+       })
+       .catch(function(rejectionData){
+         var data = rejectionData.data || { };
+         if (data.errorCode == 7 && data.status == 400) {
+           vm.existingEmail = true;
+         } else {
+           $rootScope.addError('action_updating_email', data.detail, data.title, data.status, data.errorCode);
+         }
+       });
       
     }
 
