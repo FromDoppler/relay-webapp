@@ -20,7 +20,7 @@
             $location.path('/');
         }
         vm.resendEmail = resendEmail;
-        vm.resendFinished = false;
+        vm.resent = false;
         vm.setResponse = setResponse;
         vm.setWidgetId = setWidgetId;
         vm.captchaExpiration = captchaExpiration;
@@ -40,12 +40,11 @@
         }
 
         function setResponse (response) {
+            vm.resent = true;
             auth.forgotPassword(email, $translate.use(), response)
-            .then(function (result) {
-                 vm.resendFinished = true;
-            })
             .catch(function (result){
                  captchaExpiration();
+                 vm.resent = false;
             });
         }
         
