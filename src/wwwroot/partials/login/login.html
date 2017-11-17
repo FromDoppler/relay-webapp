@@ -1,39 +1,48 @@
 <section class="login container ms-relay">
-  <form method="post" id="loginform" autofill-submit="submitLogin(loginform)" name="loginform" novalidate>
+  <form method="post" id="loginform" autofill-submit="vm.submitLogin(loginform)" name="loginform" novalidate>
     <div class="section--wrapper width--full text--center">
       <h1 id="header-login">{{'login_title' | translate}}</h1>
       <h4>{{'login_subtitle' | translate}}</h4>
       <div class="section--wrapper-input">
         <label for="email">{{'login_email_label' | translate}}</label>
-        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.email.$invalid]" id="email" type="email" name="email" ng-model="email" ng-minlength="3" placeholder="{{'login_email_placeholder' | translate}}" ng-change="updateValidation()" required autofill />
+        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.email.$invalid]" id="email" type="email" name="email" ng-model="email" ng-minlength="3" placeholder="{{'login_email_placeholder' | translate}}" ng-change="vm.updateValidation(loginForm)" required autofill />
         <span class="input--error" ng-show="submitted && loginform.email.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="submitted && loginform.email.$error.email && !loginform.email.$error.error"><i class="arrow--up"></i>{{'login_error_invalid_email' | translate}}</span>
         <span class="input--error" ng-show="submitted && loginform.email.$error.error && !loginform.email.$error.required"><i class="arrow--up"></i>{{'login_error_invalid_account' | translate}}</span>
       </div>
       <div class="section--wrapper-input password--container">
         <label for="password">{{'login_pass_label' | translate}}</label>
-        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.password.$invalid]" id="password" type="password" name="password" ng-model="password" placeholder="{{'login_pass_placeholder' | translate}}" ng-change="updateValidation()" required autofill />
+        <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.password.$invalid]" id="password" type="password" name="password" ng-model="password" placeholder="{{'login_pass_placeholder' | translate}}" ng-change="vm.updateValidation(loginForm)" required autofill />
         <span class="input--error" ng-show="submitted && loginform.password.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="submitted && loginform.password.$error.error && !loginform.password.$error.required"><i class="arrow--up"></i>{{'login_error_invalid_account' | translate}}</span>
       </div>
       <div class="submit section--wrapper-button">
         <!-- TODO: use a button element in place of class button -->
         <input class="button button--medium" type="submit" value="{{'login_button' | translate}}" ng-click="submitted=true">
-        <a class="forgot--link section--wrapper-link" href="#forgotContainer" du-smooth-scroll ng-click="gotoBottom()">{{'login_forgot_link' | translate}}</a>
+        <a class="forgot--link section--wrapper-link" href="#forgotContainer" du-smooth-scroll ng-click="vm.gotoBottom()">{{'login_forgot_link' | translate}}</a>
       </div>
     </div>
   </form>
 </section>
-<section id="forgotContainer" class="login container ms-relay forgot-password--container" ng-class="{true: 'opened'}[forgotOpened]">
-  <form method="post" id="forgotForm" ng-submit="submitForgot(forgotForm)" name="forgotForm" novalidate>
+<section id="forgotContainer" class="login container ms-relay forgot-password--container" ng-class="{true: 'opened'}[vm.forgotOpened]">
+  <form method="post" id="forgotForm" ng-submit="vm.submitForgot(forgotForm)" name="forgotForm" novalidate>
     <div class="section--wrapper-input" ng-class="{true: 'closing'}[closing]">
       <h3>{{'login_forgot_title' | translate}}</h3>
       <p>{{'login_forgot_subtitle' | translate}}</p>
       <div class="forgot--input-container">
-        <input class="input input--large" ng-class="{true: 'error'}[submittedForgot && forgotForm.forgotEmail.$invalid]" id="forgotEmail" type="email" name="forgotEmail" ng-model="forgotEmail" ng-change="removeSucceed()" ng-minlength="3" placeholder="{{'login_forgot_placeholder' | translate}}" required />
+        <input class="input input--large" ng-class="{true: 'error'}[submittedForgot && forgotForm.forgotEmail.$invalid]" id="forgotEmail" type="email" name="forgotEmail" ng-model="forgotEmail" ng-change="vm.removeSucceed(forgotEmail)" ng-minlength="3" placeholder="{{'login_forgot_placeholder' | translate}}" required />
+        <div
+        vc-recaptcha
+        required="false"
+        size="invisible"
+        key="'6LdsJDkUAAAAAIS3Yekw_VhggSKszU5KM8uycfhS'"
+        on-create="vm.setWidgetId(widgetId)"
+        on-success="vm.setResponse(response)"
+        on-expire="vm.reloadCaptcha()"
+        data-badge="bottomright"></div>
         <span class="input--error" ng-show="submittedForgot && forgotForm.forgotEmail.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="submittedForgot && forgotForm.forgotEmail.$error.email"><i class="arrow--up"></i>{{'login_error_invalid_email' | translate}}</span>
-        <span class="input--error green" ng-show="submittedForgot && forgotSuccessful"><i class="arrow--up"></i>{{'login_forgot_succeed' | translate}}</span>
+        <span class="input--error green" ng-show="submittedForgot && vm.forgotSuccessful"><i class="arrow--up"></i>{{'login_forgot_succeed' | translate}}</span>
         <input class="button button--medium" type="submit" value="{{'login_forgot_button' | translate}}" ng-click="submittedForgot=true">
       </div>
     </div>

@@ -1,11 +1,25 @@
 <section class="succeed--container">
     <div class="section--wrapper text--center">
-        <h2>
-        {{ 'succeed_registration_title' | translate }}
-        </h2>
+        <h2>{{ 'succeed_registration_title' | translate }}</h2>
         <p>{{ 'succeed_registration_text_1' | translate }}</p>
-        <p>{{ 'succeed_registration_text_2' | translate }}</p>
-        <a class="button button--large" href="https://help.dopplerrelay.com/{{vm.getCurrentLanguage()}}/">{{ 'succeed_registration_button' | translate }}</a>
+        <div>
+            <svg class="icon">
+                <use xlink:href="/images/sprite.svg#doppler-icon-sing-up-succeed"></use>
+            </svg>
+        </div>
+        <div class="description--container">
+            <form method="post" id="form" name="form" novalidate>                 
+                <p class="description--link" ng-class="!vm.resent ? 'show' : 'hide'">{{ 'succeed_registration_text_2' | translate }} <a ng-click="vm.resendEmail();">{{ 'succeed_registration_link' | translate }}</a></p>
+            <div
+            vc-recaptcha
+            size="invisible"
+            key="'6LdsJDkUAAAAAIS3Yekw_VhggSKszU5KM8uycfhS'"
+            on-create="vm.setWidgetId(widgetId)"
+            on-success="vm.setResponse(response)"
+            on-expire="vm.reloadCaptcha()"
+            data-badge="bottomright"></div>
+            <p class="description--link" ng-class="vm.resent ? 'show' : 'hide'">{{ 'succeed_registration_text_3' | translate }}</p>
+            </form>
+        </div>
     </div>
 </section>
-      

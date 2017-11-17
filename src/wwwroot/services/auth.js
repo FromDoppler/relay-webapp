@@ -174,13 +174,14 @@
       return decodedToken.name || getAccountName();
     }
 
-    function forgotPassword(email, lang) {
+    function forgotPassword(email, lang, captchaResponse) {
       return $http({
         actionDescription: 'action_recovering_password',
         method: 'PUT',
         url: RELAY_CONFIG.baseUrl + '/user/password/recover?lang=' + lang,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'g-recaptcha-response': captchaResponse
         },
         data: {
           'user_email': email

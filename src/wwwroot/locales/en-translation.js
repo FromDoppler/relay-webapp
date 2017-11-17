@@ -419,7 +419,8 @@
   "country_phone_number": "Country Code",
   "area_phone_number": "Area Code",
   "succeed_registration_title": "Thanks for registering",
-  "succeed_registration_text_1": "Check out your inbox, we have sent you an Email where you can activate your account and start using Doppler Relay.",
-  "succeed_registration_text_2": "In the meanwhile you can check our Help Center.",
-  "succeed_registration_button": "Go to Help Center"
+  "succeed_registration_text_1": "Check your inbox, we have sent you an activation email so you can start using Doppler Relay.",
+  "succeed_registration_text_2": "Haven’t received the Email?",
+  "succeed_registration_text_3": "Check your inbox, we have sent you the activation email again.",
+  "succeed_registration_link": "Resend it!"
 };
