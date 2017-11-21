@@ -475,7 +475,7 @@ describe('Signup', () => {
         controller.company = "MakingSense";
         controller.checkTerms = true;
         controller.language = "en";
-        controller.submitRegistration(form);
+        controller.setCaptchaResponse("test");
         $httpBackend.flush();
 
 
@@ -507,7 +507,7 @@ describe('Signup', () => {
         controller.accountName = "accountname";
         controller.company = "MakingSense";
         controller.language = "en";
-        controller.submitRegistration(form);
+        controller.setCaptchaResponse("test");
         $httpBackend.flush();
         $scope.$apply();
 
@@ -551,7 +551,7 @@ describe('Signup', () => {
         controller.company = "MakingSense";
         controller.checkTerms = true;
         controller.language = "en";
-        controller.submitRegistration(form);
+        controller.setCaptchaResponse("test");
         $httpBackend.flush();
         $scope.$apply();
 
@@ -597,7 +597,7 @@ describe('Signup', () => {
         controller.company = "MakingSense";
         controller.checkTerms = true;
         controller.language = "en";
-        controller.submitRegistration(form);
+        controller.setCaptchaResponse("test");
         $httpBackend.flush();
         $scope.$apply();
 
@@ -644,7 +644,7 @@ describe('Signup', () => {
         controller.company = "MakingSense";
         controller.checkTerms = true;
         controller.language = "en";
-        controller.submitRegistration(form);
+        controller.setCaptchaResponse("test");
         $httpBackend.flush();
         $scope.$apply();
 
@@ -680,8 +680,8 @@ describe('Signup', () => {
         controller.accountName = "accountname";
         controller.company = "";
         controller.checkTerms = true;
-        controller.language = "en";
-        controller.submitRegistration(form);
+        controller.language = "en";        
+        controller.setCaptchaResponse("test");
         $httpBackend.flush();
         $scope.$apply();
 

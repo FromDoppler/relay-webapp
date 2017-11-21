@@ -18,7 +18,7 @@
     'vcRecaptchaService'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, recaptcha) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
@@ -36,7 +36,7 @@
         vm.accountName = Slug.slugify(vm.company);
       }
     }
-    vm.recaptchaAvailable = !!recaptcha;
+    vm.recaptchaAvailable = !!vcRecaptchaService;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
@@ -49,7 +49,7 @@
     var onExpectedError = function (rejectionData) {
       var handled = false;
       if (vm.recaptchaAvailable){
-        recaptcha.reload();
+        vcRecaptchaService.reload();
       }
       var accountNameError = rejectionData.errors.find(function (error) {
         return error.key == "account_name";

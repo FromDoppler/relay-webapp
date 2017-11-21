@@ -27,10 +27,10 @@
     vm.reloadCaptcha = reloadCaptcha;
 
     function updateValidation(loginform) {
-      if (loginform && loginform.email) {
+      if (loginform && loginform.email.$modelValue) {
         loginform.email.$setValidity('error', true);
       }
-      if (loginform && loginform.password) {
+      if (loginform && loginform.password.$modelValue) {
         loginform.password.$setValidity('error', true);
       }
     }
@@ -83,8 +83,6 @@
       auth.forgotPassword(vm.forgotEmail, $translate.use(), response)
       .then(function () {
         vm.forgotSuccessful = true;
-      }).catch(function (result){
-        vm.forgotSuccessful = false;
       }).finally(function (){
         reloadCaptcha();
       });
