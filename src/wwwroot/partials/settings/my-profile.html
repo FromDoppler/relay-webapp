@@ -1,5 +1,6 @@
 <div class="my-profile--banner flex flex--center violet" ng-show="vm.emailActivationPending">
   <span class="special">{{ 'my_profile_change_username_success' | translate}}</span>
+  <span class="cross-container" ng-click="vm.emailActivationPending=false;"><span class="cross"></span></span>
 </div>
 <div class="my-profile--banner flex flex--center green" ng-show="vm.changePasswordSuccess">
   <span class="special">{{ 'my_profile_change_password_success' | translate}}</span>
