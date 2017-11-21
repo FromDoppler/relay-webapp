@@ -215,6 +215,7 @@
       return $http({
         actionDescription: 'action_requesting_email_change',
         method: 'POST',
+        avoidStandarErrorHandling: true,
         data: {
           'user_email': email
         },

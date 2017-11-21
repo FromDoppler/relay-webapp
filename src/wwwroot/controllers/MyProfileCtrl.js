@@ -65,12 +65,13 @@
 
     function changeUsername(form) {
       vm.usernameSubmitted = true;
+      vm.existingEmail = false;
 
       if (!form.$valid) {
         return;
       }
       
-       settings.requestEmailChange(form.username, $translate.use())
+       settings.requestEmailChange(form.username.$modelValue, $translate.use())
         .then(function() {
           vm.emailActivationPending = true;
           resetUsernameContainer();
@@ -88,6 +89,7 @@
 
     function resetUsernameContainer(){
       vm.showUserNameContainer = false;
+      vm.existingEmail = false;
       vm.username = auth.getUserName();
     }
 
