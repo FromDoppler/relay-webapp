@@ -174,11 +174,18 @@
   color:white;
   font-size: 0.95rem;
   padding: 0.6rem;
+  max-height: 100px;
+  overflow: hidden;
+  transition: all .3s ease;
   &.green{
     background-color: $suit-color-status-green
   }
   &.violet{
     background-color: $suit-color-status-violet
+  }
+  &.ng-hide{
+   max-height:0;
+   padding: 0;
   }
 }
 .my-profile--container { 
