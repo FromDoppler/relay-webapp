@@ -40,8 +40,8 @@ describe('Login', () => {
       var { $location, $scope, $httpBackend, auth, createController } = createContext();
 
       $location.path('/login');
-      createController('LoginCtrl');
-      $scope.loginform = {};
+      var controller = createController('LoginCtrl');
+      var loginform = {};
       $scope.$apply(); // To run app.js code
       expect(auth.isAuthed()).toBe(false);
       $httpBackend.expect(
@@ -53,9 +53,9 @@ describe('Login', () => {
       });
 
       // Act
-      $scope.email = email;
-      $scope.password = password;
-      $scope.submitLogin();
+      controller.email = email;
+      controller.password = password;
+      controller.submitLogin(loginform);
       $httpBackend.flush();
 
       // Assert
@@ -72,8 +72,8 @@ describe('Login', () => {
       var { $location, $scope, $httpBackend, auth, createController } = createContext();
 
       $location.path('/login');
-      createController('LoginCtrl');
-      $scope.loginform = {
+      var controller = createController('LoginCtrl');
+      var loginform = {
         email: { $setValidity: () => {} },
         password: { $setValidity: () => {} }
       };
@@ -92,9 +92,9 @@ describe('Login', () => {
       });
 
       // Act
-      $scope.email = email;
-      $scope.password = password;
-      $scope.submitLogin();
+      controller.email = email;
+      controller.password = password;
+      controller.submitLogin(loginform);
       $httpBackend.flush();
 
       // Assert

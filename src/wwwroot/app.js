@@ -70,7 +70,8 @@
       $routeProvider
         .when('/login', {
           templateUrl: 'partials/login/login.html',
-          controller: 'LoginCtrl'
+          controller: 'LoginCtrl',
+          controllerAs: 'vm'
         })
         .when('/dashboard', {
           templateUrl: 'partials/dashboard/dashboard.html',

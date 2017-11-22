@@ -1,5 +1,5 @@
 ﻿<section class="registration">
-  <div class="flex flex--center flex--direction-column section--wrapper width--half text--center">
+  <div class="title--container flex flex--center flex--direction-column section--wrapper width--half text--center">
     <h2>{{'registration_title' | translate}}</h2>
     <p>{{'registration_subtitle' | translate}}</p>
   </div>
@@ -43,7 +43,7 @@
             <span class="input--error" ng-show="(vm.submitted || form.accountName.$dirty) && form.accountName.$invalid && !form.accountName.$error.required && !form.accountName.$error.accountname_already_taken"><i class="arrow--up"></i>{{'invalid_account_name' | translate}}</span>            
           </div>
         </div>
-      <div class="flex section--wrapper-input">
+      <div class="flex section--wrapper-input terms">
         <div class="wrapper-input width--full">
           <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" required/><span>{{'confirmation_terms' | translate}}</span> <a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
         </div>
@@ -51,23 +51,18 @@
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
       </div>
-      <div class="flex input-container submit">
-        <div class="margin-right">
+      <div class="flex input-container submit flex--content-end">
           <div
-          ng-if="vm.recaptchaAvailable"
-          class="captcha--container"
           vc-recaptcha
-          id="registration"
-          key="'6Lc9_zcUAAAAAOmTrpRyhwwhVYk0taWIGdD3F1Jk'" 
-          ng-model="form.recaptchaResponse"
-          ></div>
-          <div class="width--full">
-            <span class="input--error" ng-show="vm.submitted && !form.recaptchaResponse"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
-          </div>
-        </div>
-        <div class="wrapper-input width--full">
+          size="invisible"
+          required="false"
+          ng-if="vm.recaptchaAvailable"
+          key="'6LdsJDkUAAAAAIS3Yekw_VhggSKszU5KM8uycfhS'"
+          on-create="vm.setWidgetId(widgetId)"
+          on-success="vm.setCaptchaResponse(response)"
+          on-expire="vm.reloadCaptcha()"
+          data-badge="bottomright"></div>
           <button class="button button--large" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
-        </div>
       </div>
     </div>
   </div>

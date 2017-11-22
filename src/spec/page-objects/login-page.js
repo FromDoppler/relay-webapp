@@ -1,5 +1,6 @@
 class LoginPage {
   constructor() {
+    this._waitTimeout = 8000;
     this._url = '/#/login';
     this._errorModalEl = $('.error-container');
     this._forgotLinkEl = $('.forgot--link');
@@ -30,6 +31,18 @@ class LoginPage {
   isForgotSubmitConfirmationDisplayed() {
     return this._forgotSubmitConfirmationEl.isPresent().then(isPresent =>
       isPresent && this._forgotSubmitConfirmationEl.isDisplayed());
+  }
+  isForgotSubmitConfirmationDisplayedWithWait() {
+    var confirmationContainer = this._forgotSubmitConfirmationEl;
+    
+       // the library `angular-ui/ui-select` creates  the HTML
+       // but it takes a little bit to populate the values
+       // so we have to wait until the text is present.
+       browser.wait(function() {
+         return confirmationContainer.isDisplayed() != false
+       }, this._waitTimeout);
+    
+        return confirmationContainer.isDisplayed();
   }
 
   isErrorModalDisplayed() {

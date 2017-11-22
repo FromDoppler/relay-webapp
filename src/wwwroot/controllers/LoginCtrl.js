@@ -5,65 +5,96 @@
     .module('dopplerRelay')
     .controller('LoginCtrl', LoginCtrl);
   LoginCtrl.$inject = [
-    '$scope',
     '$location',
     '$timeout',
     'auth',
-    '$translate'
+    '$translate',
+    'vcRecaptchaService'
   ];
 
-  function LoginCtrl($scope, $location, $timeout, auth, $translate) {
+  function LoginCtrl($location, $timeout, auth, $translate, vcRecaptchaService) {
 
-    $scope.forgotOpened = false;
-    $scope.forgotSuccessful = false;
+    var vm = this;
+    vm.forgotOpened = false;
+    vm.forgotSuccessful = false;
+    vm.updateValidation = updateValidation;
+    vm.gotoBottom = gotoBottom;
+    vm.submitLogin = submitLogin;
+    vm.removeSucceed = removeSucceed;
+    vm.submitForgot = submitForgot;
+    vm.setCaptchaResponse = setCaptchaResponse;
+    vm.setWidgetId = setWidgetId;
+    vm.reloadCaptcha = reloadCaptcha;
+    vm.hideForgotButton = false;
 
-    $scope.updateValidation = function () {
-      if ($scope.loginform && $scope.loginform.email) {
-        $scope.loginform.email.$setValidity('error', true);
+    function updateValidation(loginform) {
+      if (loginform && loginform.email.$modelValue) {
+        loginform.email.$setValidity('error', true);
       }
-      if ($scope.loginform && $scope.loginform.password) {
-        $scope.loginform.password.$setValidity('error', true);
+      if (loginform && loginform.password.$modelValue) {
+        loginform.password.$setValidity('error', true);
       }
     }
-    $scope.gotoBottom = function () {
-      $scope.forgotOpened = !$scope.forgotOpened;
+    function gotoBottom() {
+      vm.forgotOpened = !vm.forgotOpened;
     };
 
-    $scope.submitLogin = function () {
-      if ($scope.loginform.$invalid) {
+    function submitLogin (loginform) {
+      if (loginform.$invalid) {
         return;
       }
 
       var credentials = {
-        username: $scope.email,
-        password: $scope.password
+        username: vm.email,
+        password: vm.password
       };
 
       auth.login(credentials).then(function (result) {
         if (result.authenticated) {
           $location.path('/');
         } else {
-          $scope.loginform.email.$setValidity('error', false);
-          $scope.loginform.password.$setValidity('error', false);
+          loginform.email.$setValidity('error', false);
+          loginform.password.$setValidity('error', false);
         }
       });
     };
 
-    $scope.removeSucceed = function () {
-      if ($scope.forgotSuccessful) {
-        $scope.forgotSuccessful = false;
+    function removeSucceed() {
+      if (vm.forgotSuccessful) {
+        vm.forgotSuccessful = false;
       }
     }
 
-    $scope.submitForgot = function () {
-      if ($scope.forgotForm.$invalid) {
+    function setWidgetId (widgetId) {
+      vm.widgetId = widgetId;
+    };
+
+    function submitForgot(forgotForm) {
+      if (forgotForm.$invalid) {
         return;
       }
-
-      auth.forgotPassword($scope.forgotEmail, $translate.use())
-        .then(function () {
-            $scope.forgotSuccessful = true;
-        })
+      vm.hideForgotButton = true;
+      vcRecaptchaService.execute(vm.widgetId);
     };
+    
+    function setCaptchaResponse (response) {
+      if(!response){
+        reloadCaptcha();
+        return;
+      }
+      auth.forgotPassword(vm.forgotEmail, $translate.use(), response)
+      .then(function () {
+        vm.forgotSuccessful = true;
+      }).finally(function (){
+        vm.hideForgotButton = false;
+        reloadCaptcha();
+      });
+    }
+
+    function reloadCaptcha () {
+      vcRecaptchaService.reload(vm.widgetId);
+      vm.response = null;
+    };
+
   }
 })();
