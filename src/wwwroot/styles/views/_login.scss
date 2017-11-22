@@ -123,33 +123,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
     p{padding-left: toem(32px);padding-right: toem(38px);}
     .forgot--input-container{max-width: 22.875em;}// no deja extender clase .section--wrapper-input;
     input.button{width: 100%;padding: 1.2em 0.875em;}
-  }
-
-  .signup--confirmation-details{
-    p:first-of-type {
-      text-align: left !important;
-      max-width: 100% !important;
-    }
-    .confirmation--info-wrapper{
-      width: 100% !important;      
-      div{
-        flex-wrap: wrap;
-        margin-right: 0 !important;
-        min-width: 100% !important;
-        &.wrapper-input{
-          margin-bottom: 1rem;
-        }
-      }
-    }
-    .confirmation--submit-container{
-      div:first-of-type{
-        input {
-          width: 1em;
-          min-width: 0 !important;
-        }
-      }
-    }
-  }
+  }  
 }
 
 .error--page{
@@ -177,11 +151,15 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
     .confirmation--info-wrapper{
       width: 55%;
       label{font-weight: $suit-font-weight-bold;}
+      .confirmation--phone-container{
+        .one{
+          max-width: 22.2%;
+        }
+      }
       .confirmation--password-container{
         display: flex;
         justify-content: space-between;
-        div:first-of-type{margin-right: 1.5em;}
-        div {
+        div.wrapper-input {
            width: 100%;
            input{width: 100%;}
          }
@@ -190,7 +168,9 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
         border-top: 1px solid #CCC;
         margin: 3em 0 0 0;
         padding: 3em 0;
-        div{display: flex; align-items: center;margin-bottom: 1em;input{margin-right: 0.5em;}}
+        div{display: flex; align-items: center;margin-bottom: 1em;
+          .terms-input{margin-right: 0.5em;}
+        }
         div:first-of-type{
           display: inline-block;
           max-width: 100%;
@@ -199,10 +179,9 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
         a {color: $suit-accent-color;}
       }
       .confirmation--info-container{
-        margin: 2em 0;
+        margin-top: 2em;
         input{width: 100%;}
         .wrapper-input{
-          display: inherit;
           margin: 1em 0;
         }
         div{
@@ -219,13 +198,13 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
             align-items: center;
             padding-left: 1em;
           }
-          &:last-of-type{
+          /*&:last-of-type{
             border-top: 1px solid #CCC;
             margin: 3em 0 0 0;
             padding: 3em 0 0 0;
             display: flex;
             flex-wrap: wrap;
-          }
+          }*/
         }
       }
     }
@@ -363,6 +342,31 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
       }
       div:first-of-type{
         margin-right: 0;
+        }
+      }
+    }
+    .signup--confirmation-details{
+      p:first-of-type {
+        text-align: left !important;
+        max-width: 100% !important;
+      }
+      .confirmation--info-wrapper{
+        width: 100% !important;      
+        div{
+          flex-wrap: wrap;
+          margin-right: 0 !important;
+          min-width: 100% !important;
+          &.wrapper-input{
+            margin-bottom: 1rem;
+          }
+        }
+      }
+      .confirmation--submit-container{
+        div:first-of-type{
+          input {
+            width: 1em;
+            min-width: 0 !important;
+          }
       }
     }
   }
