@@ -62,7 +62,7 @@ describe('Forgot password', () => {
     loginPage.submitForgot();
 
     // Assert
-    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeTruthy();
+    expect(loginPage.isForgotSubmitConfirmationDisplayedWithWait()).toBeTruthy();
     expect(loginPage.isErrorModalDisplayed()).toBeFalsy();
   });
 });

@@ -43,7 +43,7 @@
         <span class="input--error" ng-show="submittedForgot && forgotForm.forgotEmail.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         <span class="input--error" ng-show="submittedForgot && forgotForm.forgotEmail.$error.email"><i class="arrow--up"></i>{{'login_error_invalid_email' | translate}}</span>
         <span class="input--error green" ng-show="submittedForgot && vm.forgotSuccessful"><i class="arrow--up"></i>{{'login_forgot_succeed' | translate}}</span>
-        <input class="button button--medium" type="submit" value="{{'login_forgot_button' | translate}}" ng-click="submittedForgot=true">
+        <input ng-class="vm.hideForgotButton ? 'hide': 'show'" class="button button--medium" type="submit" value="{{'login_forgot_button' | translate}}" ng-click="submittedForgot=true">
       </div>
     </div>
   </form>

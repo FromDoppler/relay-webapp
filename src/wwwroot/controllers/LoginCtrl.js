@@ -25,6 +25,7 @@
     vm.setCaptchaResponse = setCaptchaResponse;
     vm.setWidgetId = setWidgetId;
     vm.reloadCaptcha = reloadCaptcha;
+    vm.hideForgotButton = false;
 
     function updateValidation(loginform) {
       if (loginform && loginform.email.$modelValue) {
@@ -68,10 +69,11 @@
       vm.widgetId = widgetId;
     };
 
-    function submitForgot(forgotForm) {      
+    function submitForgot(forgotForm) {
       if (forgotForm.$invalid) {
         return;
       }
+      vm.hideForgotButton = true;
       vcRecaptchaService.execute(vm.widgetId);
     };
     
@@ -84,6 +86,7 @@
       .then(function () {
         vm.forgotSuccessful = true;
       }).finally(function (){
+        vm.hideForgotButton = false;
         reloadCaptcha();
       });
     }
