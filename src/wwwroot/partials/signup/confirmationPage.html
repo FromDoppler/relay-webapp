@@ -69,12 +69,12 @@
       </div>
       <div class="confirmation--submit-container">
         <div class="wrapper-input" ng-if="!vm.termsAccepted">
-          <input ng-model="checkTerms" name="checkTerms" type="checkbox" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+          <input class="terms-input" ng-model="checkTerms" name="checkTerms" type="checkbox" required /><span>{{'confirmation_terms' | translate}}</span><a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
         </div>
         <div>
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
-        <div class="wrapper-input">
+        <div class="wrapper-input flex--content-end">
           <input class="button button--medium" debounced-ng-click="vm.submitActivation(form, vm.userName, vm.apiKey)" type="submit" value="{{'confirmation_submit' | translate}}" />
         </div>
       </div>

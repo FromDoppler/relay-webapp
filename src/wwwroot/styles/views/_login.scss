@@ -153,7 +153,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
       label{font-weight: $suit-font-weight-bold;}
       .confirmation--phone-container{
         .one{
-          max-width: 26%;
+          max-width: 22.2%;
         }
       }
       .confirmation--password-container{
@@ -168,7 +168,9 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
         border-top: 1px solid #CCC;
         margin: 3em 0 0 0;
         padding: 3em 0;
-        div{display: flex; align-items: center;margin-bottom: 1em;input{margin-right: 0.5em;}}
+        div{display: flex; align-items: center;margin-bottom: 1em;
+          .terms-input{margin-right: 0.5em;}
+        }
         div:first-of-type{
           display: inline-block;
           max-width: 100%;
@@ -177,7 +179,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
         a {color: $suit-accent-color;}
       }
       .confirmation--info-container{
-        margin: 2em 0;
+        margin-top: 2em;
         input{width: 100%;}
         .wrapper-input{
           margin: 1em 0;
