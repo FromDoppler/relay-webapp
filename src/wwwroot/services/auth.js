@@ -32,7 +32,8 @@
       changePassword: changePassword,  
       getLimitsByAccount: getLimitsByAccount,
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
-      addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage
+      addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
+      changeEmail: changeEmail
     };
 
     var decodedToken = null;
@@ -271,6 +272,48 @@
 
     function getFreeTrialNotificationFromStorage() {
       return mapDate($window.localStorage.getItem('freeTrialNotificationOn'));
+    }
+
+    function changeEmail(lang) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/user/email'
+        + '?lang='+ lang;
+
+      var actionDescription = 'action_changing_email';
+
+      return $http({
+        actionDescription: actionDescription,
+        method: 'PUT',
+        url: url
+      }).then(function (response) {
+        var token = response.data && response.data.access_token;
+        if (!token) {
+          return $q.reject({
+            config: { actionDescription: actionDescription },
+            data: { title: "Response does not include access token." }
+          });
+        }
+        saveToken(token);
+      })
+      .catch(function (reason) {
+        if (reason.status == 404 && reason.data.errorCode == 1) {
+          return $q.reject({
+            config: { actionDescription: actionDescription },
+            data: { title: "User not found" }
+          });
+        }
+        else {
+          var actionDescription = !reason.config.actionDescription ? '' : reason.config.actionDescription;
+          var actionTitle = reason.data && reason.data.title || '';
+          if (actionTitle == '') {
+            $rootScope.addError('error_handler_unexpected', actionDescription, reason);
+          }
+          else {
+            $rootScope.addError('error_handler_unexpected_rejection', actionDescription, reason);
+          }
+          return $q.reject(reason);
+        }
+      });
     }
   }
 })();
