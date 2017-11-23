@@ -12,32 +12,33 @@
     </h2>
   </div>
   <div class="section--wrapper">
-    <div class="item flex" ng-class="vm.showUserNameContainer ? 'expanded' : 'collapsed'">
+    <div class="item flex user" ng-class="vm.showUserNameContainer ? 'expanded' : ''">
       <div class="flex one flex--vertically-start">
         <label class="special uppercase" for="name">{{'user_text' | translate}}</label>
       </div>
-      <div class="flex three flex--wrap">
-        <span ng-show="!vm.showUserNameContainer">{{ vm.username }}</span>
-        <svg class="icon edit-icon" ng-click="vm.showUserNameContainer=true;" ng-show="!vm.showUserNameContainer">
-          <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
-        </svg>
+      <div class="flex three flex--wrap">      
         <form method="post" id="form_username" name="form_username" novalidate class="flex flex--wrap">
-          <div class="inputs--container" ng-show="vm.showUserNameContainer">
             <div class="input--wrapper">
-              <input id="username" name="username" ng-model="vm.username" type="email" class="input input--large" maxlength="100" ng-maxlength="100"
+              <input id="username" name="username" ng-model="vm.username" type="email" class="input input--large" ng-class="(vm.usernameSubmitted ||form_username.username.$dirty) && vm.existingEmail && !form_username.username.$error.required && !form_username.username.$error.email ? 'error': '' " maxlength="100" ng-maxlength="100"
                 required email-format-validation validation-errors-fluid />
               <div>
                 <span class="input--error" ng-show="(vm.usernameSubmitted ||form_username.username.$dirty) && vm.existingEmail && !form_username.username.$error.required && !form_username.username.$error.email">
                   <i class="arrow--up"></i>{{'validation_error_email_already_exist' | translate}}</span>
               </div>
             </div>
-          </div>
-          <div class="confirm-icons--container flex" ng-show="vm.showUserNameContainer">
-            <button class="tick-icon" debounced-ng-click="vm.changeUsername(form_username);">
-              <div class="tick_stem"></div>
-              <div class="tick_kick"></div>
-            </button>
-            <a class="cross" ng-click="vm.resetUsernameContainer()"></a>
+          <div class="confirm-icons--container flex">
+            <div class="flex" ng-class="!vm.showUserNameContainer ? 'show' : ''">
+              <svg class="icon edit-icon" ng-click="vm.showUserNameContainer=true;">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
+              </svg>
+            </div>
+            <div class="flex"  ng-class="vm.showUserNameContainer ? 'show' : ''">
+              <button class="tick-icon" debounced-ng-click="vm.changeUsername(form_username);">
+                <div class="tick_stem"></div>
+                <div class="tick_kick"></div>
+              </button>
+              <a class="cross" ng-click="vm.resetUsernameContainer()"></a>
+            </div>
           </div>
         </form>
       </div>
