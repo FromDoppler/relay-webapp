@@ -26,7 +26,7 @@
         })
         .catch(function(rejectionData){
             var data = rejectionData.data || { };
-            $rootScope.addError('action_updating_email', data.detail, data.title, data.status, data.errorCode);            
+            $rootScope.addAuthorizationError(data.detail, data.status, data.errorCode);
         });
     }
   })();
