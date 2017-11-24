@@ -10,7 +10,7 @@
         </div>
         <div class="wrapper-input flex--wrap">
           <label class="label--regular" for="domain">{{'confirmation_domain_simple' | translate}}</label>
-          <input class="input input--large" ng-pattern="vm.regexDomain" ng-model="vm.domain" name="domain" validation-errors-fluid required />          
+          <input class="input input--large" placeholder="{{ 'yourdomain_placeholder' | translate }}" ng-pattern="vm.regexDomain" ng-model="vm.domain" name="domain" validation-errors-fluid required />          
         </div>
       </div>
       <div class="flex margin--bottom-inputs">
