@@ -123,7 +123,7 @@
   "validation_error_required": "Por favor completa este campo.",
   "validation_error_email": "Escribe un Email válido.",
   "validation_error_maxlength": "Texto demasiado largo.",
-  "validation_error_accountname_already_taken": "El account name ya está en uso.",
+  "validation_error_accountname_already_taken": "El nombre de la cuenta ya está en uso.",
   "validation_error_email_already_exist": "Ya existe un usuario con esa dirección de email.",
   "validation_error_ilegal_date": "Escribe una fecha de expiración válida.",
   "validation_error_mask": "Escribe un formato válido.",
@@ -436,5 +436,6 @@
   "succeed_registration_text_1": "Revisa tu casilla de correo, te hemos enviado un email de activación para que puedas empezar a utilizar Doppler Relay.",
   "succeed_registration_text_2": "¿No has recibido el Email?.",
   "succeed_registration_text_3": "Revisa tu casilla, te hemos enviado de nuevo el Email de activación.",
-  "succeed_registration_link": "Reenvíalo"
+  "succeed_registration_link": "Reenvíalo",
+  "yourdomain_placeholder": "tudominio.com"
 };
