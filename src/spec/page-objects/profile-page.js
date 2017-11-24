@@ -1,14 +1,15 @@
 class ProfilePage {
   constructor() {
     this._url = '/#/settings/my-profile';
-    this._passwordTemplate = $('#passwordTemplate');
-    this._closePasswordTemplateLink = $('.my-profile--container .confirm-icons--container .cross');
-    this._passwordForm = $('.my-profile--container .inputs--container');
-    this._submitPasswordFormButton = $('.my-profile--container .inputs--container .confirm-icons--container span');
-    this._oldPasswordInput = $('.my-profile--container .inputs--container #oldPass');
-    this._newPasswordInput = $('.my-profile--container .inputs--container #pass');
-    this._confirmNewPasswordInput = $('.my-profile--container .inputs--container #confPassword');
-    this._changePasswordSuccessMessage = $('.my-profile--container .success');
+    this._editPasswordButton = $('.password .icon.edit-icon');
+    //this._passwordTemplate = $('.password .flex.three > span');
+    this._closePasswordTemplateLink = $('#form_pass .confirm-icons--container a.cross');
+    this._passwordFormContainer = $('.password');
+    this._submitPasswordFormButton = $('#form_pass .confirm-icons--container button.tick-icon'); //
+    this._oldPasswordInput = $('#oldPass');
+    this._newPasswordInput = $('#pass');
+    this._confirmNewPasswordInput = $('#confPassword');
+    this._changePasswordSuccessMessage = $('.my-profile--banner.green');
   }
 
   elemHasClass(elem,classNameParam){
@@ -22,7 +23,7 @@ class ProfilePage {
       });
   }
   togglePasswordTemplate(){
-    return this._passwordTemplate.click();
+    return this._editPasswordButton.click();
   }
   closePasswordTemplate(){
     return this._closePasswordTemplateLink.click();
@@ -31,10 +32,10 @@ class ProfilePage {
     return this._submitPasswordFormButton.click();
   }
   getPasswordFormContainer(){
-    return this._passwordForm;
+    return this._passwordFormContainer;
   }
   isPasswordFormVisible(){
-    return this.elemHasClass(this.getPasswordFormContainer(), 'show');
+    return this.elemHasClass(this.getPasswordFormContainer(), 'expanded');
   }
   setOldPassword(value) {
     return this._oldPasswordInput.sendKeys(value);

@@ -32,7 +32,8 @@
       changePassword: changePassword,  
       getLimitsByAccount: getLimitsByAccount,
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
-      addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage
+      addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
+      changeEmail: changeEmail
     };
 
     var decodedToken = null;
@@ -271,6 +272,33 @@
 
     function getFreeTrialNotificationFromStorage() {
       return mapDate($window.localStorage.getItem('freeTrialNotificationOn'));
+    }
+
+    function changeEmail(lang) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/user/email'
+        + '?lang='+ lang;
+
+      var actionDescription = 'action_changing_email';
+
+      return $http({
+        actionDescription: actionDescription,
+        method: 'PUT',
+        avoidStandarErrorHandling: true,
+        url: url
+      }).then(function (response) {
+        var token = response.data && response.data.access_token;
+        if (!token) {
+          return $q.reject({
+            config: { actionDescription: actionDescription },
+            data: { title: "Response does not include access token." }
+          });
+        }
+        saveToken(token);
+      })
+      .catch(function (reason) {
+        return $q.reject(reason);
+      });
     }
   }
 })();

@@ -437,5 +437,11 @@
   "succeed_registration_text_2": "¿No has recibido el Email?.",
   "succeed_registration_text_3": "Revisa tu casilla, te hemos enviado de nuevo el Email de activación.",
   "succeed_registration_link": "Reenvíalo",
-  "yourdomain_placeholder": "tudominio.com"
+  "yourdomain_placeholder": "tudominio.com",
+  "succeed_registration_button": "Ir al Help Center",
+  "discard_changes_button":"Descartar",
+  "save_changes_button":"Guardar cambios",
+  "validation_error_strength" : "Tu contraseña es muy corta, intenta sumar algun símbolo o número.",
+  "validation_error_same" : "Oops... la contraseña y su confirmación no coinciden.",
+  "my_profile_change_username_success" : "Recibirás un correo para que validez el nuevo email asociado a la cuenta. ¡Revisa tu casilla!"
 };

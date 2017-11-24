@@ -423,5 +423,11 @@
   "succeed_registration_text_2": "Haven’t received the Email?",
   "succeed_registration_text_3": "Check your inbox, we have sent you the activation email again.",
   "succeed_registration_link": "Resend it!",
-  "yourdomain_placeholder": "yourdomain.com"
+  "yourdomain_placeholder": "yourdomain.com",
+  "succeed_registration_button": "Go to Help Center",
+  "discard_changes_button":"Discard",
+  "save_changes_button":"Save changes",
+  "validation_error_strength" : "Password too short, try adding some symbols or numbers.",
+  "validation_error_same" : "Oops... password and confirmation don't match.",
+  "my_profile_change_username_success" : "You will receive an email to validate the new user email associated with your account. Check your inbox!"
 };
