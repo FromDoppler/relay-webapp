@@ -207,6 +207,7 @@
   "action_deleting_domain": "Deleting a Domain",
   "action_getting_resource" : "Getting web resource",
   "action_getting_current_plan" : "Getting current plan information",
+  "action_getting_status_plan": "Obteniendo account status",
   "reset_password_title": "Reset your Password",
   "reset_password_subtitle": "Create your new password below!",
   "reset_password_placeholder": "Type your new password",
