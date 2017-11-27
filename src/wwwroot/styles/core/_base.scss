@@ -92,7 +92,7 @@ strong {
 }
 
 .margin--bottom-inputs {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .margin--right-inputs {
   margin-right: 1.5em;
@@ -205,6 +205,10 @@ section {
 }
 .uppercase{
   text-transform: uppercase;
+}
+
+.grecaptcha-badge{
+  z-index: 999;
 }
 
 progress {

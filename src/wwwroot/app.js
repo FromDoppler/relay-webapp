@@ -70,7 +70,8 @@
       $routeProvider
         .when('/login', {
           templateUrl: 'partials/login/login.html',
-          controller: 'LoginCtrl'
+          controller: 'LoginCtrl',
+          controllerAs: 'vm'
         })
         .when('/dashboard', {
           templateUrl: 'partials/dashboard/dashboard.html',
@@ -151,6 +152,10 @@
           templateUrl: 'partials/signup/succeed.html',
           controller: 'SucceedRegistrationCtrl',
           controllerAs: 'vm'
+        })
+        .when('/change-email', {
+          template: ' ',
+          controller: 'ChangeEmailCtrl'
         })        
         .otherwise({
           redirectTo: '/reports'
@@ -248,7 +253,7 @@
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
     var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed'];
-    var requireTemporalAuthUrls = ['/reset-password'];
+    var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
 
     // TODO: optimize it
     var currentPath = $location.$$path;
