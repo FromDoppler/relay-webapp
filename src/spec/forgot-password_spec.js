@@ -31,9 +31,15 @@ describe('Forgot password', () => {
 
     // Act
     loginPage.get();
-    loginPage.toggleForgotPassword();
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(loginPage.getElemToggleLink()), 5000, 'Element taking too long to appear in the DOM');
+    loginPage.toggleForgotPassword(); 
+
+    browser.wait(until.visibilityOf(loginPage.getElemInput()), 5000, 'Element taking too long to appear in the DOM');
     loginPage.setForgotEmail('andresmoschini@gmail.com');
     loginPage.submitForgot();
+
+    browser.wait(until.visibilityOf(loginPage.getElemErrorModal()), 5000, 'Element taking too long to appear in the DOM');
 
     // Assert
     expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeFalsy();
@@ -45,7 +51,7 @@ describe('Forgot password', () => {
     browser.addMockModule('descartableModule', () => angular
       .module('descartableModule', ['ngMockE2E'])
       .run($httpBackend => {
-        $httpBackend.whenPUT(/\/user\/password\/recover/).respond(201, {
+        $httpBackend.whenPUT(/\/user\/password\/recover/).respond(200, {
           'message': 'We have sent an email to your email address to continue with the registration process...'
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
@@ -57,12 +63,16 @@ describe('Forgot password', () => {
 
     // Act
     loginPage.get();
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(loginPage.getElemToggleLink()), 5000, 'Element taking too long to appear in the DOM'); 
     loginPage.toggleForgotPassword();
+    browser.wait(until.visibilityOf(loginPage.getElemInput()), 5000, 'Element taking too long to appear in the DOM');
     loginPage.setForgotEmail('andresmoschini@gmail.com');
     loginPage.submitForgot();
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(loginPage.getElemConfirmationForgot()), 5000, 'Element taking too long to appear in the DOM');
 
     // Assert
-    expect(loginPage.isForgotSubmitConfirmationDisplayedWithWait()).toBeTruthy();
-    expect(loginPage.isErrorModalDisplayed()).toBeFalsy();
+    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeTruthy();
   });
 });

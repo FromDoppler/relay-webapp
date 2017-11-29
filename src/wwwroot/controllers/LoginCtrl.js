@@ -27,6 +27,10 @@
     vm.reloadCaptcha = reloadCaptcha;
     vm.hideForgotButton = false;
 
+    vm.local = (location.hostname.toLowerCase() === "localhost" || location.hostname === "127.0.0.1");
+    ///To use forgot password correctly in local uncomment following line:
+    ///vm.local = false;
+
     function updateValidation(loginform) {
       if (loginform && loginform.email.$modelValue) {
         loginform.email.$setValidity('error', true);
@@ -74,6 +78,9 @@
         return;
       }
       vm.hideForgotButton = true;
+      if (vm.local) {
+        return setCaptchaResponse ('captchaResponse');
+      }
       vcRecaptchaService.execute(vm.widgetId);
     };
     
