@@ -39,7 +39,7 @@ class BillingPage {
     this._myPlanPricingChartDisplayButton = $('.my-plan--info-container .button');
     this._pricingChartContainer = $('.pricing-chart--container');
     this._sliderContainerElements = element.all(by.css('.plan--slider-container div'));
-    this._myPlanPrice = $('.plan--price-big');
+    this._myPlanPrice = $('#planPriceBig');
     this._ticksElements = element.all(by.css('.plan--slider-container .rz-tick'));
     this._monthConsumption = $('.month-consumption');
     this._extraEmails = $('.extra-emails');
