@@ -27,9 +27,8 @@
     vm.reloadCaptcha = reloadCaptcha;
     vm.hideForgotButton = false;
 
-    vm.local = (location.hostname.toLowerCase() === "localhost" || location.hostname === "127.0.0.1");
-    ///To use forgot password correctly in local uncomment following line:
-    ///vm.local = false;
+    // To use forgot password correctly in local environment replace "vm.local" assignment to "vm.local = false;"
+    vm.local = (location.hostname.toLowerCase() === "localhost" || location.hostname === "127.0.0.1");    
 
     function updateValidation(loginform) {
       if (loginform && loginform.email.$modelValue) {

@@ -31,19 +31,13 @@ describe('Forgot password', () => {
 
     // Act
     loginPage.get();
-    var until = protractor.ExpectedConditions;
-    browser.wait(until.visibilityOf(loginPage.getElemToggleLink()), 5000, 'Element taking too long to appear in the DOM');
-    loginPage.toggleForgotPassword(); 
-
-    browser.wait(until.visibilityOf(loginPage.getElemInput()), 5000, 'Element taking too long to appear in the DOM');
-    loginPage.setForgotEmail('andresmoschini@gmail.com');
+    loginPage.waitAndToggleForgotPassword(); 
+    loginPage.waitAndSetForgotEmail('test@test.com');
     loginPage.submitForgot();
 
-    browser.wait(until.visibilityOf(loginPage.getElemErrorModal()), 5000, 'Element taking too long to appear in the DOM');
-
     // Assert
-    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeFalsy();
-    expect(loginPage.isErrorModalDisplayed()).toBeTruthy();
+    expect(loginPage.waitAndIsErrorModalVisible()).toBeTruthy();
+    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeFalsy();    
   });
 
   it('should call API and show a successful message', () => {
@@ -63,16 +57,11 @@ describe('Forgot password', () => {
 
     // Act
     loginPage.get();
-    var until = protractor.ExpectedConditions;
-    browser.wait(until.visibilityOf(loginPage.getElemToggleLink()), 5000, 'Element taking too long to appear in the DOM'); 
-    loginPage.toggleForgotPassword();
-    browser.wait(until.visibilityOf(loginPage.getElemInput()), 5000, 'Element taking too long to appear in the DOM');
-    loginPage.setForgotEmail('andresmoschini@gmail.com');
+    loginPage.waitAndToggleForgotPassword();
+    loginPage.waitAndSetForgotEmail('test@test.com');
     loginPage.submitForgot();
-    var until = protractor.ExpectedConditions;
-    browser.wait(until.visibilityOf(loginPage.getElemConfirmationForgot()), 5000, 'Element taking too long to appear in the DOM');
 
     // Assert
-    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeTruthy();
+    expect(loginPage.isForgotSubmitConfirmationDisplayedWithWait()).toBeTruthy();
   });
 });

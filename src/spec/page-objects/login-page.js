@@ -16,25 +16,15 @@ class LoginPage {
     return browser.get(params ? this._url + '?' + params : this._url);
   }
 
-  getElemConfirmationForgot () {
-    return this._forgotSubmitConfirmationEl;
-  }
-
-  getElemErrorModal () {
-    return this._errorModalEl;
-  }
-  getElemToggleLink () {
-    return this._forgotLinkEl;
-  }
-  getElemInput () {
-    return this._forgotSubmitEl;
-  }  
-
-  toggleForgotPassword() {
+  waitAndToggleForgotPassword() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._forgotLinkEl), 5000, 'Element taking too long to appear in the DOM');
     return this._forgotLinkEl.click();
   }
 
-  setForgotEmail(value) {
+  waitAndSetForgotEmail(value) {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._forgotEmailInputEl), 5000, 'Element taking too long to appear in the DOM');
     return this._forgotEmailInputEl.sendKeys(value);
   }
 
@@ -46,13 +36,16 @@ class LoginPage {
     return this._forgotSubmitConfirmationEl.isPresent().then(isPresent =>
       isPresent && this._forgotSubmitConfirmationEl.isDisplayed());
   }
-  isForgotSubmitConfirmationDisplayedWithWait() {    
+
+  isForgotSubmitConfirmationDisplayedWithWait() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._forgotSubmitConfirmationEl), 5000, 'Element taking too long to appear in the DOM');
     return this._forgotSubmitConfirmationEl.isDisplayed();
   }
 
-  isErrorModalDisplayed() {
-    return this._errorModalEl.isDisplayed().then(isPresent =>
-      isPresent && this._errorModalEl.isDisplayed());
+  waitAndIsErrorModalVisible() {
+    var until = protractor.ExpectedConditions;
+    return browser.wait(until.visibilityOf(this._errorModalEl), 5000, 'Element taking too long to appear in the DOM');
   }
 
   getSwitchLanguageMessage() {
