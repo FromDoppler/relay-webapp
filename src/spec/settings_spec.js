@@ -176,7 +176,7 @@ describe('Settings Page', () => {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com", disabled: true }, {name: "fromdoppler1.com"}, {name: "makingsense.com", disabled: true }],
           "default": "relay.com"
         });
-        $httpBackend.whenDELETE(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/).respond(200, {});
+        $httpBackend.whenDELETE(/\/accounts\/[\w|-]*\/domains\//).respond(200, {});
       }));
     var settings = new SettingsPage();
 
@@ -201,7 +201,7 @@ describe('Settings Page', () => {
           "domains": [{name: "relay.com"}, {name: "fromdoppler.com" }, {name: "makingsense.com", disabled: true }, {name: "makingsense12.com" }],
           "default": "relay.com"
         });
-        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\/fromdoppler.com$/, '{"disabled":true}').respond(200, {});
+        $httpBackend.whenPUT(/\/accounts\/[\w|-]*\/domains\//, '{"disabled":true}').respond(200, {});
       }));
     var settings = new SettingsPage();
     browser.get('/#/settings/domain-manager');
@@ -398,7 +398,7 @@ describe('Settings Page', () => {
     profilePage.closePasswordTemplate();
 
     //Assert
-    expect(profilePage.isPasswordFormVisible()).toBe(false);
+    expect(profilePage.isPasswordFormNotVisible()).toBe(true);
   });
 
   it('should change the password correctly', () => {
