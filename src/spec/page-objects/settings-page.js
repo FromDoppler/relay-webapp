@@ -1,5 +1,6 @@
 class SettingsPage {
   constructor() {
+    this._waitTimeout = 5000;
     this._url = '/#/settings/domain-manager';
     this._togglerDomainInputButton = $('.domain--title-container .domain--input-toggler');
     this._confirmAddDomainButton = $('.domain--input-container button');
@@ -17,6 +18,16 @@ class SettingsPage {
 
   getUrl(){
     return this._url;
+  }
+  elemHasClass(elem,classNameParam){
+    var hasClass = elem
+      .getAttribute('class')
+      .then(function(className) {
+        return className.indexOf(classNameParam) >= 0;
+      });
+      return hasClass.then(function (results) {
+          return results;
+      });
   }
   clickInputToggler(){
     return this._togglerDomainInputButton.click();
@@ -53,9 +64,13 @@ class SettingsPage {
     return this._domainInputButton.click();
   }
   clickFirstDeleteButton(){
-    return this._domainDeleteButtons.then(function(val){
-      return val[0].click();
-    });
+    var confirmationContainer = this._domainDeleteButtons;
+    
+    browser.wait(function() {
+      return confirmationContainer.isDisplayed() != false
+    }, this._waitTimeout);
+
+    return this._domainDeleteButtons.click();
   }
   getDefaultDomain(){
     return this._defaultDomain.getText();
