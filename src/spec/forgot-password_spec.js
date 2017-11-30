@@ -31,13 +31,13 @@ describe('Forgot password', () => {
 
     // Act
     loginPage.get();
-    loginPage.toggleForgotPassword();
-    loginPage.setForgotEmail('andresmoschini@gmail.com');
+    loginPage.waitAndToggleForgotPassword(); 
+    loginPage.waitAndSetForgotEmail('test@test.com');
     loginPage.submitForgot();
 
     // Assert
-    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeFalsy();
-    expect(loginPage.isErrorModalDisplayed()).toBeTruthy();
+    expect(loginPage.waitAndIsErrorModalVisible()).toBeTruthy();
+    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeFalsy();    
   });
 
   it('should call API and show a successful message', () => {
@@ -45,7 +45,7 @@ describe('Forgot password', () => {
     browser.addMockModule('descartableModule', () => angular
       .module('descartableModule', ['ngMockE2E'])
       .run($httpBackend => {
-        $httpBackend.whenPUT(/\/user\/password\/recover/).respond(201, {
+        $httpBackend.whenPUT(/\/user\/password\/recover/).respond(200, {
           'message': 'We have sent an email to your email address to continue with the registration process...'
         });
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
@@ -57,12 +57,11 @@ describe('Forgot password', () => {
 
     // Act
     loginPage.get();
-    loginPage.toggleForgotPassword();
-    loginPage.setForgotEmail('andresmoschini@gmail.com');
+    loginPage.waitAndToggleForgotPassword();
+    loginPage.waitAndSetForgotEmail('test@test.com');
     loginPage.submitForgot();
 
     // Assert
     expect(loginPage.isForgotSubmitConfirmationDisplayedWithWait()).toBeTruthy();
-    expect(loginPage.isErrorModalDisplayed()).toBeFalsy();
   });
 });

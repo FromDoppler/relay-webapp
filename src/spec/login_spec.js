@@ -35,31 +35,4 @@ describe('Login page', () => {
     // Assert
     expect(loginPage.getSwitchLanguageMessage()).toBe(inSpanish);
   });
-
-  it('should call API and show a successful message', () => {
-
-    // Arrange
-    browser.addMockModule('descartableModule', () => angular
-      .module('descartableModule', ['ngMockE2E'])
-      .run($httpBackend => {
-        $httpBackend.whenPUT(/\/user\/password\/recover/).respond(201, {
-          'message': 'We have sent an email to your email address to continue with the registration process...'
-        });
-        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
-          "data" : ""
-       });
-      }));
-
-    var loginPage = new LoginPage();
-
-    // Act
-    loginPage.get();
-    loginPage.toggleForgotPassword();
-    loginPage.setForgotEmail('andresmoschini@gmail.com');
-    loginPage.submitForgot();
-
-    // Assert
-    expect(loginPage.isForgotSubmitConfirmationDisplayed()).toBeTruthy();
-    expect(loginPage.isErrorModalDisplayed()).toBeFalsy();
-  });
 });
