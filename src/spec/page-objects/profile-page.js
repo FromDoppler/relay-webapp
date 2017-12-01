@@ -1,5 +1,6 @@
 class ProfilePage {
   constructor() {
+    this._waitTimeout = 5000;
     this._url = '/#/settings/my-profile';
     this._editPasswordButton = $('.password .icon.edit-icon');
     //this._passwordTemplate = $('.password .flex.three > span');
@@ -36,6 +37,9 @@ class ProfilePage {
   }
   isPasswordFormVisible(){
     return this.elemHasClass(this.getPasswordFormContainer(), 'expanded');
+  }
+  isPasswordFormNotVisible(){    
+    return this.elemHasClass(this.getPasswordFormContainer(), 'collapsed');
   }
   setOldPassword(value) {
     return this._oldPasswordInput.sendKeys(value);
