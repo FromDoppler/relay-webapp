@@ -18,13 +18,13 @@ class LoginPage {
 
   waitAndToggleForgotPassword() {
     var until = protractor.ExpectedConditions;
-    browser.wait(until.visibilityOf(this._forgotLinkEl), 5000, 'Element taking too long to appear in the DOM');
+    browser.wait(until.visibilityOf(this._forgotLinkEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
     return this._forgotLinkEl.click();
   }
 
   waitAndSetForgotEmail(value) {
     var until = protractor.ExpectedConditions;
-    browser.wait(until.visibilityOf(this._forgotEmailInputEl), 5000, 'Element taking too long to appear in the DOM');
+    browser.wait(until.visibilityOf(this._forgotEmailInputEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
     return this._forgotEmailInputEl.sendKeys(value);
   }
 
@@ -39,13 +39,13 @@ class LoginPage {
 
   isForgotSubmitConfirmationDisplayedWithWait() {
     var until = protractor.ExpectedConditions;
-    browser.wait(until.visibilityOf(this._forgotSubmitConfirmationEl), 5000, 'Element taking too long to appear in the DOM');
+    browser.wait(until.visibilityOf(this._forgotSubmitConfirmationEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
     return this._forgotSubmitConfirmationEl.isDisplayed();
   }
 
   waitAndIsErrorModalVisible() {
     var until = protractor.ExpectedConditions;
-    return browser.wait(until.visibilityOf(this._errorModalEl), 5000, 'Element taking too long to appear in the DOM');
+    return browser.wait(until.visibilityOf(this._errorModalEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
   }
 
   getSwitchLanguageMessage() {

@@ -62,7 +62,9 @@ class BillingPage {
   getPlanName() {
     return this._planName.getText();
   }
-  getPrice() {
+  waitAndGetPrice() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._planPrice), this._waitTimeout, 'Element taking too long to appear in the DOM');
     return this._planPrice.getText();
   }
   setCreditCardNumber(ccNumber) {
