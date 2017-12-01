@@ -55,6 +55,12 @@ class SettingsPage {
       });
   }
   countDomainListItems(){
+    var confirmationContainer = this._domainsListItems;
+    
+    browser.wait(function() {
+      return confirmationContainer.isDisplayed() != false
+    }, this._waitTimeout);
+
     return this._domainsListItems.count();
   }
   setDomain(domain){
@@ -64,13 +70,11 @@ class SettingsPage {
     return this._domainInputButton.click();
   }
   clickFirstDeleteButton(){
-    var confirmationContainer = this._domainDeleteButtons;
-    
-    browser.wait(function() {
-      return confirmationContainer.isDisplayed() != false
-    }, this._waitTimeout);
-
-    return this._domainDeleteButtons.click();
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.presenceOf(this._domainDeleteButtons), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    this._domainDeleteButtons.then(function(val){      
+      return val[0].click();
+    });
   }
   getDefaultDomain(){
     return this._defaultDomain.getText();
