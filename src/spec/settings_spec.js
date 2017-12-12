@@ -425,4 +425,25 @@ describe('Settings Page', () => {
     expect(profilePage.isPasswordFormVisible()).toBe(false);
     expect(profilePage.isChangePasswordSuccessMessageNotHidden()).toBe(true);
   });
+
+  it('should change the language correctly', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    var profilePage = new ProfilePage();
+
+    //Act
+    browser.get('/#/settings/my-profile?lang=es');
+    var userTextInSpanish = "LENGUAJE";
+    var userTextInEnglish = "LANGUAGE";
+    profilePage.clickChangeLangToEn();
+
+    //Assert
+    expect(profilePage.getLanguageLabelMessage()).toBe(userTextInEnglish);
+
+    //Act
+    profilePage.clickChangeLangToEs();
+
+    //Assert
+    expect(profilePage.getLanguageLabelMessage()).toBe(userTextInSpanish);
+  });
 });
