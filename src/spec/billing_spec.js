@@ -95,11 +95,11 @@ describe('Billing Page', () => {
 
     // Act
     var plan = billingPage.getPlanName();
-    var price = billingPage.getPrice();
+    var price = billingPage.waitAndGetPrice();
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('$ 31.80 per month');
+    expect(price).toBe('$ 31.80 per month');
   });
 
   it('should show the selected plan name and price in spanish', () => {
@@ -112,11 +112,11 @@ describe('Billing Page', () => {
 
     // Act
     var plan = billingPage.getPlanName();
-    var price = billingPage.getPrice();
+    var price = billingPage.waitAndGetPrice();
 
     // Assert
     expect(plan).toBe('PLAN-60K');
-    expect(billingPage.getPrice()).toBe('USD 31,80 por mes');
+    expect(price).toBe('USD 31,80 por mes');
   });
 
   it('should show credit card icon when complete visa credit card number', () => {

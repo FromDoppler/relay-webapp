@@ -46,13 +46,13 @@
   <hr class="small" />
   <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
   <div class="domain--config-status" ng-if="!vm.loading && vm.spfStatus">
-    <svg class="icon ok-icon">
+    <svg id="okIconDkim" class="icon ok-icon">
       <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
     </svg>
     <span>{{ 'configuration_page_added' | translate }}</span>
   </div>
   <div class="domain--config-status" ng-if="!vm.loading && !vm.spfStatus">
-    <svg class="icon alert-icon">
+    <svg id="alertIconDkim" class="icon alert-icon">
       <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
     </svg>
     <span>{{ 'domain_manager_status_warning_tooltip' | translate }}</span>

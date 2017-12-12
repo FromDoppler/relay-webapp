@@ -1,6 +1,6 @@
 class LoginPage {
   constructor() {
-    this._waitTimeout = 8000;
+    this._waitTimeout = 5000;
     this._url = '/#/login';
     this._errorModalEl = $('.error-container');
     this._forgotLinkEl = $('.forgot--link');
@@ -16,11 +16,15 @@ class LoginPage {
     return browser.get(params ? this._url + '?' + params : this._url);
   }
 
-  toggleForgotPassword() {
+  waitAndToggleForgotPassword() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._forgotLinkEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
     return this._forgotLinkEl.click();
   }
 
-  setForgotEmail(value) {
+  waitAndSetForgotEmail(value) {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._forgotEmailInputEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
     return this._forgotEmailInputEl.sendKeys(value);
   }
 
@@ -32,22 +36,16 @@ class LoginPage {
     return this._forgotSubmitConfirmationEl.isPresent().then(isPresent =>
       isPresent && this._forgotSubmitConfirmationEl.isDisplayed());
   }
+
   isForgotSubmitConfirmationDisplayedWithWait() {
-    var confirmationContainer = this._forgotSubmitConfirmationEl;
-    
-       // the library `angular-ui/ui-select` creates  the HTML
-       // but it takes a little bit to populate the values
-       // so we have to wait until the text is present.
-       browser.wait(function() {
-         return confirmationContainer.isDisplayed() != false
-       }, this._waitTimeout);
-    
-        return confirmationContainer.isDisplayed();
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._forgotSubmitConfirmationEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._forgotSubmitConfirmationEl.isDisplayed();
   }
 
-  isErrorModalDisplayed() {
-    return this._errorModalEl.isPresent().then(isPresent =>
-      isPresent && this._errorModalEl.isDisplayed());
+  waitAndIsErrorModalVisible() {
+    var until = protractor.ExpectedConditions;
+    return browser.wait(until.visibilityOf(this._errorModalEl), this._waitTimeout, 'Element taking too long to appear in the DOM');
   }
 
   getSwitchLanguageMessage() {

@@ -3,8 +3,8 @@ class DkimPage {
     this._dKimPublicKey = $('.domain-public-key');
     this._dKimDomainSelected = $('.domain-selected');
     this._dKimDomainSelector = $('.domain-selector');
-    this._iconAlert = $('.alert-icon');
-    this._iconOk = $('.ok-icon');
+    this._iconAlert = $('#alertIconDkim');
+    this._iconOk = $('#okIconDkim');
   }
 
   getdKimDomainSelected(){

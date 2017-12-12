@@ -198,6 +198,7 @@
   "action_get_temp_api_key": "Getting temporal Api Key",
   "action_recovering_password": "Recovering password",
   "action_updating_password": "Updating password",
+  "action_updating_email": "Updating Email",
   "action_register_user": "Registering user",
   "action_activating_user": "Activating user",
   "action_adding_domain": "Adding a Domain",

@@ -32,6 +32,7 @@
       <div class="forgot--input-container">
         <input class="input input--large" ng-class="{true: 'error'}[submittedForgot && forgotForm.forgotEmail.$invalid]" id="forgotEmail" type="email" name="forgotEmail" ng-model="vm.forgotEmail" ng-change="vm.removeSucceed()" ng-minlength="3" placeholder="{{'login_forgot_placeholder' | translate}}" required />
         <div
+        ng-if="!vm.local"
         vc-recaptcha
         required="false"
         size="invisible"
