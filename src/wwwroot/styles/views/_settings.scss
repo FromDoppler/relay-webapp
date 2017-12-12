@@ -344,6 +344,13 @@
   .button--white {
     margin-right: 2%;
   }
+  .language {
+    min-height: 6.5em !important;
+    .flags {
+      cursor: pointer;
+      &:first-of-type {margin-right: 1em; }
+    }
+  }
 }
 .my-plans--container {
   .my-plan--info-container {
