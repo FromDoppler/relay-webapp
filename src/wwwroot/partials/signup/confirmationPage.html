@@ -1,4 +1,9 @@
-<section class="filter--section signup--confirmation-details">
+<section class="filter--section signup--confirmation-details" ng-if="vm.termporaryError">
+    <div class="filter section--wrapper flex--direction-column">
+      <p>{{'out_of_service' | translate}}</p>
+    </div>
+</section>
+<section class="filter--section signup--confirmation-details" ng-if="!vm.termporaryError">
   <form method="post" id="form" name="form" ng-submit="vm.activateUser(form)" novalidate>
   <div class="filter section--wrapper flex--direction-column">
     <h2>{{ vm.name }}{{'confirmation_title' | translate}}</h2>

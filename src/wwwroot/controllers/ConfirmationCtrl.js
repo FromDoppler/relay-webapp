@@ -29,6 +29,7 @@
     vm.activationPromise = activate();
     vm.passwordEmpty = false;
     vm.termsAccepted = false;
+    vm.termporaryError = true;
 
     function activate() {
 
