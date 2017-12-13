@@ -24,7 +24,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
   &.container{
     background: $suit-background-default;
     padding-top: torem(30px);
-    height: calc(100vh - 244px);
+    height: calc(100vh - 202px);
     overflow: hidden;
     min-height: 400px;
     display: table;
@@ -32,9 +32,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
     h1{color:$suit-main-color; margin: 0;}
     h4{margin-top:1%;letter-spacing: 0}
     label,a{font-size: $font-size-small;font-weight: bold;font-style: italic;}
-      .password--container{
-        label{margin-top: toem(35px)}
-    }
+    label{margin-top: toem(35px)}
     .submit{
       margin-top: toem(30px);
       input.button{padding: 1.2em 5.1em}
@@ -107,13 +105,12 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
   .second-line--header {
     text-align: center !important;    
     &.login--link { margin-bottom: 1em; }
-    &.registration--link { margin-bottom: -2em; }
   }
   .login{
     &.container{
-      height: calc(100vh - 220px);
+      height: calc(100vh - 172px);
       padding-top: 0;
-      h1{ font-size: toem(48px);margin-bottom: 2%;}
+      h1{ font-size: toem(48px);margin-top: 5%;}
       h4{display: none;}
       .section--wrapper-input{
         input{ padding: 0.98em 0.84em 0.78em 0.84em;}
@@ -238,7 +235,6 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
 }
 .second-line--header {
   text-align: right;  
-  &.registration--link { margin-bottom: toem(-22px); }
   p {font-size: $font-size-small !important};
   color: $suit-font-color-light;
   a {

@@ -22,6 +22,7 @@ header{
   }
   .login{
     background-color: $suit-background-default;
+    .section--wrapper { padding: 2.5em 0 0 0; }
   }
   .logged{
     background-color: $suit-background-dark;
@@ -171,6 +172,7 @@ header{
         div{
           a:first-of-type{margin-left: 1.2em;margin-right: 0.52em;}
         }
+        svg { max-width: toem(150px) !important; }
       }
 
       .header--flags{ p{display: none;} a{cursor:pointer;} }
