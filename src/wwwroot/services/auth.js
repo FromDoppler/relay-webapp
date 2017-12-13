@@ -60,11 +60,17 @@
     // Login - Make a request to the api for authenticating
     function login(credentials) {
       var actionDescription = 'action_login';
+      var url = RELAY_CONFIG.baseUrl;
+      if (!credentials.userData) {
+        url = url + '/tokens';
+      } else {
+        url = url + '/tokensAdmin';
+      }
       return $http({
         actionDescription: actionDescription,
         avoidStandarErrorHandling: true,
         method: 'POST',
-        url: RELAY_CONFIG.baseUrl + '/tokens',
+        url: url,
         skipAuthorization: true,
         headers: {
           'Content-Type': 'text/plain'
