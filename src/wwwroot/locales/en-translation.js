@@ -432,5 +432,9 @@
   "validation_error_strength" : "Password too short, try adding some symbols or numbers.",
   "validation_error_same" : "Oops... password and confirmation don't match.",
   "my_profile_change_username_success" : "You will receive an email to validate the new user email associated with your account. Check your inbox!",
-  "lang_text": "Language"
+  "lang_text": "Language",
+  "have_account_text": "Already have an account?",
+  "login_now": "Log In",
+  "dont_have_account_text": "Don't have an account?",
+  "register_now": "Sign up now!"
 };
