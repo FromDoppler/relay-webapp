@@ -11,7 +11,7 @@ header{
   h4{cursor:pointer;}
   h4{font-size: $headers_h5-font-size;}
   .section--wrapper{padding: toem(40px) 0;display: flex; justify-content: center;align-items: center;
-    a{align-items: center;}
+    a{align-items: center; cursor: pointer;}
     nav{background:none; display: flex;}
     nav:last-of-type{justify-content: flex-end;
         a { margin-left: toem(20px);}

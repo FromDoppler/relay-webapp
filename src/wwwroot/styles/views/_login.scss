@@ -24,7 +24,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
   &.container{
     background: $suit-background-default;
     padding-top: torem(30px);
-    height: calc(100vh - 220px);
+    height: calc(100vh - 244px);
     overflow: hidden;
     min-height: 400px;
     display: table;
@@ -47,7 +47,7 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
 
     label{float:left; margin-left: 4%;margin-bottom: 2%}
 
-    #loginform {display: table-cell; vertical-align: middle;}
+    #loginform {display: table-cell;}
   }
 
   &.forgot-password--container{
@@ -104,6 +104,11 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
   }
 
 @media screen and (max-height: 750px) {
+  .second-line--header {
+    text-align: center !important;    
+    &.login--link { margin-bottom: 1em; }
+    &.registration--link { margin-bottom: -2em; }
+  }
   .login{
     &.container{
       height: calc(100vh - 220px);
@@ -229,6 +234,15 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
   }
   input:last-of-type{
     margin-top: 2em;
+  }
+}
+.second-line--header {
+  text-align: right;  
+  &.registration--link { margin-bottom: toem(-22px); }
+  p {font-size: $font-size-small !important};
+  color: $suit-font-color-light;
+  a {
+    color: $suit-accent-color-light;
   }
 }
 .registration{
