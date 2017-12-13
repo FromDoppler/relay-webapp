@@ -24,6 +24,11 @@
     var key = utils.getPreferredLanguage();
     $translate.use(key);
 
+    $rootScope.changeLanguage = function (key) {
+      $translate.use(key);
+      utils.setPreferredLanguage(key);
+    };
+
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
     };

@@ -142,8 +142,9 @@ header{
       cursor: pointer !important;
   }
   a.upgrade--link{
-    font-size: $font-size-small !important;
+    font-size: $font-size-tiny !important;
     margin-right: 2em !important;
+    text-transform: uppercase;
   }
   .free-trial{
     padding: torem(9px);
@@ -153,6 +154,14 @@ header{
       margin-left: torem(15px);
     }
   }
+  .right--container {
+    .flag {
+      cursor: pointer;
+      margin: 0;
+      &:first-of-type {margin-right: 1em !important;}
+    }
+  }
+
 }
 
 @media screen and (max-height: 750px){
@@ -166,6 +175,14 @@ header{
 
       .header--flags{ p{display: none;} a{cursor:pointer;} }
     }
+}
+
+@media screen and (max-width: 780px){
+  header{
+    .right--container {
+      .flag { display: none;}
+    }
+  }
 }
 @media screen and (max-width: 750px){
   header{

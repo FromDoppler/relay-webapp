@@ -13,10 +13,6 @@
   ];
 
   function HeaderCtrl($scope, $translate, $location, $rootScope, utils) {
-    $scope.changeLanguage = function (key) {
-      $translate.use(key);
-      utils.setPreferredLanguage(key);
-    };
     $scope.arrowUp = false;
     $scope.toggleConfigDropDown = function () {
       $scope.arrowUp = !$scope.arrowUp;
