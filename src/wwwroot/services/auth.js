@@ -61,10 +61,10 @@
     function login(credentials) {
       var actionDescription = 'action_login';
       var url = RELAY_CONFIG.baseUrl;
-      if (!credentials.userData) {
+      if (!credentials.userToImpersonate) {
         url = url + '/tokens';
       } else {
-        url = url + '/tokensAdmin';
+        url = url + '/tokens/impersonate';
       }
       return $http({
         actionDescription: actionDescription,

@@ -10,6 +10,11 @@ class LoginPage {
     this._switchLanguageMessageEl = $('.header--flags p');
     this._switchLanguageEnFlagEl = $('.header--flags .en_flag');
     this._switchLanguageEsFlagEl = $('.header--flags .es_flag');
+    this._adminEmailAccountInput = $('.admin .email-account--container input');
+    this._adminTitle = $('.admin h1');
+    this._loginAdminButton = $('.admin .section--wrapper-button .button');
+    this._loginAdminEmail = $('.admin .email input');
+    this._loginAdminPass = $('.admin .password--container input');
   }
 
   get(params) {
@@ -59,6 +64,29 @@ class LoginPage {
   clickEnFlag() {
     this._switchLanguageEnFlagEl.click();
   }
+  isAdminEmailAccountInputVisible() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._adminEmailAccountInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._adminEmailAccountInput.isDisplayed();
+  }
+  isAdminTitleVisible() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._adminTitle), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._adminTitle.isDisplayed();
+  }
+  setAdminEmail(username) {
+    return this._loginAdminEmail.sendKeys(username);
+  }
+  setAdminPassword(pass) {
+    return this._loginAdminPass.sendKeys(pass);
+  }
+  setClientEmail(username) {
+    return this._adminEmailAccountInput.sendKeys(username);
+  }
+  clickAdminLoginButton() {
+    this._loginAdminButton.click();
+  }
+  
 }
 
 exports.LoginPage = LoginPage;

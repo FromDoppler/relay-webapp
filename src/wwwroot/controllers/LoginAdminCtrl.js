@@ -34,7 +34,7 @@
             var credentials = {
               username: vm.email,
               password: vm.password,
-              userData: vm.userData
+              userToImpersonate: vm.userData
             };
       
             auth.login(credentials).then(function (result) {

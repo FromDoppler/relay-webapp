@@ -1,8 +1,8 @@
-<section class="login container ms-relay">
+<section class="login admin container ms-relay">
     <form method="post" id="loginform" autofill-submit="vm.submitLogin(loginform)" name="loginform" novalidate>
         <div class="section--wrapper width--full text--center">
         <h1 id="header-login">{{'login_admin_title' | translate}} ADMIN</h1>
-        <div class="section--wrapper-input">
+        <div class="section--wrapper-input email">
             <label for="email">{{'login_admin_email_label' | translate}}</label>
             <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.email.$invalid]" id="email" type="email" name="email" ng-model="vm.email" ng-minlength="3" placeholder="{{'login_admin_email_placeholder' | translate}}" ng-change="vm.updateValidation(loginform)" required autofill />
             <span class="input--error" ng-show="submitted && loginform.email.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
@@ -15,7 +15,7 @@
             <span class="input--error" ng-show="submitted && loginform.password.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
             <span class="input--error" ng-show="submitted && loginform.password.$error.error && !loginform.password.$error.required"><i class="arrow--up"></i>{{'login_error_invalid_account' | translate}}</span>
         </div>
-        <div class="section--wrapper-input">
+        <div class="section--wrapper-input email-account--container">
                 <label for="userData">{{'login_admin_email_account_label' | translate}}</label>
                 <input class="input input--large" ng-class="{true: 'error'}[submitted && loginform.userData.$invalid]" id="userData" type="text" name="userData" ng-model="vm.userData" ng-minlength="3" placeholder="{{'login_admin_email_account_placeholder' | translate}}" ng-change="vm.updateValidation(loginform)" required autofill />
                 <span class="input--error" ng-show="submitted && loginform.userData.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
