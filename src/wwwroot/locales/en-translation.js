@@ -441,5 +441,6 @@
   "login_admin_email_label": "Your Email:",
   "login_admin_email_placeholder": "Enter your email ",
   "login_admin_email_account_label": "Email from Client Account",
-  "login_admin_email_account_placeholder": "Enter Email or Account Name from the client"  
+  "login_admin_email_account_placeholder": "Enter Email or Account Name from the client",
+  "login_error_invalid_impersonate": "Invalid client Email or Account Name"
 };

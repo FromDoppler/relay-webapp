@@ -38,6 +38,9 @@
             };
       
             auth.login(credentials).then(function (result) {
+                if(result.personToImpersonateNotFound){
+                    return loginform.userData.$setValidity('error', false);
+                }
                 if (result.authenticated) {
                     $location.path('/');
                 } else {
