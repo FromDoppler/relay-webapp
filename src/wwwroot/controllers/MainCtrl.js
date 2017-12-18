@@ -42,8 +42,12 @@
     
     $rootScope.freeTrialStatus = null;
     $rootScope.accountLimits = { };
+
+  $rootScope.loadLimits = function () {
     loadLimits();
-    $interval(loadLimits, 30000);
+  };
+    
+  $interval(loadLimits, 30000);
 
   function loadLimits() {
     auth.getLimitsByAccount()
