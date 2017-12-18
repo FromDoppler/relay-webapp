@@ -436,5 +436,12 @@
   "have_account_text": "Already have an account?",
   "login_now": "Log In",
   "dont_have_account_text": "Don't have an account?",
-  "register_now": "Sign up now!"
+  "register_now": "Sign up now!",
+  "login_admin_title": "Doppler Relay Admin",
+  "login_admin_email_label": "Your Email:",
+  "login_admin_email_placeholder": "Enter your email ",
+  "login_admin_email_account_label": "Email from Client Account",
+  "login_admin_email_account_placeholder": "Enter Email or Account Name from the client",
+  "login_error_invalid_impersonate": "Invalid client Email or Account Name",
+  "login_error_invalid_account_impersonate": "Account not valid to impersonate"  
 };

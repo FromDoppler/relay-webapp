@@ -156,7 +156,12 @@
         .when('/change-email', {
           template: ' ',
           controller: 'ChangeEmailCtrl'
-        })        
+        })   
+        .when('/loginAdmin', {
+          templateUrl: 'partials/login/login-admin.html',
+          controller: 'LoginAdminCtrl',
+          controllerAs: 'vm'
+        })     
         .otherwise({
           redirectTo: '/reports'
         });
@@ -252,7 +257,7 @@
 
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed'];
+    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
 
     // TODO: optimize it
