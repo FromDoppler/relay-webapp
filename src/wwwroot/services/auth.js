@@ -111,7 +111,7 @@
             $rootScope.addError('error_handler_unexpected', actionDescription, reason);
           }
           else {
-            $rootScope.addError('error_handler_unexpected_rejection', actionDescription, reason);
+            $rootScope.addError('error_handler_unexpected_rejection', actionDescription, actionTitle);
           }
           return $q.reject(reason);
         }
