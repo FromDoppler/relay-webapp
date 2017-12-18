@@ -20,9 +20,13 @@
         function updateValidation(loginform) {
             if (loginform && loginform.email.$modelValue) {
               loginform.email.$setValidity('error', true);
-            }
+              loginform.email.$setValidity('error_impersonate', true);
+            }            
             if (loginform && loginform.password.$modelValue) {
               loginform.password.$setValidity('error', true);
+            }
+            if (loginform && loginform.userData.$modelValue) {
+                loginform.userData.$setValidity('error', true);
             }
           }
 
@@ -38,14 +42,18 @@
             };
       
             auth.login(credentials).then(function (result) {
-                if(result.personToImpersonateNotFound){
+                if(result.clientAccountNotFound){
                     return loginform.userData.$setValidity('error', false);
+                }
+                if(result.accountNotAllowedToImpersonate){
+                    return loginform.email.$setValidity('error_impersonate', false);
                 }
                 if (result.authenticated) {
                     $location.path('/');
                 } else {
                     loginform.email.$setValidity('error', false);
                     loginform.password.$setValidity('error', false);
+                    loginform.userData.$setValidity('error', false);
                 }
             });
         };

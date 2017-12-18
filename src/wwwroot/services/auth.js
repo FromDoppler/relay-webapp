@@ -95,8 +95,11 @@
         return { authenticated: true };
       })
       .catch(function (reason) {
+        if(reason.status == 404 && reason.data.errorCode == 1) {
+          return { clientAccountNotFound: true };
+        }
         if(reason.status == 403 && reason.data.errorCode == 9) {
-          return { personToImpersonateNotFound: true };
+          return { accountNotAllowedToImpersonate: true };
         }
         if (reason.status == 401 && reason.data.errorCode == 2) {
           return { authenticated: false };

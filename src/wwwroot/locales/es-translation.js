@@ -456,5 +456,6 @@
   "login_admin_email_placeholder": "Escribe tu email ",
   "login_admin_email_account_label": "Email de la cuenta del cliente:",
   "login_admin_email_account_placeholder": "Escribe el email o nombre de cuenta del usuario",
-  "login_error_invalid_impersonate": "Email o nombre de cuenta invalido del Cliente"
+  "login_error_invalid_impersonate": "Email o nombre de cuenta invalido del Cliente",
+  "login_error_invalid_account_impersonate": "Cuenta no válida para impersonar"
 };
