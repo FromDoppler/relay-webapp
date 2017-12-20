@@ -60,11 +60,17 @@
     // Login - Make a request to the api for authenticating
     function login(credentials) {
       var actionDescription = 'action_login';
+      var url = RELAY_CONFIG.baseUrl;
+      if (!credentials.userToImpersonate) {
+        url = url + '/tokens';
+      } else {
+        url = url + '/tokens/impersonate';
+      }
       return $http({
         actionDescription: actionDescription,
         avoidStandarErrorHandling: true,
         method: 'POST',
-        url: RELAY_CONFIG.baseUrl + '/tokens',
+        url: url,
         skipAuthorization: true,
         headers: {
           'Content-Type': 'text/plain'
@@ -89,6 +95,12 @@
         return { authenticated: true };
       })
       .catch(function (reason) {
+        if(reason.status == 404 && reason.data.errorCode == 1) {
+          return { clientAccountNotFound: true };
+        }
+        if(reason.status == 403 && reason.data.errorCode == 9) {
+          return { accountNotAllowedToImpersonate: true };
+        }
         if (reason.status == 401 && reason.data.errorCode == 2) {
           return { authenticated: false };
         }
@@ -99,7 +111,7 @@
             $rootScope.addError('error_handler_unexpected', actionDescription, reason);
           }
           else {
-            $rootScope.addError('error_handler_unexpected_rejection', actionDescription, reason);
+            $rootScope.addError('error_handler_unexpected_rejection', actionDescription, actionTitle);
           }
           return $q.reject(reason);
         }

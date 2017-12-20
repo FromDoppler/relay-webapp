@@ -11,6 +11,9 @@ class ProfilePage {
     this._newPasswordInput = $('#pass');
     this._confirmNewPasswordInput = $('#confPassword');
     this._changePasswordSuccessMessage = $('.my-profile--banner.green');
+    this._flagEn = $('.language .en_flag');
+    this._flagEs = $('.language .es_flag');
+    this._langText = $('.language .lang-text');
   }
 
   elemHasClass(elem,classNameParam){
@@ -55,6 +58,15 @@ class ProfilePage {
   }
   isChangePasswordSuccessMessageNotHidden(){
     return this.elemHasClass(this.getChangePasswordSuccessMessage(), 'ng-hide');
+  }
+  clickChangeLangToEn(){
+    return this._flagEn.click();
+  }
+  clickChangeLangToEs(){
+    return this._flagEs.click();
+  }
+  getLanguageLabelMessage(){
+    return this._langText.getText();
   }
 }
 exports.ProfilePage = ProfilePage;

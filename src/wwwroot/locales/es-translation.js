@@ -445,5 +445,17 @@
   "save_changes_button":"Guardar cambios",
   "validation_error_strength" : "Tu contraseña es muy corta, intenta sumar algun símbolo o número.",
   "validation_error_same" : "Oops... la contraseña y su confirmación no coinciden.",
-  "my_profile_change_username_success" : "Recibirás un correo para que validez el nuevo email asociado a la cuenta. ¡Revisa tu casilla!"
+  "my_profile_change_username_success" : "Recibirás un correo para que validez el nuevo email asociado a la cuenta. ¡Revisa tu casilla!",
+  "lang_text": "Lenguaje",
+  "have_account_text": "¿Ya tienes una cuenta?",
+  "login_now": "Ingresa aquí",
+  "dont_have_account_text": "¿No tienes una cuenta?",
+  "register_now": "¡Regístrate gratis!",
+  "login_admin_title": "Doppler Relay Admin",
+  "login_admin_email_label": "Tu Email de acceso:",
+  "login_admin_email_placeholder": "Escribe tu email ",
+  "login_admin_email_account_label": "Email de la cuenta del cliente:",
+  "login_admin_email_account_placeholder": "Escribe el email o nombre de cuenta del usuario",
+  "login_error_invalid_impersonate": "Email o nombre de cuenta invalido del Cliente",
+  "login_error_invalid_account_impersonate": "Cuenta no válida para impersonar"
 };

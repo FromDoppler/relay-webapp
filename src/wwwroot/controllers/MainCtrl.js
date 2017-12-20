@@ -24,6 +24,11 @@
     var key = utils.getPreferredLanguage();
     $translate.use(key);
 
+    $rootScope.changeLanguage = function (key) {
+      $translate.use(key);
+      utils.setPreferredLanguage(key);
+    };
+
     $rootScope.getLoggedUserEmail = function () {
       return auth.getUserName();
     };
@@ -37,8 +42,12 @@
     
     $rootScope.freeTrialStatus = null;
     $rootScope.accountLimits = { };
+
+  $rootScope.loadLimits = function () {
     loadLimits();
-    $interval(loadLimits, 30000);
+  };
+    
+  $interval(loadLimits, 30000);
 
   function loadLimits() {
     auth.getLimitsByAccount()

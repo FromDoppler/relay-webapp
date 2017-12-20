@@ -11,7 +11,7 @@ header{
   h4{cursor:pointer;}
   h4{font-size: $headers_h5-font-size;}
   .section--wrapper{padding: toem(40px) 0;display: flex; justify-content: center;align-items: center;
-    a{align-items: center;}
+    a{align-items: center; cursor: pointer;}
     nav{background:none; display: flex;}
     nav:last-of-type{justify-content: flex-end;
         a { margin-left: toem(20px);}
@@ -22,6 +22,7 @@ header{
   }
   .login{
     background-color: $suit-background-default;
+    .section--wrapper { padding: 2.5em 0 0 0; }
   }
   .logged{
     background-color: $suit-background-dark;
@@ -142,8 +143,9 @@ header{
       cursor: pointer !important;
   }
   a.upgrade--link{
-    font-size: $font-size-small !important;
+    font-size: $font-size-tiny !important;
     margin-right: 2em !important;
+    text-transform: uppercase;
   }
   .free-trial{
     padding: torem(9px);
@@ -153,6 +155,14 @@ header{
       margin-left: torem(15px);
     }
   }
+  .right--container {
+    .flag {
+      cursor: pointer;
+      margin: 0;
+      &:first-of-type {margin-right: 1em !important;}
+    }
+  }
+
 }
 
 @media screen and (max-height: 750px){
@@ -162,10 +172,19 @@ header{
         div{
           a:first-of-type{margin-left: 1.2em;margin-right: 0.52em;}
         }
+        svg { max-width: toem(150px) !important; }
       }
 
       .header--flags{ p{display: none;} a{cursor:pointer;} }
     }
+}
+
+@media screen and (max-width: 780px){
+  header{
+    .right--container {
+      .flag { display: none;}
+    }
+  }
 }
 @media screen and (max-width: 750px){
   header{
