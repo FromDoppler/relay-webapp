@@ -25,7 +25,6 @@
     $scope.curSection = $location.path().substring(1);
     $scope.deliveriesSummary = {};
     $scope.eventsSummary = {};
-    $rootScope.loadLimits();
 
     $scope.maxRateDailyLimitBar = 50;
     $scope.getDailyLimit = function() {
