@@ -57,6 +57,7 @@
 
   function updateLimitsAndTrialData(limits) {
     $rootScope.accountLimits = limits;
+    $rootScope.isDkimReady = limits.hasDkimReady;
     var freeTrialEndDate = limits.endDate;
     if (!freeTrialEndDate) {
       $rootScope.freeTrialStatus = null;
