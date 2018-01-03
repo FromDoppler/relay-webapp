@@ -253,7 +253,7 @@
           hourly: mapLimit(response.data.hourly),
           hasLimits: !response.data.noLimits,
           endDate: mapDate(response.data.endDate),
-          hasDkimReady: response.data.dkimConfigurationReady          
+          requiresDkimConfiguration: !response.data.dkimConfigurationRequired
         };
       });
     }

@@ -40,7 +40,7 @@
           <th class="column-medium text--center">{{ 'domain_manager_status_th' | translate}}</th>
           <th class="column-small">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
-        <tr class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'disabled' : d.disabled}">
+        <tr id="columnRecords" class="column-records" ng-repeat="d in vm.domains track by $index" ng-class="{'highlight--temporal-fade' : d.recentlyUpdated, 'disabled' : d.disabled, 'highlight--temporal-error' : d.highlightDkimError}">
           <td ng-class="vm.isDefaultDomain(d) && !d.disabled ? 'default' : ''">{{d.name}}</td>
           <td class="text--center">
             <svg class="icon ok-icon" ng-if="d.dkim_ready && d.spf_ready">
