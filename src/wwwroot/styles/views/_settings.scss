@@ -159,6 +159,17 @@
       max-width: 50%;
       word-wrap: break-word;
     }
+    .comment{
+      color: $suit-font-color-lighter;
+      display: inline-block;
+      margin-top: 1em;
+      font-size: $font-size-small;
+      span {
+        color: $suit-accent-color;
+        margin-right: .5em;
+        font-size: $p-font-size-normal;
+      }
+    }
   }
 }
 
