@@ -11,7 +11,7 @@
     '$location'
   ];
 
-  function WelcomeCtrl(close, auth) {
+  function WelcomeCtrl(close, auth, $location) {
     var vm = this;
     vm.name = auth.getAccountName();
     vm.goToDomainManager = function() {

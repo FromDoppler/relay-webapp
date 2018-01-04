@@ -42,7 +42,6 @@
     
     $rootScope.freeTrialStatus = null;
     $rootScope.accountLimits = { };
-    $rootScope.requiresDkimConfiguration = false;
 
     $rootScope.loadLimits = loadLimits;
     
@@ -58,7 +57,6 @@
 
   function updateLimitsAndTrialData(limits) {
     $rootScope.accountLimits = limits;
-    $rootScope.requiresDkimConfiguration = limits.requiresDkimConfiguration;
     var freeTrialEndDate = limits.endDate;
     if (!freeTrialEndDate) {
       $rootScope.freeTrialStatus = null;

@@ -14,10 +14,10 @@
       '$timeout',
       '$translate',
       '$location',
-      '$anchorScroll'
+      '$document'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate, $location, $anchorScroll) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate, $location, $document) {
       $rootScope.setSubmenues([
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
@@ -112,11 +112,11 @@
       });
       if (domain) {
         $location.hash('columnRecords');
+        $document.scrollTop(600, 1000);
         domain.highlightDkimError = true;
         $timeout(function() {
-          $anchorScroll();
           domain.highlightDkimError = false;
-        }, 600);
+        }, 800);
       }
     }
 
