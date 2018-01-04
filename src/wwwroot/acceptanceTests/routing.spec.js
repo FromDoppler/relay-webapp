@@ -13,6 +13,7 @@ describe('Routing', () => {
       var errors = [];
       $rootScope.addError = err => errors.push(err);
       $rootScope.addAuthorizationError = $rootScope.addError;
+      $rootScope.loadLimits = () => {};
 
       context = {
         errors: errors,

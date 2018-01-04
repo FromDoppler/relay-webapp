@@ -92,6 +92,7 @@
           });
         }
         saveToken(token);
+        $rootScope.loadLimits();
         return { authenticated: true };
       })
       .catch(function (reason) {

@@ -10,9 +10,8 @@ describe('Signup', () => {
       var errors = [];
       $rootScope.addError = err => errors.push(err);
       $rootScope.addAuthorizationError = $rootScope.addError;
-      $rootScope.getTermsAndConditionsVersion = function () {
-        return 1;
-      };
+      $rootScope.loadLimits = () => {};
+      $rootScope.getTermsAndConditionsVersion = () => 1;
 
       context = {
         errors: errors,
