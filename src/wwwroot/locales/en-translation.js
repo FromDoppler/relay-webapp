@@ -145,8 +145,8 @@
   "pass_not_allowed": "Password too short, try adding some symbols or numbers.",
   "domain_not_allowed": "Invalid domain format.",
   "phone_number_not_allowed": "Invalid phone number format.",
-  "welcome_title": "{{ name }}, your account information has been successfully submitted.",
-  "welcome_subtitle": "Now you can begin using your account. Check your inbox to get all the information you need to start sending your emails.",
+  "welcome_title": "Welcome to Doppler Relay!",
+  "welcome_subtitle": "{{ name }}, your account information has been successfully submitted. To start using your account you must verify your domain by setting up the DKIM.",
   "continue_text": "CONTINUE",
   "reload_page": "Please reload the page.",
   "error_popup_title": "Ouch! Something went wrong!",
@@ -443,5 +443,8 @@
   "login_admin_email_account_label": "Email from Client Account",
   "login_admin_email_account_placeholder": "Enter Email or Account Name from the client",
   "login_error_invalid_impersonate": "Invalid client Email or Account Name",
-  "login_error_invalid_account_impersonate": "Account not valid to impersonate"  
+  "login_error_invalid_account_impersonate": "Account not valid to impersonate",
+  "dkim_not_ready_header_text": "Your account is still inactive, to start using it you must verify your domain by configuring your DKIM.",
+  "dkim_not_ready_header_button": "Verify domain",
+  "domain_manager_remember_hours_update": "Remember that the DKIM status can take up to 6 hours to update."
 };

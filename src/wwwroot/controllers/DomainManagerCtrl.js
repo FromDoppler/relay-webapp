@@ -12,10 +12,12 @@
       '$rootScope',
       'utils',
       '$timeout',
-      '$translate'
+      '$translate',
+      '$location',
+      '$document'
     ];
 
-    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate) {
+    function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate, $location, $document) {
       $rootScope.setSubmenues([
         { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
         { text: 'domains_text', url: 'settings/domain-manager', active: true }
@@ -104,6 +106,20 @@
        }
      }
 
+     function highlightDkimError(domainName) {        
+      var domain = vm.domains.find(function(x) {
+        return x.name == domainName;
+      });
+      if (domain) {
+        $location.hash('columnRecords');
+        $document.scrollTop(600, 1000);
+        domain.highlightDkimError = true;
+        $timeout(function() {
+          domain.highlightDkimError = false;
+        }, 800);
+      }
+    }
+
       function loadUserDomains() {
         return settings.getDomains()
         .then(function(response) {
@@ -112,7 +128,19 @@
 
           // It is required because the new windows lose the language configuration.
           vm.langSelected = $translate.use();
+          highlightDkimErrors();
         });
+      }
+
+      function highlightDkimErrors () {
+        var highlightDkim = $location.hash();
+        if (!!highlightDkim) {
+          for (var i=0; i < vm.domains.length ; i++) {
+            if (!vm.domains[i].dkim_ready) {
+              highlightDkimError(vm.domains[i].name);
+            }
+          }
+        }
       }
 
       vm.predefinedList = function(item, d) {

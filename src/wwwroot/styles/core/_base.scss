@@ -423,6 +423,9 @@ a {
 .highlight--temporal-fade{
     background-color: $suit-color-status-green !important;
 }
+.highlight--temporal-error{
+  background-color: $suit-color-input-hover !important;
+}
 
 .background--violet {background-color: $suit-color-status-violet;}
 .background--green {background-color: $suit-color-status-green;}
