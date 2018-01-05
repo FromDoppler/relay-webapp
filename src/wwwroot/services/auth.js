@@ -92,6 +92,7 @@
           });
         }
         saveToken(token);
+        $rootScope.loadLimits();
         return { authenticated: true };
       })
       .catch(function (reason) {
@@ -251,7 +252,8 @@
           daily: mapLimit(response.data.daily),
           hourly: mapLimit(response.data.hourly),
           hasLimits: !response.data.noLimits,
-          endDate: mapDate(response.data.endDate)
+          endDate: mapDate(response.data.endDate),
+          requiresDkimConfiguration: !!response.data.dkimConfigurationRequired
         };
       });
     }

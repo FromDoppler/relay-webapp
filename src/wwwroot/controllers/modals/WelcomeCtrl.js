@@ -7,14 +7,15 @@
 
   WelcomeCtrl.$inject = [
     'close',
-    'auth'
+    'auth',
+    '$location'
   ];
 
-  function WelcomeCtrl(close, auth) {
+  function WelcomeCtrl(close, auth, $location) {
     var vm = this;
     vm.name = auth.getAccountName();
-    vm.closeModal = function() {
-      close();
+    vm.goToDomainManager = function() {
+      $location.path('settings/domain-manager');
     };
   }
 })();

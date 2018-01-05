@@ -157,8 +157,8 @@
   "pass_not_allowed": "Tu contraseña es muy corta, intenta sumar algun símbolo o número.",
   "domain_not_allowed": "Formato de dominio no válido.",
   "phone_number_not_allowed": "Formato de número telefónico no válido.",
-  "welcome_title": "{{ name }}, tus datos han sido confirmados correctamente.",
-  "welcome_subtitle": "¡Ya puedes comenzar a utilizar tu cuenta! Comprueba tu casilla de correo electrónico, te hemos enviado la información que necesitas para realizar tus envíos.",
+  "welcome_title": "¡Bienvenido a Doppler Relay! ",
+  "welcome_subtitle": "{{ name }}, tus datos han sido confirmados correctamente. Para comenzar a utilizar tu cuenta es necesario que verifiques tu dominio configurando el DKIM.",
   "continue_text": "CONTINUAR",
   "reload_page": "Por favor, recarga la página.",
   "error_popup_title": "¡Ouch! Algo salió mal.",
@@ -457,5 +457,8 @@
   "login_admin_email_account_label": "Email de la cuenta del cliente:",
   "login_admin_email_account_placeholder": "Escribe el email o nombre de cuenta del usuario",
   "login_error_invalid_impersonate": "Email o nombre de cuenta invalido del Cliente",
-  "login_error_invalid_account_impersonate": "Cuenta no válida para impersonar"
+  "login_error_invalid_account_impersonate": "Cuenta no válida para impersonar",
+  "dkim_not_ready_header_text": "Tu cuenta se encuentra inactiva aún, para empezar a utilizarla debes autenticar tu dominio configurando tu DKIM.",
+  "dkim_not_ready_header_button": "Verificar dominio",
+  "domain_manager_remember_hours_update": "Recuerda que puede tardar hasta 6 horas en actualizarse el status del DKIM."
 };
