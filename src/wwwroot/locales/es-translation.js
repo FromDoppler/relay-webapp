@@ -166,7 +166,7 @@
   "error_popup_description_401/3": "por favor inicia sesión de nuevo.",
   "error_popup_button": "recargar pagina",
   "error_popup_button_401/3": "Iniciar sesion",
-  "submenu_smtp": "SMTP & Api Key",
+  "submenu_smtp": "SMTP & API Key",
   "submenu_con_settings": "Credenciales SMTP & API Key",
   "submenu_dom_manager": "Configuración de Dominios",
   "domain-manager_title": "Administrador de dominios",
