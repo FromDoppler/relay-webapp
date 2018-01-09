@@ -123,8 +123,8 @@
           controller: 'DomainManagerCtrl',
           controllerAs: 'vm'
         })
-        .when('/settings/dkim-configuration-help', {
-          templateUrl: 'partials/settings/dkim-configuration-help.html',
+        .when('/settings/domain-manager/dkim-configuration-help', {
+          templateUrl: 'partials/settings/domain-manager/dkim-configuration-help.html',
           controller: 'dKimConfigCtrl',
           controllerAs: 'vm'
         })

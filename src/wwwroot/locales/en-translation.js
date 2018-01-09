@@ -448,5 +448,7 @@
   "dkim_not_ready_header_text": "Your account is still inactive, to start using it you must verify your domain by configuring your DKIM.",
   "dkim_not_ready_header_button": "Verify domain",
   "domain_manager_remember_hours_update": "Remember that the DKIM status can take up to 6 hours to update.",
-  "dkim_config_help_href": "en/how-to-configure-your-dkim-step-by-step/"
+  "dkim_config_help_href": "en/how-to-configure-your-dkim-step-by-step/",
+  "domain_manager": "Domain Manager",
+  "dkim_configuration_help": "Domain Settings"
 };
