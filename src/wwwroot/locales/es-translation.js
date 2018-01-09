@@ -253,7 +253,8 @@
   "domain_manager_error_button": "Recargar datos",
   "dkim_configuration": "Configuración DKIM",
   "dkim_configuration_help_subtitle": "Encuentra aquí toda la información necesaria (Registro DKIM & Valor Registro DKIM) para actualizar tus registros DNS y verificar que eres un remitente autorizado para este dominio.",
-  "dkim_configuration_help_domain_title": "Encuentra aquí toda la información necesaria (SPF & DKIM) para actualizar tus registros DNS y verificar que eres un remitente autorizado para este dominio:",
+  "dkim_configuration_help_domain_title": "Encuentra aquí toda la información necesaria (SPF & DKIM) para actualizar tus registros DNS y verificar que eres un remitente autorizado para este dominio. Si no sabes cómo hacerlo",
+  "dkim_configuration_help_domain_title_link": "ingresa aquí.",
   "dkim_configuration_help_selector_title": "Registro DKIM:",
   "dkim_configuration_help_public_k_title": "Valor Registro DKIM:",
   "dkim_configuration_help_spf_title": "SPF",
@@ -460,5 +461,6 @@
   "login_error_invalid_account_impersonate": "Cuenta no válida para impersonar",
   "dkim_not_ready_header_text": "Tu cuenta se encuentra inactiva aún, para empezar a utilizarla debes autenticar tu dominio configurando tu DKIM.",
   "dkim_not_ready_header_button": "Verificar dominio",
-  "domain_manager_remember_hours_update": "Recuerda que puede tardar hasta 6 horas en actualizarse el status del DKIM."
+  "domain_manager_remember_hours_update": "Recuerda que puede tardar hasta 6 horas en actualizarse el status del DKIM.",
+  "dkim_config_help_href": "es/como-configurar-tu-dkim-paso-a-paso/"
 };

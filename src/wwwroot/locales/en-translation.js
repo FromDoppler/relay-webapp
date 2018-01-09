@@ -241,7 +241,8 @@
   "domain_manager_error_button": "Reload your data",
   "dkim_configuration": "DKIM Configuration",
   "dkim_configuration_help_subtitle": "Find here all the information needed (DKIM Record Name & DKIM Record Value) to update your DNS records and verify that you are an authorized sender for this domain.",
-  "dkim_configuration_help_domain_title": "Find here all the information needed (SPF & DKIM)  to update your DNS records and verify that you are an authorized sender for this domain:",
+  "dkim_configuration_help_domain_title": "Find here all the information needed (SPF & DKIM) to update your DNS records and verify that you are an authorized sender for this domain. If you don’t know how to do it",
+  "dkim_configuration_help_domain_title_link": "enter here.",
   "dkim_configuration_help_selector_title": "DKIM Record Name:",
   "dkim_configuration_help_public_k_title": "DKIM Record Value:",
   "dkim_configuration_help_spf_title": "SPF",
@@ -446,5 +447,6 @@
   "login_error_invalid_account_impersonate": "Account not valid to impersonate",
   "dkim_not_ready_header_text": "Your account is still inactive, to start using it you must verify your domain by configuring your DKIM.",
   "dkim_not_ready_header_button": "Verify domain",
-  "domain_manager_remember_hours_update": "Remember that the DKIM status can take up to 6 hours to update."
+  "domain_manager_remember_hours_update": "Remember that the DKIM status can take up to 6 hours to update.",
+  "dkim_config_help_href": "en/how-to-configure-your-dkim-step-by-step/"
 };
