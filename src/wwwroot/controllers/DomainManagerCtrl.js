@@ -47,9 +47,13 @@
           return loadUserDomains();
         })
         .then(function() {
-          recentlyUpdated(newDomainName);
-          utils.resetForm(vm, form);
-          vm.addSubmitted = false;
+          var elementToScroll = Array.from(document.getElementsByClassName('column-records'));
+          $document.scrollToElement(elementToScroll.slice(-1).pop(), 30, 1500)
+          .then(function(){          
+            utils.resetForm(vm, form);
+            recentlyUpdated(newDomainName);
+            vm.addSubmitted = false;
+          });
         });
       }
 
