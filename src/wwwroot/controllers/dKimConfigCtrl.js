@@ -8,10 +8,15 @@
   dKimConfigCtrl.$inject = [
     '$scope',
     '$location',
-    'settings'
+    'settings',
+    '$rootScope'
   ];
 
-  function dKimConfigCtrl($scope, $location, settings) {
+  function dKimConfigCtrl($scope, $location, settings, $rootScope) {
+    $rootScope.setSubmenues([        
+      { text: 'domains_text', url: 'settings/domain-manager', active: true },
+      { text: 'submenu_smtp', url: 'settings/connection-settings', active: false }
+    ]);
     var vm = this;
     var queryParams = $location.search();
     vm.domain = queryParams['d'];

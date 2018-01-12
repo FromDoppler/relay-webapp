@@ -237,7 +237,7 @@ describe('Settings Page', () => {
     var dkimPage = new DkimPage();
 
     // Act
-    browser.get('/#/settings/dkim-configuration-help?d=relay.com');
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
 
     // Assert
     expect(dkimPage.getdKimDomainSelector()).toBe(dkimSelector);
@@ -347,7 +347,7 @@ describe('Settings Page', () => {
       }));
 
     var dkimPage = new DkimPage();
-    browser.get('/#/settings/dkim-configuration-help?d=relay.com');
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
 
     //Act
     expect(dkimPage.isAlertIconDisplayed()).toBeTruthy();
@@ -374,7 +374,7 @@ describe('Settings Page', () => {
       }));
 
     var dkimPage = new DkimPage();
-    browser.get('/#/settings/dkim-configuration-help?d=relay.com');
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
 
     //Act
     expect(dkimPage.isOkIconDisplayed()).toBeTruthy();
