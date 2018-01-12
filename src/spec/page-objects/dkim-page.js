@@ -1,7 +1,7 @@
 class DkimPage {
   constructor() {
     this._dKimPublicKey = $('.domain-public-key');
-    this._dKimDomainSelected = $('.domain-selected');
+    this._dKimDomainSelected = $('#domain');
     this._dKimDomainSelector = $('.domain-selector');
     this._iconAlert = $('#alertIconDkim');
     this._iconOk = $('#okIconDkim');
