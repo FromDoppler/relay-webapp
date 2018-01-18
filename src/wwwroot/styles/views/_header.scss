@@ -162,7 +162,13 @@ header{
       &:first-of-type {margin-right: 1em !important;}
     }
   }
-
+  .links {
+    &.active{
+      border-bottom: 3px solid #E78224;
+      bottom: -2px;
+      position: relative;
+    }
+  }
 }
 
 @media screen and (max-height: 750px){
