@@ -31,7 +31,7 @@ header{
     nav{align-items: center;}
     a{color:$suit-accent-color; font-size: $headers_h5-font-size; margin-right: toem(15px);}
     a:last-of-type{margin-right:0;}
-    h4{color:#FCF8F1; text-transform: uppercase;letter-spacing: 0;}
+    h4{color:#FCF8F1; text-transform: uppercase;letter-spacing: 0.1px;}
     p{color: $suit-background-bright !important; cursor: default;}
   }
   .icon--config-menu{
@@ -95,6 +95,9 @@ header{
       }
     }
     .second-container{
+      a{
+        transition: color .3s ease;
+      }
       a, span {
         margin: 0 !important;
         color: inherit;
@@ -134,7 +137,19 @@ header{
       nav {
         justify-content:flex-start;
         margin-left: torem(55px);
-        a.active{border-bottom: 3px solid #E78224;}
+        hr {
+          border-top: 3px solid $suit-main-color;
+          transition: border-color .3s ease;
+          margin: 0;
+        }
+        a:hover:not(.active) {
+          opacity: 0.5;
+        }
+        a.active{
+          hr {
+            border-top: 3px solid #E78224;
+          }
+        }
         h4{text-transform: none;}
       }
     }
@@ -163,10 +178,13 @@ header{
     }
   }
   .links {
+    border-bottom: 3px solid $suit-main-color;
+    transition: border-color .3s ease;
+    &:hover:not(.active) {
+      opacity: 0.5;
+    }
     &.active{
       border-bottom: 3px solid #E78224;
-      bottom: -2px;
-      position: relative;
     }
   }
 }
