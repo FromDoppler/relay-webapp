@@ -95,6 +95,9 @@ header{
       }
     }
     .second-container{
+      a{
+        transition: color .3s ease;
+      }
       a, span {
         margin: 0 !important;
         color: inherit;
@@ -134,7 +137,22 @@ header{
       nav {
         justify-content:flex-start;
         margin-left: torem(55px);
-        a.active{border-bottom: 3px solid #E78224;}
+        hr {
+          border-top: 3px solid $suit-main-color;
+          transition: border-color .3s ease;
+          margin: 0;
+        }
+        a:hover {
+          hr {
+            border-top: 3px solid #E78224;
+          }
+          
+        }
+        a.active{
+          hr {
+            border-top: 3px solid #E78224;
+          }
+        }
         h4{text-transform: none;}
       }
     }
@@ -163,9 +181,14 @@ header{
     }
   }
   .links {
+    border-bottom: 3px solid $suit-main-color;
+    transition: border-color .3s ease;
+    &:hover{
+      border-bottom: 3px solid #E78224;
+      position: relative;
+    }
     &.active{
       border-bottom: 3px solid #E78224;
-      bottom: -2px;
       position: relative;
     }
   }

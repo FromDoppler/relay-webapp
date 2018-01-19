@@ -81,9 +81,13 @@
   </div>
   <div class="section--wrapper sub-menu show" ng-if="isSubmenuVisible()">
     <nav>
-      <a ng-repeat="subMenu in getSubmenues()" href="#/{{subMenu.url}}" ng-class="subMenu.active ? 'active' : ''">
-        <h4 ng-if="isPermanentAuthed()">{{subMenu.text | translate}}</h4>
-      </a>
+      
+        <a ng-repeat="subMenu in getSubmenues()" href="#/{{subMenu.url}}" ng-class="subMenu.active ? 'active' : ''">
+          <h4 ng-if="isPermanentAuthed()">{{subMenu.text | translate}}</h4>
+          <hr />
+        </a>
+        
+      
     </nav>
   </div>
 </section>
