@@ -31,7 +31,7 @@ header{
     nav{align-items: center;}
     a{color:$suit-accent-color; font-size: $headers_h5-font-size; margin-right: toem(15px);}
     a:last-of-type{margin-right:0;}
-    h4{color:#FCF8F1; text-transform: uppercase;letter-spacing: 0;}
+    h4{color:#FCF8F1; text-transform: uppercase;letter-spacing: 0.1px;}
     p{color: $suit-background-bright !important; cursor: default;}
   }
   .icon--config-menu{
@@ -142,11 +142,8 @@ header{
           transition: border-color .3s ease;
           margin: 0;
         }
-        a:hover {
-          hr {
-            border-top: 3px solid #E78224;
-          }
-          
+        a:hover:not(.active) {
+          opacity: 0.5;
         }
         a.active{
           hr {
@@ -183,13 +180,11 @@ header{
   .links {
     border-bottom: 3px solid $suit-main-color;
     transition: border-color .3s ease;
-    &:hover{
-      border-bottom: 3px solid #E78224;
-      position: relative;
+    &:hover:not(.active) {
+      opacity: 0.5;
     }
     &.active{
       border-bottom: 3px solid #E78224;
-      position: relative;
     }
   }
 }

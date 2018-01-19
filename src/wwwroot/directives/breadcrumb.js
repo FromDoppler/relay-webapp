@@ -14,7 +14,7 @@
             restrict: 'E',
             controller: function ($scope, $location) {
                 var url = $location.path().split('/');
-                var obj = { folder: url[0] };
+                var obj = { folder: url[1] };
                 for (var i=0; i < url.length - 1; i++) {
                     if(url[i]){
                         obj['previous'] = url[i];
