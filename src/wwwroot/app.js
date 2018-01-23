@@ -123,6 +123,9 @@
           controller: 'DomainManagerCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/dkim-configuration-help', {
+          redirectTo: '/settings/domain-manager/dkim-configuration-help'
+        })
         .when('/settings/domain-manager/dkim-configuration-help', {
           templateUrl: 'partials/settings/domain-manager/dkim-configuration-help.html',
           controller: 'dKimConfigCtrl',
