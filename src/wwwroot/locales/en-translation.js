@@ -146,7 +146,7 @@
   "domain_not_allowed": "Invalid domain format.",
   "phone_number_not_allowed": "Invalid phone number format.",
   "welcome_title": "Welcome to Doppler Relay!",
-  "welcome_subtitle": "{{ name }}, your account information has been successfully submitted. To start using your account you must verify your domain by setting up the DKIM.",
+  "welcome_subtitle": "{{ name }}, your account information has been successfully submitted. To start using your account you must verify your domain by setting up the DKIM & Tracking.",
   "continue_text": "CONTINUE",
   "reload_page": "Please reload the page.",
   "error_popup_title": "Ouch! Something went wrong!",
@@ -259,8 +259,10 @@
   "select_choose_country":"Select your country",
   "select_choose_industry":"Select your industry",
   "domain_manager_dkim_spf_status_th": "SPF & DKIM",
+  "domain_manager_tracking_domain_status_th": "Tracking Domain",
   "domain_manager_status_error_tooltip": "The DKIM is not configured yet.",
   "domain_manager_status_warning_tooltip": "The SPF is not configured yet.",
+  "domain_tracking_status_warning_tooltip": "The Tracking Domain is not configured yet.",
   "select_choose_status": "Select status",
   "configuration_page_status": "Status",
   "configuration_page_added": "Configured",
@@ -448,7 +450,14 @@
   "dkim_not_ready_header_text": "Your account is still inactive, to start using it you must verify your domain by configuring your DKIM.",
   "dkim_not_ready_header_button": "Verify domain",
   "domain_manager_remember_hours_update": "Remember that the DKIM status can take up to 24 hours to update.",
+  "domain_manager_remember_hours_tracking_domain_update": "Remember that the Tracking Domain status can take up to 24 hours to update.",
   "dkim_config_help_href": "en/how-to-configure-your-dkim-step-by-step/",
   "domain_manager": "Domain Manager",
-  "dkim_configuration_help": "Domain Settings"
+  "dkim_configuration_help": "Domain Settings",
+  "tracking_domain_not_ready_header_text": "Add a CNAME record to the DNS records of your domain in order to start using your account.",
+  "tracking_domain_not_ready_header_button" : "Learn how to do it here",
+  "domain_name_text": "Subdomain Name",
+  "tracking_domain_name_text" : "Cname Field",
+  "tracking_domain_description": ""
+
 };

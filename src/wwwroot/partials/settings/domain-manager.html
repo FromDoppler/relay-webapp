@@ -36,7 +36,8 @@
       <table>
         <tr>
           <th class="column-medium">{{ 'domain_manager_name_th' | translate}}</th>
-          <th class="column-tiny text--center">{{ 'domain_manager_dkim_spf_status_th' | translate}}</th>
+          <th class="column-medium text--center">{{ 'domain_manager_dkim_spf_status_th' | translate}}</th>
+          <th class="column-medium text--center">{{ 'domain_manager_tracking_domain_status_th' | translate}}</th>
           <th class="column-medium text--center">{{ 'domain_manager_status_th' | translate}}</th>
           <th class="column-small">{{ 'domain_manager_actions_th' | translate}}</th>
         </tr>
@@ -50,6 +51,17 @@
               <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
             </svg>
             <svg class="icon alert-icon" ng-if="!d.dkim_ready" tooltips tooltip-template="{{ 'domain_manager_status_error_tooltip' | translate}}">
+              <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
+            </svg>
+          </td>
+          <td class="text--center">
+            <svg class="icon ok-icon" ng-if="d.tracking_domain_ready">
+              <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+            </svg>
+            <svg class="icon alert-icon" ng-if="!d.tracking_domain_ready && !d.tracking_domain_required" tooltips tooltip-template="{{ 'domain_tracking_status_warning_tooltip' | translate}}">
+              <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
+            </svg>
+            <svg class="icon alert-icon" ng-if="!d.tracking_domain_ready && d.tracking_domain_required" tooltips tooltip-template="{{ 'domain_tracking_status_warning_tooltip' | translate}}">
               <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
             </svg>
           </td>
