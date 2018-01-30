@@ -58,10 +58,7 @@
             <svg class="icon ok-icon" ng-if="d.tracking_domain_ready">
               <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
             </svg>
-            <svg class="icon alert-icon" ng-if="!d.tracking_domain_ready && !d.tracking_domain_required" tooltips tooltip-template="{{ 'domain_tracking_status_warning_tooltip' | translate}}">
-              <use xlink:href="/images/sprite.svg#doppler-icon-alert-iconorange"></use>
-            </svg>
-            <svg class="icon alert-icon" ng-if="!d.tracking_domain_ready && d.tracking_domain_required" tooltips tooltip-template="{{ 'domain_tracking_status_warning_tooltip' | translate}}">
+            <svg class="icon alert-icon" ng-if="!d.tracking_domain_ready" tooltips tooltip-template="{{ 'domain_tracking_status_warning_tooltip' | translate}}">
               <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
             </svg>
           </td>

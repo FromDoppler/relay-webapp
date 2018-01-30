@@ -446,4 +446,103 @@ describe('Settings Page', () => {
     //Assert
     expect(profilePage.getLanguageLabelMessage()).toBe(userTextInSpanish);
   });
+
+  it('should show ok icon for Tracking Domain status', () => {
+    // Arrange
+    var domain = 'relay.com';
+    var dkimSelector = 'test' + "._domainkey." + domain;
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var trackingDomain = 'test.relay.com';
+    var cnameDomain = 'trk.relay.com';
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains\/relay.com$/).respond(200, {
+          "name": 'relay.com',
+          "dkim_ready": true,
+          "spf_ready": true,
+          "dkim_selector": 'test',
+          "dkim_public_key": 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC',
+          "cname_ready": true,
+          "cname_required": true,
+          "tracking_domain": 'test.relay.com',
+          "cname_tracking": 'trk.relay.com'
+        });
+      }));
+
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
+
+    //Act
+    expect(dkimPage.isTrackingOkIconDisplayed()).toBeTruthy();
+    expect(dkimPage.getTrackingName()).toEqual(trackingDomain);
+    expect(dkimPage.getCnameDomain()).toEqual(cnameDomain);
+  });
+
+  it('should show warning icon for Tracking Domain status', () => {
+    // Arrange
+    var domain = 'relay.com';
+    var dkimSelector = 'test' + "._domainkey." + domain;
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var trackingDomain = 'test.relay.com';
+    var cnameDomain = 'trk.relay.com';
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains\/relay.com$/).respond(200, {
+          "name": 'relay.com',
+          "dkim_ready": true,
+          "spf_ready": true,
+          "dkim_selector": 'test',
+          "dkim_public_key": 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC',
+          "cname_ready": false,
+          "cname_required": false,
+          "tracking_domain": 'test.relay.com',
+          "cname_tracking": 'trk.relay.com'
+        });
+      }));
+
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
+
+    //Act
+    expect(dkimPage.isTrackingWarningIconDisplayed()).toBeTruthy();
+    expect(dkimPage.getTrackingName()).toEqual(trackingDomain);
+    expect(dkimPage.getCnameDomain()).toEqual(cnameDomain);
+  });
+
+  it('should show alert icon for Tracking Domain status', () => {
+    // Arrange
+    var domain = 'relay.com';
+    var dkimSelector = 'test' + "._domainkey." + domain;
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var trackingDomain = 'test.relay.com';
+    var cnameDomain = 'trk.relay.com';
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains\/relay.com$/).respond(200, {
+          "name": 'relay.com',
+          "dkim_ready": true,
+          "spf_ready": true,
+          "dkim_selector": 'test',
+          "dkim_public_key": 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC',
+          "cname_ready": false,
+          "cname_required": true,
+          "tracking_domain": 'test.relay.com',
+          "cname_tracking": 'trk.relay.com'
+        });
+      }));
+
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
+
+    //Act
+    expect(dkimPage.isTrackingAlertIconDisplayed()).toBeTruthy();
+    expect(dkimPage.getTrackingName()).toEqual(trackingDomain);
+    expect(dkimPage.getCnameDomain()).toEqual(cnameDomain);
+  });
 });
