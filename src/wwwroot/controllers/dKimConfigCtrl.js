@@ -41,7 +41,7 @@
         vm.dKimSelector = response.data.dkim_selector + '._domainkey.' + vm.domain;
         vm.trackingDomainStatus = response.data.tracking_domain_ready;
         vm.trackingDomain = response.data.tracking_domain;
-        vm.trackingDomainCname = response.data.tracking_domain_cname;
+        vm.canoncalTrackingDomain = response.data.canonical_tracking_domain;
       });
   }
 }

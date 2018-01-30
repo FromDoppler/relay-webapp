@@ -6,7 +6,6 @@ class DkimPage {
     this._iconAlert = $('#alertIconDkim');
     this._iconOk = $('#okIconDkim');
     this._trackingIconOk = $('#okIconTracking');
-    this._trackingIconWarning = $('#warningIconTracking');
     this._trackingIconAlert = $('#alertIconTracking');
     this._trackingName = $('.domain-tracking');
     this._cnameField = $('.domain-cname');
@@ -38,9 +37,6 @@ class DkimPage {
 
   isTrackingOkIconDisplayed(){
     return this._iconOk.isDisplayed();
-  }
-  isTrackingWarningIconDisplayed(){
-    return this._trackingIconWarning.isDisplayed();
   }
   isTrackingAlertIconDisplayed(){
     return this._trackingIconAlert.isDisplayed();

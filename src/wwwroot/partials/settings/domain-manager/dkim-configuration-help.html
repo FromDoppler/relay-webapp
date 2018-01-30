@@ -48,7 +48,7 @@
         <h5>{{'domain_name_text' | translate }}:</h5>
         <p><code class="domain-tracking">{{ vm.trackingDomain }}</code></p>
         <h5>{{'tracking_domain_name_text' | translate }}:</h5>
-        <p><code class="domain-cname">{{ vm.trackingDomainCname }}</code></p>
+        <p><code class="domain-cname">{{ vm.canoncalTrackingDomain }}</code></p>
         <hr class="small" />  
         <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
         <div class="domain--config-status" ng-if="!vm.loading && vm.trackingDomainStatus">
