@@ -43,7 +43,9 @@
         <h3 class="special">{{ 'domain_manager_tracking_domain_status_th' | translate }}</h3>
     </div>
     <div class="item section--wrapper dkmin-config-code">
-        <p class="dkim--subtitle" ng-bind-html="'tracking_domain_description' | translate"></p>
+        <p class="dkim--subtitle">{{ 'tracking_domain_description' | translate }}
+            <a class="domain-selected dkim--subtitle" target="_blank" href="https://help.dopplerrelay.com/{{ 'tracking_config_help_href' | translate }}">{{ 'tracking_domain_description_link' | translate }}</a>
+        </p>
         <hr class="small" />
         <h5>{{'domain_name_text' | translate }}:</h5>
         <p><code class="domain-tracking">{{ vm.trackingDomain }}</code></p>
