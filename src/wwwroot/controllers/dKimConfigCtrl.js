@@ -39,6 +39,9 @@
         vm.spfStatus = response.data.spf_ready; 
         vm.dKimPublicKey = 'k=rsa; p=' + response.data.dkim_public_key;
         vm.dKimSelector = response.data.dkim_selector + '._domainkey.' + vm.domain;
+        vm.trackingDomainStatus = response.data.tracking_domain_ready;
+        vm.trackingDomain = response.data.tracking_domain;
+        vm.canoncalTrackingDomain = response.data.canonical_tracking_domain;
       });
   }
 }

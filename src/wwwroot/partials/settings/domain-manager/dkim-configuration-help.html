@@ -38,6 +38,37 @@
         <label class="comment"><span>&#42;</span>{{'domain_manager_remember_hours_update' | translate }}</label>
         <hr class="default" />
     </div>
+
+    <div class="item section--wrapper flex">
+        <h3 class="special">{{ 'domain_manager_tracking_domain_status_th' | translate }}</h3>
+    </div>
+    <div class="item section--wrapper dkmin-config-code">
+        <p class="dkim--subtitle">{{ 'tracking_domain_description' | translate }}
+            <a class="domain-selected dkim--subtitle" target="_blank" href="https://help.dopplerrelay.com/{{ 'tracking_config_help_href' | translate }}">{{ 'tracking_domain_description_link' | translate }}</a>
+        </p>
+        <hr class="small" />
+        <h5>{{'domain_name_text' | translate }}:</h5>
+        <p><code class="domain-tracking">{{ vm.trackingDomain }}</code></p>
+        <h5>{{'tracking_domain_name_text' | translate }}:</h5>
+        <p><code class="domain-cname">{{ vm.canoncalTrackingDomain }}</code></p>
+        <hr class="small" />  
+        <label><strong>{{ 'configuration_page_status' | translate }}</strong></label>
+        <div class="domain--config-status" ng-if="!vm.loading && vm.trackingDomainStatus">
+            <svg id="okIconTracking" class="icon ok-icon">
+                <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+            </svg>
+            <span>{{ 'configuration_page_added' | translate }}</span>
+        </div>
+        <div class="domain--config-status" ng-if="!vm.loading && !vm.trackingDomainStatus">
+                <svg id="alertIconTracking" class="icon alert-icon">
+                    <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
+                </svg>
+                <span>{{ 'domain_tracking_status_warning_tooltip' | translate }}</span>
+        </div>
+        <label class="comment"><span>&#42;</span>{{'domain_manager_remember_hours_tracking_domain_update' | translate }}</label>
+        <hr class="default" />
+    </div>
+
     <div class="item section--wrapper flex">
         <h3 class="special">{{ 'dkim_configuration_help_spf_title' | translate }}</h3>
     </div>
