@@ -91,6 +91,10 @@ strong {
   font-weight: 700;
 }
 
+.breadcrumb--container {
+  margin-bottom: 2rem;
+}
+
 .margin--bottom-inputs {
   margin-bottom: 1em;
 }
@@ -104,7 +108,7 @@ strong {
 
 section {
   width: $suit-section-width;
-  padding:  torem(60px) 0;
+  padding:  torem(55px) 0;
   &.no-padding {padding: 0;}
 }
 

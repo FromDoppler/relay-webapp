@@ -147,8 +147,8 @@
 }
 
 .dkmin-config--container {
-  p.dkim--subtitle{
-    margin-top: 1.5em;
+  h2 {
+    margin-bottom: 1rem;
   }
   .domain-selected{
     color: $suit-accent-color;
@@ -640,7 +640,6 @@
 @media screen and (max-width: 768px) {
   .item {
     @include stack();
-    margin-bottom: 1rem;
   }
     button, input {
       width: 100%;

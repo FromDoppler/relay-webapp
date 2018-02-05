@@ -88,7 +88,13 @@
 
       signup.registerUser(user, $translate.use(), onExpectedError)
       .then(function (result) {
-        $location.path('/signup/succeed').search({'email': vm.email});
+        /// Comenting this line until we have google analytics working correctly
+        //$location.path('/signup/succeed').search({'email': vm.email});
+        if ($translate.use() == 'es') {
+          window.location.href="https://www.dopplerrelay.com/confirmacion";
+        } else {
+          window.location.href="https://www.dopplerrelay.com/en/confirmation";
+        }
       }).catch(function (result){
         vm.forgotSuccessful = false;
       }).finally(function (){

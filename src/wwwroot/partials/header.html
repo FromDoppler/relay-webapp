@@ -30,13 +30,13 @@
           <use xlink:href="/images/sprite.svg#doppler-icon-dopplerRelayLogged"></use>
         </svg>
       </a>
-      <a href="#/reports">
+      <a class="links" href="#/reports" ng-class="applyActive('reports') ? 'active': null">
         <h4 ng-if="isPermanentAuthed()"> {{'reports_header' | translate}} </h4>
       </a>
-      <a href="#/templates">
+      <a class="links" href="#/templates" ng-class="applyActive('templates') ? 'active': null">
         <h4 ng-if="isPermanentAuthed()"> {{'templates_header' | translate}} </h4>
       </a>
-      <a href="#/reports/downloads">
+      <a class="links" href="#/reports/downloads" ng-class="applyActive('downloads') ? 'active': null">
         <h4 ng-if="isPermanentAuthed()"> {{'downloads_header' | translate}} </h4>
       </a>
     </nav>
@@ -81,9 +81,13 @@
   </div>
   <div class="section--wrapper sub-menu show" ng-if="isSubmenuVisible()">
     <nav>
-      <a ng-repeat="subMenu in getSubmenues()" href="#/{{subMenu.url}}" ng-class="subMenu.active ? 'active' : ''">
-        <h4 ng-if="isPermanentAuthed()">{{subMenu.text | translate}}</h4>
-      </a>
+      
+        <a ng-repeat="subMenu in getSubmenues()" href="#/{{subMenu.url}}" ng-class="subMenu.active ? 'active' : ''">
+          <h4 ng-if="isPermanentAuthed()">{{subMenu.text | translate}}</h4>
+          <hr />
+        </a>
+        
+      
     </nav>
   </div>
 </section>

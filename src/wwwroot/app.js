@@ -123,8 +123,8 @@
           controller: 'DomainManagerCtrl',
           controllerAs: 'vm'
         })
-        .when('/settings/dkim-configuration-help', {
-          templateUrl: 'partials/settings/dkim-configuration-help.html',
+        .when('/settings/domain-manager/dkim-configuration-help', {
+          templateUrl: 'partials/settings/domain-manager/dkim-configuration-help.html',
           controller: 'dKimConfigCtrl',
           controllerAs: 'vm'
         })
@@ -209,6 +209,12 @@
     $rootScope.$on('$translateChangeEnd', applyCultureFormats);
 
     $rootScope.$on('$locationChangeStart', function () {
+      if ($window.ga) {
+        $window.ga('send', {
+          'hitType': 'pageview',
+          'page': $location.url()
+        }); 
+      }
       var queryParams = $location.search();
 
       var queryLang = queryParams['lang'];
@@ -234,15 +240,6 @@
 
       verifyAuthorization($location, auth);
     });
-
-    if ($window.ga) {
-      $rootScope.$on('$locationChangeSuccess', function () {
-        $window.ga('send', {
-          'hitType': 'pageview',
-          'screenName' : $location.url()
-        }); 
-      });
-    }
   }]);
 
   //// Uncomment if you want to mock HTTP calls

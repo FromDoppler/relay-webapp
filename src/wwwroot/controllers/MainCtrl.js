@@ -195,6 +195,10 @@
     $scope.isPermanentAuthed = function () {
       return auth.isAuthed() && !auth.isTemporarilyAuthed();
     };
+
+    $scope.applyActive = function (name) {
+      return $location.path().split(/[\s/]+/).pop() == name ? true : false;
+    };
   }
 
 })();

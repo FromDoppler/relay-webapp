@@ -18,9 +18,9 @@
     ];
 
     function DomainManagerCtrl($scope, settings, $q, $rootScope, utils, $timeout, $translate, $location, $document) {
-      $rootScope.setSubmenues([
-        { text: 'submenu_smtp', url: 'settings/connection-settings', active: false },
-        { text: 'domains_text', url: 'settings/domain-manager', active: true }
+      $rootScope.setSubmenues([        
+        { text: 'domains_text', url: 'settings/domain-manager', active: true },
+        { text: 'submenu_smtp', url: 'settings/connection-settings', active: false }
       ]);
       var vm = this;
       vm.regexDomain = "(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{0,62}[a-zA-Z0-9]\\.)+[a-zA-Z]{2,63}$)";
@@ -47,9 +47,13 @@
           return loadUserDomains();
         })
         .then(function() {
-          recentlyUpdated(newDomainName);
-          utils.resetForm(vm, form);
-          vm.addSubmitted = false;
+          var elementToScroll = Array.from(document.getElementsByClassName('column-records'));
+          $document.scrollToElement(elementToScroll.slice(-1).pop(), 30, 1500)
+          .then(function(){          
+            utils.resetForm(vm, form);
+            recentlyUpdated(newDomainName);
+            vm.addSubmitted = false;
+          });
         });
       }
 
