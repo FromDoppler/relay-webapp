@@ -446,4 +446,68 @@ describe('Settings Page', () => {
     //Assert
     expect(profilePage.getLanguageLabelMessage()).toBe(userTextInSpanish);
   });
+
+  it('should show ok icon for Tracking Domain status', () => {
+    // Arrange
+    var domain = 'relay.com';
+    var dkimSelector = 'test' + "._domainkey." + domain;
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var trackingDomain = 'test.relay.com';
+    var cnameDomain = 'trk.relaytrk.com';
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains\/relay.com$/).respond(200, {
+          "name": 'relay.com',
+          "dkim_ready": true,
+          "spf_ready": true,
+          "dkim_selector": 'test',
+          "dkim_public_key": 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC',
+          "tracking_domain_ready": true,
+          "tracking_domain": 'test.relay.com',
+          "canonical_tracking_domain": 'trk.relaytrk.com'
+        });
+      }));
+
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
+
+    //Act
+    expect(dkimPage.isTrackingOkIconDisplayed()).toBeTruthy();
+    expect(dkimPage.getTrackingName()).toEqual(trackingDomain);
+    expect(dkimPage.getCnameDomain()).toEqual(cnameDomain);
+  });
+
+  it('should show alert icon for Tracking Domain status', () => {
+    // Arrange
+    var domain = 'relay.com';
+    var dkimSelector = 'test' + "._domainkey." + domain;
+    var dkimPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC';
+    var trackingDomain = 'test.relay.com';
+    var cnameDomain = 'trk.relaytrk.com';
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/domains\/relay.com$/).respond(200, {
+          "name": 'relay.com',
+          "dkim_ready": true,
+          "spf_ready": true,
+          "dkim_selector": 'test',
+          "dkim_public_key": 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC',
+          "tracking_domain_ready": false,
+          "tracking_domain": 'test.relay.com',
+          "canonical_tracking_domain": 'trk.relaytrk.com'
+        });
+      }));
+
+    var dkimPage = new DkimPage();
+    browser.get('/#/settings/domain-manager/dkim-configuration-help?d=relay.com');
+
+    //Act
+    expect(dkimPage.isTrackingAlertIconDisplayed()).toBeTruthy();
+    expect(dkimPage.getTrackingName()).toEqual(trackingDomain);
+    expect(dkimPage.getCnameDomain()).toEqual(cnameDomain);
+  });
 });
