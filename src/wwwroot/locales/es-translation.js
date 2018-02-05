@@ -464,7 +464,7 @@
   "dkim_not_ready_header_text": "Tu cuenta se encuentra inactiva aún, para empezar a utilizarla debes autenticar tu dominio configurando tu DKIM.",
   "dkim_not_ready_header_button": "Verificar dominio",
   "domain_manager_remember_hours_update": "Recuerda que puede tardar hasta 24 horas en actualizarse el status del DKIM.",
-  "domain_manager_remember_hours_tracking_domain_update": "Recuerda que puede tardar hasta 24 horas en actualizarse el status del Seguimiento de Dominio.",
+  "domain_manager_remember_hours_tracking_domain_update": "Recuerda que puede tardar hasta 24 horas en actualizarse el estado.",
   "dkim_config_help_href": "es/como-configurar-tu-dkim-paso-a-paso/",
   "domain_manager": "Administrador de dominios",
   "dkim_configuration_help": "Configuración de dominio",
