@@ -1,13 +1,12 @@
 ﻿      <!--<a ng-click="logOut()">Log Out</a>-->
-<section class="header free-trial ms-relay" ng-if="(freeTrialStatus || accountLimits.requiresDkimConfiguration || accountLimits.requiresTrackingDomainConfiguration) && isPermanentAuthed()">
+<section class="header free-trial ms-relay" ng-if="(freeTrialStatus || accountLimits.requiresDkimConfiguration) && isPermanentAuthed()">
   <div class="flex flex--center">
     <p>
       <strong>        
-        <span ng-show="freeTrialStatus.isFreeTrialEnded && !accountLimits.requiresDkimConfiguration && !accountLimits.requiresTrackingDomainConfiguration">{{'free_trial_header_ended_text' | translate}}</span>
-        <span ng-show="freeTrialStatus.isFreeTrialAlmostEnded && !accountLimits.requiresDkimConfiguration && !accountLimits.requiresTrackingDomainConfiguration">{{'free_trial_header_almost_ended_text' | translate:{trialDaysLeft:freeTrialStatus.trialDaysLeft} }}</span>
-        <span ng-show="freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDkimConfiguration && !accountLimits.requiresTrackingDomainConfiguration">{{'free_trial_header_end_today_text' | translate}}</span>
-        <span ng-show="!freeTrialStatus.isFreeTrialEnded && !freeTrialStatus.isFreeTrialAlmostEnded && !freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDkimConfiguration && !accountLimits.requiresTrackingDomainConfiguration">{{'free_trial_header_trial_text' | translate}}</span>
-        <span ng-show="accountLimits.requiresTrackingDomainConfiguration && !accountLimits.requiresDkimConfiguration">{{'tracking_domain_not_ready_header_text' | translate}}</span>
+        <span ng-show="freeTrialStatus.isFreeTrialEnded && !accountLimits.requiresDkimConfiguration">{{'free_trial_header_ended_text' | translate}}</span>
+        <span ng-show="freeTrialStatus.isFreeTrialAlmostEnded && !accountLimits.requiresDkimConfiguration">{{'free_trial_header_almost_ended_text' | translate:{trialDaysLeft:freeTrialStatus.trialDaysLeft} }}</span>
+        <span ng-show="freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDkimConfiguration">{{'free_trial_header_end_today_text' | translate}}</span>
+        <span ng-show="!freeTrialStatus.isFreeTrialEnded && !freeTrialStatus.isFreeTrialAlmostEnded && !freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDkimConfiguration">{{'free_trial_header_trial_text' | translate}}</span>
         <span ng-show="accountLimits.requiresDkimConfiguration">{{'dkim_not_ready_header_text' | translate}}</span>
       </strong>
     </p>
@@ -16,9 +15,6 @@
     </a>
     <a ng-show="accountLimits.requiresDkimConfiguration" class="button button--extra-small button--white" href="#/settings/domain-manager#highlighError">
       <strong>{{'dkim_not_ready_header_button' | translate}}</strong>
-    </a>
-    <a ng-show="!accountLimits.requiresDkimConfiguration && accountLimits.requiresTrackingDomainConfiguration" target="_blank" class="button button--extra-small button--white" href="#/posthelp">
-      <strong>{{'tracking_domain_not_ready_header_button' | translate}}</strong>
     </a>
   </div>
 </section>
