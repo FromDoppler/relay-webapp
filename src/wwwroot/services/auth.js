@@ -253,8 +253,7 @@
           hourly: mapLimit(response.data.hourly),
           hasLimits: !response.data.noLimits,
           endDate: mapDate(response.data.endDate),
-          requiresDkimConfiguration: !!response.data.dkimConfigurationRequired,
-          requiresTrackingDomainConfiguration: !!response.data.trackingDomainConfigurationRequired
+          requiresDomainConfiguration: !!response.data.domainConfigurationRequired
         };
       });
     }
