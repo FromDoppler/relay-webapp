@@ -33,28 +33,56 @@
       getLimitsByAccount: getLimitsByAccount,
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
       addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
-      changeEmail: changeEmail
+      changeEmail: changeEmail,
+      decodeToken: decodeToken
     };
 
     var decodedToken = null;
+    var permissons = null;
     var encodedToken = null;
     var temporarilyAuthed = false;
 
     encodedToken = $window.localStorage.getItem('jwtToken');
     if (encodedToken) {
-      decodedToken = jwtHelper.decodeToken(encodedToken);
+      decodeToken();
       // verify expiration
     }
     return authService;
 
     // Save the token in the local storage (globally) or in a temporal variable (local)
     function saveToken(token, isTemporal) {
-      decodedToken = jwtHelper.decodeToken(token);
       encodedToken = token;
+      decodeToken();
       temporarilyAuthed = !!isTemporal;
       if (!temporarilyAuthed) {
         $window.localStorage.setItem('jwtToken', token);
       }
+    }
+
+    function decodeToken() {
+      decodedToken = jwtHelper.decodeToken(encodedToken);
+      if (!decodedToken.profile) {
+        return permissons = null;
+      }
+
+      switch (decodedToken.profile) {
+        case "reports": permissons = {
+          acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
+          defaultUrl: "/reports"
+        };
+        break;
+        case "templates": permissons = {
+          acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
+          defaultUrl: "/templates"
+        };
+        break;
+        case "settings": permissons = {
+          acceptedUrlsPattern: /^#?\/settings\//,
+          defaultUrl: "/settings/connection-settings"
+        };
+        break;
+      }
+      return permissons;
     }
 
     // Login - Make a request to the api for authenticating
@@ -136,12 +164,14 @@
         logOut();
       } else if (token != encodedToken) {
         encodedToken = token;
-        decodedToken = jwtHelper.decodeToken(encodedToken);
+        decodeToken();
       }
     }
 
+
     function logOut() {
       decodedToken = null;
+      permissons = null;
       encodedToken = null;
       temporarilyAuthed = false;
       $window.localStorage.removeItem('jwtToken');

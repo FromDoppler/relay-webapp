@@ -189,6 +189,7 @@
     'jwtHelper', 
     '$locale',
     'utils',
+    '$route',
     function (
       $rootScope,
       auth,
@@ -197,7 +198,8 @@
       $translate, 
       jwtHelper,
       $locale,
-      utils) {
+      utils,
+      $route) {
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
@@ -238,7 +240,7 @@
         }
       }
 
-      verifyAuthorization($location, auth);
+      verifyAuthorization($location, auth, $route);
     });
   }]);
 
@@ -252,7 +254,7 @@
   //  });
   //}]);
 
-  function verifyAuthorization($location, auth) {
+  function verifyAuthorization($location, auth, $route) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
     var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
@@ -264,6 +266,11 @@
     var pageOpenForAll = openForAllUrls.includes(currentPath);
     var pageRequireLogout = requireLogoutUrls.includes(currentPath);
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
+    var tokenPermissons = auth.decodeToken();
+        
+    if(tokenPermissons && !currentPath.match(tokenPermissons.acceptedUrlsPattern)){
+      $location.path($route.routes[tokenPermissons.defaultUrl].originalPath);
+    }
 
     if (pageOpenForAll) {
       // Idea: it is possible to setup a flag on redirection, to avoid to enter to this page directly

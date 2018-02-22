@@ -55,7 +55,6 @@ header{
     padding: 0.7rem;
     z-index: 9999;
     width: 320px;
-    height: 262px;
     box-shadow: 0 1px 10px $suit-main-color;
     @extend .transition--default;
     &.show{
@@ -174,7 +173,6 @@ header{
     .flag {
       cursor: pointer;
       margin: 0;
-      &:first-of-type {margin-right: 1em !important;}
     }
   }
   .links {
