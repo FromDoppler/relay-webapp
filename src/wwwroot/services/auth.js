@@ -39,7 +39,6 @@
     };
 
     var decodedToken = null;
-    var permissions = null;
     var encodedToken = null;
     var temporarilyAuthed = false;
 
@@ -65,33 +64,33 @@
       decodedToken.permissions = expandPermissions(decodedToken.profile);
     }
 
-  function expandPermissions(profile) {
-    switch (profile) {
-      case "reports": return {
-        acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
-        defaultUrl: "/reports"
-      };
-      case "templates": return {
-        acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
-        defaultUrl: "/templates"
-      };
-      case "settings": return {
-        acceptedUrlsPattern: /^#?\/settings\//,
-        defaultUrl: "/settings/connection-settings"
-      };
-      default: return null;
+    function expandPermissions(profile) {
+      switch (profile) {
+        case "reports": return {
+          acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
+          defaultUrl: "/reports"
+        };
+        case "templates": return {
+          acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
+          defaultUrl: "/templates"
+        };
+        case "settings": return {
+          acceptedUrlsPattern: /^#?\/settings\//,
+          defaultUrl: "/settings/connection-settings"
+        };
+        default: return null;
+      }
     }
-  }
 
-  function isUrlAllowed(url) {
-    return !decodedToken 
-      || !decodedToken.permissions
-      || decodedToken.permissions.acceptedUrlsPattern.test(url);
-  }
+    function isUrlAllowed(url) {
+      return !decodedToken 
+        || !decodedToken.permissions
+        || decodedToken.permissions.acceptedUrlsPattern.test(url);
+    }
 
-  function getDefaultUrl() {
-    return decodedToken && decodedToken.permissions && decodedToken.permissions.defaultUrl || null;
-  }
+    function getDefaultUrl() {
+      return decodedToken && decodedToken.permissions && decodedToken.permissions.defaultUrl || null;
+    }
 
     // Login - Make a request to the api for authenticating
     function login(credentials) {
@@ -179,7 +178,6 @@
 
     function logOut() {
       decodedToken = null;
-      permissions = null;
       encodedToken = null;
       temporarilyAuthed = false;
       $window.localStorage.removeItem('jwtToken');

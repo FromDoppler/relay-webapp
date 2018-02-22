@@ -268,7 +268,7 @@
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
         
     if(!auth.isUrlAllowed(currentPath)) {
-      $location.path($route.routes[auth.getDefaultUrl()].originalPath);
+      $location.path(auth.getDefaultUrl() || $route.routes[null].originalPath);
     }
 
     if (pageOpenForAll) {
