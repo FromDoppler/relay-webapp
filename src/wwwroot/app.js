@@ -266,10 +266,9 @@
     var pageOpenForAll = openForAllUrls.includes(currentPath);
     var pageRequireLogout = requireLogoutUrls.includes(currentPath);
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
-    var tokenPermissons = auth.decodeToken();
         
-    if(tokenPermissons && !currentPath.match(tokenPermissons.acceptedUrlsPattern)){
-      $location.path($route.routes[tokenPermissons.defaultUrl].originalPath);
+    if(!auth.isUrlAllowed(currentPath)) {
+      $location.path($route.routes[auth.getDefaultUrl()].originalPath);
     }
 
     if (pageOpenForAll) {

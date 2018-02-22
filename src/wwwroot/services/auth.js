@@ -34,11 +34,12 @@
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
       addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
       changeEmail: changeEmail,
-      decodeToken: decodeToken
+      isUrlAllowed: isUrlAllowed,
+      getDefaultUrl: getDefaultUrl
     };
 
     var decodedToken = null;
-    var permissons = null;
+    var permissions = null;
     var encodedToken = null;
     var temporarilyAuthed = false;
 
@@ -61,29 +62,36 @@
 
     function decodeToken() {
       decodedToken = jwtHelper.decodeToken(encodedToken);
-      if (!decodedToken.profile) {
-        return permissons = null;
-      }
-
-      switch (decodedToken.profile) {
-        case "reports": permissons = {
-          acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
-          defaultUrl: "/reports"
-        };
-        break;
-        case "templates": permissons = {
-          acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
-          defaultUrl: "/templates"
-        };
-        break;
-        case "settings": permissons = {
-          acceptedUrlsPattern: /^#?\/settings\//,
-          defaultUrl: "/settings/connection-settings"
-        };
-        break;
-      }
-      return permissons;
+      decodedToken.permissions = expandPermissions(decodedToken.profile);
     }
+
+  function expandPermissions(profile) {
+    switch (profile) {
+      case "reports": return {
+        acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
+        defaultUrl: "/reports"
+      };
+      case "templates": return {
+        acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
+        defaultUrl: "/templates"
+      };
+      case "settings": return {
+        acceptedUrlsPattern: /^#?\/settings\//,
+        defaultUrl: "/settings/connection-settings"
+      };
+      default: return null;
+    }
+  }
+
+  function isUrlAllowed(url) {
+    return !decodedToken 
+      || !decodedToken.permissions
+      || decodedToken.permissions.acceptedUrlsPattern.test(url);
+  }
+
+  function getDefaultUrl() {
+    return decodedToken && decodedToken.permissions && decodedToken.permissions.defaultUrl || null;
+  }
 
     // Login - Make a request to the api for authenticating
     function login(credentials) {
@@ -171,7 +179,7 @@
 
     function logOut() {
       decodedToken = null;
-      permissons = null;
+      permissions = null;
       encodedToken = null;
       temporarilyAuthed = false;
       $window.localStorage.removeItem('jwtToken');
