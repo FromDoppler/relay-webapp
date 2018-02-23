@@ -189,7 +189,6 @@
     'jwtHelper', 
     '$locale',
     'utils',
-    '$route',
     function (
       $rootScope,
       auth,
@@ -198,8 +197,7 @@
       $translate, 
       jwtHelper,
       $locale,
-      utils,
-      $route) {
+      utils) {
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
@@ -240,7 +238,7 @@
         }
       }
 
-      verifyAuthorization($location, auth, $route);
+      verifyAuthorization($location, auth);
     });
   }]);
 
@@ -254,7 +252,7 @@
   //  });
   //}]);
 
-  function verifyAuthorization($location, auth, $route) {
+  function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
     var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
@@ -268,7 +266,7 @@
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
         
     if(!auth.isUrlAllowed(currentPath)) {
-      $location.path(auth.getDefaultUrl() || $route.routes[null].originalPath);
+      $location.path(auth.getDefaultUrl() || '/login');
     }
 
     if (pageOpenForAll) {
