@@ -447,7 +447,7 @@
   "login_admin_email_account_placeholder": "Enter Email or Account Name from the client",
   "login_error_invalid_impersonate": "Invalid client Email or Account Name",
   "login_error_invalid_account_impersonate": "Account not valid to impersonate",
-  "domain_not_ready_header_text": "Your account is still inactive, to start sending emails you must verify your domain by configuring your DKIM, SPF and Subdomain tracking.",
+  "domain_not_ready_header_text": "You have to configure your DKIM, SPF and tracking subdomain to verify your domain.",
   "domain_not_ready_header_button": "Configure now",
   "domain_manager_remember_hours_update": "Remember that the DKIM status can take up to 24 hours to update.",
   "domain_manager_remember_hours_tracking_domain_update": "Remember this status can take up to 24 hours to update.",
