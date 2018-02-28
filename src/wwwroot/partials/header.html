@@ -30,14 +30,14 @@
           <use xlink:href="/images/sprite.svg#doppler-icon-dopplerRelayLogged"></use>
         </svg>
       </a>
-      <a class="links" href="#/reports" ng-class="applyActive('reports') ? 'active': null" link-toggler>
-        <h4 ng-if="isPermanentAuthed()"> {{'reports_header' | translate}} </h4>
+      <a class="links" href="#/reports" ng-class="applyActive('reports') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
+        <h4> {{'reports_header' | translate}} </h4>
       </a>
-      <a class="links" href="#/templates" ng-class="applyActive('templates') ? 'active': null" link-toggler>
-        <h4 ng-if="isPermanentAuthed()"> {{'templates_header' | translate}} </h4>
+      <a class="links" href="#/templates" ng-class="applyActive('templates') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
+        <h4> {{'templates_header' | translate}} </h4>
       </a>
-      <a class="links" href="#/reports/downloads" ng-class="applyActive('downloads') ? 'active': null" link-toggler>
-        <h4 ng-if="isPermanentAuthed()"> {{'downloads_header' | translate}} </h4>
+      <a class="links" href="#/reports/downloads" ng-class="applyActive('downloads') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
+        <h4> {{'downloads_header' | translate}} </h4>
       </a>
     </nav>
     <nav class="header--flags" ng-if="!isPermanentAuthed()">
