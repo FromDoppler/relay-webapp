@@ -264,6 +264,10 @@
     var pageOpenForAll = openForAllUrls.includes(currentPath);
     var pageRequireLogout = requireLogoutUrls.includes(currentPath);
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
+        
+    if(!auth.isUrlAllowed(currentPath)) {
+      $location.path(auth.getDefaultUrl() || '/login');
+    }
 
     if (pageOpenForAll) {
       // Idea: it is possible to setup a flag on redirection, to avoid to enter to this page directly

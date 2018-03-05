@@ -33,7 +33,9 @@
       getLimitsByAccount: getLimitsByAccount,
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
       addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
-      changeEmail: changeEmail
+      changeEmail: changeEmail,
+      isUrlAllowed: isUrlAllowed,
+      getDefaultUrl: getDefaultUrl
     };
 
     var decodedToken = null;
@@ -42,19 +44,52 @@
 
     encodedToken = $window.localStorage.getItem('jwtToken');
     if (encodedToken) {
-      decodedToken = jwtHelper.decodeToken(encodedToken);
+      decodeToken();
       // verify expiration
     }
     return authService;
 
     // Save the token in the local storage (globally) or in a temporal variable (local)
     function saveToken(token, isTemporal) {
-      decodedToken = jwtHelper.decodeToken(token);
       encodedToken = token;
+      decodeToken();
       temporarilyAuthed = !!isTemporal;
       if (!temporarilyAuthed) {
         $window.localStorage.setItem('jwtToken', token);
       }
+    }
+
+    function decodeToken() {
+      decodedToken = jwtHelper.decodeToken(encodedToken);
+      decodedToken.permissions = expandPermissions(decodedToken.profile);
+    }
+
+    function expandPermissions(profile) {
+      switch (profile) {
+        case "reports": return {
+          acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
+          defaultUrl: "/reports"
+        };
+        case "templates": return {
+          acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
+          defaultUrl: "/templates"
+        };
+        case "settings": return {
+          acceptedUrlsPattern: /^#?\/settings\//,
+          defaultUrl: "/settings/connection-settings"
+        };
+        default: return null;
+      }
+    }
+
+    function isUrlAllowed(url) {
+      return !decodedToken 
+        || !decodedToken.permissions
+        || decodedToken.permissions.acceptedUrlsPattern.test(url);
+    }
+
+    function getDefaultUrl() {
+      return decodedToken && decodedToken.permissions && decodedToken.permissions.defaultUrl || null;
     }
 
     // Login - Make a request to the api for authenticating
@@ -136,9 +171,10 @@
         logOut();
       } else if (token != encodedToken) {
         encodedToken = token;
-        decodedToken = jwtHelper.decodeToken(encodedToken);
+        decodeToken();
       }
     }
+
 
     function logOut() {
       decodedToken = null;

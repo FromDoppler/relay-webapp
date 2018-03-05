@@ -10,10 +10,10 @@
         <span ng-show="accountLimits.requiresDomainConfiguration">{{'domain_not_ready_header_text' | translate}}</span>
       </strong>
     </p>
-    <a ng-show="!accountLimits.requiresDomainConfiguration" class="button button--extra-small button--white" href="#/settings/my-plan">
+    <a ng-show="!accountLimits.requiresDomainConfiguration" class="button button--extra-small button--white" href="#/settings/my-plan" link-toggler>
       <strong>{{'upgrade_plan_exclamation' | translate}}</strong>
     </a>
-    <a ng-show="accountLimits.requiresDomainConfiguration" class="button button--extra-small button--white" href="#/settings/domain-manager#highlighError">
+    <a ng-show="accountLimits.requiresDomainConfiguration" class="button button--extra-small button--white" href="#/settings/domain-manager#highlighError" link-toggler>
       <strong>{{'domain_not_ready_header_button' | translate}}</strong>
     </a>
   </div>
@@ -30,14 +30,14 @@
           <use xlink:href="/images/sprite.svg#doppler-icon-dopplerRelayLogged"></use>
         </svg>
       </a>
-      <a class="links" href="#/reports" ng-class="applyActive('reports') ? 'active': null">
-        <h4 ng-if="isPermanentAuthed()"> {{'reports_header' | translate}} </h4>
+      <a class="links" href="#/reports" ng-class="applyActive('reports') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
+        <h4> {{'reports_header' | translate}} </h4>
       </a>
-      <a class="links" href="#/templates" ng-class="applyActive('templates') ? 'active': null">
-        <h4 ng-if="isPermanentAuthed()"> {{'templates_header' | translate}} </h4>
+      <a class="links" href="#/templates" ng-class="applyActive('templates') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
+        <h4> {{'templates_header' | translate}} </h4>
       </a>
-      <a class="links" href="#/reports/downloads" ng-class="applyActive('downloads') ? 'active': null">
-        <h4 ng-if="isPermanentAuthed()"> {{'downloads_header' | translate}} </h4>
+      <a class="links" href="#/reports/downloads" ng-class="applyActive('downloads') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
+        <h4> {{'downloads_header' | translate}} </h4>
       </a>
     </nav>
     <nav class="header--flags" ng-if="!isPermanentAuthed()">
@@ -50,7 +50,7 @@
       </a>
     </nav>
     <nav class="right--container" ng-if="isPermanentAuthed()">
-      <a class="upgrade--link" href="#/settings/my-plan">{{'upgrade_link' | translate}}</a>
+      <a class="upgrade--link" href="#/settings/my-plan" link-toggler>{{'upgrade_link' | translate}}</a>
       <div click-outside="hideConfigDropDown()" class="right-container">
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
@@ -58,14 +58,14 @@
             <div class="header--config-avatar"><span>{{initialsAvatar()}}</span></div>
             <div>
               <p>{{getFullName()}}</p>
-              <a href="#/settings/my-profile" ng-click="toggleConfigDropDown()"><strong>{{'submenu_my_profile' | translate}}</strong></a>
+              <a href="#/settings/my-profile" ng-click="toggleConfigDropDown()" link-toggler><strong>{{'submenu_my_profile' | translate}}</strong></a>
             </div>
           </div>
           <div class="second-container">
             <ul>
-              <li><a href="#/settings/connection-settings" ng-click="toggleConfigDropDown()">{{'submenu_con_settings' | translate}}</a></li>
-              <li><a href="#/settings/domain-manager" ng-click="toggleConfigDropDown()">{{'submenu_dom_manager' | translate}}</a></li>
-              <li><a href="#/settings/my-plan" ng-click="toggleConfigDropDown()">{{'submenu_my_plan' | translate}}</a></li>
+              <li link-toggler><a href="#/settings/connection-settings" ng-click="toggleConfigDropDown()">{{'submenu_con_settings' | translate}}</a></li>
+              <li link-toggler><a href="#/settings/domain-manager" ng-click="toggleConfigDropDown()">{{'submenu_dom_manager' | translate}}</a></li>
+              <li link-toggler><a href="#/settings/my-plan" ng-click="toggleConfigDropDown()">{{'submenu_my_plan' | translate}}</a></li>
               <li ng-click="logOut();toggleConfigDropDown()"><span>{{'log_out' | translate}}</span></li>
             </ul>
           </div>
