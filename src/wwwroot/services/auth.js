@@ -71,7 +71,7 @@
           defaultUrl: "/reports"
         };
         case "templates": return {
-          acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
+          acceptedUrlsPattern: /^#?\/templates(\/.*)?$/,
           defaultUrl: "/templates"
         };
         case "settings": return {
