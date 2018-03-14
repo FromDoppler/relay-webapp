@@ -528,7 +528,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1,"origin":"organic"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1,"origin":null}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -574,7 +574,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1,"origin":"organic"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1,"origin":null}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
@@ -620,7 +620,7 @@ describe('Signup', () => {
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en'),
-          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1,"origin":"organic"}'
+          '{"user_email":"a@a.com","firstName":"first","lastName":"last","password":null,"account_name":"accountname","company_name":"MakingSense","terms_and_conditions_version":1,"origin":null}'
         ).respond(400, {
           "title": "Validation error",
           "status": 400,
