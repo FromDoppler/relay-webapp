@@ -65,13 +65,15 @@
     }
 
     function expandPermissions(profile) {
+      // TODO: Review why the revision numbers are being added into the word templates in this file.
+      var TEMPLATES = " templates ".trim();
       switch (profile) {
         case "reports": return {
           acceptedUrlsPattern: /^#?\/reports\/?(\?.*)?$|^#?\/reports\/downloads\/?(\?.*)?$/,
           defaultUrl: "/reports"
         };
-        case "templates": return {
-          acceptedUrlsPattern: /^#?\/templates\/?(\?.*)?$/,
+        case TEMPLATES: return {
+          acceptedUrlsPattern: /^#?\/templates(\/.*)?$/,
           defaultUrl: "/templates"
         };
         case "settings": return {
