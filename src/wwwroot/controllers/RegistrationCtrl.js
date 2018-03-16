@@ -83,7 +83,8 @@
         account_name: vm.accountName,
         company: vm.company,
         termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
-        recaptchaResponse: response
+        recaptchaResponse: response,
+        origin: $location.search().origin
       };
 
       signup.registerUser(user, $translate.use(), onExpectedError)
