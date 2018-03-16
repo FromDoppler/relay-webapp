@@ -141,7 +141,8 @@
           'password': newUser.password || null,
           'account_name': newUser.account_name,
           'company_name': newUser.company || null,
-          'terms_and_conditions_version': newUser.termsAndConditions
+          'terms_and_conditions_version': newUser.termsAndConditions,
+          'origin': newUser.origin || null
         }
       });
     }
