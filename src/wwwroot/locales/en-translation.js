@@ -283,6 +283,7 @@
   "my_plan_pricing_chart": "Pricing chart",
   "my_plan_pricing_chart_description": "Select the amount of emails you´ll send per email, compare the different plans and find the best option for your needs.",
   "my_plan_pricing_chart_slider_title": "<span class='special'>{{emailsSuggestedAmount | number | numberFormat}}</span> Emails per month",
+  "my_plan_pricing_chart_button_validation": "No puedes acceder a un plan de pago si no has utilizado el gratuito primero.",
   "buy_now": "Buy now",
   "buy_text": "Buy",
   "cost_email": "Cost per email:",

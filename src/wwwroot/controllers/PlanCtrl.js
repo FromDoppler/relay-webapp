@@ -25,6 +25,7 @@
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
       { text: 'submenu_my_plan', url: 'settings/my-plan', active: true }
     ]);
+    vm.errorPlanUpgrade = false;
     vm.hideDragMe = false;
     vm.activationPromise = activate();
     var defaultPlanDeliveries = '60000';
@@ -153,7 +154,8 @@
     }
 
     function showPricingChart() {
-        vm.pricingChartDisplayed = true;
+        vm.pricingChartDisplayed = vm.currentMonthlyCount>0? true : false;
+        vm.errorPlanUpgrade = vm.currentMonthlyCount>0? false : true;
     }
 
     function isCurrentPlan(plan){

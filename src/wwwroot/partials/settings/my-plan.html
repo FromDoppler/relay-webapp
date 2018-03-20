@@ -28,6 +28,7 @@
       </div>
       <div class="flex one flex--wrap">
         <button ng-show="vm.hasScheduledPlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'change_plan_text' | translate }}</button>
+        <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up ng-cloak"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
       </div>
     </div>
     <div class="item flex flex--wrap">
