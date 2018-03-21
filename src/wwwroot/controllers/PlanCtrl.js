@@ -16,10 +16,11 @@
     '$filter',
     'reports',
     'moment',
-    'utils'
+    'utils',
+    '$log'
   ];
 
-  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment, utils) {
+  function PlanCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, $filter, reports, moment, utils, $log) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -35,7 +36,8 @@
     vm.planInfoLoader = true;
     vm.planStatusInfoLoader = true;
     vm.ipsPlanCount = 0;
-
+    vm.errorsPlanUpgrade = isUpgradeablePlan(); //DR-1514
+    vm.isValidUpgradeablePlan = isValidUpgradeablePlan(); //DR-1514
     function activate() {
       var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
         vm.currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
@@ -59,7 +61,7 @@
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function(){        
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption(), getDeliveriesConsumption()]).then(function(){        
         ensureValidDefaultPlanDelivery();
         loadSlider();
         changePlan(defaultPlanDeliveries);        
@@ -78,6 +80,14 @@
             if (vm.currentPlanEmailsAmount < vm.currentMonthlyCount) {
               vm.extraEmailsSent = vm.currentMonthlyCount - vm.currentPlanEmailsAmount;
             }
+          });
+    }
+
+    function getDeliveriesConsumption() {
+      //Get total messages delivered by the account
+      return settings.getStatusPlanInfo()
+          .then(function (result) {
+            vm.totalDeliveriesCount = result.data.totalDeliveriesCount;
           });
     }
 
@@ -174,6 +184,42 @@
       }      
     }
 
+    function isUpgradeablePlan(limit){
+      //Check constraints to validate that plan is upgradeable
+
+      //Set to true all errors to prevent access if service is not working
+      var errorsPlanUpgrade = {'isDKIMError': true, "isDeliveredError": true, "isDeliveredAndDKIMError": true};
+
+      if(limit==undefined){
+        var isConfigRequired = auth.getLimitsByAccount().then(isUpgradeablePlan).catch($log.error);
+      }
+      else{
+        //Exist activity in the current plan?
+        errorsPlanUpgrade.isDeliveredError = vm.totalDeliveriesCount > 0? false : true;
+        //It is the domain correctly configurated?
+        errorsPlanUpgrade.isDKIMError = limit.requiresDomainConfiguration; 
+        //This account is not registering deliveries and is not correctly configurated?
+        errorsPlanUpgrade.isDeliveredAndDKIMError = errorsPlanUpgrade.isDeliveredError && errorsPlanUpgrade.isDKIMError;
+      }
+
+      return errorsPlanUpgrade;
+    }
+
+    function isValidUpgradeablePlan(){
+      var haveErrors = (vm.errorsPlanUpgrade.isDKIMError || vm.errorsPlanUpgrade.isDeliveredError || vm.errorsPlanUpgrade.isDeliveredAndDKIMError)? true : false;
+      return !haveErrors;
+    }
+
+    $scope.disableNotUpgradable=function(event){
+      if(vm.isValidUpgradeablePlan){
+        return true;
+      }
+      else{
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+      }
+    }
   }
 
 })();
