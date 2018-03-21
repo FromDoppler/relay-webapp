@@ -28,7 +28,6 @@
       </div>
       <div class="flex one flex--wrap">
         <button ng-show="vm.hasScheduledPlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'change_plan_text' | translate }}</button>
-        <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up ng-cloak"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
       </div>
     </div>
     <div class="item flex flex--wrap">
@@ -107,8 +106,8 @@
         </li>
         <li class="strong">
           <h2 id="planPriceBig" class="special plan--price-big">{{vm.currency | translate}} {{vm.leftPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.disableLeftPlan ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'change_plan' | translate}}</a>
-          <a ng-class="vm.disableLeftPlan ? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
+          <a ng-class="[!vm.disableLeftPlan ? 'show':'', vm.isValidUpgradeablePlan ? '':'button--disabled']" ng-click="disableNotUpgradable($event)" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'change_plan' | translate}}</a>
+          <a ng-class="vm.disableLeftPlan? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
         </li>
       </ul>
       <ul ng-class="!vm.showPremiumPlanBox ? 'pro':'premium'">
@@ -142,11 +141,16 @@
         </li>
         <li>
           <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.disableRightPlan && !vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'change_plan' | translate}}</a>
+          <a ng-class="[!vm.disableRightPlan && !vm.showPremiumPlanBox ? 'show':'', vm.isValidUpgradeablePlan ? '':'button--disabled']" ng-click="disableNotUpgradable($event)" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'change_plan' | translate}}</a>
           <a ng-class="!vm.disableRightPlan && vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
           <a ng-class="vm.disableRightPlan ? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
         </li>
       </ul>
+      <div>
+        <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
+        <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
+        <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
+      </div>
     </div>
     <hr class="default"/>
   </div>
