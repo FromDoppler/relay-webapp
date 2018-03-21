@@ -61,7 +61,7 @@
       var getPlansAvailable = settings.getPlansAvailable().then(function(response) {
         planItems = response.data.items;
       });
-      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption()]).then(function(){        
+      return Promise.all([getPlansAvailable, getCurrentPlanInfo, getMonthConsumption(), getDeliveriesConsumption()]).then(function(){        
         ensureValidDefaultPlanDelivery();
         loadSlider();
         changePlan(defaultPlanDeliveries);        
@@ -80,6 +80,14 @@
             if (vm.currentPlanEmailsAmount < vm.currentMonthlyCount) {
               vm.extraEmailsSent = vm.currentMonthlyCount - vm.currentPlanEmailsAmount;
             }
+          });
+    }
+
+    function getDeliveriesConsumption() {
+      //Get total messages delivered by the account
+      return settings.getStatusPlanInfo()
+          .then(function (result) {
+            vm.totalDeliveriesCount = result.data.totalDeliveriesCount;
           });
     }
 
@@ -187,7 +195,7 @@
       }
       else{
         //Exist activity in the current plan?
-        errorsPlanUpgrade.isDeliveredError = vm.currentMonthlyCount > 0? false : true;
+        errorsPlanUpgrade.isDeliveredError = vm.totalDeliveriesCount > 0? false : true;
         //It is the domain correctly configurated?
         errorsPlanUpgrade.isDKIMError = limit.requiresDomainConfiguration; 
         //This account is not registering deliveries and is not correctly configurated?
