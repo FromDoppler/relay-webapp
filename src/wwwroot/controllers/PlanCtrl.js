@@ -35,6 +35,8 @@
     vm.planInfoLoader = true;
     vm.planStatusInfoLoader = true;
     vm.ipsPlanCount = 0;
+    vm.upgradePlanErrors = {'isDomainReady' : false};
+    vm.isValidUpgradeablePlan = isValidUpgradeablePlan;
 
     function activate() {
       var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
@@ -174,6 +176,12 @@
       }      
     }
 
+    function isValidUpgradeablePlan() {
+      if($rootScope.accountLimits.requiresDomainConfiguration!=undefined)
+        vm.upgradePlanErrors.isDomainReady = !$rootScope.accountLimits.requiresDomainConfiguration;
+      var isValid=vm.upgradePlanErrors.isDomainReady;
+      return isValid;
+    }
   }
 
 })();
