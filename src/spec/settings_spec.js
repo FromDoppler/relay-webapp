@@ -606,4 +606,38 @@ describe('Settings Page', () => {
       expect(myPlanPage.isDisabledBasicPlanChangeButton()).toMatch('button--disabled');
       expect(myPlanPage.isDisabledProPlanChangeButton()).toMatch('button--disabled');
   });
+
+  it('should show only one change plan button on each plan\'s side with require domain validation passed', () => {
+    //Arrange
+    browser.restart();
+    var emptyResponse = {
+      'data': []
+    }
+    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/plans$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
+        .respond(200, {
+          emptyResponse
+        });
+      }));
+
+      //Act
+      var myPlanPage = new MyPlanPage();
+      myPlanPage.beginAuthenticatedSession();
+      browser.get('/#/settings/my-plan');
+      myPlanPage.clickChangePlanButton();
+
+      //Assert
+      expect(myPlanPage.isOnlyOneButtonInBasicPlanContainer()).toEqual(1);
+      expect(myPlanPage.isOnlyOneButtonInProPlanContainer()).toEqual(1);
+  });
 });
