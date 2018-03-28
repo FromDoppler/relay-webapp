@@ -145,7 +145,7 @@
           <a ng-class="!vm.disableRightPlan && !vm.showPremiumPlanBox && vm.isValidUpgradeablePlan() ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'change_plan' | translate}}</a>
           <a ng-class="!vm.disableRightPlan && vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
           <a ng-class="vm.disableRightPlan ? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
-          <a ng-class="!vm.showPremiumPlanBox && !vm.disableRightPlan? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
+          <a ng-class="!vm.disableRightPlan && !vm.showPremiumPlanBox && !vm.isValidUpgradeablePlan() ? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
         </li>
       </ul>
       <div>
