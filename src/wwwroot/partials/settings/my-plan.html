@@ -153,7 +153,7 @@
         <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
         <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
       </div>
-      <div ng-show="!vm.upgradePlanErrors.isDomainReady" class="arrow--box-up">
+      <div ng-show="vm.requiresDomainConfiguration()" class="arrow--box-up">
         <span class="arrow--box-title">{{'validation_requirements_title' | translate}}</span>
         <ol>
           <li class="">

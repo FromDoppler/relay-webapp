@@ -35,9 +35,8 @@
     vm.planInfoLoader = true;
     vm.planStatusInfoLoader = true;
     vm.ipsPlanCount = 0;
-    vm.upgradePlanErrors = {'isDomainReady' : false};
     vm.isValidUpgradeablePlan = isValidUpgradeablePlan;
-
+    vm.requiresDomainConfiguration = requiresDomainConfiguration;
     function activate() {
       var getCurrentPlanInfo = settings.getCurrentPlanInfo().then(function(response) {
         vm.currentPlanPrice = response.data.fee + (response.data.ips_count * response.data.cost_by_ip || 0);
@@ -177,10 +176,11 @@
     }
 
     function isValidUpgradeablePlan() {
-      if($rootScope.accountLimits.requiresDomainConfiguration!=undefined)
-        vm.upgradePlanErrors.isDomainReady = !$rootScope.accountLimits.requiresDomainConfiguration;
-      var isValid=vm.upgradePlanErrors.isDomainReady;
-      return isValid;
+      return !requiresDomainConfiguration();
+    }
+  
+    function requiresDomainConfiguration() {
+      return $rootScope.accountLimits.requiresDomainConfiguration || false;
     }
   }
 
