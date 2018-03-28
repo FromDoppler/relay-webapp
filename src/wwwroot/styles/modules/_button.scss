@@ -11,13 +11,6 @@ $input--color: #525845;
 $input--error-background: #DF3434;
 $input--error--color: #FFF;
 
-$arrowbox--error-color: #e78224;
-$arrowbox--error-background: #ffffff;
-$arrowbox--error-font: #000000;
-$arrowbox--error-title: #777777;
-$arrowbox--list-color: #e78224;
-$arrowbox--list-link: #e78224;
-
 .ms-relay{
 	.text--center{
 		text-align: center;
@@ -235,78 +228,6 @@ $arrowbox--list-link: #e78224;
 			padding: 0.8em 1.5em;
 		}
 	}
-
-	.arrow--box-up {
-		position: relative;
-		background: $arrowbox--error-background;
-		border: 1px solid $arrowbox--error-color;
-		color: $arrowbox--error-font;
-		margin-top: 10px;
-		margin-left: -4px;
-		margin-right: 4px;
-		padding: 35px;
-		&:after{
-			bottom: 100%;
-			left: 24%;
-			border: solid transparent;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			pointer-events: none;
-			border-color: rgba(255, 255, 255, 0);
-			border-bottom-color: $arrowbox--error-background;
-			border-width: 8px;
-			margin-left: -8px;
-		}
-		&:before{
-			bottom: 100%;
-			left: 24%;
-			border: solid transparent;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			pointer-events: none;
-			border-color: rgba(231, 130, 36, 0);
-			border-bottom-color: $arrowbox--error-color;
-			border-width: 9px;
-			margin-left: -9px;
-		}
-		ol{
-			padding-left: 14px;
-			margin-bottom: 0px;
-			li{
-				border-left: 0px;
-				border-right: 0px;
-				counter-increment: list;
-				list-style-type: none;
-				position: relative;
-			}
-			li:last-of-type{
-				border-bottom: 0px;
-				text-align: left;
-				color: initial;
-				padding: 0px;
-				&::before{
-					color: $arrowbox--list-color;
-					content: counter(list) ".";
-					left:-30px;
-					position: absolute;
-					text-align: right;
-					width: 26px;
-					font-weight: bolder;
-				}
-			}
-		}
-		a{
-			color: $arrowbox--list-link;
-		}
-		.arrow--box-title{
-			color: $arrowbox--error-title;
-		}
-	}
-
 	.input{
 		color: $input--color;
 		@extend .border--radius;
