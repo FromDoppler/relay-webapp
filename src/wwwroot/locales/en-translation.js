@@ -283,6 +283,7 @@
   "my_plan_pricing_chart": "Pricing chart",
   "my_plan_pricing_chart_description": "Select the amount of emails you´ll send per email, compare the different plans and find the best option for your needs.",
   "my_plan_pricing_chart_slider_title": "<span class='special'>{{emailsSuggestedAmount | number | numberFormat}}</span> Emails per month",
+  "my_plan_pricing_chart_button_validation": "No puedes acceder a un plan de pago si no has utilizado el gratuito primero.",
   "buy_now": "Buy now",
   "buy_text": "Buy",
   "cost_email": "Cost per email:",
@@ -458,6 +459,10 @@
   "tracking_domain_name_text" : "Cname Field",
   "tracking_domain_description": "Add a CNAME value into the DNS records of your domain in order to start using your Doppler Relay account.",
   "tracking_domain_description_link": "Learn how to do it here.",
-  "tracking_config_help_href": "en/how-to-configure-the-subdomain-tracking"
+  "tracking_config_help_href": "en/how-to-configure-the-subdomain-tracking",
+  "validation_requirements_title": "Before buying a Doppler Relay plan it is necessary to complete the following steps:",
+  "validation_step_one": "Verify your domain by configuring your DKIM, SPF and tracking subdomain.",
+  "validation_step_one_link": "Find all the information here.",
+  "validation_step_one_href": "#/settings/domain-manager"
 
 };

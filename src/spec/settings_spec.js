@@ -4,7 +4,7 @@ describe('Settings Page', () => {
   var DkimPage = require('./page-objects/dkim-page').DkimPage;
   var ConnectionSettingsPage = require('./page-objects/connection-settings-page').ConnectionSettingsPage;
   var ProfilePage = require('./page-objects/profile-page').ProfilePage;
-
+  var MyPlanPage = require('./page-objects/new-plan').MyPlanPage;
   afterEach(() => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
@@ -509,5 +509,101 @@ describe('Settings Page', () => {
     expect(dkimPage.isTrackingAlertIconDisplayed()).toBeTruthy();
     expect(dkimPage.getTrackingName()).toEqual(trackingDomain);
     expect(dkimPage.getCnameDomain()).toEqual(cnameDomain);
+  });
+
+  it('should open the change plan dropdown', () => {
+    //Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/plans$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
+        .respond(200, {
+          emptyResponse
+        });
+      }));
+
+      //Act
+      browser.get('/#/settings/my-plan');
+      var myPlanPage = new MyPlanPage();
+      myPlanPage.clickChangePlanButton();
+
+      //Assert
+      expect(myPlanPage.isPricingChartContainerDisplayed()).toBeTruthy();
+  });
+
+  it('should show change plan buttons enabled', () => {
+    //Arrange
+    var emptyResponse = {
+      'data': []
+    }
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/plans$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
+        .respond(200, {
+          emptyResponse
+        });
+      }));
+
+      //Act
+      browser.get('/#/settings/my-plan');
+      var myPlanPage = new MyPlanPage();
+      myPlanPage.clickChangePlanButton();
+
+      //Assert
+      expect(myPlanPage.isDisabledBasicPlanChangeButton()).not.toMatch('button--disabled');
+      expect(myPlanPage.isDisabledProPlanChangeButton()).not.toMatch('button--disabled');
+  });
+
+  it('should show change plan buttons disabled', () => {
+    //Arrange
+    browser.restart();
+    var emptyResponse = {
+      'data': []
+    }
+    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/plans$/)
+        .respond(200, {
+          emptyResponse
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
+        .respond(200, {
+          emptyResponse
+        });
+      }));
+
+      //Act
+      var myPlanPage = new MyPlanPage();
+      myPlanPage.beginAuthenticatedSession();
+      browser.get('/#/settings/my-plan');
+      myPlanPage.clickChangePlanButton();
+
+      //Assert
+      expect(myPlanPage.isDisabledBasicPlanChangeButton()).toMatch('button--disabled');
+      expect(myPlanPage.isDisabledProPlanChangeButton()).toMatch('button--disabled');
   });
 });
