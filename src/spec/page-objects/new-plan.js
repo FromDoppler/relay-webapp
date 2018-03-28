@@ -5,6 +5,8 @@ class MyPlanPage {
       this._pricingChartContainer = $('.pricing-chart--container');
       this._basicPlanChangeButton = $('.basic .button.show');
       this._proPlanChangeButton = $('.pro .button.show');
+      this._basicPlanChangeButtons = element.all(by.css('.basic .button.show'));
+      this._proPlanChangeButtons = element.all(by.css('.pro .button.show'));
     }
 
     beginAuthenticatedSession() {
@@ -37,6 +39,18 @@ class MyPlanPage {
 
     isDisabledProPlanChangeButton(){
         return this._proPlanChangeButton.getAttribute('class');
+    }
+
+    isOnlyOneButtonInBasicPlanContainer(){
+        return this._basicPlanChangeButtons.count().then(function(count){
+          return count;
+        });
+    }
+
+    isOnlyOneButtonInProPlanContainer(){
+      return this._proPlanChangeButtons.count().then(function(count){
+        return count;
+      });
     }
   }
   exports.MyPlanPage = MyPlanPage;
