@@ -11,7 +11,6 @@ $input--color: #525845;
 $input--error-background: #DF3434;
 $input--error--color: #FFF;
 
-
 .ms-relay{
 	.text--center{
 		text-align: center;
@@ -229,8 +228,6 @@ $input--error--color: #FFF;
 			padding: 0.8em 1.5em;
 		}
 	}
-
-
 	.input{
 		color: $input--color;
 		@extend .border--radius;

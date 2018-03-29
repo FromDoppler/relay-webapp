@@ -246,9 +246,11 @@
   "dkim_configuration_help_selector_title": "DKIM Record Name:",
   "dkim_configuration_help_public_k_title": "DKIM Record Value:",
   "dkim_configuration_help_spf_title": "SPF",
-  "dkim_configuration_help_spf_field": "SPF Field:",
-  "dkim_configuration_help_spf_text": "¨include:spf.fromdoppler.com¨",
-  "dkim_configuration_help_spf_subtitle": "Include Doppler Relay’s SPF to prevent sender address forgery. Below you will find the information you have to add in the SPF field.",
+  "dkim_configuration_help_spf_field": "Value:",
+  "dkim_configuration_help_spf_text": "v=spf1 include:spf.fromdoppler.com ~all",
+  "dkim_configuration_help_spf_subtitle": "Include Doppler Relay’s SPF to prevent sender address forgery. Find below an example of how the record should be to use our SPF. It is recommended that the record be a TXT type and not SPF type.",
+  "dkim_configuration_help_spf_subtitle_link": "Find here some help to configure the SPF.",
+  "dkim_configuration_help_spf_subtitle_link_href": "en/how-to-configure-your-dkim-step-by-step#spf",  
   "domain_configuration_title": "Domain",
   "domain_singular_configuration_title": "Domain Settings",
   "company_text": "Company",
@@ -283,6 +285,7 @@
   "my_plan_pricing_chart": "Pricing chart",
   "my_plan_pricing_chart_description": "Select the amount of emails you´ll send per email, compare the different plans and find the best option for your needs.",
   "my_plan_pricing_chart_slider_title": "<span class='special'>{{emailsSuggestedAmount | number | numberFormat}}</span> Emails per month",
+  "my_plan_pricing_chart_button_validation": "No puedes acceder a un plan de pago si no has utilizado el gratuito primero.",
   "buy_now": "Buy now",
   "buy_text": "Buy",
   "cost_email": "Cost per email:",
@@ -458,6 +461,10 @@
   "tracking_domain_name_text" : "Cname Field",
   "tracking_domain_description": "Add a CNAME value into the DNS records of your domain in order to start using your Doppler Relay account.",
   "tracking_domain_description_link": "Learn how to do it here.",
-  "tracking_config_help_href": "en/how-to-configure-the-subdomain-tracking"
+  "tracking_config_help_href": "en/how-to-configure-the-subdomain-tracking",
+  "validation_requirements_title": "Before buying a Doppler Relay plan it is necessary to complete the following steps:",
+  "validation_step_one": "Verify your domain by configuring your DKIM, SPF and tracking subdomain.",
+  "validation_step_one_link": "Find all the information here.",
+  "validation_step_one_href": "#/settings/domain-manager"
 
 };
