@@ -7,6 +7,7 @@ class MyPlanPage {
       this._proPlanChangeButton = $('.pro .button.show');
       this._basicPlanChangeButtons = element.all(by.css('.basic .button.show'));
       this._proPlanChangeButtons = element.all(by.css('.pro .button.show'));
+      this._planValidationMessages = element.all(by.css('.arrow--box-up ol li'));
     }
 
     beginAuthenticatedSession() {
@@ -20,7 +21,8 @@ class MyPlanPage {
                 "noLimits": true,
                 "dkimConfigurationRequired": true,
                 "endDate": "2018-04-25T13:03:16Z",
-                "domainConfigurationRequired": true
+                "domainConfigurationRequired": true,
+                "hasNotDeliveries": true
               });
           }));
     }
@@ -51,6 +53,14 @@ class MyPlanPage {
       return this._proPlanChangeButtons.count().then(function(count){
         return count;
       });
+    }
+
+    isFirstMessageShowed(){
+      return this._planValidationMessages.get(0).getAttribute('class');
+    }
+
+    isSecondMessageShowed(){
+      return this._planValidationMessages.get(1).getAttribute('class');
     }
   }
   exports.MyPlanPage = MyPlanPage;

@@ -443,32 +443,37 @@
       width: 100%;
       padding: 1em;
     }
-    li:last-of-type {
-      border-bottom: $suit-border-default;
-      text-align: center;
-      color: initial;
-      padding: 0.5em 0 1em 0;
-      h2 { margin-bottom: 0.3em; }
+    ul{
+      li:last-of-type {
+        border-bottom: $suit-border-default;
+        text-align: center;
+        color: initial;
+        padding: 0.5em 0 1em 0;
+        h2 { margin-bottom: 0.3em; }
+      }
     }
-    li {
-      list-style-type: none;
-      border-left: $suit-border-default;
-      border-right: $suit-border-default;
-      padding:  0.5em 1em;
-      color:$suit-font-color-light;
-      .hidden-feature-by-display { 
-        display: none;
-        transition: none;
-        &.show{display: inline-block;}
-      }
-      .hidden-feature { 
-        opacity: 0;
-        @extend .transition--default;
-        &.show{opacity: 1;}
-      }
-      .star-icon{
-        width: torem(12px);
-        fill: $suit-accent-color;
+
+    ul{
+      li {
+        list-style-type: none;
+        border-left: $suit-border-default;
+        border-right: $suit-border-default;
+        padding:  0.5em 1em;
+        color:$suit-font-color-light;
+        .hidden-feature-by-display { 
+          display: none;
+          transition: none;
+          &.show{display: inline-block;}
+        }
+        .hidden-feature { 
+          opacity: 0;
+          @extend .transition--default;
+          &.show{opacity: 1;}
+        }
+        .star-icon{
+          width: torem(12px);
+          fill: $suit-accent-color;
+        }
       }
     }
   }
@@ -652,16 +657,9 @@
       padding-left: 15px;
       margin-bottom: 0px;
       li{
-        border-left: 0px;
-        border-right: 0px;
         counter-increment: list;
-        list-style-type: none;
         position: relative;
-      }
-      li:last-of-type{
-        border-bottom: 0px;
         text-align: left;
-        padding: 0px;
         &::before{
           color: $suit-accent-color;
           content: counter(list) ".";
@@ -676,7 +674,7 @@
     a{
       color: $suit-accent-color;
     }
-    .arrow--box-title{
+    h5{
       color: $suit-font-color-light;
     }
   }

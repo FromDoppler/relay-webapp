@@ -291,7 +291,8 @@
           hourly: mapLimit(response.data.hourly),
           hasLimits: !response.data.noLimits,
           endDate: mapDate(response.data.endDate),
-          requiresDomainConfiguration: !!response.data.domainConfigurationRequired
+          requiresDomainConfiguration: !!response.data.domainConfigurationRequired,
+          requiresDeliveries: !!response.data.hasNotDeliveries
         };
       });
     }

@@ -465,6 +465,9 @@
   "validation_requirements_title": "Before buying a Doppler Relay plan it is necessary to complete the following steps:",
   "validation_step_one": "Verify your domain by configuring your DKIM, SPF and tracking subdomain.",
   "validation_step_one_link": "Find all the information here.",
-  "validation_step_one_href": "#/settings/domain-manager"
+  "validation_step_one_href": "#/settings/domain-manager",
+  "validation_step_two": "Make at least 1 test sending to confirm that the connection is made correctly.",
+  "validation_step_two_link": "Get your credentials here.",
+  "validation_step_two_href": "#/settings/connection-settings"
 
 };
