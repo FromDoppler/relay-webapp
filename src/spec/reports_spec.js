@@ -240,4 +240,39 @@ describe('Reports page', () => {
     // Assert
     expect(reportsPage.isMaxRateDailyLimitDisplayed()).toEqual(false);
   });
+
+  it('should show the daily limits for accounts that has zero limits', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.addMockModule('descartableModule2', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/events\/(by_hour|by_day)/).respond(200, {
+          "items": []
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/deliveries/).respond(200, {
+          "items": []
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/statistics\/deliveries\/(by_hour|by_day)/).respond(200, {
+          "items": [{ 'total': 4, 'sent': 2, 'dropped': 0 }, { 'total': 6, 'sent': 6, 'dropped': 0 }]
+        });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "daily": {
+            "limit": 0,
+            "remaining": 0,
+            "reset": "2017-09-16T00:00:00Z"
+          }
+        });
+      }));
+    var reportsPage = new ReportsPage();
+
+    // Act
+    browser.get('/#/reports');
+
+    // Assert
+    expect(reportsPage.isMaxRateDailyLimitDisplayed()).toEqual(true);
+    expect(reportsPage.getDailyLimitNumber()).toEqual('0');
+  });
 });

@@ -6,6 +6,7 @@ class ReportsPage {
     this._droppedEl = $('.dropped-count');
     this._deliverabilityPercentageEl = $('.deliverability-percentage');
     this._maxRateDailyLimit = $('.send--limits-container .max-daily-limit');
+    this._DailyLimitNumber = $('.send--limits-container h2');
   }
 
   clickDropdown(){
@@ -19,6 +20,9 @@ class ReportsPage {
   }
   isMaxRateDailyLimitDisplayed() {
     return this._maxRateDailyLimit.isDisplayed();
+  }
+  getDailyLimitNumber(){
+    return this._DailyLimitNumber.getText();
   }
 
 }
