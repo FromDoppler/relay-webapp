@@ -30,6 +30,9 @@
     $scope.getDailyLimit = function() {
       return $rootScope.accountLimits.daily && $rootScope.accountLimits.daily.limit;
     };
+    $scope.showDailyLimit = function() {
+      return !!$rootScope.accountLimits.daily;
+    };
     $scope.getProgressDailyLimitBarValue = function () {
       if (!$rootScope.accountLimits.daily) {
         return 0;
