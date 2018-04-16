@@ -24,6 +24,22 @@ describe('Settings Page', () => {
       }));
       
   }
+  function beginAuthenticatedSessionForUpgradePlan(){
+    browser.addMockModule('descartableModule', () => angular
+    .module('descartableModule', [])
+    .run((jwtHelper, auth, $httpBackend) => {
+      var permanentToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MzAzMTgsImV4cCI6MTQ4NzIyMjMxOCwiaWF0IjoxNDg0NjMwMzE4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.dQh20ukVSCP0rNXMWBh2DlPQXbP0uTaYzadRDNPXECI9lvCsgDKNXc2bToXAUQDeXw90kbHliVF-kCueW4gQLPBtMJOcHQFv6LfgspsG2jue2iMwoBC1q6UB_4xFlGoyhkRjldnQUV0oqBTzhFdXuTvQz53kRPiqILCHkd4FLl4KliBgdaDRwWz-HIjJwinMpnv_7V38CNvHlHo-q2XU0MnE3CsGXmWGoAgzN7rbeQPgI9azHXpbaUPh9n_4zjCydOSBC5tx7MtEAx3ivfFYImBPp2T2vUM-F5AwRh7hl_lMUvyQLal0S_spoT0XMGy8YhnjxXLoZeVRisWbxBmucQ';
+      auth.saveToken(permanentToken);
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200,
+        {
+          "noLimits": true,
+          "dkimConfigurationRequired": true,
+          "endDate": "2018-04-25T13:03:16Z",
+          "domainConfigurationRequired": true,
+          "hasNotDeliveries": true
+        });
+    }));
+  }
   it('should show "add domain" input when you click in add domain button', () => {
     //Arrange
     beginAuthenticatedSession();
@@ -514,21 +530,18 @@ describe('Settings Page', () => {
   it('should open the change plan dropdown', () => {
     //Arrange
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+    browser.addMockModule('descartableModule2', ()=> angular
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
+        var emptyResponse = {
+          'data': []
+        }
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/plans$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
       }));
 
       //Act
@@ -542,25 +555,19 @@ describe('Settings Page', () => {
 
   it('should show change plan buttons enabled', () => {
     //Arrange
-    var emptyResponse = {
-      'data': []
-    }
     beginAuthenticatedSession();
-    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+    browser.addMockModule('descartableModule2', ()=> angular
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
+        var emptyResponse = {
+          'data': []
+        }
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/plans$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
       }));
 
       //Act
@@ -575,30 +582,23 @@ describe('Settings Page', () => {
 
   it('should show change plan buttons disabled', () => {
     //Arrange
-    browser.restart();
-    var emptyResponse = {
-      'data': []
-    }
-    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+    beginAuthenticatedSessionForUpgradePlan();
+    browser.addMockModule('descartableModule2', ()=> angular
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
+        var emptyResponse = {
+          'data': []
+        }
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/plans$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
       }));
 
       //Act
       var myPlanPage = new MyPlanPage();
-      myPlanPage.beginAuthenticatedSession();
       browser.get('/#/settings/my-plan');
       myPlanPage.clickChangePlanButton();
 
@@ -609,35 +609,55 @@ describe('Settings Page', () => {
 
   it('should show only one change plan button on each plan\'s side with require domain validation passed', () => {
     //Arrange
-    browser.restart();
-    var emptyResponse = {
-      'data': []
-    }
-    browser.addMockModule('descartableModule2', (emptyResponse)=> angular
+    beginAuthenticatedSessionForUpgradePlan();
+    browser.addMockModule('descartableModule2', ()=> angular
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
+        var emptyResponse = {
+          'data': []
+        }
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/plans$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
-        .respond(200, {
-          emptyResponse
-        });
+        .respond(200, emptyResponse);
       }));
 
       //Act
       var myPlanPage = new MyPlanPage();
-      myPlanPage.beginAuthenticatedSession();
       browser.get('/#/settings/my-plan');
       myPlanPage.clickChangePlanButton();
 
       //Assert
       expect(myPlanPage.isOnlyOneButtonInBasicPlanContainer()).toEqual(1);
       expect(myPlanPage.isOnlyOneButtonInProPlanContainer()).toEqual(1);
+  });
+
+  it('should show all the validation messages to upgrade the plan', () => {
+    //Arrange
+    beginAuthenticatedSessionForUpgradePlan();
+    browser.addMockModule('descartableModule2', ()=> angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        var emptyResponse = {
+          'data': []
+        }
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current$/)
+        .respond(200, emptyResponse);
+        $httpBackend.whenGET(/\/plans$/)
+        .respond(200, emptyResponse);
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan$/)
+        .respond(200, emptyResponse);
+      }));
+
+      //Act
+      var myPlanPage = new MyPlanPage();
+      browser.get('/#/settings/my-plan');
+      myPlanPage.clickChangePlanButton();
+
+      //Assert
+      expect(myPlanPage.isFirstMessageShowed()).not.toMatch('ng-hide');
+      expect(myPlanPage.isSecondMessageShowed()).not.toMatch('ng-hide');
   });
 });
