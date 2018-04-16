@@ -656,18 +656,38 @@
     ol{
       padding-left: 15px;
       margin-bottom: 0px;
-      li{
+      color: $suit-accent-color;
+      .step{
         counter-increment: list;
         position: relative;
         text-align: left;
+        padding-top: 5px;
         &::before{
-          color: $suit-accent-color;
           content: counter(list) ".";
           left:-30px;
           position: absolute;
           text-align: right;
           width: 26px;
           font-weight: bolder;
+          color: $suit-accent-color;
+        }
+        &.not-ready{
+          color: $suit-main-color;
+        }
+        &.ready{
+          &::before{
+            color: $suit-color-status-green;
+          }
+          color: $suit-main-color;
+          &.number--success{
+            color: $suit-color-status-green;
+          }
+          .success{
+            color: $suit-color-status-green;
+          }
+          .overlay{
+            color: $suit-font-color-lighter;
+          }
         }
       }
     }
