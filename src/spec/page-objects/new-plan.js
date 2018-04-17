@@ -60,7 +60,7 @@ class MyPlanPage {
     }
 
     isSecondMessageShowed(){
-      return this._planValidationMessages.get(1).getAttribute('class');
+      return this._planValidationMessages.get(2).getAttribute('class');
     }
   }
   exports.MyPlanPage = MyPlanPage;
