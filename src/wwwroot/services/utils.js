@@ -24,7 +24,9 @@
       validateCreditCard : validateCreditCard,
       removeDuplicates: removeDuplicates,
       getPreferredLanguage: getPreferredLanguage,
-      setPreferredLanguage: setPreferredLanguage
+      setPreferredLanguage: setPreferredLanguage,
+      hasDifferentDomain: hasDifferentDomain,
+      getMultiAccountUsers: getMultiAccountUsers
     };
 
     return utilsService;
@@ -146,6 +148,16 @@
 
     function setPreferredLanguage(key){
       $window.localStorage.setItem('lang', key);
+    }
+
+    function hasDifferentDomain() {      
+      return !(/relay/.test($window.location.host));
+    }
+    function getMultiAccountUsers() {
+      return [
+        { companyName: 'Gire', logoName: 'gire-logo-grey', domain: 'localhost', companyLink: "http://giresoluciones.com.ar" },
+        { companyName: 'Test', logoName: 'american-card', domain: 'test.com', companyLink: "http://test.com.ar" }
+      ];
     }
 
   }

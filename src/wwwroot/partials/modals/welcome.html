@@ -1,7 +1,7 @@
 <div class="modal--wrapper ms-relay">
   <div class="modal--outter text--center">
     <span class="close--button" ng-click="vm.goToDomainManager()">X</span>
-    <h3>{{'welcome_title' | translate }}</h3>
+    <h3 white-brand-toggler-text>{{'welcome_title' | translate:{companyName:companyName} }}</h3>
     <p>{{'welcome_subtitle' | translate:{name:vm.name} }}</p>
     <button class="button button--large button--right" ng-click="vm.goToDomainManager()">{{'continue_text' | translate}}</button>
   </div>

@@ -24,10 +24,10 @@
     <nav>
       <a>
         <svg ng-show="!isPermanentAuthed()" width="200px" height="28px">
-          <use xlink:href="/images/sprite.svg#doppler-icon-dopplerrelay"></use>
+          <use href="/images/sprite.svg#doppler-icon-dopplerrelay" white-brand-toggler></use>
         </svg>
         <svg ng-show="isPermanentAuthed()" width="50px" height="50px">
-          <use xlink:href="/images/sprite.svg#doppler-icon-dopplerRelayLogged"></use>
+          <use href="/images/sprite.svg#doppler-icon-dopplerRelayLogged" white-brand-toggler></use>
         </svg>
       </a>
       <a class="links" href="#/reports" ng-class="applyActive('reports') ? 'active': null" ng-if="isPermanentAuthed()" link-toggler>
