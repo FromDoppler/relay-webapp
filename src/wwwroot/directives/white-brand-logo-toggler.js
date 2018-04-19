@@ -3,22 +3,21 @@
 
     angular
       .module('dopplerRelay')
-      .directive('whiteBrandToggler', whiteBrandToggler);
+      .directive('whiteBrandLogoToggler', whiteBrandLogoToggler);
 
-      whiteBrandToggler.$inject = [
+      whiteBrandLogoToggler.$inject = [
         'utils',
         '$window'
     ];
 
-    function whiteBrandToggler(utils, $window) {
+    function whiteBrandLogoToggler(utils, $window) {
         var directive = {
             restrict: 'A',
             link: function (scope, element, attrs, ctrls) {
               var hasDifferentDomain = utils.hasDifferentDomain();
-              var usersWithMultiAccount = utils.getMultiAccountUsers();              
               if(hasDifferentDomain) {
-                // Logo Toggler
                 if (attrs.href && element[0].tagName === 'use') {
+                  var usersWithMultiAccount = utils.getMultiAccountUsers();   
                   var baseUrlImage = attrs.href.split('#')[0];
                   var userWithMultiAccount = usersWithMultiAccount.reduce(function(user) {
                     var regex = new RegExp('\\b' + user.domain + '\\b');
