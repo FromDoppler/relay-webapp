@@ -6,29 +6,17 @@
       .directive('whiteBrandLogoToggler', whiteBrandLogoToggler);
 
       whiteBrandLogoToggler.$inject = [
-        'utils',
-        '$window'
+        'utils'
     ];
 
-    function whiteBrandLogoToggler(utils, $window) {
+    function whiteBrandLogoToggler(utils) {
         var directive = {
             restrict: 'A',
             link: function (scope, element, attrs, ctrls) {
-              var hasDifferentDomain = utils.hasDifferentDomain();
-              if(hasDifferentDomain) {
+              if(!utils.domainData.default) {
                 if (attrs.href && element[0].tagName === 'use') {
-                  var usersWithMultiAccount = utils.getMultiAccountUsers();   
-                  var baseUrlImage = attrs.href.split('#')[0];
-                  var userWithMultiAccount = usersWithMultiAccount.reduce(function(user) {
-                    var regex = new RegExp('\\b' + user.domain + '\\b');
-                    if (regex.test($window.location.hostname)) {
-                      return { companyName: user.companyName, logoName: user.logoName, domain: user.domain }
-                    };
-                  });
-                  if(!!userWithMultiAccount && userWithMultiAccount.logoName) {
-                    attrs.$set("href", baseUrlImage + "#doppler-icon-" + userWithMultiAccount.logoName);
-                    element.parent().addClass("big-icon");
-                  }
+                  attrs.$set("href","/images/sprite.svg#doppler-icon-" + utils.domainData.logoName);
+                  element.parent().addClass("big-icon");
                 }
               }
             }
