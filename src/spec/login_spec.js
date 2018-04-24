@@ -77,4 +77,45 @@ describe('Login page', () => {
     // Assert
     expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
   });
+
+  it('should show the word Relay in the title', () => {
+    
+    // Arrange
+    var loginPage = new LoginPage();
+    var inEnglish = "Login to Doppler Relay";
+    var inSpanish = "Ingresa a Doppler Relay";
+
+    // Act
+    loginPage.get('lang=es');
+    // Assert
+    expect(loginPage.getRelayTextDisplayed()).toBe(inSpanish);
+
+    // Act
+    loginPage.get('lang=en');
+    // Assert
+    expect(loginPage.getRelayTextDisplayed()).toBe(inEnglish);
+  });
+
+  it('should not show any custom icons in the header', () => {
+    
+    // Arrange
+    var loginPage = new LoginPage();
+
+    // Act
+    browser.get('/#/login');    
+
+    // Assert
+    expect(loginPage.isHeaderIconCustom()).toBe(false);    
+  });
+  it('should not show any custom icons in footer', () => {
+    
+    // Arrange
+    var loginPage = new LoginPage();
+
+    // Act
+    browser.get('/#/login');    
+
+    // Assert
+    expect(loginPage.isDefaultFooterDisplayed()).toBe(false);
+  });
 });

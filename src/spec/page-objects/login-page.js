@@ -15,6 +15,9 @@ class LoginPage {
     this._loginAdminButton = $('.admin .section--wrapper-button .button');
     this._loginAdminEmail = $('.admin .email input');
     this._loginAdminPass = $('.admin .password--container input');
+    this._customIconEl = $('.header .company-icon');
+    this._relayTitleText = $('#header-login');
+    this._customFooterEl = $('.footer .company-footer');
   }
 
   get(params) {
@@ -86,7 +89,21 @@ class LoginPage {
   clickAdminLoginButton() {
     this._loginAdminButton.click();
   }
-  
+  isHeaderIconCustom() {
+    var hasClass = this._customIconEl
+    .getAttribute('class')
+    .then(function(className) {
+      return className.indexOf('big-icon') >= 0;
+    });
+
+    return hasClass;
+  }
+  isDefaultFooterDisplayed() {
+    return this._customFooterEl.isDisplayed();
+  }
+  getRelayTextDisplayed() {
+    return this._relayTitleText.getText();
+  }
 }
 
 exports.LoginPage = LoginPage;
