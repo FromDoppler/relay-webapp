@@ -170,7 +170,7 @@ $input--error--color: #FFF;
 			color: $suit-accent-color;
 			border-color: $suit-accent-color-light;
 			&:hover{
-				background: #F9E5D2;
+				background: $suit-color-input-hover;
 				border-color: $suit-accent-color;
 				color: $suit-accent-color;
 			}
