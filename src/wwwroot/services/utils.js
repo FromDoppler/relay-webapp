@@ -14,7 +14,7 @@
   ];
 
   var domainsData = [
-    { companyName: 'Gire', logoName: 'gire-logo-grey', domainRegex: /^localhost$/, companyLink: "http://giresoluciones.com.ar" },
+    { companyName: 'Gire', logoName: 'gire-logo-grey', domainRegex: /^gire$/, companyLink: "http://giresoluciones.com.ar" },
     { companyName: 'Test', logoName: 'american-card', domainRegex: /\.test\.com$/, companyLink: "http://test.com.ar" }];
   var relayDomainData =  { companyName: "Doppler Relay", default: true };
   

@@ -17,7 +17,8 @@ class LoginPage {
     this._loginAdminPass = $('.admin .password--container input');
     this._customIconEl = $('.header .company-icon');
     this._relayTitleText = $('#header-login');
-    this._customFooterEl = $('.footer .company-footer');
+    this._defaultFooterIconEl = $('.footer #defaultFooter');
+    this._customFooterIconEl = $('.footer #customIcon');
   }
 
   get(params) {
@@ -99,7 +100,10 @@ class LoginPage {
     return hasClass;
   }
   isDefaultFooterDisplayed() {
-    return this._customFooterEl.isDisplayed();
+    return this._defaultFooterIconEl.isDisplayed();
+  }
+  isCustomFooterDisplayed() {
+    return this._customFooterIconEl.isDisplayed();
   }
   getRelayTextDisplayed() {
     return this._relayTitleText.getText();
