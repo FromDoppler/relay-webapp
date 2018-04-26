@@ -77,4 +77,114 @@ describe('Login page', () => {
     // Assert
     expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
   });
+
+  it('should show the word Relay in the title', () => {
+    
+    // Arrange
+    var loginPage = new LoginPage();
+    var inEnglish = "Login to Doppler Relay";
+    var inSpanish = "Ingresa a Doppler Relay";
+
+    // Act
+    loginPage.get('lang=es');
+    // Assert
+    expect(loginPage.getRelayTextDisplayed()).toBe(inSpanish);
+
+    // Act
+    loginPage.get('lang=en');
+    // Assert
+    expect(loginPage.getRelayTextDisplayed()).toBe(inEnglish);
+  });
+
+  it('should not show any custom icons in the header', () => {
+    
+    // Arrange
+    var loginPage = new LoginPage();
+
+    // Act
+    browser.get('/#/login');    
+
+    // Assert
+    expect(loginPage.isHeaderIconCustom()).toBe(false);    
+  });
+  it('should not show any custom footer', () => {
+    
+    // Arrange
+    var loginPage = new LoginPage();
+
+    // Act
+    browser.get('/#/login');    
+
+    // Assert
+    expect(loginPage.isDefaultFooterDisplayed()).toBe(true);
+  });
+
+  it('should show the custom footer', () => {
+    // Arrange
+    browser.addMockModule('descartableModule2', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run(($httpBackend, utils, $rootScope) => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+     var customDomainData =  { companyName: 'Gire', logoName: 'gire-logo-grey', domainRegex: /^localhost$/, companyLink: "http://giresoluciones.com.ar"};
+     utils.domainData = customDomainData;
+     $rootScope.companyName = customDomainData.companyName;
+    }));
+    var loginPage = new LoginPage();
+
+    // Act
+    browser.get('/#/login');
+
+    // Assert
+    expect(loginPage.isCustomFooterDisplayed()).toBe(true);
+  });
+
+  it('should the custom icon in the header', () => {
+    // Arrange
+    browser.addMockModule('descartableModule2', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run(($httpBackend, utils, $rootScope) => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+     var customDomainData =  { companyName: 'Gire', logoName: 'gire-logo-grey', domainRegex: /^localhost$/, companyLink: "http://giresoluciones.com.ar"};
+     utils.domainData = customDomainData;
+     $rootScope.companyName = customDomainData.companyName;
+    }));
+    var loginPage = new LoginPage();
+
+    // Act
+    browser.get('/#/login');    
+
+    // Assert
+    expect(loginPage.isHeaderIconCustom()).toBe(true);
+  });
+
+  it('should show the word Gire in the title', () => {
+    // Arrange
+    browser.addMockModule('descartableModule2', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run(($httpBackend, utils, $rootScope) => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+     var customDomainData =  { companyName: 'Gire', logoName: 'gire-logo-grey', domainRegex: /^localhost$/, companyLink: "http://giresoluciones.com.ar"};
+     utils.domainData = customDomainData;
+     $rootScope.companyName = customDomainData.companyName;
+    }));
+    var loginPage = new LoginPage();
+    var inEnglish = "Login to Gire";
+    var inSpanish = "Ingresa a Gire";
+
+    // Act
+    loginPage.get('lang=es');
+    // Assert
+    expect(loginPage.getRelayTextDisplayed()).toBe(inSpanish);
+
+    // Act
+    loginPage.get('lang=en');
+    // Assert
+    expect(loginPage.getRelayTextDisplayed()).toBe(inEnglish);
+  });
 });

@@ -36,7 +36,7 @@
     }
   }
   .spinner{
-    fill:#E78224; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:100%;transform: translate(-50%,-50%);position: absolute;
+    fill:$suit-accent-color; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:100%;transform: translate(-50%,-50%);position: absolute;
     .sk-fading-circle {
       .sk-circle:before{ background-color: $suit-main-color; }
     }
@@ -268,7 +268,7 @@
         }       
       }
       .edit-item{
-        border-bottom: 1px solid #E78224;
+        border-bottom: 1px solid $suit-accent-color;
         cursor: pointer;
       }
     }

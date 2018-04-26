@@ -4,7 +4,7 @@
 <section class="login container ms-relay">
   <form method="post" id="loginform" autofill-submit="vm.submitLogin(loginform)" name="loginform" novalidate>
     <div class="section--wrapper width--full text--center">
-      <h1 id="header-login">{{'login_title' | translate}}</h1>
+      <h1 id="header-login">{{'login_title' | translate:{companyName:companyName} }}</h1>
       <h4>{{'login_subtitle' | translate}}</h4>
       <div class="section--wrapper-input">
         <label for="email">{{'login_email_label' | translate}}</label>
