@@ -457,7 +457,7 @@
   "dkim_configuration_help": "Domain Settings",
   "domain_name_text": "Subdomain Name",
   "tracking_domain_name_text" : "Cname Field",
-  "tracking_domain_description": "Add a CNAME value into the DNS records of your domain in order to start using your Doppler Relay account.",
+  "tracking_domain_description": "Add a CNAME value into the DNS records of your domain in order to start using your account.",
   "tracking_domain_description_link": "Learn how to do it here.",
   "tracking_config_help_href": "en/how-to-configure-the-subdomain-tracking",
   "validation_requirements_title": "Before buying a {{ companyName }} plan it is necessary to complete the following steps:",
