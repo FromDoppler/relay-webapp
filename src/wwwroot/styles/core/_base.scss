@@ -259,6 +259,15 @@ progress::-moz-progress-value {
   &.visible{opacity: 1;pointer-events: all;}
 }
 
+.display-none {
+  display: none !important;
+}
+
+.big-icon {
+  width: 100px;
+  height: 40px !important;
+}
+
 
 fieldset {
   border: none;

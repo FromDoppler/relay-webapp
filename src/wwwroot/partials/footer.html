@@ -1,8 +1,8 @@
 <div class="section--wrapper">
-  <p>
+  <p id="defaultFooter" class="company-footer" white-brand-toggler-footer>
     <svg width="19px" height="21px">
-      <use xlink:href="/images/sprite.svg#doppler-icon-relayiconGrey"></use>
+      <use href="/images/sprite.svg#doppler-icon-relayiconGrey"></use>
     </svg>
-    {{'footer_main' | translate}} <a href="{{'doppler_url_link' | translate}}">{{'footer_link' | translate}}</a>
+    <span>{{'footer_main' | translate:{companyName:companyName} }}</span> <a href="{{'doppler_url_link' | translate}}">{{'footer_link' | translate}}</a>
   </p>
 </div>

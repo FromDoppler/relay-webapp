@@ -11,17 +11,17 @@
 
 .section--table{
   .icon{
-    &.m-glass{position: absolute;margin-left:torem(-59px);fill:white; padding:torem(15px);background-color:#E78224;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;cursor:pointer;
+    &.m-glass{position: absolute;margin-left:torem(-59px);fill:white; padding:torem(15px);background-color:$suit-accent-color;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;cursor:pointer;
               &.disabled{background-color:lightgray;cursor:default;}
     }
   }
   .button--right {float: right;}
 }
 .reports--grid .spinner{
-    position: absolute;margin-left:torem(-59px);fill:white; padding:torem(15px);background-color:#E78224;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;
+    position: absolute;margin-left:torem(-59px);fill:white; padding:torem(15px);background-color:$suit-accent-color;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;
 }
 .reports--chart .spinner{
-    fill:#E78224; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:50%;transform: translate(-50%,-50%);position: absolute;
+    fill:$suit-accent-color; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:50%;transform: translate(-50%,-50%);position: absolute;
     .sk-fading-circle {
       .sk-circle:before{ background-color: $suit-main-color; }
     }
@@ -140,7 +140,7 @@
     height:torem(59px);
     width:torem(59px);
     border-radius: 5px;
-    background-color:#E78224;
+    background-color:$suit-accent-color;
     min-width:210px;
     float:right;
   }

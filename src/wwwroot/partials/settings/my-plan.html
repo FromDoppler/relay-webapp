@@ -154,12 +154,15 @@
         <span class="input--error" ng-show="vm.errorPlanUpgrade"><i class="arrow--up"></i>{{'my_plan_pricing_chart_button_validation' | translate}}</span>
       </div>
       <div ng-show="!vm.isValidUpgradeablePlan()" class="arrow--box-up">
-        <h5>{{'validation_requirements_title' | translate}}</h5>
+        <h5>{{'validation_requirements_title' | translate:{companyName:companyName} }}</h5>
         <ol>
-          <li ng-show="vm.requiresDomainConfiguration()">
+          <li ng-show="vm.requiresDomainConfiguration()" class="step not-ready">
               <span>{{'validation_step_one' | translate}} <a class="arrow--box-link" href="{{'validation_step_one_href' | translate}}">{{'validation_step_one_link' | translate}}</a></span>
           </li>
-          <li ng-show="vm.requiresDeliveries()">
+          <li ng-show="!vm.requiresDomainConfiguration()" class="step ready number--success">
+            <span class="success">{{'validation_step_one_ready' | translate}}</span><span class="overlay"> {{'validation_step_one_pending' | translate}}</span>
+          </li>
+          <li ng-show="vm.requiresDeliveries()" class="step not-ready">
             <span>{{'validation_step_two' | translate}} <a class="arrow--box-link" href="{{'validation_step_two_href' | translate}}">{{'validation_step_two_link' | translate}}</a></span>
           </li>
         </ol>

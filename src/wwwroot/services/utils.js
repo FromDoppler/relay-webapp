@@ -13,8 +13,20 @@
     '$rootScope'
   ];
 
-
+  var domainsData = [
+    { companyName: 'Gire', logoName: 'gire-logo-grey', domainRegex: /^gire$/, companyLink: "http://giresoluciones.com.ar" },
+    { companyName: 'Test', logoName: 'american-card', domainRegex: /\.test\.com$/, companyLink: "http://test.com.ar" }];
+  var relayDomainData =  { companyName: "Doppler Relay", default: true };
+  
   function utils($http, $window, $q, RELAY_CONFIG, $rootScope) {
+    var hostName = $window.location.hostname;
+    var domainData = domainsData.find(function(x) {
+        return x.domainRegex.test(hostName);
+    });
+    if(!domainData){
+      domainData = relayDomainData;
+    }
+    $rootScope.companyName = domainData.companyName;
 
     var utilsService = {
       analizePasswordComplexity: analizePasswordComplexity,
@@ -24,7 +36,8 @@
       validateCreditCard : validateCreditCard,
       removeDuplicates: removeDuplicates,
       getPreferredLanguage: getPreferredLanguage,
-      setPreferredLanguage: setPreferredLanguage
+      setPreferredLanguage: setPreferredLanguage,
+      domainData: domainData
     };
 
     return utilsService;
@@ -147,6 +160,5 @@
     function setPreferredLanguage(key){
       $window.localStorage.setItem('lang', key);
     }
-
   }
 })();
