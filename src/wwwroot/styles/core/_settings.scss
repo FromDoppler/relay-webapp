@@ -29,6 +29,37 @@ $suit-font-weight-bold: 			700;
 
 $suit-font-special: 				$suit-font-weight-semibold toem($suit-font-size) $suit-font-family-special;
 
+$suit-custom-font-family: "Proxima-Nova";
+$suit-font-dir: "../fonts/";
+
+@font-face {
+  font-family: $suit-custom-font-family;
+  font-style: normal;
+  font-weight: $suit-font-weight;
+  src: url($suit-font-dir + 'proxima-nova-regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: $suit-custom-font-family;
+  font-style: italic;
+  font-weight: $suit-font-weight;
+  src: url($suit-font-dir + 'proxima-nova-regular-italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: $suit-custom-font-family;
+  font-style: normal;
+  font-weight: $suit-font-weight-bold;
+  src: url($suit-font-dir + 'proxima-nova-bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: $suit-custom-font-family;
+  font-style: italic;
+  font-weight: $suit-font-weight-bold;
+  src: url($suit-font-dir + 'proxima-nova-bold-italic.otf') format('opentype');
+}
+
 // -------------------------------------
 //   Colors
 // -------------------------------------

@@ -69,7 +69,6 @@ gulp.task('build-scripts-lib', function () {
   // When you update it, please remember to edit karma.conf.js and index.html
   // TODO: remove this duplicated code
   return gulp.src([
-    paths.lib + '/typekit-load/load.min.js',
     paths.lib + '/angular/angular.min.js',
     paths.lib + '/angular-route/angular-route.min.js',
     paths.lib + '/angular-sanitize/angular-sanitize.min.js',
