@@ -299,8 +299,18 @@ gulp.task('hcheck.png', function () {
   .pipe(gulp.dest(paths.build));
 });
 
+gulp.task('fonts', function () {
+  return gulp.src([
+      paths.app + '/fonts/*.otf',
+      paths.app + '/fonts/*.ttf',
+      paths.app + '/fonts/*.woff',
+      paths.app + '/fonts/*.woff2',
+      paths.app + '/fonts/*.eot'
+  ])
+  .pipe(gulp.dest(paths.build + '/fonts'));
+});
 
-gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials'], function () {
+gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials', 'fonts'], function () {
   var revAll = new RevAll();
   return gulp.src([
     paths.tmpPrebuild + '/**'
