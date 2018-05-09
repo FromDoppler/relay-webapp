@@ -290,9 +290,4 @@
       return;
     }
   }
-
-  typekitLoad('hdx0jiv', function () {
-    // Typekit failed to download or initialize
-  });
-
 })();

@@ -12,7 +12,6 @@ module.exports = function (config) {
     files: [
       // When you update it, please remember to edit index.html and gulpfile.js
       // TODO: remove this duplicated code
-      __dirname + '/wwwroot/lib/typekit-load/load.min.js',
       __dirname + '/wwwroot/lib/angular/angular.js',
       __dirname + '/wwwroot/lib/angular-sanitize/angular-sanitize.js',
       __dirname + '/wwwroot/lib/angular-route/angular-route.js',
