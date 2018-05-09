@@ -37,9 +37,9 @@ $suit-font-dir: "../fonts/";
   font-style: normal;
   font-weight: $suit-font-weight;
   src: url($suit-font-dir + 'proxima-nova.eot');
-	src: url($suit-font-dir + 'proxima-nova.eot?#iefix') format('embedded-opentype'),
-	url($suit-font-dir + 'proxima-nova.woff2') format('woff2'),
-	url($suit-font-dir + 'proxima-nova.woff') format('woff'),
+  src: url($suit-font-dir + 'proxima-nova.eot?#iefix') format('embedded-opentype'),
+  url($suit-font-dir + 'proxima-nova.woff2') format('woff2'),
+  url($suit-font-dir + 'proxima-nova.woff') format('woff'),
   url($suit-font-dir + 'proxima-nova.ttf') format('truetype'),
   url($suit-font-dir + 'proxima-nova.otf') format('opentype');
 }
@@ -49,9 +49,9 @@ $suit-font-dir: "../fonts/";
   font-style: italic;
   font-weight: $suit-font-weight;
   src: url($suit-font-dir + 'proxima-nova-italic.eot');
-	src: url($suit-font-dir + 'proxima-nova-italic.eot?#iefix') format('embedded-opentype'),
-	url($suit-font-dir + 'proxima-nova-italic.woff2') format('woff2'),
-	url($suit-font-dir + 'proxima-nova-italic.woff') format('woff'),
+  src: url($suit-font-dir + 'proxima-nova-italic.eot?#iefix') format('embedded-opentype'),
+  url($suit-font-dir + 'proxima-nova-italic.woff2') format('woff2'),
+  url($suit-font-dir + 'proxima-nova-italic.woff') format('woff'),
   url($suit-font-dir + 'proxima-nova-italic.ttf') format('truetype'),
   url($suit-font-dir + 'proxima-nova-italic.otf') format('opentype');
 }
@@ -61,9 +61,9 @@ $suit-font-dir: "../fonts/";
   font-style: normal;
   font-weight: $suit-font-weight-bold;
   src: url($suit-font-dir + 'proxima-nova-bold.eot');
-	src: url($suit-font-dir + 'proxima-nova-bold.eot?#iefix') format('embedded-opentype'),
-	url($suit-font-dir + 'proxima-nova-bold.woff2') format('woff2'),
-	url($suit-font-dir + 'proxima-nova-bold.woff') format('woff'),
+  src: url($suit-font-dir + 'proxima-nova-bold.eot?#iefix') format('embedded-opentype'),
+  url($suit-font-dir + 'proxima-nova-bold.woff2') format('woff2'),
+  url($suit-font-dir + 'proxima-nova-bold.woff') format('woff'),
   url($suit-font-dir + 'proxima-nova-bold.ttf') format('truetype'),
   url($suit-font-dir + 'proxima-nova-bold.otf') format('opentype');
 }
@@ -73,9 +73,9 @@ $suit-font-dir: "../fonts/";
   font-style: italic;
   font-weight: $suit-font-weight-bold;
   src: url($suit-font-dir + 'proxima-nova-bold-italic.eot');
-	src: url($suit-font-dir + 'proxima-nova-bold-italic.eot?#iefix') format('embedded-opentype'),
-	url($suit-font-dir + 'proxima-nova-bold-italic.woff2') format('woff2'),
-	url($suit-font-dir + 'proxima-nova-bold-italic.woff') format('woff'),
+  src: url($suit-font-dir + 'proxima-nova-bold-italic.eot?#iefix') format('embedded-opentype'),
+  url($suit-font-dir + 'proxima-nova-bold-italic.woff2') format('woff2'),
+  url($suit-font-dir + 'proxima-nova-bold-italic.woff') format('woff'),
   url($suit-font-dir + 'proxima-nova-bold-italic.ttf') format('truetype'),
   url($suit-font-dir + 'proxima-nova-bold-italic.otf') format('opentype');
 }
