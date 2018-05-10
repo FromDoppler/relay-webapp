@@ -9,7 +9,7 @@
   <meta name="keywords" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- inject:css -->
-  <link rel="stylesheet" href="//cdn.fromdoppler.com/mseditor/v1.0.0-build285/styles/styles.min.css">
+  <link rel="stylesheet" href="//cdn.fromdoppler.com/mseditor/v1.0.0-build286/styles/styles.min.css">
   <!-- endinject -->
 </head>
 
@@ -18,8 +18,8 @@
 <ng-view></ng-view>
 
 <mseditor-loader></mseditor-loader>
-<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build285/scripts/lib.min.js"></script>
-<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build285/scripts/app.min.js"></script>
+<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build286/scripts/lib.min.js"></script>
+<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build286/scripts/app.min.js"></script>
 <script type="text/javascript">
 (function() {
     'use strict';
@@ -86,12 +86,60 @@
 
       function getCampaign(id, useEditorAsTemplate) {
         console.log("getCampaign");
-        return $q.reject();
+        var campaign = {
+          id: id,
+          type: 'campaign',
+          name: 'Campaign ' + id,
+          attributes: {},
+          innerHTML: '',
+          children: []
+        };
+        return $http.get("").then(function(){
+          return {data: campaign};
+        });
       }
 
       function getSettings(msEditorSettings, promise, campaign) {
         console.log("getSettings");
-        return $q.reject();
+        msEditorSettings = {
+          language: 'es',
+          sharedSocialNetworks: [{
+            name: 'twitter',
+            url: 'http://twitter.com/share?related=fromdoppler',
+            idSocialNetwork: '0'
+          }, {
+            name: 'linkedin',
+            url: 'http://linkedin.com/',
+            idSocialNetwork: '1'
+          }, {
+            name: 'facebook',
+            url: 'http://facebook.com',
+            idSocialNetwork: '2'
+          }, {
+            name: 'googlemas',
+            url: 'http://google.com',
+            idSocialNetwork: '3'
+          }, {
+            name: 'pinterest',
+            url: 'http://pinterest.com',
+            idSocialNetwork: '4'
+          }, {
+            name: 'whatsapp',
+            url: 'http://whatsapp.com',
+            idSocialNetwork: '5'
+          }],
+          stores: [{
+            name: 'TiendaNube',
+            accessToken: '4b9883131f01fbde3f168dde5bca209b1db1fbb1',
+            storeId: '404554'
+          }], //Array to store eshops credentials
+          redirectUrl: '/MSEditor/Editor?idCampaign=1&redirectedFromSummary=True',
+          rssCampaign: true,
+          rssShowPreview: true
+          };
+        return $http.get("").then(function(){
+          return msEditorSettings;
+        });
       }
     }
   })();
