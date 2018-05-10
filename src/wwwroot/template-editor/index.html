@@ -9,7 +9,7 @@
   <meta name="keywords" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- inject:css -->
-  <link rel="stylesheet" href="//cdn.fromdoppler.com/mseditor/v1.0.0-build76/styles/styles.min.css">
+  <link rel="stylesheet" href="//cdn.fromdoppler.com/mseditor/v1.0.0-build285/styles/styles.min.css">
   <!-- endinject -->
 </head>
 
@@ -18,8 +18,84 @@
 <ng-view></ng-view>
 
 <mseditor-loader></mseditor-loader>
-<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build76/scripts/lib.min.js"></script>
-<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build76/scripts/app.min.js"></script>
+<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build285/scripts/lib.min.js"></script>
+<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build285/scripts/app.min.js"></script>
+<script type="text/javascript">
+(function() {
+    'use strict';
+  
+    angular
+      .module('mseditor')
+      .service('adapterService', adapterService);
+  
+      adapterService.$inject = [
+      '$http',
+      '$q'
+    ];
+  
+    function adapterService($http, $q) {
+      var service = {
+        getCampaign: getCampaign,
+        campaignSaveChanges: campaignSaveChanges,
+        campaignSaveChangesAsTemplate: campaignSaveChangesAsTemplate,
+        getCampaignRssPreview: getCampaignRssPreview,
+        deleteImages: deleteImages,
+        getImagesForCampaign: getImagesForCampaign,
+        getPreviewImage: getPreviewImage,
+        getPreviewImageWithPlay: getPreviewImageWithPlay,
+        getSettings: getSettings
+      };
+  
+      return service;
+
+      function getPreviewImageWithPlay(params) {
+        console.log("getPreviewImageWithPlay");
+        return $q.reject();
+      }
+
+      function getPreviewImage(params) {
+        console.log("getPreviewImage");
+        return $q.reject();
+      }
+
+      function getImagesForCampaign(params) {
+        console.log("getImagesForCampaign");
+        
+        return $q.reject();
+      }
+
+      function deleteImages(params) {
+        console.log("deleteImages");
+        return $q.reject();
+      }
+
+      function getCampaignRssPreview(IdCampaign, subjectCampaign, html) {
+        console.log("getCampaignRssPreview");
+        return $q.reject();
+      }
+
+      function campaignSaveChangesAsTemplate(params) {
+        console.log("campaignSaveChangesAsTemplate");
+        return $q.reject();
+      }
+
+      function campaignSaveChanges(params) {
+        console.log("campaignSaveChanges");
+        return $q.reject();
+      }
+
+      function getCampaign(id, useEditorAsTemplate) {
+        console.log("getCampaign");
+        return $q.reject();
+      }
+
+      function getSettings(msEditorSettings, promise, campaign) {
+        console.log("getSettings");
+        return $q.reject();
+      }
+    }
+  })();
+</script>
 </body>
 
 </html>
