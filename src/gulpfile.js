@@ -69,7 +69,6 @@ gulp.task('build-scripts-lib', function () {
   // When you update it, please remember to edit karma.conf.js and index.html
   // TODO: remove this duplicated code
   return gulp.src([
-    paths.lib + '/typekit-load/load.min.js',
     paths.lib + '/angular/angular.min.js',
     paths.lib + '/angular-route/angular-route.min.js',
     paths.lib + '/angular-sanitize/angular-sanitize.min.js',
@@ -300,8 +299,18 @@ gulp.task('hcheck.png', function () {
   .pipe(gulp.dest(paths.build));
 });
 
+gulp.task('fonts', function () {
+  return gulp.src([
+      paths.app + '/fonts/*.otf',
+      paths.app + '/fonts/*.ttf',
+      paths.app + '/fonts/*.woff',
+      paths.app + '/fonts/*.woff2',
+      paths.app + '/fonts/*.eot'
+  ])
+  .pipe(gulp.dest(paths.build + '/fonts'));
+});
 
-gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials'], function () {
+gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials', 'fonts'], function () {
   var revAll = new RevAll();
   return gulp.src([
     paths.tmpPrebuild + '/**'
