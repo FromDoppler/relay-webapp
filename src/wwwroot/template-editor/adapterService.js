@@ -112,9 +112,9 @@
         lastModifiedDate: '2015-11-14T06:35:42.239Z',
         size: 1024,
         type: '.jpg',
-        url: 'http://cdn.fromdoppler.com/mseditor/v1.0.0-build306/uploads/fakeImage1.jpg',
-        thumbnailUrl: 'http://cdn.fromdoppler.com/mseditor/v1.0.0-build306/uploads/fakeImage1.jpg',
-        thumbnailUrl150: 'http://cdn.fromdoppler.com/mseditor/v1.0.0-build306/uploads/fakeImage1.jpg'
+        url: 'http://cdn.fromdoppler.com/relay-demo-content/fakeImage1.jpg',
+        thumbnailUrl: 'http://cdn.fromdoppler.com/relay-demo-content/fakeImage1.jpg',
+        thumbnailUrl150: 'http://cdn.fromdoppler.com/relay-demo-content/fakeImage1.jpg'
       }];
       var response = {
         data: {
