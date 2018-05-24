@@ -8,16 +8,25 @@
   <meta name="description" content="">
   <meta name="keywords" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="//cdn.fromdoppler.com/mseditor/v1.0.0-build324/styles/styles.min.css">
+  <link rel="stylesheet" href="//cdn.fromdoppler.com/mseditor/v1.0.0-build349/styles/styles.min.css">
 </head>
 
 <body ng-app="mseditor" class="ms-editor" ng-keydown="onKeypress($event)">
-<ng-view></ng-view>
-<mseditor-loader></mseditor-loader>
 
-<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build324/scripts/lib.min.js"></script>
-<script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build324/scripts/app.min.js"></script>
-<script src="./adapterService.js"></script>
+    <ng-view></ng-view>
+    <mseditor-loader class="preloader">
+      <div class="progress">
+        <div class="loader"></div>
+          <svg viewBox="0 0 50 50" width="100%" height="100%" class="icon">
+                <path fill="#FEBC11" d="M49.572,28.968c0,0-6.086-17.386-24.55-17.386h-0.02h-0.03c-18.455,0-24.549,17.386-24.549,17.386
+                    c-0.307,1.059-1.099,3.236,0.831,6.313c2.909,4.66,11.151,4.047,13.012-1.297c0,0,2.207-7.945,10.736-8.005
+                    c8.53,0.06,10.736,8.005,10.736,8.005c1.861,5.344,10.104,5.957,13.013,1.297C50.67,32.204,49.89,30.026,49.572,28.968z"></path>
+          </svg>
+      </div>
+    </mseditor-loader>
+  <script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build349/scripts/lib.min.js"></script>
+  <script src="//cdn.fromdoppler.com/mseditor/v1.0.0-build349/scripts/app.min.js"></script>
+  <script src="./adapterService.js"></script>
 </body>
 
 </html>
