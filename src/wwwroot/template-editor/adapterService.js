@@ -8,10 +8,14 @@
 
   adapterService.$inject = [
     '$http',
-    '$q'
+    '$q',
+    '$window'
   ];
 
-  function adapterService($http, $q) {
+  function adapterService(
+    $http,
+    $q,
+    $window) {
     var service = {
       getCampaign: getCampaign,
       campaignSaveChanges: campaignSaveChanges,
@@ -26,9 +30,21 @@
       getTiendaNubeProducts: getTiendaNubeProducts,
       overrideUploadFiles: overrideUploadFiles
     };
+    
+    var langKey = null;
+    init();
 
     return service;
 
+    function init() {
+      langKey = getPreferredLanguage();
+    };
+
+    function getPreferredLanguage() {
+      var key = $window.localStorage.getItem('lang');
+      return key || 'en';
+    };
+    
     /**
      * Return a preview placeholder image
      * @argument {Object} params - Configuration object
@@ -340,40 +356,12 @@
     function getSettings(idCampaign, idTemplate) {
       traceAdapterCall(getSettings, arguments);
       var msEditorSettings = {
-        language: 'es',
-        sharedSocialNetworks: [{
-          name: 'twitter',
-          url: 'http://twitter.com/share?related=fromdoppler',
-          idSocialNetwork: '0'
-        }, {
-          name: 'linkedin',
-          url: 'http://linkedin.com/',
-          idSocialNetwork: '1'
-        }, {
-          name: 'facebook',
-          url: 'http://facebook.com',
-          idSocialNetwork: '2'
-        }, {
-          name: 'googlemas',
-          url: 'http://google.com',
-          idSocialNetwork: '3'
-        }, {
-          name: 'pinterest',
-          url: 'http://pinterest.com',
-          idSocialNetwork: '4'
-        }, {
-          name: 'whatsapp',
-          url: 'http://whatsapp.com',
-          idSocialNetwork: '5'
-        }],
-        stores: [{
-          name: 'TiendaNube',
-          accessToken: '4b9883131f01fbde3f168dde5bca209b1db1fbb1',
-          storeId: '404554'
-        }],
-        redirectUrl: '/MSEditor/Editor?idCampaign=1&redirectedFromSummary=True',
-        rssCampaign: true,
-        rssShowPreview: true
+        language: langKey,
+        redirectUrl: "/",
+        sharedSocialNetworks: [],
+        stores: [],
+        rssCampaign: false,
+        rssShowPreview: false
       };
       return $q.resolve(msEditorSettings);
     }
