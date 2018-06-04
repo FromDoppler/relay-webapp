@@ -232,7 +232,7 @@
             $location.path('/temporal-token-error');
             return;
           }
-          auth.saveToken(queryTemporalToken, true);
+          auth.loginByToken(queryTemporalToken);
         } catch (error) {
           $location.path('/temporal-token-error');
         }

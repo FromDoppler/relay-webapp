@@ -16,7 +16,7 @@
   function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope) {
 
     var authService = {
-      saveToken: saveToken,
+      loginByToken: loginByToken,
       login: login,
       logOut: logOut,
       isAuthed: isAuthed,
@@ -37,31 +37,54 @@
       isUrlAllowed: isUrlAllowed,
       getDefaultUrl: getDefaultUrl
     };
-
-    var decodedToken = null;
-    var encodedToken = null;
-    var temporarilyAuthed = false;
-
-    encodedToken = $window.localStorage.getItem('jwtToken');
-    if (encodedToken) {
-      decodeToken();
-      // verify expiration
-    }
+    var loginSession = null;
+    
+    init();
     return authService;
 
-    // Save the token in the local storage (globally) or in a temporal variable (local)
-    function saveToken(token, isTemporal) {
-      encodedToken = token;
-      decodeToken();
-      temporarilyAuthed = !!isTemporal;
-      if (!temporarilyAuthed) {
-        $window.localStorage.setItem('jwtToken', token);
+    function init() {
+      var encodedToken = $window.localStorage.getItem('jwtToken');
+      if (encodedToken) {
+        try {
+          loginSession = decodeLoginSession(encodedToken);
+          // To ensure having relayLogin item in legacy sessions
+          var storedSession = $window.localStorage.getItem('relayLogin');
+          !storedSession && saveStoredSession(loginSession);
+        } catch {
+          logOut();
+          return;
+        }
       }
     }
 
-    function decodeToken() {
-      decodedToken = jwtHelper.decodeToken(encodedToken);
-      decodedToken.permissions = expandPermissions(decodedToken.profile);
+    // Save the token in the local storage (globally) or in a temporal variable (local)
+    function loginByToken(jwtToken) {
+      loginSession = decodeLoginSession(jwtToken);
+      saveStoredSession(loginSession);
+    }
+
+    function saveStoredSession(loginSession) {
+      $window.localStorage.setItem('jwtToken', loginSession.token);
+      $window.localStorage.setItem('relayLogin', angular.toJson({
+        accountId: loginSession.accountId,
+        accountName: loginSession.accountName
+      }));
+    }
+
+    function decodeLoginSession(jwtToken) {
+      var decodedToken = jwtHelper.decodeToken(jwtToken);
+      var permissions = expandPermissions(decodedToken.profile);
+      var accountName = decodedToken.relay_accounts && decodedToken.relay_accounts[0] || decodedToken.unique_name.replace("@", "-").replace(".com.ar", "").replace(".com", "");
+      return {
+        token: jwtToken,
+        permissions: permissions,
+        accountId: decodedToken.sub,
+        accountName: accountName,
+        accounts: decodedToken.relay_accounts,
+        username: decodedToken.unique_name,
+        expiration: decodedToken.exp,
+        temporaryToken: decodedToken.relay_temporal_token
+      };
     }
 
     function expandPermissions(profile) {
@@ -85,13 +108,13 @@
     }
 
     function isUrlAllowed(url) {
-      return !decodedToken 
-        || !decodedToken.permissions
-        || decodedToken.permissions.acceptedUrlsPattern.test(url);
+      return !loginSession 
+        || !loginSession.permissions
+        || loginSession.permissions.acceptedUrlsPattern.test(url);
     }
 
     function getDefaultUrl() {
-      return decodedToken && decodedToken.permissions && decodedToken.permissions.defaultUrl || null;
+      return loginSession && loginSession.permissions && loginSession.permissions.defaultUrl || null;
     }
 
     // Login - Make a request to the api for authenticating
@@ -128,7 +151,7 @@
             data: { title: "User is pending activation." }
           });
         }
-        saveToken(token);
+        loginByToken(token);
         $rootScope.loadLimits();
         return { authenticated: true };
       })
@@ -157,73 +180,58 @@
     }
 
     function getApiToken() {
-      if (temporarilyAuthed) {
-        return encodedToken;
-      } else {
-        ensureToken();
-        return encodedToken;
+      if (!loginSession) {
+        return null;
       }
+      if (loginSession.temporaryToken) {
+        return loginSession.token
+      }
+      ensureToken();
+      return loginSession && loginSession.token;
     }
-
+    
     function ensureToken() {
-      // It is to avoid have different users in UI and AJAX requests
-      // TODO: improve it because when token is removed, the request is done anyway, maybe it is possible to cancel request when there is no token
-      var token = $window.localStorage.getItem('jwtToken');
-      if (!token) {
-        logOut();
-      } else if (token != encodedToken) {
-        encodedToken = token;
-        decodeToken();
+      // It is to allow apply logout in all open tabs and also to avoid having different users in UI and AJAX requests.
+      var storedToken = $window.localStorage.getItem('jwtToken');
+      
+      if (storedToken != loginSession.token) {
+        try {
+          loginByToken(storedToken);
+        } catch {
+          logOut();
+        }
       }
     }
-
 
     function logOut() {
-      decodedToken = null;
-      encodedToken = null;
-      temporarilyAuthed = false;
+      loginSession = null;
       $window.localStorage.removeItem('jwtToken');
+      $window.localStorage.removeItem('relayLogin');
     }
 
     // Check if the user is authenticated
     function isAuthed() {
-      return decodedToken != null;
+      return loginSession != null;
     }
 
     function isTemporarilyAuthed() {
-      return temporarilyAuthed;
+      return loginSession && loginSession.temporaryToken || false;
     }
 
     function getAccountName() {
-      if (!decodedToken) {
-        return null;
-      }
-      var accountName = decodedToken.relay_accounts && decodedToken.relay_accounts[0];
-      if (!accountName) {
-        accountName = decodedToken.unique_name.replace("@", "-").replace(".com.ar", "").replace(".com", "");
-      }
-      return accountName;
+      return loginSession && loginSession.accountName;
     }
 
     function getAccountId() {
-      if (!decodedToken) {
-        return null;
-      }
-      return decodedToken.sub;
+      return loginSession && loginSession.accountId;
     }
 
     function getUserName() {
-      if (!decodedToken) {
-        return null;
-      }
-      return decodedToken.unique_name;
+      return loginSession && loginSession.username;
     }
 
     function getFullName() {
-      if (!decodedToken) {
-        return null;
-      }
-      return decodedToken.name || getAccountName();
+      return loginSession && (loginSession.name || getAccountName());
     }
 
     function forgotPassword(email, lang, captchaResponse) {
@@ -273,7 +281,7 @@
 
     function getLimitsByAccount() {
       var accountName = getAccountName();
-      if (!decodedToken || decodedToken.relay_temporal_token || !accountName) {
+      if (!loginSession || loginSession.temporaryToken || !accountName) {
         // limits have no sense in these scenarios
         return $q.when({});
       }
@@ -347,7 +355,7 @@
             data: { title: "Response does not include access token." }
           });
         }
-        saveToken(token);
+        loginByToken(token);
       })
       .catch(function (reason) {
         return $q.reject(reason);
