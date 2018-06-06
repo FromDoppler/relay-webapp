@@ -9,13 +9,15 @@
   adapterService.$inject = [
     '$http',
     '$q',
-    '$window'
+    '$window',
+    'RELAY_CONFIG'
   ];
 
   function adapterService(
     $http,
     $q,
-    $window) {
+    $window,
+    RELAY_CONFIG) {
     var service = {
       getCampaign: getCampaign,
       campaignSaveChanges: campaignSaveChanges,
@@ -354,15 +356,25 @@
      */
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
-      var campaign = {
-        id: id,
-        type: 'campaign',
-        name: 'Campaign ' + id,
-        attributes: {},
-        innerHTML: '',
-        children: []
-      };
-      return $q.resolve({ data: campaign });
+      return $http.get(`${RELAY_CONFIG.baseUrl}/accounts/${loginSession.accountName}/template/${id}`, {
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      }).then(function(response) {
+        var campaign = {
+          id: id,
+          type: 'campaign',
+          name: 'Campaign ' + id,
+          attributes: {},
+          innerHTML: '',
+          children: []
+        };
+        return { data: campaign };
+      },
+      function(error) {
+        alert(error.data && error.data.detail || "Unexpected exception");
+        $window.location = "/#/templates"
+      });
     }
 
     /**
