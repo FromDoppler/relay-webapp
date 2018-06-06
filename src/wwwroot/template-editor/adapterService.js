@@ -32,19 +32,43 @@
     };
     
     var langKey = null;
+    var loginSession = null;
+    var apiToken = null;
     init();
 
     return service;
 
     function init() {
       langKey = getPreferredLanguage();
+      loginSession = getStoredSession('relayLogin');
+      apiToken = getStoredToken('jwtToken');
     };
+
+    function getStoredSession(storageName) {
+      var storedSession = angular.fromJson($window.localStorage.getItem(storageName));
+      if (!storedSession) {
+        logOut();
+      }
+      return storedSession;
+    }
+    
+    function getStoredToken(tokenName) {
+      var storedToken = $window.localStorage.getItem(tokenName);
+      if (!storedToken) {
+        logOut();
+      }
+      return storedToken;
+    }
 
     function getPreferredLanguage() {
       var key = $window.localStorage.getItem('lang');
       return key || 'en';
     };
-    
+
+    function logOut() {
+      $window.location = "/";
+    }
+
     /**
      * Return a preview placeholder image
      * @argument {Object} params - Configuration object
