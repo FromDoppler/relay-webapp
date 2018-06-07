@@ -50,7 +50,7 @@
           // To ensure having relayLogin item in legacy sessions
           var storedSession = $window.localStorage.getItem('relayLogin');
           !storedSession && saveStoredSession(loginSession);
-        } catch {
+        } catch (error) {
           logOut();
           return;
         }
@@ -197,7 +197,7 @@
       if (storedToken != loginSession.token) {
         try {
           loginByToken(storedToken);
-        } catch {
+        } catch (error) {
           logOut();
         }
       }
