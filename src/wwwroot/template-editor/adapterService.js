@@ -375,6 +375,8 @@
         return { data: campaign };
       },
       function(error) {
+        console.log(error)
+        alert(error.data && error.data.detail || "Fatal error");
         $window.location = "/#/templates"
       });
     }

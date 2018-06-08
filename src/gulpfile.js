@@ -255,23 +255,28 @@ gulp.task('build-html', ['add-revision-numbers', 'build-mseditor'], function () 
   .pipe(gulp.dest(paths.build));
 });
 
-gulp.task('build-mseditor', ['template-editor'], function () {
+gulp.task('build-mseditor', ['template-editor', 'add-revision-numbers'], function () {
+  var sources = gulp.src([
+    paths.build + '/template-editor/mseditor.*.js'
+  ]);
+  
   return gulp.src([
     paths.app + '/template-editor/index.html'
   ])
-  .pipe(gulpInject(gulp.src(paths.app + '/env/template-editor/' + process.env.NODE_ENV + '.js'), {
-    transform: function(filePath, file) {
-      return '<script>' + file.contents.toString() + '</script>';
-    }
+  .pipe(gulpInject(sources, {
+    addRootSlash: false, // ensures proper relative paths
+    ignorePath: paths.build + '/template-editor' // ensures proper relative paths
   }))
   .pipe(gulp.dest(paths.build + '/template-editor'));
 });
 
 gulp.task('template-editor', function () {
   return gulp.src([
-      paths.app + '/template-editor/adapterService.js'
+      paths.app + '/template-editor/adapterService.js',
+      paths.app + '/template-editor/env/' + process.env.NODE_ENV + '.js'
   ])
-  .pipe(gulp.dest(paths.build + '/template-editor'));
+  .pipe(concat('mseditor.js'))
+  .pipe(gulp.dest(paths.tmpPrebuild + '/template-editor'));
 });
 
 gulp.task('build-partials', function () {
