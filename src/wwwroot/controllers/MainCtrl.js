@@ -197,7 +197,7 @@
     };
 
     $scope.applyActive = function (name) {
-      return $location.path().split(/[\s/]+/).pop() == name ? true : false;
+      return $location.path().split(/[\s/]+/).pop() == name;
     };
   }
 
