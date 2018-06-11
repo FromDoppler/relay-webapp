@@ -9,13 +9,15 @@
   adapterService.$inject = [
     '$http',
     '$q',
-    '$window'
+    '$window',
+    'RELAY_CONFIG'
   ];
 
   function adapterService(
     $http,
     $q,
-    $window) {
+    $window,
+    RELAY_CONFIG) {
     var service = {
       getCampaign: getCampaign,
       campaignSaveChanges: campaignSaveChanges,
@@ -354,15 +356,29 @@
      */
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
-      var campaign = {
-        id: id,
-        type: 'campaign',
-        name: 'Campaign ' + id,
-        attributes: {},
-        innerHTML: '',
-        children: []
-      };
-      return $q.resolve({ data: campaign });
+      return $http.get(`${RELAY_CONFIG.baseUrl}/accounts/${loginSession.accountId}/template/${id}`, {
+        params: {
+          useAsTemplate: useEditorAsTemplate
+        },
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      }).then(function(response) {
+        var campaign = {
+          id: id,
+          type: 'campaign',
+          name: 'Campaign ' + id,
+          attributes: {},
+          innerHTML: '',
+          children: []
+        };
+        return { data: campaign };
+      },
+      function(error) {
+        console.log(error)
+        alert(error.data && error.data.detail || "Fatal error");
+        $window.location = "/#/templates"
+      });
     }
 
     /**
