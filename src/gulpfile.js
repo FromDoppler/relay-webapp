@@ -228,7 +228,7 @@ gulp.task('build-styles', ['styles'], function () {
  * Builds the index.html injecting several dependencies.
  * Relies on: "gulp-inject".
  */
-gulp.task('build-html', ['add-revision-numbers'], function () {
+gulp.task('build-html', ['add-revision-numbers', 'build-mseditor'], function () {
   // Note: wild-cards are there to keep the file order and also to support revision numbers
   var sources = gulp.src([
     paths.build + '/scripts/lib*.js',
@@ -253,6 +253,25 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
     ignorePath: paths.build + '/' // ensures proper relative paths
   }))
   .pipe(gulp.dest(paths.build));
+});
+
+gulp.task('build-mseditor', ['template-editor'], function () {
+  return gulp.src([
+    paths.app + '/template-editor/index.html'
+  ])
+  .pipe(gulpInject(gulp.src(paths.app + '/env/template-editor/' + process.env.NODE_ENV + '.js'), {
+    transform: function(filePath, file) {
+      return '<script>' + file.contents.toString() + '</script>';
+    }
+  }))
+  .pipe(gulp.dest(paths.build + '/template-editor'));
+});
+
+gulp.task('template-editor', function () {
+  return gulp.src([
+      paths.app + '/template-editor/adapterService.js'
+  ])
+  .pipe(gulp.dest(paths.build + '/template-editor'));
 });
 
 gulp.task('build-partials', function () {
