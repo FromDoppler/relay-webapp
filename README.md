@@ -1,4 +1,4 @@
-# Relay WebApp [![Build Status](https://travis-ci.org/DopplerRelay/relay-webapp.svg?branch=develop)](https://travis-ci.org/DopplerRelay/relay-webapp) [![Sauce Test Status](https://saucelabs.com/buildstatus/dopplerrelay)](https://saucelabs.com/u/dopplerrelay)
+# Relay WebApp [![Build Status](https://travis-ci.org/DopplerRelay/relay-webapp.svg?branch=develop)](https://travis-ci.org/DopplerRelay/relay-webapp)
 
 ## Setup
 
@@ -81,38 +81,3 @@ Tests runs by Karma and are written under Jasmine framework. And we can run them
 Each file placed inside `test` folder with a filename ending with `.spec.js` will be interpreted as a test file.
 
 Since Protractor uses Selenium and Selenium is a Java application, [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) is required.
-
-## Generate secure credentials for Travis + SauceLabs
-
-The following steps are required to generate the SauceLabs secure credentials for Travis:
-
-1- Make sure you have at least Ruby 1.9.3 (2.0.0 recommended) installed
-
-2- You can check your Ruby version by running ruby -v
-
-    $ ruby -v
-    ruby 2.0.0p195 (2013-05-14 revision 40734) [x86_64-darwin12.3.0]
-
-3- Then run:
-
-    $ gem install travis -v 1.8.6 --no-rdoc --no-ri
-
-4- Now make sure everything is working:
-
-    $ travis version
-    1.8.6
-
-5- Open the git project folder on the command line and execute the following commands to get the secured credentials
-
-5.1- Encrypt SauceLabs user using the following command:
-
-    travis encrypt SAUCE_USERNAME="theusername"
-
-5.2- Encrypt SauceLabs access key using the following command:
-
-    travis encrypt SAUCE_ACCESS_KEY="theaccesskey"
-
-References
-* https://github.com/travis-ci/travis.rb#installation
-* https://docs.travis-ci.com/user/encryption-keys/
-* https://docs.travis-ci.com/user/sauce-connect/

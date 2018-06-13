@@ -62,7 +62,7 @@ var defaultsForCapability = {
 };
 
 function onPrepare() {
-  // TODO: We have to do this because in SauceLabs the screen size is not working correctly.
+  // TODO: We have to do this because in some e2e tests the screen size is required to work correctly.
   browser.driver.manage().window().setSize(1280, 960);
   browser.addMockModule('commonModule', () => angular
     .module('commonModule', ['ngMockE2E'])
