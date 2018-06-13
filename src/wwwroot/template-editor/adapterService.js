@@ -9,15 +9,13 @@
   adapterService.$inject = [
     '$http',
     '$q',
-    '$window',
-    'RELAY_CONFIG'
+    '$window'
   ];
 
   function adapterService(
     $http,
     $q,
-    $window,
-    RELAY_CONFIG) {
+    $window) {
     var service = {
       getCampaign: getCampaign,
       campaignSaveChanges: campaignSaveChanges,
@@ -36,6 +34,9 @@
     var langKey = null;
     var loginSession = null;
     var apiToken = null;
+    var RELAY_CONFIG = {
+      baseUrl: 'http://localhost:34751'
+    };
     init();
 
     return service;
@@ -356,7 +357,8 @@
      */
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
-      return $http.get(`${RELAY_CONFIG.baseUrl}/accounts/${loginSession.accountName}/template/${id}`, {
+      // TODO This is a temporary url reference to the current backend syntax call
+      return $http.get(`${RELAY_CONFIG.baseUrl}/accounts/${loginSession.accountId}/templates/${id}`, {
         headers: {
           'Authorization': 'Bearer '+ apiToken
         }
@@ -372,11 +374,11 @@
         return { data: campaign };
       },
       function(error) {
-        alert(error.data && error.data.detail || "Unexpected exception");
-        $window.location = "/#/templates"
+        var errorDetail = error.data && error.data.detail || "Unexpected error";
+        console.log(errorDetail);
+        return $q.reject(error);
       });
     }
-
     /**
      * Return settings from json to configure language, 3rd service tokens, and url links
      * @argument {number} idCampaign - The campaign identifier
