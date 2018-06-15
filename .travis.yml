@@ -26,4 +26,4 @@ before_script:
   - yarn
 script:
   # Execute tests
-  - gulp test:travis
+  - gulp test
