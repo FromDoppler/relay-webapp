@@ -271,6 +271,7 @@ gulp.task('build-mseditor', ['build-scripts-template-editor', 'add-revision-numb
 
 gulp.task('build-scripts-template-editor', function () {
   return gulp.src([
+    paths.app + '/env/' + process.env.NODE_ENV + '.js',
     paths.app + '/template-editor/*.js'
   ])
   .pipe(concat('relay-editor.js'))
