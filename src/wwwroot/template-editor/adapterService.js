@@ -358,7 +358,7 @@
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
       // TODO This is a temporary url reference to the current backend syntax call
-      return $http.get(`${RELAY_CONFIG.baseUrl}/accounts/${loginSession.accountId}/templates/${id}`, {
+      return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id, {
         headers: {
           'Authorization': 'Bearer '+ apiToken
         }
