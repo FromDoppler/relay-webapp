@@ -257,14 +257,14 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
 
 gulp.task('build-mseditor', ['build-scripts-template-editor', 'add-revision-numbers'], function () {
   var sources = gulp.src([
-    paths.build + '/scripts/relay-editor.*.js'
+    paths.build + '/template-editor/relay-editor.*.js'
   ]);
   return gulp.src([
     paths.app + '/template-editor/index.html'
   ])
   .pipe(gulpInject(sources, {
     addRootSlash: false, // ensures proper relative paths removing the root slash
-    ignorePath: paths.build // ensures proper relative paths removing the absolute path
+    ignorePath: paths.build + '/template-editor' // ensures proper relative paths removing the absolute path
   }))
   .pipe(gulp.dest(paths.build + '/template-editor'));
 });
@@ -277,7 +277,7 @@ gulp.task('build-scripts-template-editor', function () {
   .pipe(uglify({
     mangle: false
   }))
-  .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
+  .pipe(gulp.dest(paths.tmpPrebuild + '/template-editor'));
 });
 
 gulp.task('build-partials', function () {
