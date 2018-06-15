@@ -67,6 +67,13 @@
           data-badge="bottomright"></div>
           <button class="button button--large" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
       </div>
+      <div class="flex flex--left section--wrapper flex--direction-column width--full gdpr--container">
+        <p ng-bind-html="'registration_gdpr_details_1' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_2' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_3' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_4' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_5' | translate"></p>
+      </div>
     </div>
   </div>
   </form>

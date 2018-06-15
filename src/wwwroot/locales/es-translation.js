@@ -482,6 +482,10 @@
   "validation_step_one_pending": "Solo resta el paso 2.",
   "validation_step_two": "Realiza al menos 1 envío de prueba para confirmar que la conexión esté realizada correctamente.",
   "validation_step_two_link": " Aquí puedes encontrar tus credenciales.",
-  "validation_step_two_href": "#/settings/connection-settings"
-
+  "validation_step_two_href": "#/settings/connection-settings",
+  "registration_gdpr_details_1": "Doppler te informa que los datos de carácter personal que nos proporciones al rellenar el presente formulario serán tratados por Making Sense LLC (Doppler) como responsable de esta web.",
+  "registration_gdpr_details_2": "<strong>Finalidad:</strong> Darte de alta en nuestra plataforma y brindarte los servicios que nos requieras.",
+  "registration_gdpr_details_3": "<strong>Legitimación:</strong> Consentimiento del interesado.",
+  "registration_gdpr_details_4": "<strong>Destinatarios:</strong> Tus datos serán guardados por Doppler, Zoho como CRM, Digital Ocean, Cogeco Peer1 y Rackspace como empresas de hosting.",
+  "registration_gdpr_details_5": "<strong>Información adicional:</strong> En la <a target='_blank' href='https://www.dopplerrelay.com/privacidad'>Política de Privacidad</a> de Doppler encontrarás información adicional sobre la recopilación y el uso de su información personal por parte de Doppler, incluida información sobre acceso, conservación, rectificación, eliminación, seguridad, transferencias transfronterizas y otros temas."
 };
