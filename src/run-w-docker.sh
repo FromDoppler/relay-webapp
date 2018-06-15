@@ -16,5 +16,5 @@ docker run --rm \
     /bin/sh -c "\
         yarn global add gulp \
         && yarn \
-        && gulp \
+        && yarn run start \
     "
