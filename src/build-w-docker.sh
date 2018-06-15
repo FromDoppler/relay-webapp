@@ -21,5 +21,6 @@ docker run --rm \
         yarn global add gulp \
         && yarn \
         && gulp build \
-        && gulp test \
     "
+
+## I cannot run gulp test because it requires chrome
