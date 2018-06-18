@@ -9,13 +9,15 @@
   adapterService.$inject = [
     '$http',
     '$q',
-    '$window'
+    '$window',
+    'RELAY_CONFIG'
   ];
 
   function adapterService(
     $http,
     $q,
-    $window) {
+    $window,
+    RELAY_CONFIG) {
     var service = {
       getCampaign: getCampaign,
       campaignSaveChanges: campaignSaveChanges,
@@ -34,9 +36,6 @@
     var langKey = null;
     var loginSession = null;
     var apiToken = null;
-    var RELAY_CONFIG = {
-      baseUrl: 'http://localhost:34751'
-    };
     init();
 
     return service;

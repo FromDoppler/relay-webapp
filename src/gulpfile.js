@@ -271,7 +271,11 @@ gulp.task('build-mseditor', ['build-scripts-template-editor', 'add-revision-numb
 
 gulp.task('build-scripts-template-editor', function () {
   return gulp.src([
-    paths.app + '/template-editor/*.js'
+    paths.app + '/template-editor/*.js',
+    // TODO: Refactor this config files to json and inject in dopplerRelay and mseditor modules a
+    // configuration module with ng-constant
+    // Reference: https://github.com/MakingSense/MSEditor/blob/6a2a90d6f442184d93fabdb539540819c82a303f/refactor/gulpfile.js#L481-L488
+    paths.app + '/env/' + process.env.NODE_ENV + '.js'
   ])
   .pipe(concat('relay-editor.js'))
   .pipe(uglify({
