@@ -257,14 +257,14 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
 
 gulp.task('build-mseditor', ['build-scripts-template-editor', 'add-revision-numbers'], function () {
   var sources = gulp.src([
-    paths.build + '/scripts/relay-editor.*.js'
+    paths.build + '/template-editor/relay-editor.*.js'
   ]);
   return gulp.src([
     paths.app + '/template-editor/index.html'
   ])
   .pipe(gulpInject(sources, {
     addRootSlash: false, // ensures proper relative paths removing the root slash
-    ignorePath: paths.build // ensures proper relative paths removing the absolute path
+    ignorePath: paths.build + '/template-editor' // ensures proper relative paths removing the absolute path
   }))
   .pipe(gulp.dest(paths.build + '/template-editor'));
 });
@@ -277,7 +277,7 @@ gulp.task('build-scripts-template-editor', function () {
   .pipe(uglify({
     mangle: false
   }))
-  .pipe(gulp.dest(paths.tmpPrebuild + '/scripts'));
+  .pipe(gulp.dest(paths.tmpPrebuild + '/template-editor'));
 });
 
 gulp.task('build-partials', function () {
@@ -471,20 +471,3 @@ gulp.task('build', ['clean'], function () {
   );
 });
 
-/**
- * Task used for running the tests in travis
- */
-gulp.task('test:travis', function (done) {
-
-  gulp.start('default');
-
-  var argv = [getProtractorBinary(), 'protractor-travis-conf.js'].concat(process.argv.slice(3));
-
-  child_process
-    .spawn(getNodeBinary(), argv, { stdio: 'inherit' })
-    .on('error', function (e) { throw e; })
-    .on('close', function (e) { process.exit(e); });
-
-  gulp.start('test:unit');
-
-});

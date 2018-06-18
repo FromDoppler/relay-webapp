@@ -47,7 +47,8 @@
     "selenium-webdriver": "~3.0.1"
   },
   "scripts": {
-    "postinstall": "bower install && webdriver-manager update",
-    "start": "gulp"
+    "postinstall": "bower --allow-root install && webdriver-manager update",
+    "start": "gulp",
+    "build": "gulp build"
   }
 }
