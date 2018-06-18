@@ -48,12 +48,21 @@
         </div>
       <div class="flex section--wrapper-input terms">
         <div class="wrapper-input width--full">
-          <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" required/><span>{{'confirmation_terms' | translate}}</span> <a target="_blank" href="https://www.dopplerrelay.com/privacidad">{{'confirmation_terms_link' | translate}}</a><a target="_blank" href="https://www.dopplerrelay.com/terminos-condiciones">{{'confirmation_terms_2' | translate}}</a>
+          <input ng-model="vm.checkTerms" name="checkTerms" type="checkbox" required/><span ng-bind-html="'confirmation_terms' | translate"></span>
         </div>
         <div class="wrapper-input width--full">
           <span class="input--error" ng-show="vm.submitted && form.checkTerms.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
         </div>
       </div>
+      <!-- This will be commented until we have the backend ready -->
+      <!--div class="flex section--wrapper-input terms promotions">
+        <div class="wrapper-input width--full">
+          <input ng-model="vm.checkPromotions" name="checkPromotions" type="checkbox" required/><span ng-bind-html="'confirmation_promotions' | translate"></span>
+        </div>
+        <div class="wrapper-input width--full">
+          <span class="input--error" ng-show="vm.submitted && form.checkPromotions.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+        </div>
+      </div-->
       <div class="flex input-container submit flex--content-end">
           <div
           vc-recaptcha
@@ -66,6 +75,13 @@
           on-expire="vm.reloadCaptcha()"
           data-badge="bottomright"></div>
           <button class="button button--large" type="submit" ng-click="vm.submitRegistration(form)">{{'registration_submit' | translate}}</button>
+      </div>
+      <div class="flex flex--left section--wrapper flex--direction-column width--full gdpr--container">
+        <p ng-bind-html="'registration_gdpr_details_1' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_2' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_3' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_4' | translate"></p>
+        <p ng-bind-html="'registration_gdpr_details_5' | translate"></p>
       </div>
     </div>
   </div>

@@ -246,10 +246,12 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
     margin-bottom: 3rem;
     h2{
       max-width: 40rem;
+      color: $suit-main-color;
     }
   }
   min-height: inherit;
   height: 100%;
+  color: $suit-font-color-light;
   .validation-error-fluid{
     display: inline-block;
     width: initial !important;
@@ -261,7 +263,8 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
     margin-bottom: 1.8em;
   }
   .terms {
-    &.section--wrapper-input{
+    &.section--wrapper-input,
+    .promotions {
       margin-top: 0;
       margin-bottom: 0.5em;
     }
@@ -277,16 +280,17 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
     }
     a {color: $suit-accent-color;}
   }
-  .input-container{
+  .input-container {
       align-items: inherit;
       input,span{
         display: flex;
       }
-      .margin-right{
+      .margin-right {
         margin-right: 2em;
       }
-      &.submit{
+      &.submit {
         align-items: flex-start !important;
+        margin-bottom: 2.5em;
         .captcha--container{
           margin-bottom: 0 !important;
           div:first-of-type{
@@ -294,6 +298,12 @@ body{ height: 100%;max-height: 100%;min-height: 635px;}
           }
         }
       }
+  }
+  .gdpr--container {
+    p {
+      margin-top: 0.5em;
+    }
+    a {color: $suit-accent-color;}
   }
 }
 
