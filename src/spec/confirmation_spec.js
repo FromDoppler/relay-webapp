@@ -16,7 +16,7 @@ describe('Confirmation Page', () => {
                "password_empty": false,
                "firstName": "Pablo",
                "lastName": "Barrios",
-               "terms_and_conditions_version": 1,
+               "terms_and_conditions_version": 2,
                "company_name": "MS",
                "phone_number": null,
                "country_code": null,
