@@ -34,7 +34,7 @@
     };
 
     $rootScope.getTermsAndConditionsVersion = function () {
-      return 1;
+      return 2;
     };
      
     var freeTrialNotification = auth.getFreeTrialNotificationFromStorage();

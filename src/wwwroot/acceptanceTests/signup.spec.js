@@ -11,7 +11,7 @@ describe('Signup', () => {
       $rootScope.addError = err => errors.push(err);
       $rootScope.addAuthorizationError = $rootScope.addError;
       $rootScope.loadLimits = () => {};
-      $rootScope.getTermsAndConditionsVersion = () => 1;
+      $rootScope.getTermsAndConditionsVersion = () => 2;
 
       context = {
         errors: errors,
