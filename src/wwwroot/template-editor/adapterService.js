@@ -9,13 +9,15 @@
   adapterService.$inject = [
     '$http',
     '$q',
-    '$window'
+    '$window',
+    'RELAY_CONFIG'
   ];
 
   function adapterService(
     $http,
     $q,
-    $window) {
+    $window,
+    RELAY_CONFIG) {
     var service = {
       getCampaign: getCampaign,
       campaignSaveChanges: campaignSaveChanges,
@@ -354,17 +356,28 @@
      */
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
-      var campaign = {
-        id: id,
-        type: 'campaign',
-        name: 'Campaign ' + id,
-        attributes: {},
-        innerHTML: '',
-        children: []
-      };
-      return $q.resolve({ data: campaign });
+      // TODO This is a temporary url reference to the current backend syntax call
+      return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id, {
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      }).then(function(response) {
+        var campaign = {
+          id: id,
+          type: 'campaign',
+          name: 'Campaign ' + id,
+          attributes: {},
+          innerHTML: '',
+          children: []
+        };
+        return { data: campaign };
+      },
+      function(error) {
+        var errorDetail = error.data && error.data.detail || "Unexpected error";
+        console.log(errorDetail);
+        return $q.reject(error);
+      });
     }
-
     /**
      * Return settings from json to configure language, 3rd service tokens, and url links
      * @argument {number} idCampaign - The campaign identifier

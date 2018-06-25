@@ -255,6 +255,35 @@ gulp.task('build-html', ['add-revision-numbers'], function () {
   .pipe(gulp.dest(paths.build));
 });
 
+gulp.task('build-mseditor', ['build-scripts-template-editor', 'add-revision-numbers'], function () {
+  var sources = gulp.src([
+    paths.build + '/template-editor/relay-editor.*.js'
+  ]);
+  return gulp.src([
+    paths.app + '/template-editor/index.html'
+  ])
+  .pipe(gulpInject(sources, {
+    addRootSlash: false, // ensures proper relative paths removing the root slash
+    ignorePath: paths.build + '/template-editor' // ensures proper relative paths removing the absolute path
+  }))
+  .pipe(gulp.dest(paths.build + '/template-editor'));
+});
+
+gulp.task('build-scripts-template-editor', function () {
+  return gulp.src([
+    paths.app + '/template-editor/*.js',
+    // TODO: Refactor this config files to json and inject in dopplerRelay and mseditor modules a
+    // configuration module with ng-constant
+    // Reference: https://github.com/MakingSense/MSEditor/blob/6a2a90d6f442184d93fabdb539540819c82a303f/refactor/gulpfile.js#L481-L488
+    paths.app + '/env/' + process.env.NODE_ENV + '.js'
+  ])
+  .pipe(concat('relay-editor.js'))
+  .pipe(uglify({
+    mangle: false
+  }))
+  .pipe(gulp.dest(paths.tmpPrebuild + '/template-editor'));
+});
+
 gulp.task('build-partials', function () {
   // TODO: minify partials. It is important for cache/revision
   // TODO: take into account revision here
@@ -310,7 +339,7 @@ gulp.task('fonts', function () {
   .pipe(gulp.dest(paths.build + '/fonts'));
 });
 
-gulp.task('add-revision-numbers', ['build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials', 'fonts'], function () {
+gulp.task('add-revision-numbers', ['build-scripts-template-editor', 'build-scripts', 'build-styles', 'locales', 'svg-sprite', 'build-partials', 'fonts'], function () {
   var revAll = new RevAll();
   return gulp.src([
     paths.tmpPrebuild + '/**'
@@ -439,26 +468,10 @@ gulp.task('test', [
  */
 gulp.task('build', ['clean'], function () {
   gulp.start(
+    'build-mseditor',
     'build-html',
     'web.config',
     'hcheck.png'
   );
 });
 
-/**
- * Task used for running the tests in travis
- */
-gulp.task('test:travis', function (done) {
-
-  gulp.start('default');
-
-  var argv = [getProtractorBinary(), 'protractor-travis-conf.js'].concat(process.argv.slice(3));
-
-  child_process
-    .spawn(getNodeBinary(), argv, { stdio: 'inherit' })
-    .on('error', function (e) { throw e; })
-    .on('close', function (e) { process.exit(e); });
-
-  gulp.start('test:unit');
-
-});

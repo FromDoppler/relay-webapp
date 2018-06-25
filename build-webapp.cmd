@@ -6,5 +6,5 @@ CD src
 RD build /S /Q
 call yarn
 SET NODE_ENV=%1
-call gulp build
+call yarn run build
 CD %originalDir%

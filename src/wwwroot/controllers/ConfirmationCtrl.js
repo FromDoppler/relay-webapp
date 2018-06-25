@@ -28,7 +28,6 @@
     vm.submitActivation = submitActivation;
     vm.activationPromise = activate();
     vm.passwordEmpty = false;
-    vm.termsAccepted = false;
 
     function activate() {
 
@@ -58,7 +57,6 @@
           vm.name = result.data.firstName || result.data.user_email;
           vm.domain = result.data.domain;
           vm.passwordEmpty = result.data.password_empty;
-          vm.termsAccepted = result.data.terms_and_conditions_version;
           return getRealApiKey(activationToken);
         });
     }
@@ -89,9 +87,8 @@
         return;
       }
       var pass = form.pass.$modelValue || null;
-      var checkTerms = form.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null;
       var parsedPhoneNumber = form.countryPhoneNumber.$modelValue + '-' + form.areaPhoneNumber.$modelValue + '-' + form.phoneNumber.$modelValue;
-      return signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, parsedPhoneNumber, form.country.$modelValue.code, checkTerms)
+      return signup.activateUser(apiKey, form.domain.$modelValue, userName, pass, $translate.use(), form.industry.$modelValue.code, parsedPhoneNumber, form.country.$modelValue.code)
         .then(function (result) {
           $rootScope.isNewUser = true;
           var credentials = {
