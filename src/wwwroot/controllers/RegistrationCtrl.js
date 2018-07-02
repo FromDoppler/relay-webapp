@@ -84,7 +84,8 @@
         company: vm.company,
         termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
         recaptchaResponse: response,
-        origin: $location.search().origin
+        origin: $location.search().origin,
+        checkPromotions: vm.checkPromotions
       };
 
       signup.registerUser(user, $translate.use(), onExpectedError)
