@@ -1,4 +1,4 @@
-﻿window['relay-translation-es'] = {
+window['relay-translation-es'] = {
   "doppler_url_link": "https://app2.fromdoppler.com/Registration/Register/StartRegistration/?id=es&origin=relayapp",
   "log_out": "Salir",
   "footer_main": "{{ companyName }} es un servicio de",
@@ -139,7 +139,7 @@
   "confirmation_domain": "Dominio:",
   "confirmation_domain_simple": "Dominio:",
   "confirmation_submit": "INGRESAR A MI CUENTA",
-  "confirmation_terms": "Acepto la <a target='_blank' href='https://www.dopplerrelay.com/privacidad'>Política de Privacidad .</a>de Doppler.",
+  "confirmation_terms": "Acepto la <a target='_blank' href='https://www.dopplerrelay.com/privacidad'>Política de Privacidad</a>de Doppler.",
   "confirmation_promotions": "Quiero recibir promociones de Doppler y sus aliados.",
   "password": "Contraseña:",
   "password_simple": "Contraseña:",
