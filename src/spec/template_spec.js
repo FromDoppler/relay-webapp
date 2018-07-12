@@ -5,6 +5,10 @@ describe('Template Page', () => {
     browser.removeMockModule('descartableModule');
     browser.removeMockModule('descartableModule2');
     browser.removeMockModule('descartableModule3');
+    browser.removeMockModule('descartableModule4');
+    browser.removeMockModule('descartableModule5');
+    browser.removeMockModule('descartableModule6');
+    browser.removeMockModule('descartableModule7');
   })
 
   function beginAuthenticatedSession() {
@@ -16,7 +20,7 @@ describe('Template Page', () => {
       }));
   }
 
-  function setupEditTemplateResponse() {
+  function setupTemplateResponse() {
     browser.addMockModule('descartableModule2', () => angular
       .module('descartableModule2', ['ngMockE2E'])
       .run($httpBackend => {
@@ -45,117 +49,158 @@ describe('Template Page', () => {
           "domainConfigurationRequired": false,
           "_links": []
         });
-        http://localhost:34751/accounts/1003/templates
-        $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates/).respond(200, {
-          "items": [
-            {
-              "from_name": "test",
-              "from_email": "test@test.test",
-              "subject": "test",
-              "body": "Test content body",
-              "name": "test",
-              "id": "32e93fa4-c8f4-467a-a2bb-da95f72a27b4",
-              "last_updated": "2018-07-12T15:45:19Z",
-              "created_at": "2018-07-12T13:27:40Z",
-              "bodyType": "rawHtml",
-              "_links": []
-            }
-          ],
-          "pageSize": 200,
-          "itemsCount": 1,
-          "currentPage": 1,
-          "pagesCount": 1,
-          "_links": []
-        });
-
-        $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*/).respond(200, {
-          "message": "Template successfully updated",
-          "_links": []
-        });
-
-        $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
-          "message": "Template successfully updated",
-          "_links": []
-        });
       }
     ));
   }
 
-  it('should show template form texts in edit mode in english', () => {
+  function setupCreateTemplateSuccessResponse() {
+    browser.addMockModule('descartableModule3', () => angular
+    .module('descartableModule3', ['ngMockE2E'])
+    .run($httpBackend => {
+
+      $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates/).respond(200, {
+        "items": [
+          {
+            "from_name": "test name",
+            "from_email": "test@test.test",
+            "subject": "test subject",
+            "body": "Template body test",
+            "name": "Test template",
+            "id": "1169ab26-78dc-4474-a8c2-e1f02f6c05ed",
+            "last_updated": "2018-07-12T15:45:19Z",
+            "created_at": "2018-07-12T13:27:40Z",
+            "bodyType": "rawHtml",
+            "_links": []
+          }
+        ],
+        "pageSize": 200,
+        "itemsCount": 1,
+        "currentPage": 1,
+        "pagesCount": 1,
+        "_links": []
+      });
+
+      $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
+        "message": "Template successfully updated",
+        "_links": []
+      });
+
+      $httpBackend.whenPOST(/\/accounts\/[\d|-]*\/templates/).respond(200, {
+        "createdResourceId": "1169ab26-78dc-4474-a8c2-e1f02f6c05ed",
+        "message": "Template successfully created",
+        "_links": []
+      });
+    }));
+  }
+
+  function setupCreateNewTemplateFailResponse() {
+    browser.addMockModule('descartableModule4', () => angular
+    .module('descartableModule4', ['ngMockE2E'])
+    .run($httpBackend => {
+
+      $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates/).respond(200, {
+        "items": [
+          {
+            "from_name": "test name",
+            "from_email": "test@test.test",
+            "subject": "test subject",
+            "body": "Template body test",
+            "name": "Test template",
+            "id": "1169ab26-78dc-4474-a8c2-e1f02f6c05ed",
+            "last_updated": "2018-07-12T15:45:19Z",
+            "created_at": "2018-07-12T13:27:40Z",
+            "bodyType": "rawHtml",
+            "_links": []
+          }
+        ],
+        "pageSize": 200,
+        "itemsCount": 1,
+        "currentPage": 1,
+        "pagesCount": 1,
+        "_links": []
+      });
+
+      $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
+        "message": "Template successfully updated",
+        "_links": []
+      });
+
+      $httpBackend.whenPOST(/\/accounts\/[\d|-]*\/templates/).respond(500, {
+        "createdResourceId": "1169ab26-78dc-4474-a8c2-e1f02f6c05ed",
+        "message": "Template creation fail",
+        "_links": []
+      });
+    }));
+  }
+
+  function setupTemplateListSuccessResponse() {
+    browser.addMockModule('descartableModule5', () => angular
+    .module('descartableModule5', ['ngMockE2E'])
+    .run($httpBackend => {
+
+      $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates/).respond(200, {
+        "items": [
+          {
+            "from_name": "test name",
+            "from_email": "test@test.test",
+            "subject": "test subject",
+            "body": "Template body test",
+            "name": "Test template",
+            "id": "1169ab26-78dc-4474-a8c2-e1f02f6c05ed",
+            "last_updated": "2018-07-12T15:45:19Z",
+            "created_at": "2018-07-12T13:27:40Z",
+            "bodyType": "rawHtml",
+            "_links": []
+          }
+        ],
+        "pageSize": 200,
+        "itemsCount": 1,
+        "currentPage": 1,
+        "pagesCount": 1,
+        "_links": []
+      });
+    }));
+  }
+
+  function setupEditTemplateSuccessResponse() {
+    browser.addMockModule('descartableModule6', () => angular
+    .module('descartableModule6', ['ngMockE2E'])
+    .run($httpBackend => {
+
+      $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*/).respond(200, {
+        "message": "Template successfully updated",
+        "_links": []
+      });
+    
+      $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
+        "message": "Template successfully updated",
+        "_links": []
+      });
+    }));
+  }
+
+  function setupEditTemplateErrorResponse() {
+    browser.addMockModule('descartableModule7', () => angular
+    .module('descartableModule7', ['ngMockE2E'])
+    .run($httpBackend => {
+
+      $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*/).respond(500, {
+        "message": "Template successfully updated",
+        "_links": []
+      });
+    
+      $httpBackend.whenPUT(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(500, {
+        "message": "Template successfully updated",
+        "_links": []
+      });
+    }));
+  }
+
+  it('should show the save template button in edit mode', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
-    setupEditTemplateResponse();
-
-    var templatePage = new TemplatePage();
-    var expectedTitleText = "Template Info";
-    var expectedTemplateNameText = "Template name";
-    var expectedFromEmailText = "From Email";
-    var expectedFromNameText = "From Name";
-    var expectedSubjectText = "Subject";
-    var expectedTemplateEditorTitle = "Template Editor";
-    var expectedTemplateEditorDescription = "Here's where you can create and edit your custom template.";
-
-    // Act
-    templatePage.clickEnglishFlag();
-    var templateTitleText = templatePage.getTemplatePageTitleText();
-    var templateNameText = templatePage.getTemplateNameLabelText();
-    var templateFromEmailText = templatePage.getTemplateFromEmailLabelText();
-    var templateFromNameText = templatePage.getTemplateFromNameLabelText();
-    var templateSubjectText = templatePage.getTemplateSubjectLabelText();
-    var templateEditorTitleText = templatePage.getTemplateEditorTitleText();
-    var templateEditorDescriptionText = templatePage.getTemplateEditorDescriptionText();
-
-    // Assert
-    expect(templateTitleText).toBe(expectedTitleText);
-    expect(templateNameText).toBe(expectedTemplateNameText);
-    expect(templateFromEmailText).toBe(expectedFromEmailText);
-    expect(templateFromNameText).toBe(expectedFromNameText);
-    expect(templateSubjectText).toBe(expectedSubjectText);
-    expect(templateEditorTitleText).toBe(expectedTemplateEditorTitle);
-    expect(templateEditorDescriptionText).toBe(expectedTemplateEditorDescription);
-  });
-
-  it('should show template form texts in edit mode in spanish', () => {
-    // Arrange
-    beginAuthenticatedSession();
-    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
-    setupEditTemplateResponse();
-
-    var templatePage = new TemplatePage();
-    var expectedTitleText = "Información de la Plantilla";
-    var expectedTemplateNameText = "Nombre de la Plantilla";
-    var expectedFromEmailText = "Dirección de Correo del Remitente";
-    var expectedFromNameText = "Nombre del Remitente";
-    var expectedSubjectText = "Asunto";
-    var expectedTemplateEditorTitle = "Edición de la Plantilla";
-    var expectedTemplateEditorDescription = "Aquí podrás crear y editar tu plantilla personalizada.";
-
-    // Act
-    templatePage.clickSpanishFlag();
-    var templateTitleText = templatePage.getTemplatePageTitleText();
-    var templateNameText = templatePage.getTemplateNameLabelText();
-    var templateFromEmailText = templatePage.getTemplateFromEmailLabelText();
-    var templateFromNameText = templatePage.getTemplateFromNameLabelText();
-    var templateSubjectText = templatePage.getTemplateSubjectLabelText();
-    var templateEditorTitleText = templatePage.getTemplateEditorTitleText();
-    var templateEditorDescriptionText = templatePage.getTemplateEditorDescriptionText();
-
-    // Assert
-    expect(templateTitleText).toBe(expectedTitleText);
-    expect(templateNameText).toBe(expectedTemplateNameText);
-    expect(templateFromEmailText).toBe(expectedFromEmailText);
-    expect(templateFromNameText).toBe(expectedFromNameText);
-    expect(templateSubjectText).toBe(expectedSubjectText);
-    expect(templateEditorTitleText).toBe(expectedTemplateEditorTitle);
-    expect(templateEditorDescriptionText).toBe(expectedTemplateEditorDescription);
-  });
-
-  it('should show the save template button in edit mode in english', () => {
-    // Arrange
-    beginAuthenticatedSession();
-    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
-    setupEditTemplateResponse();
+    setupTemplateResponse();
 
     var templatePage = new TemplatePage();
 
@@ -170,7 +215,7 @@ describe('Template Page', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
-    setupEditTemplateResponse();
+    setupTemplateResponse();
 
     var templatePage = new TemplatePage();
 
@@ -186,17 +231,108 @@ describe('Template Page', () => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
-    setupEditTemplateResponse();
+    setupTemplateResponse();
+    setupEditTemplateSuccessResponse();
+    setupTemplateListSuccessResponse();
     var body = "Test content body";
-
     var templatePage = new TemplatePage();
 
     // Act
-    templatePage.FillTemplateBodySection(body);
+    templatePage.fillTemplateBodySection(body);
     templatePage.clickSaveTemplateButton();
     
     // Assert
-    expect(browser.getCurrentUrl()).not.toContain('templates/');
+    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/templates');
   });
 
+  it('should show error and do not redirect when save fails', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    var templateUrl = '/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4';
+    browser.get(templateUrl);
+    setupTemplateResponse();
+    setupEditTemplateErrorResponse();
+    setupTemplateListSuccessResponse();
+    var body = "Test content body";
+    var templatePage = new TemplatePage();
+
+    // Act
+    templatePage.fillTemplateBodySection(body);
+    templatePage.clickSaveTemplateButton();
+    
+    // Assert
+    expect(templatePage.isErrorModalDisplayed()).toBeTruthy();
+    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + templateUrl);
+
+  });
+
+  it('should show error and do not redirect when create template fails', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    var newTemplateUrl = '/#/templates/new';
+    browser.get(newTemplateUrl);
+    setupTemplateResponse();
+    setupCreateNewTemplateFailResponse();
+    setupTemplateListSuccessResponse();
+    var templateName = "Test template";
+    var templateFromEmail = "test@test.test";
+    var templateFromName = "test name";
+    var templateSubject = "test subject";
+    var templateBody = "Template body test"
+    var templatePage = new TemplatePage();
+
+    // Act
+    templatePage.fillTemplateNameInput(templateName);
+    templatePage.fillTemplateFromEmailInput(templateFromEmail);
+    templatePage.fillTemplateFromNameinput(templateFromName);
+    templatePage.fillTemplateSubjectInput(templateSubject);
+    templatePage.fillTemplateBodySection(templateBody);
+    templatePage.clickSaveTemplateButton();
+    
+    // Assert
+    expect(templatePage.isErrorModalDisplayed()).toBeTruthy();
+    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + newTemplateUrl);
+  });
+
+  it('should redirect to template list after successfully save', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/templates/new');
+    setupTemplateResponse();
+    setupCreateTemplateSuccessResponse();
+    setupTemplateListSuccessResponse();
+    var templateName = "Test template";
+    var templateFromEmail = "test@test.test";
+    var templateFromName = "test name";
+    var templateSubject = "test subject";
+    var templateBody = "Template body test"
+    var templatePage = new TemplatePage();
+
+    // Act
+    templatePage.fillTemplateNameInput(templateName);
+    templatePage.fillTemplateFromEmailInput(templateFromEmail);
+    templatePage.fillTemplateFromNameinput(templateFromName);
+    templatePage.fillTemplateSubjectInput(templateSubject);
+    templatePage.fillTemplateBodySection(templateBody);
+    templatePage.clickSaveTemplateButton();
+    
+    // Assert
+    expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/templates');
+  });
+
+  it('should not allow to create a new template when the form is not completed', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/templates/new');
+    setupTemplateResponse();
+    var expectedTotalInvalidFields = 4;
+    var templatePage = new TemplatePage();
+
+    // Act
+    templatePage.clearTemplateForm();
+    templatePage.clickSaveTemplateButton();
+    
+    // Assert
+    expect(templatePage.getTotalInvalidFields()).toBe(expectedTotalInvalidFields);
+  });
 });
