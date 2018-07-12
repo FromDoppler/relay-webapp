@@ -39,19 +39,16 @@
     function load(templateId) {
       $scope.loadInProgress = true;
 
-      templates.getTemplate(templateId)
-        .then(function (result) {
-          $scope.template.fromName = result.from_name;
-          $scope.template.fromEmail = result.from_email;
-          $scope.template.subject = result.subject;
-          $scope.template.content = result.body;
-          $scope.template.name = result.name;
-          $scope.template.id = result.id;
-        }).catch(function (error) {
-          // TODO: do something with the error
-        }).finally(function () {
-          $scope.loadInProgress = false;
-        });
+      templates.getTemplateWithBody(templateId).then(function (result) {
+        $scope.template.fromName = result.from_name;
+        $scope.template.fromEmail = result.from_email;
+        $scope.template.subject = result.subject;
+        $scope.template.name = result.name;
+        $scope.template.id = result.id;
+        $scope.template.content = result.body;
+      }).finally(function () {
+        $scope.loadInProgress = false;
+      });
     }
 
     function save() {
