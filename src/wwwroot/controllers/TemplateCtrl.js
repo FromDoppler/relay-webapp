@@ -67,8 +67,6 @@
       }).then(function (result) {
         $scope.template.id = result;
         $location.path('/templates');
-      }).catch(function () {
-        // TODO: do something with the error
       }).finally(function () {
         $scope.saveInProgress = false;
       });
