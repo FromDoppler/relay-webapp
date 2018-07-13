@@ -296,6 +296,8 @@
      */
     function campaignSaveChangesAsTemplate(params) {
       traceAdapterCall(campaignSaveChangesAsTemplate, arguments);
+      saveTemplateChanges(params);
+      
       var savedCampaignAsTemplate = {
         Success: true,
         ErrorMessage: '',
@@ -303,6 +305,35 @@
         IdTemplate: 1
       }
       return savedCampaignAsTemplate;
+    }
+
+    function saveTemplateChanges(params) {
+      var templateBody = {
+        'mseditor': {
+          'attributes' : params.campaign.attributes,
+          'settings' : params.campaign.attributes,
+          'children' : params.campaign.children,
+        },
+        'html' : params.campaign.html,
+        'name': params.campaign.name
+      };
+      $http({
+        actionDescription: 'saving mseditor template',
+        method: 'PUT',
+        data: {
+          'html': templateBody.html,
+          'mseditor':  templateBody.mseditor 
+        },
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + params.campaign.id + '/body',
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      })
+      .catch(function(error) {
+        var errorDetail = error.data && error.data.detail || "Unexpected error";
+        console.log(errorDetail);
+        return $q.reject(error); 
+      });
     }
 
     /**
