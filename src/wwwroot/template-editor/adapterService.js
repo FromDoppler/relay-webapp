@@ -296,15 +296,16 @@
      */
     function campaignSaveChangesAsTemplate(params) {
       traceAdapterCall(campaignSaveChangesAsTemplate, arguments);
-      saveTemplateContentChanges(params);
-      
-      var savedCampaignAsTemplate = {
-        Success: true,
-        ErrorMessage: '',
-        UrlToRedirect: 'http://www.google.com/',
-        IdTemplate: 1
-      }
-      return savedCampaignAsTemplate;
+      return saveTemplateContentChanges(params).then(function() {
+        var url = $window.location.origin + '/#/templates';
+        var savedCampaignAsTemplate = {
+          Success: true,
+          ErrorMessage: '',
+          UrlToRedirect: url,
+          IdTemplate: 1
+        }
+        return savedCampaignAsTemplate;
+      });
     }
 
     function saveTemplateContentChanges(params) {
@@ -316,7 +317,7 @@
         },
         'html' : params.campaign.html
       };
-      $http({
+      return $http({
         actionDescription: 'saving mseditor template',
         method: 'PUT',
         data: {
@@ -362,14 +363,17 @@
      */
     function campaignSaveChanges(params) {
       traceAdapterCall(campaignSaveChanges, arguments);
-      var savedCampaign = {
-        data: {
-          Success: true,
-          ErrorMessage: '',
-          UrlToRedirect: 'http://www.google.com/'
+       return saveTemplateContentChanges(params).then(function() {
+        var url = $window.location.origin + '/#/templates';
+        var savedCampaign = {
+          data: {
+            Success: true,
+            ErrorMessage: '',
+            UrlToRedirect: url
+          }
         }
-      }
-      return $q.resolve(savedCampaign);
+        return savedCampaign;
+       });
     }
 
     /**
