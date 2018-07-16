@@ -297,32 +297,28 @@
     function campaignSaveChangesAsTemplate(params) {
       traceAdapterCall(campaignSaveChangesAsTemplate, arguments);
       return saveTemplateContentChanges(params).then(function() {
-        var url = $window.location.origin + '/#/templates';
+        var url = $window.location.origin + '/#/templates/' + params.campaign.id;
         var savedCampaignAsTemplate = {
           Success: true,
           ErrorMessage: '',
           UrlToRedirect: url,
-          IdTemplate: 1
+          IdTemplate: params.campaign.id
         }
         return savedCampaignAsTemplate;
       });
     }
 
     function saveTemplateContentChanges(params) {
-      var templateBody = {
-        'mseditor': {
-          'attributes' : params.campaign.attributes,
-          'settings' : params.campaign.attributes,
-          'children' : params.campaign.children,
-        },
-        'html' : params.campaign.html
-      };
       return $http({
         actionDescription: 'saving mseditor template',
         method: 'PUT',
         data: {
-          'html': templateBody.html,
-          'mseditor':  templateBody.mseditor 
+          'mseditor': {
+            'attributes' : params.campaign.attributes,
+            'settings' : params.campaign.attributes,
+            'children' : params.campaign.children,
+          },
+          'html' : params.campaign.html
         },
         url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + params.campaign.id + '/body',
         headers: {
@@ -364,7 +360,7 @@
     function campaignSaveChanges(params) {
       traceAdapterCall(campaignSaveChanges, arguments);
        return saveTemplateContentChanges(params).then(function() {
-        var url = $window.location.origin + '/#/templates';
+        var url = $window.location.origin + '/#/templates/' + params.campaign.id;
         var savedCampaign = {
           data: {
             Success: true,
@@ -390,24 +386,20 @@
      */
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
-      // TODO This is a temporary url reference to the current backend syntax call
-      var campaign = {
-        id: id,
-        type: 'campaign',
-        name: 'Campaign ' + id,
-        attributes: {},
-        innerHTML: '',
-        children: []
-      };
 
       return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id + '/body', {
         headers: {
           'Authorization': 'Bearer '+ apiToken
         }
       }).then(function(response) {
-        campaign.attributes = response.data.attributes || null;
-        campaign.innerHTML = response.data.innerHTML || null;
-        campaign.children = response.data.children || null;
+        var campaign = {
+          id: id,
+          type: 'campaign',
+          name: 'Campaign ' + id,
+          attributes: response.data.mseditor ? response.data.mseditor.attributes : null,
+          innerHTML: response.data.mseditor ? response.data.mseditor.innerHTML : null,
+          children: response.data.mseditor ? response.data.mseditor.children : null
+        };
         return { data: campaign };
       }).catch(function(reason) {
         var reasonDetail = reason.data && reason.data.detail || "Unexpected error";
