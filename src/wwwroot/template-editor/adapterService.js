@@ -296,7 +296,7 @@
      */
     function campaignSaveChangesAsTemplate(params) {
       traceAdapterCall(campaignSaveChangesAsTemplate, arguments);
-      saveTemplateChanges(params);
+      saveTemplateContentChanges(params);
       
       var savedCampaignAsTemplate = {
         Success: true,
@@ -307,15 +307,14 @@
       return savedCampaignAsTemplate;
     }
 
-    function saveTemplateChanges(params) {
+    function saveTemplateContentChanges(params) {
       var templateBody = {
         'mseditor': {
           'attributes' : params.campaign.attributes,
           'settings' : params.campaign.attributes,
           'children' : params.campaign.children,
         },
-        'html' : params.campaign.html,
-        'name': params.campaign.name
+        'html' : params.campaign.html
       };
       $http({
         actionDescription: 'saving mseditor template',
@@ -388,27 +387,31 @@
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
       // TODO This is a temporary url reference to the current backend syntax call
-      return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id, {
+      var campaign = {
+        id: id,
+        type: 'campaign',
+        name: 'Campaign ' + id,
+        attributes: {},
+        innerHTML: '',
+        children: []
+      };
+
+      return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id + '/body', {
         headers: {
           'Authorization': 'Bearer '+ apiToken
         }
       }).then(function(response) {
-        var campaign = {
-          id: id,
-          type: 'campaign',
-          name: 'Campaign ' + id,
-          attributes: {},
-          innerHTML: '',
-          children: []
-        };
+        campaign.attributes = response.data.attributes || null;
+        campaign.innerHTML = response.data.innerHTML || null;
+        campaign.children = response.data.children || null;
         return { data: campaign };
-      },
-      function(error) {
-        var errorDetail = error.data && error.data.detail || "Unexpected error";
-        console.log(errorDetail);
-        return $q.reject(error);
+      }).catch(function(reason) {
+        var reasonDetail = reason.data && reason.data.detail || "Unexpected error";
+        console.log(reasonDetail);
+        return $q.reject(reason);
       });
     }
+
     /**
      * Return settings from json to configure language, 3rd service tokens, and url links
      * @argument {number} idCampaign - The campaign identifier
