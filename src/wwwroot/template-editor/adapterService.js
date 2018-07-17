@@ -395,7 +395,7 @@
         var campaign = {
           id: id,
           type: 'campaign',
-          name: 'Campaign ' + id,
+          name: response.data.name,
           attributes: response.data.mseditor ? response.data.mseditor.attributes : null,
           innerHTML: response.data.mseditor ? response.data.mseditor.innerHTML : null,
           children: response.data.mseditor ? response.data.mseditor.children : null
