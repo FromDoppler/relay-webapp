@@ -39,7 +39,7 @@
     function load(templateId) {
       $scope.loadInProgress = true;
 
-      templates.getTemplateWithBody(templateId).then(function (result) {
+      return templates.getTemplateWithBody(templateId).then(function (result) {
         $scope.template.fromName = result.from_name;
         $scope.template.fromEmail = result.from_email;
         $scope.template.subject = result.subject;
@@ -57,7 +57,7 @@
       }
 
       $scope.saveInProgress = true;
-      templates.save({
+      return templates.save({
         from_name: $scope.template.fromName,
         from_email: $scope.template.fromEmail,
         subject: $scope.template.subject,
