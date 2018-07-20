@@ -396,8 +396,9 @@
           id: id,
           type: 'campaign',
           name: response.data.name,
+          html: response.data.html,
           attributes: response.data.mseditor ? response.data.mseditor.attributes : null,
-          innerHTML: response.data.mseditor ? response.data.mseditor.innerHTML : null,
+          settings: response.data.mseditor ? response.data.mseditor.settings : null,
           children: response.data.mseditor ? response.data.mseditor.children : null
         };
         return { data: campaign };
