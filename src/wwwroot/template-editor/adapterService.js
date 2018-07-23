@@ -296,13 +296,40 @@
      */
     function campaignSaveChangesAsTemplate(params) {
       traceAdapterCall(campaignSaveChangesAsTemplate, arguments);
-      var savedCampaignAsTemplate = {
-        Success: true,
-        ErrorMessage: '',
-        UrlToRedirect: 'http://www.google.com/',
-        IdTemplate: 1
-      }
-      return savedCampaignAsTemplate;
+      return saveTemplateContentChanges(params).then(function() {
+        var url = $window.location.origin + '/#/templates/' + params.campaign.id;
+        var savedCampaignAsTemplate = {
+          Success: true,
+          ErrorMessage: '',
+          UrlToRedirect: url,
+          IdTemplate: params.campaign.id
+        }
+        return savedCampaignAsTemplate;
+      });
+    }
+
+    function saveTemplateContentChanges(params) {
+      return $http({
+        actionDescription: 'saving mseditor template',
+        method: 'PUT',
+        data: {
+          'mseditor': {
+            'attributes' : params.campaign.attributes,
+            'settings' : params.campaign.attributes,
+            'children' : params.campaign.children,
+          },
+          'html' : params.campaign.html
+        },
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + params.campaign.id + '/body',
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      })
+      .catch(function(error) {
+        var errorDetail = error.data && error.data.detail || "Unexpected error";
+        console.log(errorDetail);
+        return $q.reject(error); 
+      });
     }
 
     /**
@@ -332,14 +359,17 @@
      */
     function campaignSaveChanges(params) {
       traceAdapterCall(campaignSaveChanges, arguments);
-      var savedCampaign = {
-        data: {
-          Success: true,
-          ErrorMessage: '',
-          UrlToRedirect: 'http://www.google.com/'
+       return saveTemplateContentChanges(params).then(function() {
+        var url = $window.location.origin + '/#/templates/' + params.campaign.id;
+        var savedCampaign = {
+          data: {
+            Success: true,
+            ErrorMessage: '',
+            UrlToRedirect: url
+          }
         }
-      }
-      return $q.resolve(savedCampaign);
+        return savedCampaign;
+       });
     }
 
     /**
@@ -356,8 +386,8 @@
      */
     function getCampaign(id, useEditorAsTemplate) {
       traceAdapterCall(getCampaign, arguments);
-      // TODO This is a temporary url reference to the current backend syntax call
-      return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id, {
+
+      return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id + '/body', {
         headers: {
           'Authorization': 'Bearer '+ apiToken
         }
@@ -365,19 +395,19 @@
         var campaign = {
           id: id,
           type: 'campaign',
-          name: 'Campaign ' + id,
-          attributes: {},
-          innerHTML: '',
-          children: []
+          name: response.data.name,
+          attributes: response.data.mseditor ? response.data.mseditor.attributes : null,
+          innerHTML: response.data.mseditor ? response.data.mseditor.innerHTML : null,
+          children: response.data.mseditor ? response.data.mseditor.children : null
         };
         return { data: campaign };
-      },
-      function(error) {
-        var errorDetail = error.data && error.data.detail || "Unexpected error";
-        console.log(errorDetail);
-        return $q.reject(error);
+      }).catch(function(reason) {
+        var reasonDetail = reason.data && reason.data.detail || "Unexpected error";
+        console.log(reasonDetail);
+        return $q.reject(reason);
       });
     }
+
     /**
      * Return settings from json to configure language, 3rd service tokens, and url links
      * @argument {number} idCampaign - The campaign identifier

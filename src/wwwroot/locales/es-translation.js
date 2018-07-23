@@ -139,7 +139,7 @@ window['relay-translation-es'] = {
   "confirmation_domain": "Dominio:",
   "confirmation_domain_simple": "Dominio:",
   "confirmation_submit": "INGRESAR A MI CUENTA",
-  "confirmation_terms": "Acepto la <a target='_blank' href='https://www.dopplerrelay.com/privacidad'>Política de Privacidad</a>de Doppler.",
+  "confirmation_terms": "Acepto la <a target='_blank' href='https://www.dopplerrelay.com/privacidad'>Política de Privacidad</a> de Doppler.",
   "confirmation_promotions": "Quiero recibir promociones de Doppler y sus aliados.",
   "password": "Contraseña:",
   "password_simple": "Contraseña:",

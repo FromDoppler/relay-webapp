@@ -17,9 +17,9 @@
 
     var templatesService = {
       getAllData: getAllData,
-      getTemplate: getTemplate,
+      getTemplateWithBody: getTemplateWithBody,
       save: save,
-      deleteTemplate: deleteTemplate
+      deleteTemplate: deleteTemplate,
     };
 
     return templatesService;
@@ -52,32 +52,95 @@
         actionDescription: 'action_templates_getting',
         method: 'GET',
         url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + id
-      })
-          .then(function (result) {
-            return result.data;
-          });
+      }).then(extractData);
     };
 
-    function save(model) {
+    function getTemplateBody(id) {
       var accountId = auth.getAccountId();
 
-      var isCreating = !model.id;
+      return $http({
+        actionDescription: 'action_templates_getting_body',
+        method: 'GET',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + id + '/body'
+      }).then(extractData);
+    }
 
-      var request = { data: model };
-
-      if (isCreating) {
-        request.actionDescription = 'action_templates_creating',
-        request.method = 'POST',
-        request.url = RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates';
-      } else {
-        request.actionDescription = '"Editing a template"',
-        request.method = 'PUT',
-        request.url = RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + model.id;
-      }
-
-      return $http(request).then(function (result) {
-        return isCreating ? result.createdResourceId : model.id;
+    function getTemplateWithBody(templateId) {
+      return getTemplate(templateId).then(function (template) {
+        return getTemplateBody(templateId).then(function (body) {
+          return {
+            from_name: template.from_name,
+            from_email: template.from_email,
+            subject: template.subject,
+            id: template.id,
+            name: body.name,
+            body: body.html
+          };
+        });
       });
+    }
+
+    function save(templateModel) {
+      var accountId = auth.getAccountId();
+      var isCreating = !templateModel.id;
+      var updateTemplatePromise = isCreating ? createTemplate(accountId, templateModel) : editTemplate(accountId, templateModel);
+      return updateTemplatePromise.then(function (templateId) {
+        return editTemplateBody(accountId, templateId, templateModel.name, templateModel.body).then(function () {
+          return templateId;
+        }).catch(function (reason) {
+          // TODO: Show a special message error when template was update but body fails
+          return $q.reject(reason);
+        });
+      });
+    }
+
+    function createTemplate(accountId, templateModel) {
+      return $http({
+        actionDescription: 'action_templates_creating',
+        method: 'POST',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates',
+        data: {
+          from_name: templateModel.from_name,
+          from_email: templateModel.from_email,
+          subject: templateModel.subject,
+          name: templateModel.name
+        }
+      }).then(function (result) {
+        return result.data.createdResourceId;
+      });
+    }
+
+    function editTemplate(accountId, templateModel) {
+      return $http({
+        // TODO: check action description
+        actionDescription: 'Editing a template',
+        method: 'PUT',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + templateModel.id,
+        data: {
+          from_name: templateModel.from_name,
+          from_email: templateModel.from_email,
+          subject: templateModel.subject,
+          name: templateModel.name,
+          id: templateModel.id
+        }
+      }).then(function () {
+        return templateModel.id;
+      });
+    }
+
+    function editTemplateBody(accountId, templateId, name, body) {
+      return $http({
+        actionDescription: 'Editing a template body',
+        method: 'PUT',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + templateId + '/body',
+        data: {
+          html: body
+        }
+      });
+    }
+
+    function extractData(response) {
+      return response.data;
     }
   }
 
