@@ -2,7 +2,7 @@
   <!-- Asking server for data -->
   <spinner class="spinner padded" ng-show="loadInProgress"></spinner>
 </div>
-<form novalidate name="form" ng-show="!loadInProgress" ng-submit="save()">
+<form novalidate name="form" ng-show="!loadInProgress" ng-submit="save()" ng-class="submitted ? 'ng-submitted' : ''">
   <section class="templates--information">
     <div class="section--wrapper">
       <h2>{{'templates_information_title' | translate}}</h2>
@@ -54,19 +54,45 @@
       <h2>{{'templates_edition_title' | translate}}</h2>
       <div class="flex flex--between">
         <label for="uContent">{{'templates_edition_subtitle' | translate}}</label>
+      </div>    
+      <div class="templates-htmlraw--container" ng-show="{{!forceMsEditor}}">  
+        <textarea id="uContent"
+                  name="uContent"
+                  validation-errors
+                  ng-required="{{!forceMsEditor}}"
+                  ng-model="template.content"
+                  class="input width--full"></textarea>
       </div>
-      <textarea id="uContent"
-                name="uContent"
-                required
-                validation-errors
-                ng-model="template.content"
-                class="input width--full"></textarea>
+      <div class="grid templates-selector--container" ng-show="{{forceMsEditor}}">
+        <div class="templates-mseditor--container">
+          <label>{{ 'templates_edition_mseditor_label' | translate }}</label> 
+          <a class="button-mseditor--selector" ng-click="save('mseditor');submitted = true">
+            <div class="text--center">
+              <svg width="300px" height="84px">
+                <use href="/images/sprite.svg#doppler-icon-DopplerEditor-drag-drop"></use>
+              </svg>
+            </div>
+          </a>
+        </div>
+        <!-- Uncomment this when the user can interact with both edition options -->
+        <!-- <div class="templates-mseditor--container disabled no-highlight">
+            <label>{{ 'templates_edition_htmlraw_label' | translate }}</label> 
+            <a class="button-mseditor--selector">
+              <div>
+                <p>{{'templates_edition_html_example_1' | translate}}</p>
+                <p>{{'templates_edition_html_example_2' | translate}}</p>
+                <p>{{'templates_edition_html_example_3' | translate}}</p>
+                <p>{{'templates_edition_html_example_4' | translate}}</p>
+              </div>
+            </a>
+        </div> -->
+      </div>
       <div class="section--wrapper text--center">
         <input type="submit"
-               class="button button--medium"
-               ng-class="!saveInProgress ? '' : 'button--disabled'"
-               ng-disabled="saveInProgress"
-               value="{{'templates_save_button' | translate}}" />
+              class="button button--medium"
+              ng-class="!saveInProgress ? '' : 'button--disabled'"
+              ng-disabled="saveInProgress"
+              value="{{'templates_save_button' | translate}}" />
       </div>
     </div>
   </section>

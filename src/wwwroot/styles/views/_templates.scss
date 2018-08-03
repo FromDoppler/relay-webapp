@@ -188,6 +188,34 @@
   &.padded{
     padding: torem(70px) 0;
   }
+
+  .templates-selector--container {
+    grid-template-columns: 47% 47%;
+    grid-gap: 4%;
+    .templates-mseditor--container {
+      label {
+        display: inline-block;
+        margin-top: 2em;
+        margin-bottom: .35em;
+      }
+      .button-mseditor--selector {
+        display: block;
+        padding: 20px 0;
+        background-color: #fff;   
+        border: 1px solid $suit-accent-color;
+        border-radius: 3px;
+      }
+      &.disabled {
+        opacity: .5;
+        pointer-events: none;
+        .button-mseditor--selector {
+          p {
+            font-size: $font-size-small;
+          }
+        }
+      }
+    }
+  }
 }
 
 .squares{

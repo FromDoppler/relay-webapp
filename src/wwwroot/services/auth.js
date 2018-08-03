@@ -60,6 +60,7 @@
     // Save the token in the local storage (globally) or in a temporal variable (local)
     function loginByToken(jwtToken) {
       loginSession = decodeLoginSession(jwtToken);
+      $rootScope.forceMsEditor = loginSession.forceMsEditor || false;
       saveStoredSession(loginSession);
     }
 
@@ -83,7 +84,8 @@
         accounts: decodedToken.relay_accounts,
         username: decodedToken.unique_name,
         expiration: decodedToken.exp,
-        temporaryToken: decodedToken.relay_temporal_token
+        temporaryToken: decodedToken.relay_temporal_token,
+        forceMsEditor: decodedToken.force_mseditor
       };
     }
 

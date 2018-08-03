@@ -51,7 +51,10 @@
       });
     }
 
-    function save() {
+    function save(url) {
+      if (url) {
+        $scope.form.$submitted = true;
+      }
       if ($scope.form.$invalid) {
         return;
       }
@@ -66,7 +69,11 @@
         id: $scope.template.id
       }).then(function (result) {
         $scope.template.id = result;
-        $location.path('/templates');
+        if(url == "mseditor") {
+          location.href = location.origin + '/template-editor/?idCampaign=' + result;
+        } else {
+          $location.path('/templates');
+        }
       }).finally(function () {
         $scope.saveInProgress = false;
       });

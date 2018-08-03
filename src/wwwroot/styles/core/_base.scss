@@ -155,6 +155,11 @@ section {
   text-align: center;
 }
 
+.grid {
+  display: -ms-grid;
+  display: grid;
+}
+
 .flex{
   display: flex;
 }
@@ -438,6 +443,16 @@ a {
 }
 .highlight--temporal-error{
   background-color: $suit-color-input-hover !important;
+}
+
+.no-highlight {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 .background--violet {background-color: $suit-color-status-violet;}
