@@ -2,7 +2,7 @@
   <!-- Asking server for data -->
   <spinner class="spinner padded" ng-show="loadInProgress"></spinner>
 </div>
-<form novalidate name="form" ng-show="!loadInProgress" ng-submit="save()" ng-class="submitted ? 'ng-submitted' : ''">
+<form novalidate name="form" ng-show="!loadInProgress" ng-submit="saveHtmlRaw()" ng-class="submitted ? 'ng-submitted' : ''">
   <section class="templates--information">
     <div class="section--wrapper">
       <h2>{{'templates_information_title' | translate}}</h2>
@@ -66,7 +66,7 @@
       <div class="grid templates-selector--container" ng-show="{{forceMsEditor}}">
         <div class="templates-mseditor--container">
           <label>{{ 'templates_edition_mseditor_label' | translate }}</label> 
-          <a class="button-mseditor--selector" ng-click="save('mseditor');submitted = true">
+          <a class="button-mseditor--selector" ng-click="saveMseditor();">
             <div class="text--center">
               <svg width="300px" height="84px">
                 <use href="/images/sprite.svg#doppler-icon-DopplerEditor-drag-drop"></use>

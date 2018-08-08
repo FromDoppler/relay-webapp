@@ -349,7 +349,7 @@ describe('Template Page', () => {
     expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(false);
   });
 
-  it('should show the mseditor button when the token forceMseditor is not null', () => {
+  it('should show the mseditor button when the token forceMseditor is true', () => {
     // Arrange
     browser.addMockModule('descartableModule', () => angular
       .module('descartableModule', [])
