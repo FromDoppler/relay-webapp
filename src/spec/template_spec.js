@@ -335,4 +335,35 @@ describe('Template Page', () => {
     // Assert
     expect(templatePage.getTotalInvalidFields()).toBe(expectedTotalInvalidFields);
   });
+
+  it('should not show the mseditor button when the token forceMseditor is null', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/new');
+
+    // Assert
+    expect(templatePage.isTemplateHtmlRawInputDisplayed()).toBe(true);
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(false);
+  });
+
+  it('should show the mseditor button when the token forceMseditor is not null', () => {
+    // Arrange
+    browser.addMockModule('descartableModule', () => angular
+      .module('descartableModule', [])
+      .run((jwtHelper, auth) => {
+        var permanentToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE1MzM3MzMxNzQsImV4cCI6MTUzNjMyNTE3NCwiaWF0IjoxNTMzNzMzMTc0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjo3NTI2NiwidW5pcXVlX25hbWUiOiJjZ2lhZ2FudGUrNzdAbWFraW5nc2Vuc2UuY29tIiwicmVsYXlfYWNjb3VudHMiOlsiY2dpYWdhbnRlIl0sInJlbGF5X3Rva2VuX3ZlcnNpb24iOiIxLjAuMC1iZXRhNSIsImltcGVyc29uYXRlZF9ieSI6bnVsbCwiZm9yY2VfbXNlZGl0b3IiOnRydWV9.bjfgSg803yKZ5w4_vAu0xERqILkf-a4XBuEc8PlrvbwOqwovtwt20p5IUYvPY7auROG7Sm8o5IqP1D7sUFAXlYeXNXihUhkoM-HnMmUtx94JCkjJeLxueFMSkYPcqPb2ckeLTZukzeILf1o-rkrP65-yddoTSXXBY3YaXK246oeN49lelKldUUcjFSc_1c2s030xiY7oVdY-xjYXJMBfvdyWmzcm2vzn6HWoFQCBIE_iqMw_h5HhSwADRFE7InEmsbLhw8jfvEmWwWnC4iOJNpmPc-tFqEuxdJ0MX_YHv4RlACybtM6mNlTKziI4mv7GlhUpXRaGfWBJtpGgweFtuw';
+        auth.loginByToken(permanentToken);
+      }));
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/new');
+
+    // Assert
+    expect(templatePage.isTemplateHtmlRawInputDisplayed()).toBe(false);
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(true);
+  });
 });
