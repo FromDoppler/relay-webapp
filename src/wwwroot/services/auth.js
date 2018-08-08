@@ -48,6 +48,7 @@
         try {
           loginSession = decodeLoginSession(encodedToken);
           // To ensure having relayLogin item in legacy sessions
+          $rootScope.forceMsEditor = loginSession.forceMsEditor || false;
           var storedSession = $window.localStorage.getItem('relayLogin');
           !storedSession && saveStoredSession(loginSession);
         } catch (error) {

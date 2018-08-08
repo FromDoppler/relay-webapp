@@ -27,7 +27,7 @@
     $scope.saveInProgress = false;
 
     $scope.saveHtmlRaw = saveHtmlRaw;
-    $scope.saveMseditor = saveMseditor;
+    $scope.saveAndEditWithMseditor = saveAndEditWithMseditor;
 
     if ($routeParams["templateId"]) {
       load($routeParams["templateId"]);
@@ -61,32 +61,30 @@
         body: $scope.template.content,
         name: $scope.template.name,
         id: $scope.template.id
-      });
-    }
-
-    function saveHtmlRaw () {
-      if ($scope.form.$invalid) {
-        return;
-      }
-      return save().then(function (result) {
-        $scope.template.id = result;
-        $location.path('/templates');
       }).finally(function () {
         $scope.saveInProgress = false;
       });
     }
 
-    function saveMseditor () {
+    function saveHtmlRaw() {
+      if ($scope.form.$invalid) {
+        return;
+      }
+      return save().then(function (result) {
+        $location.path('/templates');
+      });
+    }
+
+    function saveAndEditWithMseditor() {
+      // This is for replicating submit behaviour.
       $scope.form.$submitted = true;
       $scope.submitted = true;
+
       if ($scope.form.$invalid) {
         return;
       }
       return save().then(function (result) {
-        $scope.template.id = result;
           location.href = location.origin + '/template-editor/?idCampaign=' + result;
-      }).finally(function () {
-        $scope.saveInProgress = false;
       });
     }
   }
