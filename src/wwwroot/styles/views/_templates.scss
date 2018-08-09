@@ -201,8 +201,9 @@
       .button-mseditor--selector {
         display: block;
         padding: 20px 0;
-        background-color: #fff;   
+        background-color: #fff;
         border: 1px solid $suit-accent-color;
+        cursor: pointer;
         border-radius: 3px;
       }
       &.disabled {
