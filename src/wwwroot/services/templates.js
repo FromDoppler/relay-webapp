@@ -17,8 +17,11 @@
 
     var templatesService = {
       getAllData: getAllData,
-      getTemplateWithBody: getTemplateWithBody,
-      save: save,
+      getTemplate: getTemplate,
+      getTemplateBody: getTemplateBody,
+      createTemplate: createTemplate,
+      editTemplate: editTemplate,
+      editTemplateBody: editTemplateBody,
       deleteTemplate: deleteTemplate,
     };
 
@@ -65,36 +68,8 @@
       }).then(extractData);
     }
 
-    function getTemplateWithBody(templateId) {
-      return getTemplate(templateId).then(function (template) {
-        return getTemplateBody(templateId).then(function (body) {
-          return {
-            from_name: template.from_name,
-            from_email: template.from_email,
-            subject: template.subject,
-            id: template.id,
-            name: body.name,
-            body: body.html
-          };
-        });
-      });
-    }
-
-    function save(templateModel) {
+    function createTemplate(templateModel) {
       var accountId = auth.getAccountId();
-      var isCreating = !templateModel.id;
-      var updateTemplatePromise = isCreating ? createTemplate(accountId, templateModel) : editTemplate(accountId, templateModel);
-      return updateTemplatePromise.then(function (templateId) {
-        return editTemplateBody(accountId, templateId, templateModel.name, templateModel.body).then(function () {
-          return templateId;
-        }).catch(function (reason) {
-          // TODO: Show a special message error when template was update but body fails
-          return $q.reject(reason);
-        });
-      });
-    }
-
-    function createTemplate(accountId, templateModel) {
       return $http({
         actionDescription: 'action_templates_creating',
         method: 'POST',
@@ -110,7 +85,8 @@
       });
     }
 
-    function editTemplate(accountId, templateModel) {
+    function editTemplate(templateModel) {
+      var accountId = auth.getAccountId();
       return $http({
         // TODO: check action description
         actionDescription: 'Editing a template',
@@ -128,7 +104,8 @@
       });
     }
 
-    function editTemplateBody(accountId, templateId, name, body) {
+    function editTemplateBody(templateId, name, body) {
+      var accountId = auth.getAccountId();
       return $http({
         actionDescription: 'Editing a template body',
         method: 'PUT',

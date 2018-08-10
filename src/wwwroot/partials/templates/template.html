@@ -2,7 +2,7 @@
   <!-- Asking server for data -->
   <spinner class="spinner padded" ng-show="loadInProgress"></spinner>
 </div>
-<form novalidate name="form" ng-show="!loadInProgress" ng-submit="saveHtmlRaw()" ng-class="submitted ? 'ng-submitted' : ''">
+<form novalidate name="form" ng-show="!loadInProgress" ng-submit="saveTemplate()" ng-class="submitted ? 'ng-submitted' : ''">
   <section class="templates--information">
     <div class="section--wrapper">
       <h2>{{'templates_information_title' | translate}}</h2>
@@ -55,15 +55,15 @@
       <div class="flex flex--between">
         <label for="uContent">{{'templates_edition_subtitle' | translate}}</label>
       </div>    
-      <div class="templates-htmlraw--container" ng-show="{{!forceMsEditor}}">  
+      <div class="templates-htmlraw--container" ng-show="isHtmlTemplate">  
         <textarea id="uContent"
                   name="uContent"
                   validation-errors
-                  ng-required="{{!forceMsEditor}}"
+                  ng-required="isHtmlTemplate"
                   ng-model="template.content"
                   class="input width--full"></textarea>
       </div>
-      <div class="grid templates-selector--container" ng-show="{{forceMsEditor}}">
+      <div class="grid templates-selector--container" ng-show="!isHtmlTemplate">
         <div class="templates-mseditor--container">
           <label>{{ 'templates_edition_mseditor_label' | translate }}</label> 
           <a class="button-mseditor--selector" ng-click="saveAndEditWithMseditor();">
@@ -90,6 +90,7 @@
       <div class="section--wrapper text--center">
         <input type="submit"
               class="button button--medium"
+              
               ng-class="!saveInProgress ? '' : 'button--disabled'"
               ng-disabled="saveInProgress"
               value="{{'templates_save_button' | translate}}" />
