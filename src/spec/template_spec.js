@@ -20,6 +20,15 @@ describe('Template Page', () => {
       }));
   }
 
+  function beginAuthenticatedSessionWithMSEditor() {
+    browser.addMockModule('descartableModule', () => angular
+      .module('descartableModule', [])
+      .run((jwtHelper, auth) => {
+        var permanentToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE0ODQ2MzAzMTgsImV4cCI6MTUzNDI1NjY1NCwiaWF0IjoxNDg0NjMwMzE4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1IiwiZm9yY2VfbXNlZGl0b3IiOnRydWUsImp0aSI6IjdlMmQ0YTBhLTU4ZDItNDViYS04YjViLWIzM2U0ZGYxMWIxMSJ9.ftSOjsBuGEzO7F4qyx99fY0TGXFZrmfM7nBSiL2tLd0';
+        auth.loginByToken(permanentToken);
+      }));
+  }
+
   function setupTemplateResponse() {
     browser.addMockModule('descartableModule2', () => angular
       .module('descartableModule2', ['ngMockE2E'])
@@ -40,6 +49,72 @@ describe('Template Page', () => {
         $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
           "name": "test",
           "html": "test",
+          "_links": []
+        });
+          
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "noLimits": true,
+          "dkimConfigurationRequired": false,
+          "domainConfigurationRequired": false,
+          "_links": []
+        });
+      }
+    ));
+  }
+
+  function setupTemplateResponseWithMSEditor() {
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates\/[\w|-]*/).respond(200, {
+          "from_name": "test",
+          "from_email": "test@test.test",
+          "subject": "test subject",
+          "body": "test body",
+          "name": "test name",
+          "id": "32e93fa4-c8f4-467a-a2bb-da95f72a27b4",
+          "last_updated": "2018-07-12T13:28:23Z",
+          "created_at": "2018-07-12T13:27:40Z",
+          "bodyType": "mseditor",
+          "_links": []
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
+          "name": "test",
+          "html": "test",
+          "_links": []
+        });
+          
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+          "noLimits": true,
+          "dkimConfigurationRequired": false,
+          "domainConfigurationRequired": false,
+          "_links": []
+        });
+      }
+    ));
+  }
+
+  function setupEmptyTemplateResponse() {
+    browser.addMockModule('descartableModule2', () => angular
+      .module('descartableModule2', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates\/[\w|-]*/).respond(200, {
+          "from_name": "test",
+          "from_email": "test@test.test",
+          "subject": "test subject",
+          "body": "test body",
+          "name": "test name",
+          "id": "32e93fa4-c8f4-467a-a2bb-da95f72a27b4",
+          "last_updated": "2018-07-12T13:28:23Z",
+          "created_at": "2018-07-12T13:27:40Z",
+          "bodyType": "empty",
+          "_links": []
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\d|-]*\/templates\/[\w|-]*\/body/).respond(200, {
+          "name": "test",
+          "html": "",
           "_links": []
         });
           
@@ -336,7 +411,7 @@ describe('Template Page', () => {
     expect(templatePage.getTotalInvalidFields()).toBe(expectedTotalInvalidFields);
   });
 
-  it('should not show the mseditor button when the token forceMseditor is null', () => {
+  it('should not show the mseditor button in template creation when the token forceMseditor is null', () => {
     // Arrange
     beginAuthenticatedSession();
     var templatePage = new TemplatePage();
@@ -349,7 +424,7 @@ describe('Template Page', () => {
     expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(false);
   });
 
-  it('should show the mseditor button when the token forceMseditor is true', () => {
+  it('should show the mseditor button in template creation when the token forceMseditor is true', () => {
     // Arrange
     browser.addMockModule('descartableModule', () => angular
       .module('descartableModule', [])
@@ -365,5 +440,70 @@ describe('Template Page', () => {
     // Assert
     expect(templatePage.isTemplateHtmlRawInputDisplayed()).toBe(false);
     expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(true);
+  });
+
+  it('should show mseditor button in template edition when template was created with mseditor', () => {
+    // Arrange
+    beginAuthenticatedSessionWithMSEditor();
+    setupTemplateResponseWithMSEditor();
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
+
+    // Assert
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(true);
+  });
+
+  it('should show mseditor button in template edition when template is empty and account is mseditor featured', () => {
+    // Arrange
+    beginAuthenticatedSessionWithMSEditor();
+    setupEmptyTemplateResponse();
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
+
+    // Assert
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(true);
+  });
+
+  it('should not show mseditor button in template edition when template is empty and account is not mseditor featured', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    setupEmptyTemplateResponse();
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
+
+    // Assert
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(false);
+  });
+
+  it('should not show mseditor button in template edition when template is rawHtml in not featured account with mseditor', () => {
+    // Arrange
+    beginAuthenticatedSession();
+    setupTemplateResponse();
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
+
+    // Assert
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(false);
+  });
+
+  it('should not show mseditor button in template edition when template is rawHtml in a featured account with mseditor', () => {
+    // Arrange
+    beginAuthenticatedSessionWithMSEditor();
+    setupTemplateResponse();
+    var templatePage = new TemplatePage();
+
+    // Act
+    browser.get('/#/templates/32e93fa4-c8f4-467a-a2bb-da95f72a27b4');
+
+    // Assert
+    expect(templatePage.isTemplateMsEditorInputDisplayed()).toBe(false);
   });
 });
