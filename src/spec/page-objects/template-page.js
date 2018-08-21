@@ -15,6 +15,7 @@ class TemplatePage {
     this._templateFromNameInput = $('#uFromName');
     this._templateSubjectInput = $('#uSubject');
     this._errorModal = $(".error-container");
+    this._templateMsEditorButton = $(".button-mseditor--selector");
   }
 
     getTemplateEditorDescriptionText() {
@@ -83,6 +84,14 @@ class TemplatePage {
 
     isErrorModalDisplayed() {
       return this._errorModal.isDisplayed();
+    }
+
+    isTemplateHtmlRawInputDisplayed() {
+      return this._templateBodySection.isDisplayed();
+    }
+
+    isTemplateMsEditorInputDisplayed() {
+      return this._templateMsEditorButton.isDisplayed();
     }
 }
 exports.TemplatePage = TemplatePage;
