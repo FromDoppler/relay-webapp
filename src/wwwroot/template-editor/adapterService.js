@@ -29,7 +29,8 @@
       getPreviewImageWithPlay: getPreviewImageWithPlay,
       getSettings: getSettings,
       refreshMercadoShopsProductServiceToken: refreshMercadoShopsProductServiceToken,
-      getTiendaNubeProducts: getTiendaNubeProducts
+      getTiendaNubeProducts: getTiendaNubeProducts,
+      overrideUploadFiles: overrideUploadFiles
     };
     
     var langKey = null;
@@ -69,56 +70,6 @@
     function logOut() {
       $window.location = "/";
     }
-
-    /**
-     * Return the Image Gallery
-     * @argument {Object} params - Configuration object
-     * @argument {string} params.query - The file name and extension
-     * @argument {string} params.position - The provider name
-     * @argument {number} params.offset - The campaign identifier
-     * @argument {number} params.sortingCriteria - The template identifier
-     * @argument {number} params.isAscending - The template identifier
-     * @example
-     * ```js
-     * var params = {
-     *   fileName: 'testFile.jpg',
-     *   providerName: 'Youtube',
-     *   idCampaign: 1,
-     *   idTemplate: 2
-     * };
-     * 
-     * adapterService.getImagesForCampaign(params);
-     * ```
-     */
-    function getImagesForCampaign(start, howMany, query, sortingCriteria) {
-      traceAdapterCall(getImagesForCampaign, arguments);
-      var per_page = howMany - start;
-      return $http({
-        actionDescription: 'Getting image Gallery',
-        method: 'GET',
-        params: {
-          query : query || '',
-          per_page : per_page,
-          page : 1,
-          sortingCriteria : sortingCriteria ? sortingCriteria.value : 'DATE',
-          isAscending : sortingCriteria ? sortingCriteria.isAscending : false,
-          onlyImage : false
-        },
-        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/files',
-        headers: {
-          'Authorization': 'Bearer '+ apiToken
-        }
-      })
-      .then(function(response){
-        var arrayItems = response.data.items.slice();
-        return { data : { 'images' : arrayItems }};
-      })
-      .catch(function(error) {
-        var errorDetail = error.data && error.data.detail || "Unexpected error";
-        console.log(errorDetail);
-        return $q.reject(error); 
-      });
-    };
 
     /**
      * Return a preview placeholder image
@@ -178,6 +129,55 @@
       };
       return $q.resolve(response);
     }
+
+        /**
+     * Return the Image Gallery
+     * @argument {Object} params - Configuration object
+     * @argument {string} params.query - The file name and extension
+     * @argument {string} params.position - The provider name
+     * @argument {number} params.offset - The campaign identifier
+     * @argument {number} params.sortingCriteria - The template identifier
+     * @argument {number} params.isAscending - The template identifier
+     * @example
+     * ```js
+     * var params = {
+     *   fileName: 'testFile.jpg',
+     *   providerName: 'Youtube',
+     *   idCampaign: 1,
+     *   idTemplate: 2
+     * };
+     * 
+     * adapterService.getImagesForCampaign(params);
+     * ```
+     */
+    function getImagesForCampaign(start, howMany, query, sortingCriteria) {
+      traceAdapterCall(getImagesForCampaign, arguments);
+      var page = Math.trunc(start / howMany) + 1;
+      return $http({
+        actionDescription: 'Getting image Gallery',
+        method: 'GET',
+        params: {
+          query : query || '',
+          per_page : howMany,
+          page : page,
+          sortingCriteria : sortingCriteria ? sortingCriteria.value : 'DATE',
+          isAscending : sortingCriteria ? sortingCriteria.isAscending : false,
+          onlyImage : true
+        },
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/files',
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      })
+      .then(function(response){
+        return { data : { images : response.data.items, count : response.data.itemsCount }};
+      })
+      .catch(function(error) {
+        var errorDetail = error.data && error.data.detail || "Unexpected error";
+        console.log(errorDetail);
+        return $q.reject(error); 
+      });
+    };
 
     /**
      * Return an array of promises to delete individual images
@@ -482,6 +482,171 @@
       traceAdapterCall(getTiendaNubeProducts, arguments);
       return $q.resolve({});
     }
+
+      /**	
+     * Overriding of DropZone's uploadFiles function	
+     * 	
+     * See https://github.com/MakingSense/MSEditor/pull/1259	
+     * 	
+     * @param {File[]} files 	
+     */	
+    function overrideUploadFiles(files) {	
+      traceAdapterCall(overrideUploadFiles, arguments);	
+       var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;	
+       // DropZone's original code:	
+      // method = resolveOption(this.options.method, files);	
+      method = 'POST';	
+       // DropZone's original code:	
+      // url = resolveOption(this.options.url, files);	
+      url = 'images';	
+       // DropZone's original code:	
+      // xhr = new XMLHttpRequest();	
+      xhr = new XMLHttpRequestDouble();	
+       // All the rest of the code was taken as it was from DropZone's	
+      // Maybe it could be simplified based in our specific requirements	
+      for (_i = 0, _len = files.length; _i < _len; _i++) {	
+        file = files[_i];	
+        file.xhr = xhr;	
+      }	
+      xhr.open(method, url, true);	
+      xhr.withCredentials = !!this.options.withCredentials;	
+      response = null;	
+      handleError = (function (_this) {	
+        return function () {	
+          var _j, _len1, _results;	
+          _results = [];	
+          for (_j = 0, _len1 = files.length; _j < _len1; _j++) {	
+            file = files[_j];	
+            _results.push(_this._errorProcessing(files, response || _this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr));	
+          }	
+          return _results;	
+        };	
+      })(this);	
+      updateProgress = (function (_this) {	
+        return function (e) {	
+          var allFilesFinished, progress, _j, _k, _l, _len1, _len2, _len3, _results;	
+          if (e != null) {	
+            progress = 100 * e.loaded / e.total;	
+            for (_j = 0, _len1 = files.length; _j < _len1; _j++) {	
+              file = files[_j];	
+              file.upload = {	
+                progress: progress,	
+                total: e.total,	
+                bytesSent: e.loaded	
+              };	
+            }	
+          } else {	
+            allFilesFinished = true;	
+            progress = 100;	
+            for (_k = 0, _len2 = files.length; _k < _len2; _k++) {	
+              file = files[_k];	
+              if (!(file.upload.progress === 100 && file.upload.bytesSent === file.upload.total)) {	
+                allFilesFinished = false;	
+              }	
+              file.upload.progress = progress;	
+              file.upload.bytesSent = file.upload.total;	
+            }	
+            if (allFilesFinished) {	
+              return;	
+            }	
+          }	
+          _results = [];	
+          for (_l = 0, _len3 = files.length; _l < _len3; _l++) {	
+            file = files[_l];	
+            _results.push(_this.emit("uploadprogress", file, progress, file.upload.bytesSent));	
+          }	
+          return _results;	
+        };	
+      })(this);	
+      xhr.onload = (function (_this) {	
+        return function (e) {	
+          var _ref;	
+          if (files[0].status === Dropzone.CANCELED) {	
+            return;	
+          }	
+          if (xhr.readyState !== 4) {	
+            return;	
+          }	
+          response = xhr.responseText;	
+          if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {	
+            try {	
+              response = JSON.parse(response);	
+            } catch (_error) {	
+              e = _error;	
+              response = "Invalid JSON response from server.";	
+            }	
+          }	
+          updateProgress();	
+          if (!((200 <= (_ref = xhr.status) && _ref < 300))) {	
+            return handleError();	
+          } else {	
+            return _this._finished(files, response, e);	
+          }	
+        };	
+      })(this);	
+      xhr.onerror = (function (_this) {	
+        return function () {	
+          if (files[0].status === Dropzone.CANCELED) {	
+            return;	
+          }	
+          return handleError();	
+        };	
+      })(this);	
+      progressObj = (_ref = xhr.upload) != null ? _ref : xhr;	
+      progressObj.onprogress = updateProgress;	
+      headers = {	
+        "Accept": "application/json",	
+        "Cache-Control": "no-cache",	
+        "X-Requested-With": "XMLHttpRequest"	
+      };	
+      if (this.options.headers) {	
+        extend(headers, this.options.headers);	
+      }	
+      for (headerName in headers) {	
+        headerValue = headers[headerName];	
+        if (headerValue) {	
+          xhr.setRequestHeader(headerName, headerValue);	
+        }	
+      }	
+      formData = new FormData();	
+      if (this.options.params) {	
+        _ref1 = this.options.params;	
+        for (key in _ref1) {	
+          value = _ref1[key];	
+          formData.append(key, value);	
+        }	
+      }	
+      for (_j = 0, _len1 = files.length; _j < _len1; _j++) {	
+        file = files[_j];	
+        this.emit("sending", file, xhr, formData);	
+      }	
+      if (this.options.uploadMultiple) {	
+        this.emit("sendingmultiple", files, xhr, formData);	
+      }	
+      if (this.element.tagName === "FORM") {	
+        _ref2 = this.element.querySelectorAll("input, textarea, select, button");	
+        for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {	
+          input = _ref2[_k];	
+          inputName = input.getAttribute("name");	
+          inputType = input.getAttribute("type");	
+          if (input.tagName === "SELECT" && input.hasAttribute("multiple")) {	
+            _ref3 = input.options;	
+            for (_l = 0, _len3 = _ref3.length; _l < _len3; _l++) {	
+              option = _ref3[_l];	
+              if (option.selected) {	
+                formData.append(inputName, option.value);	
+              }	
+            }	
+          } else if (!inputType || ((_ref4 = inputType.toLowerCase()) !== "checkbox" && _ref4 !== "radio") || input.checked) {	
+            formData.append(inputName, input.value);	
+          }	
+        }	
+      }	
+      for (i = _m = 0, _ref5 = files.length - 1; 0 <= _ref5 ? _m <= _ref5 : _m >= _ref5; i = 0 <= _ref5 ? ++_m : --_m) {	
+        formData.append(this._getParamName(i), files[i], files[i].name);	
+      }	
+      return this.submitRequest(xhr, formData, files);	
+    };
 
     /**
       * Private function used by overrideUploadFiles
