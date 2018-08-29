@@ -153,6 +153,7 @@
     function getImagesForCampaign(start, howMany, query, sortingCriteria) {
       traceAdapterCall(getImagesForCampaign, arguments);
       var page = Math.trunc(start / howMany) + 1;
+      var order = sortingCriteria ? (sortingCriteria.isAscending ? 'asc' : 'desc') : null;
       return $http({
         actionDescription: 'Getting image Gallery',
         method: 'GET',
@@ -160,9 +161,9 @@
           query : query || '',
           per_page : howMany,
           page : page,
-          sortingCriteria : sortingCriteria ? sortingCriteria.value : 'DATE',
-          isAscending : sortingCriteria ? sortingCriteria.isAscending : false,
-          onlyImage : true
+          sortBy : sortingCriteria ? sortingCriteria.value : 'date',
+          order : order,
+          onlyImages : true
         },
         url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/files',
         headers: {
