@@ -153,7 +153,15 @@
     function getImagesForCampaign(start, howMany, query, sortingCriteria) {
       traceAdapterCall(getImagesForCampaign, arguments);
       var page = Math.trunc(start / howMany) + 1;
-      var order = sortingCriteria ? (sortingCriteria.isAscending ? 'asc' : 'desc') : null;
+      var order,
+          sortBy;
+      if (sortingCriteria) {
+        order = sortingCriteria.isAscending ? 'asc' : 'desc';
+        sortBy = sortingCriteria.value.toLowerCase() === 'date' ? 'date' : 'name';
+      } else {
+        order = null;
+        sortBy = null;
+      }
       return $http({
         actionDescription: 'Getting image Gallery',
         method: 'GET',
@@ -161,7 +169,7 @@
           query : query || '',
           per_page : howMany,
           page : page,
-          sortBy : sortingCriteria ? sortingCriteria.value : 'date',
+          sortBy : sortBy,
           order : order,
           onlyImages : true
         },
