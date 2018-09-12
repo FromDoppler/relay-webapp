@@ -3,10 +3,10 @@
   <div class="flex flex--center">
     <p>
       <strong>        
-        <span ng-show="freeTrialStatus.isFreeTrialEnded && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_ended_text' | translate}}</span>
-        <span ng-show="freeTrialStatus.isFreeTrialAlmostEnded && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_almost_ended_text' | translate:{trialDaysLeft:freeTrialStatus.trialDaysLeft} }}</span>
-        <span ng-show="freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_end_today_text' | translate}}</span>
-        <span ng-show="!freeTrialStatus.isFreeTrialEnded && !freeTrialStatus.isFreeTrialAlmostEnded && !freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_trial_text' | translate}}</span>
+        <span ng-show="freeTrialStatus && freeTrialStatus.isFreeTrialEnded && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_ended_text' | translate}}</span>
+        <span ng-show="freeTrialStatus && freeTrialStatus.isFreeTrialAlmostEnded && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_almost_ended_text' | translate:{trialDaysLeft:freeTrialStatus.trialDaysLeft} }}</span>
+        <span ng-show="freeTrialStatus && freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_end_today_text' | translate}}</span>
+        <span ng-show="freeTrialStatus && !freeTrialStatus.isFreeTrialEnded && !freeTrialStatus.isFreeTrialAlmostEnded && !freeTrialStatus.isFreeTrialEndToday && !accountLimits.requiresDomainConfiguration">{{'free_trial_header_trial_text' | translate}}</span>
         <span ng-show="accountLimits.requiresDomainConfiguration">{{'domain_not_ready_header_text' | translate}}</span>
       </strong>
     </p>
