@@ -4,8 +4,8 @@
       {{ 'plans_text' | translate }}
     </h2>
     <p>{{ 'my_plan_subtitle' | translate }}</p>
-    <label class="color--orange" ng-if="vm.isAccountClosed && vm.isFreeTrial">{{ 'my_plan_free_trial_closed' | translate }}</label>
-    <label class="color--orange" ng-if="vm.isAccountClosed && !vm.isFreeTrial">{{ 'my_plan_account_closed' | translate }}</label>
+    <label class="color--orange" ng-if="vm.isTrialEnded">{{ 'my_plan_free_trial_closed' | translate }}</label>
+    <label class="color--orange" ng-if="vm.isAccountCanceled">{{ 'my_plan_account_closed' | translate }}</label>
   </div>
   <div class="section--wrapper my-plan--info-container">
     <div class="item flex flex--wrap first">
@@ -42,11 +42,18 @@
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex two flex--wrap">
-        <label class="width--full special uppercase" ng-if="vm.accountEndDate && vm.isFreeTrial">{{ 'my_plan_free_trial_end_label' | translate }}</label>
-        <label class="width--full special uppercase" ng-if="vm.accountEndDate && !vm.isFreeTrial">{{ 'my_plan_account_end_label' | translate }}</label>
-        <label class="width--full special uppercase" ng-if="!vm.accountEndDate">{{ 'my_plan_renewal_date' | translate }}</label>
-        <p class="renewal-date" ng-if="vm.accountEndDate">{{ vm.accountEndDate | date :'mediumDate' :'+0' }}</p>        
-        <p class="renewal-date" ng-if="!vm.accountEndDate">{{ vm.resetDate | date :'mediumDate' :'+0' }}</p>
+        <div ng-if="vm.trialEndDate">
+          <label class="width--full special uppercase">{{ 'my_plan_free_trial_end_label' | translate }}</label>
+          <p class="renewal-date">{{ vm.trialEndDate | date :'mediumDate' :'+0' }}</p>        
+        </div>
+        <div ng-if="vm.cancellationDate">
+          <label class="width--full special uppercase">{{ 'my_plan_account_end_label' | translate }}</label>
+          <p class="renewal-date">{{ vm.cancellationDate | date :'mediumDate' :'+0' }}</p>        
+        </div>
+        <div ng-if="!vm.trialEndDate && !vm.cancellationDate">
+          <label class="width--full special uppercase">{{ 'my_plan_renewal_date' | translate }}</label>
+          <p class="renewal-date">{{ vm.resetDate | date :'mediumDate' :'+0' }}</p>
+        </div>
         <spinner class="spinner" ng-class="vm.planStatusInfoLoader ?  'show':'hide'"></spinner>
       </div>
     </div>
