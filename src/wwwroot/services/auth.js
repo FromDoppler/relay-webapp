@@ -301,7 +301,8 @@
           daily: mapLimit(response.data.daily),
           hourly: mapLimit(response.data.hourly),
           hasLimits: !response.data.noLimits,
-          endDate: mapDate(response.data.endDate),
+          trialEndDate: mapDate(response.data.trialEndDate),
+          cancellationDate: mapDate(response.data.cancellationDate),
           requiresDomainConfiguration: !!response.data.domainConfigurationRequired,
           requiresDeliveries: !!response.data.hasNotDeliveries
         };
