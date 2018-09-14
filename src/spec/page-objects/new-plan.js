@@ -20,7 +20,6 @@ class MyPlanPage {
               {
                 "noLimits": true,
                 "dkimConfigurationRequired": true,
-                "endDate": "2018-04-25T13:03:16Z",
                 "domainConfigurationRequired": true,
                 "hasNotDeliveries": true
               });
