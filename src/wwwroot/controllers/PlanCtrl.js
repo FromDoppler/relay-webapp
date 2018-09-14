@@ -78,6 +78,7 @@
             vm.isTrialEnded = result.data.accountClosed && !result.data.cancellationDate;
             vm.trialEndDate = result.data.trialEndDate;
             vm.cancellationDate = result.data.cancellationDate;
+            vm.hasCancellationDate = !!result.data.cancellationDate;
             vm.resetDate = result.data.endDate;
             vm.currentMonthlyCount = result.data.deliveriesCount;
             vm.planStatusInfoLoader = false;
@@ -181,7 +182,7 @@
     }
 
     function isValidUpgradeablePlan() {
-      return !requiresDomainConfiguration() && !requiresDeliveries();
+      return !requiresDomainConfiguration() && !requiresDeliveries() && !vm.hasCancellationDate;
     }
   
     function requiresDomainConfiguration() {
