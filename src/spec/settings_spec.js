@@ -34,7 +34,6 @@ describe('Settings Page', () => {
         {
           "noLimits": true,
           "dkimConfigurationRequired": true,
-          "endDate": "3018-04-25T13:03:16Z",
           "domainConfigurationRequired": true,
           "hasNotDeliveries": true
         });

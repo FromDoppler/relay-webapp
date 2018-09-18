@@ -465,6 +465,7 @@
   "tracking_domain_description": "Add a CNAME value into the DNS records of your domain in order to start using your account.",
   "tracking_domain_description_link": "Learn how to do it here.",
   "tracking_config_help_href": "en/how-to-configure-the-subdomain-tracking",
+  "validation_canceled_account": "Change plan is not possible because account has a cancellation date.",
   "validation_requirements_title": "Before buying a {{ companyName }} plan it is necessary to complete the following steps:",
   "validation_step_one": "Verify your domain by configuring your DKIM, SPF and tracking subdomain.",
   "validation_step_one_link": "Find all the information here.",
