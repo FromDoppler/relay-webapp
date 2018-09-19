@@ -1,5 +1,5 @@
 {
-  "name": "dopplerRelay",
+  "name": "doppler-relay",
   "private": true,
   "version": "0.1.0",
   "description": "Doppler Relay App",
@@ -12,7 +12,7 @@
     "gulp-sass": "^2.0.4",
     "imagemin-pngquant": "^4.2.0",
     "jsonwebtoken": "5.0.2",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.5",
     "morgan": "~1.6.1",
     "multer": "~1.0.1",
     "node-sass": "^2.1.1",
