@@ -30,7 +30,7 @@
       getSettings: getSettings,
       refreshMercadoShopsProductServiceToken: refreshMercadoShopsProductServiceToken,
       getTiendaNubeProducts: getTiendaNubeProducts,
-      overrideUploadFiles: overrideUploadFiles
+      dropZoneConfig: dropZoneConfig
     };
     
     var langKey = null;
@@ -492,24 +492,15 @@
       return $q.resolve({});
     }
 
-      /**	
-     * Overriding of DropZone's uploadFiles function	
-     * 	
-     * See https://github.com/MakingSense/MSEditor/pull/1259	
-     * 	
-     * @param {File[]} files 	
-     */	
-    function overrideUploadFiles(files) {	
-      traceAdapterCall(overrideUploadFiles, arguments);	
-       var file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, key, method, option, progressObj, response, updateProgress, url, value, xhr, _i, _j, _k, _l, _len, _len1, _len2, _len3, _m, _ref, _ref1, _ref2, _ref3, _ref4, _ref5;	
-       // DropZone's original code:	
-      // method = resolveOption(this.options.method, files);	
-      method = 'POST';	
-       // DropZone's original code:	
-      // url = resolveOption(this.options.url, files);	
-      url = 'https://localhost:44313/accounts/75271/files';      
-      return this.submitRequest(xhr, formData, files);	
-    };
+    function dropZoneConfig() {
+      var response = {
+        url : RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      };
+      return response;
+    }
 
     /** Ugly function to easily log calls to not implemented functions */
     function traceAdapterCall(func, funcArgs) {
