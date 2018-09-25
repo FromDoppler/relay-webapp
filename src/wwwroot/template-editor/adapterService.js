@@ -29,8 +29,7 @@
       getPreviewImageWithPlay: getPreviewImageWithPlay,
       getSettings: getSettings,
       refreshMercadoShopsProductServiceToken: refreshMercadoShopsProductServiceToken,
-      getTiendaNubeProducts: getTiendaNubeProducts,
-      dropZoneConfig: dropZoneConfig
+      getTiendaNubeProducts: getTiendaNubeProducts
     };
     
     var langKey = null;
@@ -44,6 +43,12 @@
       langKey = getPreferredLanguage();
       loginSession = getStoredSession('relayLogin');
       apiToken = getStoredToken('jwtToken');
+      service.dropzoneConfig = {
+        url : RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
+        headers: {
+          'Authorization': 'Bearer '+ apiToken
+        }
+      };
     };
 
     function getStoredSession(storageName) {
@@ -490,16 +495,6 @@
     function getTiendaNubeProducts(storeId, accessToken, page, limit, sortBy, query) {
       traceAdapterCall(getTiendaNubeProducts, arguments);
       return $q.resolve({});
-    }
-
-    function dropZoneConfig() {
-      var response = {
-        url : RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
-        headers: {
-          'Authorization': 'Bearer '+ apiToken
-        }
-      };
-      return response;
     }
 
     /** Ugly function to easily log calls to not implemented functions */
