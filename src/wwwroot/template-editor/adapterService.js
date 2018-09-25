@@ -46,7 +46,7 @@
       service.dropzoneConfig = {
         url : RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
         headers: {
-          'Authorization': 'Bearer '+ apiToken
+          'Authorization': 'Bearer ' + apiToken
         }
       };
     };
@@ -178,9 +178,9 @@
           order : order,
           onlyImages : true
         },
-        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/files',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
         headers: {
-          'Authorization': 'Bearer '+ apiToken
+          'Authorization': 'Bearer ' + apiToken
         }
       })
       .then(function(response){
