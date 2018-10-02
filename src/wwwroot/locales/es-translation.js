@@ -479,6 +479,7 @@ window['relay-translation-es'] = {
   "tracking_domain_description": "Añade un registro CNAME en los registros DNS de tu dominio para poder comenzar a utilizar tu cuenta.",
   "tracking_domain_description_link": "Aprende cómo hacerlo aquí.",
   "tracking_config_help_href": "es/configuracion-subdominio-seguimiento",
+  "validation_canceled_account": "No es posible cambiar de plan porque la cuenta tiene fecha de cancelación.",
   "validation_requirements_title": "Antes de contratar un plan de {{ companyName }} es necesario completar los siguientes pasos:",
   "validation_step_one": "Verifica tu dominio, para eso es necesario configurar tu DKIM, SPF y Subdominio de Seguimiento.",
   "validation_step_one_link": "Encuentra toda la información aquí.",

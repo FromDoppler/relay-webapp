@@ -16,11 +16,13 @@ rm -rf `pwd`/build && mkdir `pwd`/build
 docker run --rm \
     -v /`pwd`:/work \
     -w /work \
-    node:6.10.1 \
+    --user 0 \
+    circleci/node:6.14-browsers \
     /bin/sh -c "\
         yarn global add gulp \
         && yarn \
         && yarn run build \
+        && yarn run test \
     "
 
 ## I cannot run gulp test because it requires chrome

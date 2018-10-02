@@ -44,6 +44,7 @@
         vm.currentPlanEmailsAmount = response.data.includedDeliveries;
         vm.currentPlanEmailPrice = response.data.extraDeliveryCost;
         vm.currency = response.data.currency;
+        // TODO: improve it splitting free trial and free accounts behavior
         vm.isFreeTrial = response.data.fee && response.data.includedDeliveries ? false : true;
         vm.currentIpsPlanCount = response.data.ips_count || 0;
         vm.hasScheduledPlan = !response.data.endDate;
@@ -72,8 +73,12 @@
       return settings.getStatusPlanInfo()
           .then(function (result) {
             vm.extraEmailsSent = 0;
-            vm.isAccountClosed = result.data.accountClosed;
-            vm.accountEndDate = result.data.accountEndDate;
+            // TODO: consider prepare these two values isAccountCanceled and isTrialEnded in backend in place of accountClosed
+            vm.isAccountCanceled = result.data.accountClosed && result.data.cancellationDate; 
+            vm.isTrialEnded = result.data.accountClosed && !result.data.cancellationDate;
+            vm.trialEndDate = result.data.trialEndDate;
+            vm.cancellationDate = result.data.cancellationDate;
+            vm.hasCancellationDate = !!result.data.cancellationDate;
             vm.resetDate = result.data.endDate;
             vm.currentMonthlyCount = result.data.deliveriesCount;
             vm.planStatusInfoLoader = false;
@@ -177,7 +182,7 @@
     }
 
     function isValidUpgradeablePlan() {
-      return !requiresDomainConfiguration() && !requiresDeliveries();
+      return !requiresDomainConfiguration() && !requiresDeliveries() && !vm.hasCancellationDate;
     }
   
     function requiresDomainConfiguration() {

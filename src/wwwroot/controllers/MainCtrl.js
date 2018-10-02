@@ -57,7 +57,9 @@
 
   function updateLimitsAndTrialData(limits) {
     $rootScope.accountLimits = limits;
-    var freeTrialEndDate = limits.endDate;
+    // TODO: now, cancellation date is not considered anymore like trial end date,
+    // we could show a different message for cancellation.
+    var freeTrialEndDate = limits.trialEndDate;
     if (!freeTrialEndDate) {
       $rootScope.freeTrialStatus = null;
       return;
