@@ -183,8 +183,20 @@
           'Authorization': 'Bearer ' + apiToken
         }
       })
-      .then(function(response){
-        return { data : { images : response.data.items, count : response.data.itemsCount }};
+      .then(function(response) {
+        var items = response.data.items.map(function(item) {
+          return {
+            id : item.id,
+            image : item.image,
+            last_upload : item.last_upload,
+            name : item.name,
+            size : item.size,
+            thumbnailUrl : getHrefFromRel(item, "small"),
+            thumbnailUrl150 : getHrefFromRel(item, "large"),
+            url : item.url
+          }
+        });
+        return { data : { images : items, count : response.data.itemsCount }};
       })
       .catch(function(error) {
         var errorDetail = error.data && error.data.detail || "Unexpected error";
@@ -495,6 +507,13 @@
     function getTiendaNubeProducts(storeId, accessToken, page, limit, sortBy, query) {
       traceAdapterCall(getTiendaNubeProducts, arguments);
       return $q.resolve({});
+    }
+
+    function getHrefFromRel(item, relName) {
+       var itemParsed = item._links.find(function(x) {
+        return x.rel.includes(relName) || null;
+      });
+      return itemParsed ? itemParsed.href : null;
     }
 
     /** Ugly function to easily log calls to not implemented functions */
