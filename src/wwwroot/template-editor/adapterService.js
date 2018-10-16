@@ -31,7 +31,7 @@
       refreshMercadoShopsProductServiceToken: refreshMercadoShopsProductServiceToken,
       getTiendaNubeProducts: getTiendaNubeProducts
     };
-    
+
     var langKey = null;
     var loginSession = null;
     var apiToken = null;
@@ -44,7 +44,7 @@
       loginSession = getStoredSession('relayLogin');
       apiToken = getStoredToken('jwtToken');
       service.dropzoneConfig = {
-        url : RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
+        url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
         headers: {
           'Authorization': 'Bearer ' + apiToken
         }
@@ -58,7 +58,7 @@
       }
       return storedSession;
     }
-    
+
     function getStoredToken(tokenName) {
       var storedToken = $window.localStorage.getItem(tokenName);
       if (!storedToken) {
@@ -135,31 +135,31 @@
       return $q.resolve(response);
     }
 
-        /**
-     * Return the Image Gallery
-     * @argument {Object} params - Configuration object
-     * @argument {string} params.query - The file name and extension
-     * @argument {string} params.position - The provider name
-     * @argument {number} params.offset - The campaign identifier
-     * @argument {number} params.sortingCriteria - The template identifier
-     * @argument {number} params.isAscending - The template identifier
-     * @example
-     * ```js
-     * var params = {
-     *   fileName: 'testFile.jpg',
-     *   providerName: 'Youtube',
-     *   idCampaign: 1,
-     *   idTemplate: 2
-     * };
-     * 
-     * adapterService.getImagesForCampaign(params);
-     * ```
-     */
+    /**
+ * Return the Image Gallery
+ * @argument {Object} params - Configuration object
+ * @argument {string} params.query - The file name and extension
+ * @argument {string} params.position - The provider name
+ * @argument {number} params.offset - The campaign identifier
+ * @argument {number} params.sortingCriteria - The template identifier
+ * @argument {number} params.isAscending - The template identifier
+ * @example
+ * ```js
+ * var params = {
+ *   fileName: 'testFile.jpg',
+ *   providerName: 'Youtube',
+ *   idCampaign: 1,
+ *   idTemplate: 2
+ * };
+ * 
+ * adapterService.getImagesForCampaign(params);
+ * ```
+ */
     function getImagesForCampaign(start, howMany, query, sortingCriteria) {
       traceAdapterCall(getImagesForCampaign, arguments);
       var page = Math.trunc(start / howMany) + 1;
       var order,
-          sortBy;
+        sortBy;
       if (sortingCriteria) {
         order = sortingCriteria.isAscending ? 'asc' : 'desc';
         sortBy = sortingCriteria.value.toLowerCase() === 'date' ? 'date' : 'name';
@@ -171,26 +171,38 @@
         actionDescription: 'Getting image Gallery',
         method: 'GET',
         params: {
-          query : query || '',
-          per_page : howMany,
-          page : page,
-          sortBy : sortBy,
-          order : order,
-          onlyImages : true
+          query: query || '',
+          per_page: howMany,
+          page: page,
+          sortBy: sortBy,
+          order: order,
+          onlyImages: true
         },
         url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files',
         headers: {
           'Authorization': 'Bearer ' + apiToken
         }
       })
-      .then(function(response){
-        return { data : { images : response.data.items, count : response.data.itemsCount }};
-      })
-      .catch(function(error) {
-        var errorDetail = error.data && error.data.detail || "Unexpected error";
-        console.log(errorDetail);
-        return $q.reject(error); 
-      });
+        .then(function (response) {
+          var items = response.data.items.map(function (item) {
+            return {
+              id: item.id,
+              image: item.image,
+              last_upload: item.last_upload,
+              name: item.name,
+              size: item.size,
+              thumbnailUrl: getHrefFromRel(item, "get-file-thumbnail-small"),
+              thumbnailUrl150: getHrefFromRel(item, "get-file-thumbnail-large"),
+              url: getHrefFromRel(item, "get-file-content")
+            }
+          });
+          return { data: { images: items, count: response.data.itemsCount } };
+        })
+        .catch(function (error) {
+          var errorDetail = error.data && error.data.detail || "Unexpected error";
+          console.log(errorDetail);
+          return $q.reject(error);
+        });
     };
 
     /**
@@ -321,7 +333,7 @@
      */
     function campaignSaveChangesAsTemplate(params) {
       traceAdapterCall(campaignSaveChangesAsTemplate, arguments);
-      return saveTemplateContentChanges(params).then(function() {
+      return saveTemplateContentChanges(params).then(function () {
         var url = $window.location.origin + '/#/templates/' + params.campaign.id;
         var savedCampaignAsTemplate = {
           Success: true,
@@ -339,22 +351,22 @@
         method: 'PUT',
         data: {
           'mseditor': {
-            'attributes' : params.campaign.attributes,
-            'settings' : params.campaign.attributes,
-            'children' : params.campaign.children,
+            'attributes': params.campaign.attributes,
+            'settings': params.campaign.attributes,
+            'children': params.campaign.children,
           },
-          'html' : params.campaign.html
+          'html': params.campaign.html
         },
         url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + params.campaign.id + '/body',
         headers: {
-          'Authorization': 'Bearer '+ apiToken
+          'Authorization': 'Bearer ' + apiToken
         }
       })
-      .catch(function(error) {
-        var errorDetail = error.data && error.data.detail || "Unexpected error";
-        console.log(errorDetail);
-        return $q.reject(error); 
-      });
+        .catch(function (error) {
+          var errorDetail = error.data && error.data.detail || "Unexpected error";
+          console.log(errorDetail);
+          return $q.reject(error);
+        });
     }
 
     /**
@@ -384,7 +396,7 @@
      */
     function campaignSaveChanges(params) {
       traceAdapterCall(campaignSaveChanges, arguments);
-       return saveTemplateContentChanges(params).then(function() {
+      return saveTemplateContentChanges(params).then(function () {
         var url = $window.location.origin + '/#/templates/' + params.campaign.id;
         var savedCampaign = {
           data: {
@@ -394,7 +406,7 @@
           }
         }
         return savedCampaign;
-       });
+      });
     }
 
     /**
@@ -414,9 +426,9 @@
 
       return $http.get(RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountId + '/templates/' + id + '/body', {
         headers: {
-          'Authorization': 'Bearer '+ apiToken
+          'Authorization': 'Bearer ' + apiToken
         }
-      }).then(function(response) {
+      }).then(function (response) {
         var campaign = {
           id: id,
           type: 'campaign',
@@ -427,7 +439,7 @@
           children: response.data.mseditor ? response.data.mseditor.children : null
         };
         return { data: campaign };
-      }).catch(function(reason) {
+      }).catch(function (reason) {
         var reasonDetail = reason.data && reason.data.detail || "Unexpected error";
         console.log(reasonDetail);
         return $q.reject(reason);
@@ -495,6 +507,13 @@
     function getTiendaNubeProducts(storeId, accessToken, page, limit, sortBy, query) {
       traceAdapterCall(getTiendaNubeProducts, arguments);
       return $q.resolve({});
+    }
+
+    function getHrefFromRel(item, relName) {
+      var itemParsed = item._links.find(function (x) {
+        return x.rel.includes(relName) || null;
+      });
+      return itemParsed ? itemParsed.href : null;
     }
 
     /** Ugly function to easily log calls to not implemented functions */
