@@ -217,7 +217,7 @@
      * @argument {string} params[].thumbnailUrl150 - The image thumbnail url used in videos
      * @example
      * ```js
-     * var filenames = [
+     * var files = [
      *   {
      *      name: 'image1.jpg',
      *      lastModifiedDate: '2015-11-14T06:35:42.239Z',
@@ -238,16 +238,21 @@
      *   }
      * ];
      * 
-     * adapterService.deleteImages(filenames);
+     * adapterService.deleteImages(files);
      * ```
      */
-    function deleteImages(filenames) {
+    function deleteImages(files) {
       traceAdapterCall(deleteImages, arguments);
-      var response = {
-        success: true,
-        error: false
-      }
-      return $q.all([$q.resolve(response)]);
+      promises = [];
+      files.forEach(function (file) {
+          var fileId = typeof file == 'number' ? file : file.id;
+          promises.push(fileId);
+      });
+      // var response = {
+      //   success: true,
+      //   error: false
+      // }
+      return $q.all([$q.resolve(promises)]);
     }
 
     /**
