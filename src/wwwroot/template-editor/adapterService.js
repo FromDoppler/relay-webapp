@@ -206,8 +206,37 @@
     };
 
     /**
+     * 
+     * @argument {Object} file - Object of file
+     * @argument {number} file.id - The file id
+     * @argument {string} file.name - The file name and extension
+     * @argument {string} file.lastModifiedDate - The timestamp of the last modification date
+     * @argument {number} file.size - The size of the file
+     * @argument {string} file.type - The file extension
+     * @argument {string} file.url - The image url
+     * @argument {string} file.thumbnailUrl - The image thumbnail url 
+     * @argument {string} file.thumbnailUrl150 - The image thumbnail url used in videos
+     */
+    function deleteImage(file) {
+        return $http({
+          actionDescription: 'Deleting image',
+          method: 'DELETE',
+          url: RELAY_CONFIG.baseUrl + '/accounts/' + loginSession.accountName + '/files/' + file.id,
+          headers: {
+            'Authorization': 'Bearer ' + apiToken
+          }
+        })
+        .catch(function (error) {
+          var errorDetail = error.data && error.data.detail || "Unexpected error";
+          console.log(errorDetail);
+          return $q.reject(error);
+        });
+    }
+
+    /**
      * Return an array of promises to delete individual images
      * @argument {Object[]} params - Array of image json objects
+     * @argument {number} params[].id - The file id
      * @argument {string} params[].name - The file name and extension
      * @argument {string} params[].lastModifiedDate - The timestamp of the last modification date
      * @argument {number} params[].size - The size of the file
@@ -217,8 +246,9 @@
      * @argument {string} params[].thumbnailUrl150 - The image thumbnail url used in videos
      * @example
      * ```js
-     * var filenames = [
+     * var files = [
      *   {
+     *      id: 5,
      *      name: 'image1.jpg',
      *      lastModifiedDate: '2015-11-14T06:35:42.239Z',
      *      size: 1024,
@@ -228,7 +258,8 @@
      *      thumbnailUrl150: 'uploads/image1.jpg'
      *   },
      *   {
-     *      name: 'image2.jpg',
+     *      id: 6,
+     *      name: 'image1.jpg',
      *      lastModifiedDate: '2015-11-14T06:35:42.239Z',
      *      size: 332,
      *      type: '.jpg',
@@ -238,16 +269,12 @@
      *   }
      * ];
      * 
-     * adapterService.deleteImages(filenames);
+     * adapterService.deleteImages(files);
      * ```
      */
-    function deleteImages(filenames) {
-      traceAdapterCall(deleteImages, arguments);
-      var response = {
-        success: true,
-        error: false
-      }
-      return $q.all([$q.resolve(response)]);
+    function deleteImages(files) {
+      var promises = files.map(deleteImage);
+      return $q.all(promises);
     }
 
     /**
