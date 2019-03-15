@@ -17,7 +17,7 @@ docker run --rm \
     -v /`pwd`:/work \
     -w /work \
     --user 0 \
-    circleci/node:6.14-browsers \
+    circleci/node:6-browsers \
     /bin/sh -c "\
         yarn global add gulp \
         && yarn \
