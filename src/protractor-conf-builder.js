@@ -6,7 +6,9 @@ module.exports = {
 function getConfigurationDefaults() {
   return {
     specs: ['spec/*.js'],
+    directConnect: true,
     baseUrl: 'http://localhost:3000',
+    framework: 'jasmine',
     jasmineNodeOpts: {
       showColors: true,
       isVerbose: true,
