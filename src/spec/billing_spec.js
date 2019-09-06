@@ -85,7 +85,7 @@ describe('Billing Page', () => {
       }));
   }
 
-  it('should show the selected plan name and price in english', () => {
+  it('should show the selected plan name and price in english', (done) => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K');
@@ -100,9 +100,11 @@ describe('Billing Page', () => {
     // Assert
     expect(plan).toBe('PLAN-60K');
     expect(price).toBe('$ 31.80 per month');
+
+    done();
   });
 
-  it('should show the selected plan name and price in spanish', () => {
+  it('should show the selected plan name and price in spanish', (done) => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/billing?plan=PLAN-60K&lang=es');
@@ -117,9 +119,11 @@ describe('Billing Page', () => {
     // Assert
     expect(plan).toBe('PLAN-60K');
     expect(price).toBe('USD 31,80 por mes');
+
+    done();
   });
 
-  it('should show credit card icon when complete visa credit card number', () => {
+  it('should show credit card icon when complete visa credit card number', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -136,9 +140,10 @@ describe('Billing Page', () => {
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
+    done();
   });
 
-  it('should show credit card icon when complete master credit card number', () => {
+  it('should show credit card icon when complete master credit card number', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -155,9 +160,10 @@ describe('Billing Page', () => {
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconAmexDisplayed()).toBeFalsy();
 
+    done();
   });
 
-  it('should show credit card icon when complete amex credit card number', () => {
+  it('should show credit card icon when complete amex credit card number', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -174,9 +180,10 @@ describe('Billing Page', () => {
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
+    done();
   });
 
-  it('should not show credit card icons when complete with credit card number invalid', () => {
+  it('should not show credit card icons when complete with credit card number invalid', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -193,9 +200,10 @@ describe('Billing Page', () => {
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
+    done();
   });
 
-  it('should not show credit card icons by default', () => {
+  it('should not show credit card icons by default', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -210,9 +218,10 @@ describe('Billing Page', () => {
     expect(billingPage.isCcIconVisaDisplayed()).toBeFalsy();
     expect(billingPage.isCcIconMastercardDisplayed()).toBeFalsy();
 
+    done();
   });
 
-  it('should show countries drop downs in different languages', () => {
+  it('should show countries drop downs in different languages', (done) => {
 
     // Arrange
     var countryInEnglish = "Bolivia, Plurinational State Of";
@@ -234,61 +243,64 @@ describe('Billing Page', () => {
     // Assert
     expect(billingPage.getFirstCountryName()).toBe(countryInEnglish);
 
+    done();
   });
 
-  it('should show billing information if available', () => {
+  it('should show billing information if available', (done) => {
     
-        // Arrange
-        beginAuthenticatedSession();
-        setupSamplePlansResponse();
-        //setupSamplePlanInfoResponse();
-        
-        browser.addMockModule('descartableModule4', () => angular
-        // This code will be executed in the browser context,
-        // so it cannot access variables from outside its scope
-        .module('descartableModule4', ['ngMockE2E'])
-          .run($httpBackend => {
-            $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
-                  "planName": null,
-                  "paymentMethod": null,
-                  "billingInformation": {
-                    "name": "Test",
-                    "companyName": "Test Upgrade",
-                    "address": "Address 1234",
-                    "city": "Rosario",
-                    "zipCode": "2000",
-                    "countryCode": "AR"
-                  },
-                  "startDate": "2017-07-01T00:00:00Z",
-                  "currency": "USD",
-                  "ips_count": 0,
-                  "cost_by_ip": 0,
-                  "extraDeliveryCost": 0,
-                  "fee": 1,
-                  "includedDeliveries": 50
-            });
+    // Arrange
+    beginAuthenticatedSession();
+    setupSamplePlansResponse();
+    //setupSamplePlanInfoResponse();
     
-            $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
-                  "deliveriesCount": 200,
-                  "startDate": "2017-07-01T01:01:01Z",
-                  "endDate": "2017-08-01T01:01:01Z"
-            });
-          }));
-    
-        // Act
-        browser.get('/#/settings/billing?plan=PLAN-60K&lang=en');
-    
-        // Assert
-        var billingPage = new BillingPage();
+    browser.addMockModule('descartableModule4', () => angular
+    // This code will be executed in the browser context,
+    // so it cannot access variables from outside its scope
+    .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": {
+                "name": "Test",
+                "companyName": "Test Upgrade",
+                "address": "Address 1234",
+                "city": "Rosario",
+                "zipCode": "2000",
+                "countryCode": "AR"
+              },
+              "startDate": "2017-07-01T00:00:00Z",
+              "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
+              "extraDeliveryCost": 0,
+              "fee": 1,
+              "includedDeliveries": 50
+        });
 
-        expect(billingPage.getName()).toBe('Test');
-        expect(billingPage.getCompany()).toBe('Test Upgrade');
-        expect(billingPage.getAddress()).toBe('Address 1234');
-        expect(billingPage.getCity()).toBe('Rosario');
-        expect(billingPage.getZCode()).toBe('2000');
-      });
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+              "deliveriesCount": 200,
+              "startDate": "2017-07-01T01:01:01Z",
+              "endDate": "2017-08-01T01:01:01Z"
+        });
+      }));
 
-  it('should show the confirmation page with all the fields filled', () => {
+    // Act
+    browser.get('/#/settings/billing?plan=PLAN-60K&lang=en');
+
+    // Assert
+    var billingPage = new BillingPage();
+
+    expect(billingPage.getName()).toBe('Test');
+    expect(billingPage.getCompany()).toBe('Test Upgrade');
+    expect(billingPage.getAddress()).toBe('Address 1234');
+    expect(billingPage.getCity()).toBe('Rosario');
+    expect(billingPage.getZCode()).toBe('2000');
+
+    done();
+  });
+
+  it('should show the confirmation page with all the fields filled', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -335,9 +347,10 @@ describe('Billing Page', () => {
     expect(billingPage.isSecCodeDisplayed()).toBe('***');
     expect(billingPage.isBillingPageDisplayed()).toBeFalsy();
 
+    done();
   });
 
-  it('should not show the confirmation page if all fields are not filled', () => {
+  it('should not show the confirmation page if all fields are not filled', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -374,8 +387,11 @@ describe('Billing Page', () => {
     // Assert
     expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+
+    done();
   });
-  it('should go back to billing page if the user clicks on modify information', () => {
+
+  it('should go back to billing page if the user clicks on modify information', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -416,9 +432,11 @@ describe('Billing Page', () => {
     // Assert
     expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+
+    done();
   });
 
-  it('should show error if the credit card is not valid by Luhn', () => {
+  it('should show error if the credit card is not valid by Luhn', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -454,9 +472,11 @@ describe('Billing Page', () => {
     expect(billingPage.isInvalidCCnumberErrorDisplayed()).toBeTruthy();
     expect(billingPage.isConfirmationDisplayed()).toBeFalsy();
     expect(billingPage.isBillingPageDisplayed()).toBeTruthy();
+
+    done();
   });
 
-  it('should show a nice error when the post return 400 error', () => {
+  it('should show a nice error when the post return 400 error', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -503,49 +523,53 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isDetachedErrorDisplayed()).toBeTruthy();
+
+    done();
   });
 
-  it('should not show change plan button when agreement is scheduled', () => {
+  it('should not show change plan button when agreement is scheduled', (done) => {
     
-        // Arrange
-        beginAuthenticatedSession();        
-        browser.addMockModule('descartableModule4', () => angular
-        // This code will be executed in the browser context,
-        // so it cannot access variables from outside its scope
-        .module('descartableModule4', ['ngMockE2E'])
-          .run($httpBackend => {
-            $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
-                  "planName": null,
-                  "paymentMethod": null,
-                  "billingInformation": null,
-                  "startDate": "2017-07-01T00:00:00Z",
-                  "endDate": "2017-08-01T00:00:00Z",
-                  "currency": "USD",
-                  "ips_count": 0,
-                  "cost_by_ip": 0,
-                  "extraDeliveryCost": 0,
-                  "fee": 50,
-                  "includedDeliveries": 75000
-            });
+    // Arrange
+    beginAuthenticatedSession();        
+    browser.addMockModule('descartableModule4', () => angular
+    // This code will be executed in the browser context,
+    // so it cannot access variables from outside its scope
+    .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2017-07-01T00:00:00Z",
+              "endDate": "2017-08-01T00:00:00Z",
+              "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
+              "extraDeliveryCost": 0,
+              "fee": 50,
+              "includedDeliveries": 75000
+        });
+
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
+              "deliveriesCount": 200,
+              "startDate": "2017-07-01T01:01:01Z",
+              "endDate": "2017-08-01T01:01:01Z"
+        });
+      }));
     
-            $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/plan/).respond(200, {
-                  "deliveriesCount": 200,
-                  "startDate": "2017-07-01T01:01:01Z",
-                  "endDate": "2017-08-01T01:01:01Z"
-            });
-          }));
-        
-        setupSamplePlansResponse();
-        var billingPage = new BillingPage();
-    
-        //Act
-        browser.get('/#/settings/my-plan?plan=PLAN-60K');
-    
-        // Assert
-        expect(billingPage.isChangePlanButtonDisplayed()).toBeFalsy();
-      });
+    setupSamplePlansResponse();
+    var billingPage = new BillingPage();
+
+    //Act
+    browser.get('/#/settings/my-plan?plan=PLAN-60K');
+
+    // Assert
+    expect(billingPage.isChangePlanButtonDisplayed()).toBeFalsy();
+
+    done();
+  });
   
-  it('should show the pricing chart when the user click on upgrade button', () => {
+  it('should show the pricing chart when the user click on upgrade button', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -559,9 +583,11 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isPricingChartDisplayed()).toBeTruthy();
+
+    done();
   });
 
-  it('should load the slider with default emails per month count selected', () => {
+  it('should load the slider with default emails per month count selected', (done) => {
     
     // Arrange
     beginAuthenticatedSession();
@@ -577,9 +603,11 @@ describe('Billing Page', () => {
     // Assert
     expect(billingPage.isSliderLoaded()).toBeTruthy();
     expect(billingPage.getSliderEmailsPerMonth()).toBe(defaultPlanDeliveries);
+
+    done();
   });
 
-  it('should load the slider with default emails per month count calculated based on included deliveries', () => {
+  it('should load the slider with default emails per month count calculated based on included deliveries', (done) => {
     
     // Arrange
     beginAuthenticatedSession();
@@ -620,9 +648,11 @@ describe('Billing Page', () => {
     // Assert
     expect(billingPage.isSliderLoaded()).toBeTruthy();
     expect(billingPage.getSliderEmailsPerMonth()).toBe('80,000');
+
+    done();
   });
 
-  it('should change the price when the user change slider position', () => {
+  it('should change the price when the user change slider position', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -639,9 +669,11 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getPlanPrice()).not.toBe(planDefaultPrice);
+
+    done();
   });
 
-  it('should show a disabled button for current plan and contact us for downgrade', () => {
+  it('should show a disabled button for current plan and contact us for downgrade', (done) => {
     
     // Arrange
     beginAuthenticatedSession();
@@ -682,9 +714,11 @@ describe('Billing Page', () => {
     // Assert
     expect(billingPage.getBasicButtonText()).toBe('CHANGE PLAN');
     expect(billingPage.isProPlanButtonDisabled()).toBeTruthy();
+
+    done();
   });
 
-  it('should show the new box for Pro and premium plan', () => {
+  it('should show the new box for Pro and premium plan', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -700,9 +734,11 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isRightPlanBoxDisplayed()).toBe(true);
+
+    done();
   });
 
-  it('should show correct plan status values', () => {
+  it('should show correct plan status values', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -716,9 +752,11 @@ describe('Billing Page', () => {
     expect(billingPage.getMonthConsumption()).toBe('200');
     expect(billingPage.getExtraEmails()).toBe('150');
     expect(billingPage.getRenewalDate()).toBe('Aug 01, 2017');
+
+    done();
   });
 
-  it('should show correct plan status values with number separators in english', () => {
+  it('should show correct plan status values with number separators in english', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -755,9 +793,11 @@ describe('Billing Page', () => {
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12,000');
     expect(billingPage.getMonthConsumption()).toBe('20,000,000');
     expect(billingPage.getExtraEmails()).toBe('19,988,000');
+
+    done();
   });
 
-  it('should show correct plan status values with number separators in spanish', () => {
+  it('should show correct plan status values with number separators in spanish', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -794,9 +834,11 @@ describe('Billing Page', () => {
     expect(billingPage.getEmailsAmountForCurrentPlan()).toBe('12.000');
     expect(billingPage.getMonthConsumption()).toBe('20.000.000');
     expect(billingPage.getExtraEmails()).toBe('19.988.000');
+
+    done();
   });
 
-  it('should show correct plan status values for Free Trial user', () => {
+  it('should show correct plan status values for Free Trial user', (done) => {
 
     // Arrange
     beginAuthenticatedSession();
@@ -807,9 +849,11 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isFreeTrialAsPriceDisplayed()).toBe(true);
+
+    done();
   });
 
-  it('should show a message when the user is waiting for a downgrade in my plan page', () => {
+  it('should show a message when the user is waiting for a downgrade in my plan page', (done) => {
     
       // Arrange
       beginAuthenticatedSession();
@@ -836,5 +880,7 @@ describe('Billing Page', () => {
   
       // Assert
       expect(billingPage.isDowngradeMessageDisplayed()).toBe(true);
+
+      done();
   });
 });

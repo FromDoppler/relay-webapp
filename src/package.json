@@ -43,8 +43,8 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "~0.3.6",
     "karma-phantomjs-launcher": "^1.0.2",
-    "protractor": "^5.1.0",
-    "selenium-webdriver": "^3.0.1"
+    "protractor": "5.1.0",
+    "selenium-webdriver": "3.0.1"
   },
   "scripts": {
     "postinstall": "bower --allow-root install && webdriver-manager update",

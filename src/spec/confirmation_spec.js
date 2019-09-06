@@ -30,7 +30,7 @@ describe('Confirmation Page', () => {
     browser.removeMockModule('descartableModule');
   });
 
-  it('should load drop downs in different languages', () => {
+  it('should load drop downs in different languages', (done) => {
 
     // Arrange
     browser.addMockModule('descartableModule2', () => angular
@@ -57,5 +57,7 @@ describe('Confirmation Page', () => {
     // Assert
     expect(confirmationPage.getFirstIndustryName()).toBe(industryInSpanish);
     expect(confirmationPage.getFirstCountryName()).toBe(countryInSpanish);
+
+    done();
   });
 });
