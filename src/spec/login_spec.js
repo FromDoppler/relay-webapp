@@ -1,7 +1,7 @@
 describe('Login page', () => {
   var LoginPage = require('./page-objects/login-page').LoginPage;
 
-  it('should show switch language message in inverse language', () => {
+  it('should show switch language message in inverse language', (done) => {
 
     // Arrange
     browser.addMockModule('descartableModule', () => angular
@@ -34,9 +34,11 @@ describe('Login page', () => {
     loginPage.clickEnFlag();
     // Assert
     expect(loginPage.getSwitchLanguageMessage()).toBe(inSpanish);
+
+    done();
   });
 
-  it('should show login admin page correctly', () => {
+  it('should show login admin page correctly', (done) => {
     
     // Arrange
     var loginPage = new LoginPage();
@@ -47,9 +49,11 @@ describe('Login page', () => {
     // Assert
     expect(loginPage.isAdminTitleVisible()).toBe(true);
     expect(loginPage.isAdminEmailAccountInputVisible()).toBe(true);
+
+    done();
   });
 
-  it('should log correctly as the user from Admin Page', () => {
+  it('should log correctly as the user from Admin Page', (done) => {
     
     // Arrange
     browser.addMockModule('descartableModule', () => angular
@@ -76,9 +80,11 @@ describe('Login page', () => {
 
     // Assert
     expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/#/reports');
+
+    done();
   });
 
-  it('should show the word Relay in the title', () => {
+  it('should show the word Relay in the title', (done) => {
     
     // Arrange
     var loginPage = new LoginPage();
@@ -94,9 +100,11 @@ describe('Login page', () => {
     loginPage.get('lang=en');
     // Assert
     expect(loginPage.getRelayTextDisplayed()).toBe(inEnglish);
+
+    done();
   });
 
-  it('should not show any custom icons in the header', () => {
+  it('should not show any custom icons in the header', (done) => {
     
     // Arrange
     var loginPage = new LoginPage();
@@ -105,9 +113,11 @@ describe('Login page', () => {
     browser.get('/#/login');    
 
     // Assert
-    expect(loginPage.isHeaderIconCustom()).toBe(false);    
+    expect(loginPage.isHeaderIconCustom()).toBe(false);
+
+    done();
   });
-  it('should not show any custom footer', () => {
+  it('should not show any custom footer', (done) => {
     
     // Arrange
     var loginPage = new LoginPage();
@@ -117,9 +127,11 @@ describe('Login page', () => {
 
     // Assert
     expect(loginPage.isDefaultFooterDisplayed()).toBe(true);
+
+    done();
   });
 
-  it('should show the custom footer', () => {
+  it('should show the custom footer', (done) => {
     // Arrange
     browser.addMockModule('descartableModule2', () => angular
     .module('descartableModule', ['ngMockE2E'])
@@ -138,9 +150,11 @@ describe('Login page', () => {
 
     // Assert
     expect(loginPage.isCustomFooterDisplayed()).toBe(true);
+
+    done();
   });
 
-  it('should the custom icon in the header', () => {
+  it('should the custom icon in the header', (done) => {
     // Arrange
     browser.addMockModule('descartableModule2', () => angular
     .module('descartableModule', ['ngMockE2E'])
@@ -159,9 +173,11 @@ describe('Login page', () => {
 
     // Assert
     expect(loginPage.isHeaderIconCustom()).toBe(true);
+
+    done();
   });
 
-  it('should show the word Gire in the title', () => {
+  it('should show the word Gire in the title', (done) => {
     // Arrange
     browser.addMockModule('descartableModule2', () => angular
     .module('descartableModule', ['ngMockE2E'])
@@ -186,5 +202,7 @@ describe('Login page', () => {
     loginPage.get('lang=en');
     // Assert
     expect(loginPage.getRelayTextDisplayed()).toBe(inEnglish);
+
+    done();
   });
 });
