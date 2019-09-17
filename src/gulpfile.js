@@ -321,9 +321,12 @@ gulp.task('web.config', function () {
 /**
  * Copy hcheck.png file into build.
  */
-gulp.task('hcheck.png', function () {
+gulp.task('rootFiles', function () {
   return gulp.src([
-    paths.app + '/hcheck.png'
+    paths.app + '/hcheck.png',
+    paths.app + '/hcheck.html',
+    paths.app + '/favicon.ico',
+    paths.app + '/constants.js'
   ])
   .pipe(gulp.dest(paths.build));
 });
@@ -471,7 +474,7 @@ gulp.task('build', ['clean'], function () {
     'build-mseditor',
     'build-html',
     'web.config',
-    'hcheck.png'
+    'rootFiles'
   );
 });
 

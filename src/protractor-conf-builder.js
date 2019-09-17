@@ -14,7 +14,7 @@ function getConfigurationDefaults() {
       isVerbose: true,
       realtimeFailure: true,
       includeStackTrace: true,
-      defaultTimeoutInterval: 30000
+      defaultTimeoutInterval: 60000
     },
     onPrepare: function() {
       onPrepare();
