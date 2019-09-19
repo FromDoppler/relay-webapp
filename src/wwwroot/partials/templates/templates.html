@@ -42,7 +42,7 @@
         <ul>
           <li class="squares" ng-repeat="template in items" ng-mouseleave="hideDeleteDialog(template.id)" ng-hide="template.removingStatus">
             <div class="img--container">
-              <img />
+              <img src="{{template.thumbnail}}" alt="HTML Template as Image" />
               <div class="hidden--overlay">
                 <div class="icons--container">
                   <div>
