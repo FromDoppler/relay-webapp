@@ -54,7 +54,7 @@
       <h2>{{'templates_edition_title' | translate}}</h2>
       <div class="flex flex--between">
         <label for="uContent">{{'templates_edition_subtitle' | translate}}</label>
-      </div>    
+      </div>
       <div class="templates-htmlraw--container" ng-show="isHtmlTemplate">  
         <textarea id="uContent"
                   name="uContent"
@@ -89,19 +89,22 @@
       </div>
       <div class="section--wrapper text--center">
         <input type="submit"
-              class="button button--medium"
-              
+              class="button button--medium button--left"
               ng-class="!saveInProgress ? '' : 'button--disabled'"
               ng-disabled="saveInProgress"
               value="{{'templates_save_button' | translate}}" />
       </div>
-      <div class="section--wrapper text--center">
-        <input type="button"
-              class="button button--medium"
-              
-              ng-class="!previewInProgress ? '' : 'button--disabled'"
-              ng-disabled="previewInProgress"
-              value="{{'templates_preview_button' | translate}}" />
+    </div>
+  </section>
+  <section class="templates--information" ng-show="isHtmlTemplate">
+    <div class="section--wrapper">
+      <h2>{{'templates_edition_preview_title' | translate}}</h2>
+      <div class="flex flex--between subtittle">
+        <label for="contentPreview">{{'templates_edition_preview_subtitle' | translate}}</label>
+      </div>
+      <hr>
+      <div class="templates-htmlraw--container">
+          <div id="contentPreview" ng-bind-html='htmlPreviewContent'></div>
       </div>
     </div>
   </section>

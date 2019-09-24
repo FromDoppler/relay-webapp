@@ -119,6 +119,8 @@ window['relay-translation-es'] = {
   "templates_edition_html_example_3": "<head>",
   "templates_edition_html_example_4": "<meta http-equiv='Content-Type' content='text/html;",
   "templates_edition_preview": "Previsualizar",
+  "templates_edition_preview_title": "Vista previa",
+  "templates_edition_preview_subtitle": "Aquí puedes visualizar tu plantilla en tiempo real",
   "templates_publish_button": "Publicar Plantilla",
   "templates_draft_button": "Guardar como borrador",
   "templates_save_button": "Guardar Plantilla",
