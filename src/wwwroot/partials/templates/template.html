@@ -95,6 +95,14 @@
               ng-disabled="saveInProgress"
               value="{{'templates_save_button' | translate}}" />
       </div>
+      <div class="section--wrapper text--center">
+        <input type="button"
+              class="button button--medium"
+              
+              ng-class="!previewInProgress ? '' : 'button--disabled'"
+              ng-disabled="previewInProgress"
+              value="{{'templates_preview_button' | translate}}" />
+      </div>
     </div>
   </section>
 </form>
