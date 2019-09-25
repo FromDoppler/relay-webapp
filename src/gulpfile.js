@@ -331,6 +331,13 @@ gulp.task('rootFiles', function () {
   .pipe(gulp.dest(paths.build));
 });
 
+gulp.task('imageFiles', function () {
+  return gulp.src([
+    paths.app + '/images/no-image.png'
+  ])
+  .pipe(gulp.dest(paths.build + '/images'));
+});
+
 gulp.task('fonts', function () {
   return gulp.src([
       paths.app + '/fonts/*.otf',
@@ -474,7 +481,8 @@ gulp.task('build', ['clean'], function () {
     'build-mseditor',
     'build-html',
     'web.config',
-    'rootFiles'
+    'rootFiles',
+    'imageFiles'
   );
 });
 
