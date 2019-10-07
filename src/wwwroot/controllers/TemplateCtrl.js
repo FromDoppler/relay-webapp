@@ -10,10 +10,11 @@
     'templates',
     '$routeParams',
     '$location',
-    '$rootScope'
+    '$rootScope',
+    '$sce'
   ];
 
-  function TemplateCtrl($scope, templates, $routeParams, $location, $rootScope) {
+  function TemplateCtrl($scope, templates, $routeParams, $location, $rootScope, $sce) {
 
     $scope.template = {
       id: "",
@@ -27,9 +28,13 @@
     $scope.loadInProgress = false;
     $scope.saveInProgress = false;
     $scope.isHtmlTemplate = true;
-
+    $scope.htmlPreviewContent = "";
     $scope.saveTemplate = saveTemplate;
     $scope.saveAndEditWithMseditor = saveAndEditWithMseditor;
+
+    $scope.$watch("template.content", function(htmlContent) {
+      $scope.htmlPreviewContent = $sce.trustAsHtml(htmlContent);
+    }, true);
 
     if ($routeParams["templateId"]) {
       load($routeParams["templateId"]);

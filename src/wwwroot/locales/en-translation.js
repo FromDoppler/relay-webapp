@@ -107,6 +107,8 @@
   "templates_edition_html_example_3": "<head>",
   "templates_edition_html_example_4": "<meta http-equiv='Content-Type' content='text/html;",
   "templates_edition_preview": "Preview",
+  "templates_edition_preview_title": "Preview",
+  "templates_edition_preview_subtitle": "Here you can view your template in real time",
   "templates_publish_button": "Publish Template",
   "templates_draft_button": "Save as draft",
   "templates_save_button": "Save Template",
