@@ -114,7 +114,7 @@ module.exports = function (config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-
+    browserNoActivityTimeout: 80000,
     browsers: [
       // 'PhantomJS', // It does not work yet, see https://github.com/ariya/phantomjs/issues/14506#issuecomment-251611067
       'Chrome'

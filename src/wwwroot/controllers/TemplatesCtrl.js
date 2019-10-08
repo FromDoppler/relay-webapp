@@ -19,6 +19,7 @@
     $scope.deleteDialogs = new Array();
     $scope.toggleDeleteDialog = toggleDeleteDialog;
     $scope.hideDeleteDialog = hideDeleteDialog;
+    $scope.previewTemplate = previewTemplate;
 
     initialize();
 
@@ -48,6 +49,10 @@
         })
         .finally(function () {
         });
+    }
+
+    function previewTemplate(thumbnailUrl) {
+      window.open(thumbnailUrl);
     }
 
     function getItems() {

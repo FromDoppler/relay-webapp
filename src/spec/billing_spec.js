@@ -317,7 +317,7 @@ describe('Billing Page', () => {
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4485929253917658';
-    var expDate = '0919';
+    var expDate = '0999';
     var secCode = '123'
 
     // Act
@@ -343,7 +343,7 @@ describe('Billing Page', () => {
     expect(billingPage.isCountryDisplayed()).toContain(country);
     expect(billingPage.isCardHolderDisplayed()).toBe(cardHolder);
     expect(billingPage.isCcNumberDisplayed()).toBe('************7658');
-    expect(billingPage.isExpDateDisplayed()).toBe('09/19');
+    expect(billingPage.isExpDateDisplayed()).toBe('09/99');
     expect(billingPage.isSecCodeDisplayed()).toBe('***');
     expect(billingPage.isBillingPageDisplayed()).toBeFalsy();
 
@@ -367,7 +367,7 @@ describe('Billing Page', () => {
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4485929253917658';
-    var expDate = '0919';
+    var expDate = '0999';
     var secCode = '123'
 
     // Act
@@ -408,7 +408,7 @@ describe('Billing Page', () => {
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4485929253917658';
-    var expDate = '0919';
+    var expDate = '0999';
     var secCode = '123'
 
     billingPage.setName(name);
@@ -453,7 +453,7 @@ describe('Billing Page', () => {
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4444444444444444';
-    var expDate = '0919';
+    var expDate = '0999';
     var secCode = '123'
 
     billingPage.setName(name);
@@ -502,7 +502,7 @@ describe('Billing Page', () => {
     var country = 'Bolivia, Plurinational State Of';
     var cardHolder = 'TestName TestLastName';
     var creditCardNumber = '4485929253917658';
-    var expDate = '0919';
+    var expDate = '0999';
     var secCode = '123'
 
     // Act
