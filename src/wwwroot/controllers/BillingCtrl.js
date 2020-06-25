@@ -45,6 +45,7 @@
     function activate() {
 
       resources.ensureCountries();
+      resources.ensureConsumerType();
       vm.resources = resources.data;
 
       if (!planName) {
