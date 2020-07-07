@@ -51,6 +51,22 @@
             </ui-select>
             </div>
           </div>
+          <div class="item flex" ng-if="vm.country.code == 'AR' && vm.consumerType.code == 'CF'">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="dni">{{'downloads_grid_dni_header' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="dni" name="dni" ng-model="vm.dni" class="input input--large" ui-mask="99999999" validation-errors-fluid required/>              
+            </div>
+          </div>
+          <div class="item flex" ng-if="vm.country.code == 'AR' && vm.consumerType && vm.consumerType.code != 'CF'">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="cuit">{{'downloads_grid_cuit_header' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="cuit" name="cuit" ng-model="vm.cuit" class="input input--large" ui-mask="99-99999999-9" validation-errors-fluid required/>              
+            </div>
+          </div>
           <div class="item flex">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="name">{{'downloads_grid_name_header' | translate}}</label>

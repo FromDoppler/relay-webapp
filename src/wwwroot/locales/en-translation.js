@@ -83,6 +83,8 @@
   "downloads_title": "Download center",
   "downloads_subtitle": "Here you will find every in progress report request and every ready to download report.",
   "downloads_grid_name_header": "Name",
+  "downloads_grid_dni_header": "D.N.I",
+  "downloads_grid_cuit_header": "C.U.I.T",
   "downloads_grid_start_date_header": "Start date",
   "downloads_grid_end_date_header": "End date",
   "downloads_grid_download": "Download report",
