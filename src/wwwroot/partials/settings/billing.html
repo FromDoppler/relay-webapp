@@ -75,6 +75,14 @@
               <input id="name" name="name" ng-model="vm.name" class="input input--large" validation-errors-fluid required/>              
             </div>
           </div>
+          <div class="item flex" ng-if="vm.consumerType && vm.consumerType.code == 'CF'">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="lastname">{{'downloads_grid_lastname_header' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="lastname" name="lastname" ng-model="vm.lastname" class="input input--large" validation-errors-fluid required/>              
+            </div>
+          </div>
           <div class="item flex" ng-if="vm.consumerType && vm.consumerType.code != 'CF'">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="company">{{'company_text' | translate}}</label>

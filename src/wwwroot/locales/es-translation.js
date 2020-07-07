@@ -95,6 +95,7 @@ window['relay-translation-es'] = {
   "downloads_title": "Centro de descargas",
   "downloads_subtitle": "Aquí se encuentran todas las solicitudes en proceso de los reportes y los reportes listos para descargar.",
   "downloads_grid_name_header": "Nombre",
+  "downloads_grid_lastname_header": "Apellido",
   "downloads_grid_dni_header": "D.N.I",
   "downloads_grid_cuit_header": "C.U.I.T",
   "downloads_grid_start_date_header": "Fecha de inicio",
