@@ -36,6 +36,21 @@
             </ui-select>
             </div>
           </div>
+          <div class="item flex" ng-if="vm.country.code == 'AR'">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="consumerType">{{'consumerType_text' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+            <ui-select id="consumerType" name="consumerType" ng-model="vm.consumerType" on-select="form.consumerType.$modelValue = $model" validation-errors-fluid required>
+              <ui-select-match placeholder="{{ 'select_choose_consumerType' | translate }}">
+                <span ng-bind-html="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (vm.resources.consumerType | filter: $select.search)">
+                <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+            </div>
+          </div>
           <div class="item flex">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="name">{{'downloads_grid_name_header' | translate}}</label>
