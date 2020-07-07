@@ -99,6 +99,21 @@
               <input id="address" name="address" ng-model="vm.address" class="input input--large" validation-errors-fluid required />              
             </div>
           </div>
+          <div class="item flex" ng-if="vm.country.code == 'AR'">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="province">{{'province_text' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+            <ui-select id="province" name="province" ng-model="vm.province" on-select="form.province.$modelValue = $model" validation-errors-fluid required>
+              <ui-select-match placeholder="{{ 'select_choose_province' | translate }}">
+                <span ng-bind-html="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (vm.resources.provinces | filter: $select.search)">
+                <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+            </div>
+          </div>
           <div class="item flex">
               <div class="flex one flex--vertically-start">
                 <label class="special uppercase" for="city">{{'city_label' | translate}}</label>

@@ -46,6 +46,7 @@
 
       resources.ensureCountries();
       resources.ensureConsumerType();
+      resources.ensureProvinces();
       vm.resources = resources.data;
 
       if (!planName) {

@@ -19,6 +19,7 @@
       ensureCountries: ensureCountries,
       ensureIndustries: ensureIndustries,
       ensureConsumerType: ensureConsumerType,
+      ensureProvinces: ensureProvinces,
       data: []
     };
 
@@ -37,6 +38,10 @@
 
     function ensureConsumerType() {
       return ensure("consumerType");
+    }
+
+    function ensureProvinces() {
+      return ensure("provinces");
     }
 
     function ensure(resource) {
