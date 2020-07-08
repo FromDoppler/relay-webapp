@@ -86,6 +86,7 @@
   "downloads_grid_lastname_header": "Lastname",
   "downloads_grid_dni_header": "D.N.I",
   "downloads_grid_cuit_header": "C.U.I.T",
+  "downloads_grid_idFiscal_header": "Fiscal ID",
   "downloads_grid_start_date_header": "Start date",
   "downloads_grid_end_date_header": "End date",
   "downloads_grid_download": "Download report",

@@ -98,6 +98,7 @@ window['relay-translation-es'] = {
   "downloads_grid_lastname_header": "Apellido",
   "downloads_grid_dni_header": "D.N.I",
   "downloads_grid_cuit_header": "C.U.I.T",
+  "downloads_grid_idFiscal_header": "ID Fiscal",
   "downloads_grid_start_date_header": "Fecha de inicio",
   "downloads_grid_end_date_header": "Fecha de fin",
   "downloads_grid_download": "Descargar reporte",

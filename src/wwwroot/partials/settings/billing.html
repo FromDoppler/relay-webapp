@@ -51,6 +51,14 @@
             </ui-select>
             </div>
           </div>
+          <div class="item flex" ng-if="vm.country.code != 'AR'">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="idFiscal">{{'downloads_grid_idFiscal_header' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap">
+              <input id="idFiscal" name="idFiscal" ng-model="vm.idFiscal" class="input input--large" validation-errors-fluid required/>              
+            </div>
+          </div>
           <div class="item flex" ng-if="vm.country.code == 'AR' && vm.consumerType.code == 'CF'">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="dni">{{'downloads_grid_dni_header' | translate}}</label>
