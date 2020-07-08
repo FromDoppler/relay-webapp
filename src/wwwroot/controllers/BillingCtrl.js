@@ -106,6 +106,8 @@
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
 
+    $scope.$watch('vm.country.code', getCustomerTypes);
+
     function fillCreditCardProperties(newNumber) {
       vm.cc.brand = getCreditCardBrand(newNumber);
       vm.cc.mask = getMaskByBrand(vm.cc.brand);
@@ -256,6 +258,26 @@
         return;
       }
       redirectToPlanSelection();
+    }
+
+    function getCustomerTypes(countryCode) {
+      vm.consumerTypeByCountry = [];
+
+      if (countryCode && countryCode != 'AR') {
+        vm.resources.consumerType.forEach(function(consumerType) {
+          if (consumerType.code == 'IND' || consumerType.code == 'EMP') {
+            vm.consumerTypeByCountry.push(consumerType);
+          }
+        });
+      }
+
+      if (countryCode && countryCode == 'AR') {
+        vm.resources.consumerType.forEach(function(consumerType) {
+          if (consumerType.code != 'IND' && consumerType.code != 'EMP') {
+            vm.consumerTypeByCountry.push(consumerType);
+          }
+        });
+      }
     }
   }
 
