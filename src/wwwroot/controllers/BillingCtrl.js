@@ -43,7 +43,6 @@
     vm.cancelAction = cancelAction;
 
     function activate() {
-
       resources.ensureCountries();
       resources.ensureConsumerType();
       resources.ensureProvinces();
@@ -106,6 +105,8 @@
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
 
+    $scope.$watch('vm.cuit', fillCustomerData);
+
     $scope.$watch('vm.country.code', getCustomerTypes);
 
     function fillCreditCardProperties(newNumber) {
@@ -139,6 +140,19 @@
     		result = "amex";
     	}
     	return result;
+    }
+
+    function fillCustomerData(cuit) {
+      console.log(cuit);
+      if (cuit && cuit.length >= 11) {
+        settings.getCustomerDataByCuit(cuit).then(function(result) {
+          vm.company = result.data.RazonSocial,
+          vm.address = result.data.DomicilioDireccion,
+          vm.province = getProvinceByCode(result.data.DomicilioProvincia),
+          vm.city = result.data.DomicilioLocalidad,
+          vm.zCode = result.data.DomicilioCodigoPostal
+        });
+      }
     }
 
     function checkExpDate(input) {
@@ -278,6 +292,16 @@
           }
         });
       }
+    }
+
+    function getProvinceByCode(code) {
+      var province = "";
+      vm.resources.provinces.forEach(function(provinceItem) {
+        if (provinceItem.code == code) {
+          province = provinceItem;
+        }
+      });
+      return province
     }
   }
 
