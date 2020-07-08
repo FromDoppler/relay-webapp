@@ -67,7 +67,7 @@
               <input id="cuit" name="cuit" ng-model="vm.cuit" class="input input--large" ui-mask="99-99999999-9" validation-errors-fluid required/>              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.consumerType && vm.consumerType.code == 'CF'">
+          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="name">{{'downloads_grid_name_header' | translate}}</label>
             </div>
@@ -75,7 +75,7 @@
               <input id="name" name="name" ng-model="vm.name" class="input input--large" validation-errors-fluid required/>              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.consumerType && vm.consumerType.code == 'CF'">
+          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="lastname">{{'downloads_grid_lastname_header' | translate}}</label>
             </div>
@@ -83,7 +83,7 @@
               <input id="lastname" name="lastname" ng-model="vm.lastname" class="input input--large" validation-errors-fluid required/>              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.consumerType && vm.consumerType.code != 'CF'">
+          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code != 'CF' && vm.consumerType.code != 'IND' || vm.consumerType.code == 'EMP')">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="company">{{'company_text' | translate}}</label>
             </div>
