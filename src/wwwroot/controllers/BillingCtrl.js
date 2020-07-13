@@ -143,8 +143,7 @@
     }
 
     function fillCustomerData(cuit) {
-      console.log(cuit);
-      if (cuit && cuit.length >= 11) {
+      if (cuit && checkCuitLenght(cuit)) {
         settings.getCustomerDataByCuit(cuit).then(function(result) {
           vm.company = result.data.RazonSocial,
           vm.address = result.data.DomicilioDireccion,
@@ -190,10 +189,29 @@
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
       vm.viewExpDate = form.expDate.$viewValue;
     }
+
     function submitBillingPayment() {
       if (vm.downgrade) {
         downgrade();
         return;
+      }
+
+      var fiscalIdtype;
+      var fiscalId;
+
+      if (vm.idFiscal && vm.idFiscal != '') {
+        fiscalIdtype = "FID";
+        fiscalId = vm.idFiscal;
+      }
+
+      if (vm.cuit && checkCuitLenght(vm.cuit.length)) {
+        fiscalIdtype = "CUIT";
+        fiscalId = vm.cuit;
+      }
+
+      if (vm.dni) {
+        fiscalIdtype = "DNI";
+        fiscalId = vm.dni;
       }
 
       var agreement = {
@@ -209,11 +227,16 @@
         },
         billingInformation: {
           name: vm.name,
+          lastname: vm.lastname,
           companyName:vm.company,
           address: vm.address,
           city: vm.city,
           zipCode: vm.zCode,
-          countryCode: vm.country.code
+          consumerType: vm.consumerType,
+          fiscalId: fiscalId,
+          fiscalIdType: fiscalIdtype,
+          countryCode: vm.country.code,
+          provinceCode: vm.province.code
         }
      };
 
@@ -238,6 +261,10 @@
       }).finally(function(){
         vm.processingPayment = false;
       });
+    }
+
+    function checkCuitLenght(cuit) {
+      return cuit.length >= 11
     }
 
     function downgrade() {
