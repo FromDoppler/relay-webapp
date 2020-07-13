@@ -275,6 +275,8 @@
     }
 
     function getCustomerTypes(countryCode) {
+      vm.consumerType = "";
+
       vm.consumerTypeByCountry = [];
 
       if (countryCode && countryCode != 'AR') {
