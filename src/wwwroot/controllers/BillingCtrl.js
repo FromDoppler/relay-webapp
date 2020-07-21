@@ -107,7 +107,7 @@
 
     $scope.$watch('vm.cuit', fillCustomerData);
 
-    $scope.$watch('vm.country.code', getCustomerTypes);
+    $scope.$watch('vm.country.code', getConsumerTypes);
 
     function fillCreditCardProperties(newNumber) {
       vm.cc.brand = getCreditCardBrand(newNumber);
@@ -301,7 +301,7 @@
       redirectToPlanSelection();
     }
 
-    function getCustomerTypes(countryCode) {
+    function getConsumerTypes(countryCode) {
       vm.consumerType = "";
 
       vm.consumerTypeByCountry = [];
