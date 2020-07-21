@@ -72,16 +72,17 @@
 
           if(response.data.billingInformation){
             vm.name = response.data.billingInformation.name;
+            vm.lastname = response.data.billingInformation.lastname;
             vm.company = response.data.billingInformation.companyName;
             vm.address = response.data.billingInformation.address;
             vm.city = response.data.billingInformation.city;
-            vm.zCode = response.data.billingInformation.zipCode;       
-            resources.ensureCountries().then(function(){
-              vm.country = vm.resources.countries.find(function(obj){
-                return obj.code == response.data.billingInformation.countryCode;
-              });
-            });     
-            
+            vm.zCode = response.data.billingInformation.zipCode;   
+            vm.country = getCountryByCode(response.data.billingInformation.countryCode);
+            vm.consumerType = getConsumerTypeByCode(response.data.billingInformation.consumerType);
+            vm.province = getProvinceByCode(response.data.billingInformation.provinceCode);
+            fillFiscalInformationByType(
+              response.data.billingInformation.fiscalIdType,
+              response.data.billingInformation.fiscalId);
           }
         });
 
@@ -232,7 +233,7 @@
           address: vm.address,
           city: vm.city,
           zipCode: vm.zCode,
-          consumerType: vm.consumerType,
+          consumerType: vm.consumerType.code,
           fiscalId: fiscalId,
           fiscalIdType: fiscalIdtype,
           countryCode: vm.country.code,
@@ -302,35 +303,56 @@
     }
 
     function getConsumerTypes(countryCode) {
-      vm.consumerType = "";
+      vm.filteredConsumerTypes = [...vm.resources.consumerType];
 
-      vm.consumerTypeByCountry = [];
-
-      if (countryCode && countryCode != 'AR') {
-        vm.resources.consumerType.forEach(function(consumerType) {
-          if (consumerType.code == 'IND' || consumerType.code == 'EMP') {
-            vm.consumerTypeByCountry.push(consumerType);
+      if (countryCode && countryCode != 'AR') {   
+        vm.filteredConsumerTypes = vm.resources.consumerType.filter(function(obj) {
+          if (obj.code == 'IN' || obj.code == 'EM') {
+            return true;
           }
         });
       }
 
       if (countryCode && countryCode == 'AR') {
-        vm.resources.consumerType.forEach(function(consumerType) {
-          if (consumerType.code != 'IND' && consumerType.code != 'EMP') {
-            vm.consumerTypeByCountry.push(consumerType);
+        vm.filteredConsumerTypes = vm.resources.consumerType.filter(function(obj) {
+          if (obj.code != 'IN' && obj.code != 'EM') {
+            return true;
           }
         });
       }
     }
 
-    function getProvinceByCode(code) {
-      var province = "";
-      vm.resources.provinces.forEach(function(provinceItem) {
-        if (provinceItem.code == code) {
-          province = provinceItem;
-        }
+    function getCountryByCode(countryCode) {
+      return vm.resources.countries.find(function(obj){
+        return obj.code == countryCode;
       });
-      return province
+    }
+
+    function getConsumerTypeByCode(consumerTypeCode)
+    {
+      return vm.resources.consumerType.find(function(obj){
+        return obj.code == consumerTypeCode;
+      });
+    }
+
+    function getProvinceByCode(provinceCode) {
+      return vm.resources.provinces.find(function(obj){
+        return obj.code == provinceCode;
+      });
+    }
+
+    function fillFiscalInformationByType(fiscalIdType, fiscalId)
+    {
+      switch (fiscalIdType) {
+        case "FID":
+          vm.idFiscal = fiscalId;
+          break;
+        case "DNI":
+          vm.dni = fiscalId;
+          break;
+        case "CUIT":
+          vm.cuit = fiscalId;
+      }
     }
   }
 
