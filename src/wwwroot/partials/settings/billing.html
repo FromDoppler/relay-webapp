@@ -210,11 +210,15 @@
       <h3>{{ 'billing_address_title' | translate }}</h3>
     </div>
     <div class="item flex flex--wrap first">
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
         <label class="width--full special uppercase">{{'downloads_grid_name_header' | translate}}</label>
         <p id="nameConfirmation" tooltips tooltip-template="{{vm.name}}" tooltip-hidden="{{vm.name.length < 20}}" ng-class="vm.name.length > 20 ? 'hide': 'show'">{{vm.name}}</p>
       </div>
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
+        <label class="width--full special uppercase">{{'downloads_grid_lastname_header' | translate}}</label>
+        <p id="lastnameConfirmation" tooltips tooltip-template="{{vm.lastname}}" tooltip-hidden="{{vm.lastname.length < 20}}" ng-class="vm.lastname.length > 20 ? 'hide': 'show'">{{vm.lastname}}</p>
+      </div>
+      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code != 'CF' && vm.consumerType.code != 'IND' || vm.consumerType.code == 'EMP')">
         <label class="width--full special uppercase">{{'company_text' | translate}}</label>
         <p id="companyConfirmation" tooltips tooltip-template="{{vm.company}}" tooltip-hidden="{{vm.company.length < 20}}" ng-class="vm.company.length > 20 ? 'hide': 'show'">{{vm.company}}</p>
       </div>
@@ -231,10 +235,30 @@
         <p id="zCodeConfirmation" tooltips tooltip-template="{{vm.zCode}}" tooltip-hidden="{{vm.zCode.length < 20}}" ng-class="vm.zCode.length > 20 ? 'hide': 'show'">{{vm.zCode}}</p>
       </div>
     </div>
-    <div class="item flex flex--wrap">
+    <div class="item flex flex--wrap first">
       <div class="flex one flex--wrap">
         <label class="width--full special uppercase">{{'country_text' | translate}}</label>
         <p id="countryConfirmation" tooltips tooltip-template="{{vm.country.name}}" tooltip-hidden="{{vm.country.name.length < 20}}" ng-class="vm.country.name.length > 20 ? 'hide': 'show'">{{vm.country.name}}</p>
+      </div>
+      <div class="flex one flex--wrap" ng-if="vm.country.code == 'AR'">
+        <label class="width--full special uppercase">{{'province_text' | translate}}</label>
+        <p id="provinceConfirmation" tooltips tooltip-template="{{vm.province.name}}" tooltip-hidden="{{vm.province.name.length < 20}}" ng-class="vm.province.name.length > 20 ? 'hide': 'show'">{{vm.province.name}}</p>
+      </div>
+      <div class="flex one flex--wrap">
+        <label class="width--full special uppercase">{{'consumerType_text' | translate}}</label>
+        <p id="consumerTypeConfirmation" tooltips tooltip-template="{{vm.consumerType.name}}" tooltip-hidden="{{vm.consumerType.name.length < 20}}" ng-class="vm.consumerType.name.length > 20 ? 'hide': 'show'">{{vm.consumerType.name}}</p>
+      </div>
+      <div class="flex one flex--wrap" ng-if="vm.country.code != 'AR'">
+        <label class="width--full special uppercase">{{'downloads_grid_idFiscal_header' | translate}}</label>
+        <p id="idFiscalConfirmation" tooltips tooltip-template="{{vm.idFiscal}}" tooltip-hidden="{{vm.idFiscal.length < 20}}" ng-class="vm.idFiscal.length > 20 ? 'hide': 'show'">{{vm.idFiscal}}</p>
+      </div>
+      <div class="flex one flex--wrap" ng-if="vm.country.code == 'AR' && vm.consumerType.code == 'CF'">
+        <label class="width--full special uppercase">{{'downloads_grid_dni_header' | translate}}</label>
+        <p id="dniConfirmation" tooltips tooltip-template="{{vm.dni}}" tooltip-hidden="{{vm.dni.length < 20}}" ng-class="vm.dni.length > 20 ? 'hide': 'show'">{{vm.dni}}</p>
+      </div>
+      <div class="flex one flex--wrap" ng-if="vm.country.code == 'AR' && vm.consumerType && vm.consumerType.code != 'CF'">
+        <label class="width--full special uppercase">{{'downloads_grid_cuit_header' | translate}}</label>
+        <p id="cuitConfirmation" tooltips tooltip-template="{{vm.cuit}}" tooltip-hidden="{{vm.cuit.length < 20}}" ng-class="vm.cuit.length > 20 ? 'hide': 'show'">{{vm.cuit}}</p>
       </div>
     </div>
     <div class="item" ng-if="!vm.downgrade">
