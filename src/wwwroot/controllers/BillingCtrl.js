@@ -43,8 +43,9 @@
     vm.cancelAction = cancelAction;
 
     function activate() {
-
       resources.ensureCountries();
+      resources.ensureConsumerType();
+      resources.ensureProvinces();
       vm.resources = resources.data;
 
       if (!planName) {
@@ -71,16 +72,17 @@
 
           if(response.data.billingInformation){
             vm.name = response.data.billingInformation.name;
+            vm.lastname = response.data.billingInformation.lastname;
             vm.company = response.data.billingInformation.companyName;
             vm.address = response.data.billingInformation.address;
             vm.city = response.data.billingInformation.city;
-            vm.zCode = response.data.billingInformation.zipCode;       
-            resources.ensureCountries().then(function(){
-              vm.country = vm.resources.countries.find(function(obj){
-                return obj.code == response.data.billingInformation.countryCode;
-              });
-            });     
-            
+            vm.zCode = response.data.billingInformation.zipCode;   
+            vm.country = getCountryByCode(response.data.billingInformation.countryCode);
+            vm.consumerType = getConsumerTypeByCode(response.data.billingInformation.consumerType);
+            vm.province = getProvinceByCode(response.data.billingInformation.provinceCode);
+            fillFiscalInformationByType(
+              response.data.billingInformation.fiscalIdType,
+              response.data.billingInformation.fiscalId);
           }
         });
 
@@ -89,6 +91,7 @@
     vm.checkExpDate = checkExpDate;
     vm.submitBilling = submitBilling;
     vm.submitBillingPayment = submitBillingPayment;
+    vm.resetInputs = resetInputs;
 
     vm.cc = {number: '', brand: {}, mask: ''};
     vm.secCode = {number: '', mask: ''};
@@ -103,6 +106,10 @@
     }
 
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
+
+    $scope.$watch('vm.cuit', fillCustomerData);
+
+    $scope.$watch('vm.country.code', getConsumerTypes);
 
     function fillCreditCardProperties(newNumber) {
       vm.cc.brand = getCreditCardBrand(newNumber);
@@ -135,6 +142,18 @@
     		result = "amex";
     	}
     	return result;
+    }
+
+    function fillCustomerData(cuit) {
+      if (cuit && cuit.length >= 11) {
+        settings.getCustomerDataByCuit(cuit).then(function(result) {
+          vm.company = result.data.RazonSocial,
+          vm.address = result.data.DomicilioDireccion,
+          vm.province = getProvinceByCode(result.data.DomicilioProvincia),
+          vm.city = result.data.DomicilioLocalidad,
+          vm.zCode = result.data.DomicilioCodigoPostal
+        });
+      }
     }
 
     function checkExpDate(input) {
@@ -172,10 +191,29 @@
       vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
       vm.viewExpDate = form.expDate.$viewValue;
     }
+
     function submitBillingPayment() {
       if (vm.downgrade) {
         downgrade();
         return;
+      }
+
+      var fiscalIdtype;
+      var fiscalId;
+
+      if (vm.idFiscal && vm.idFiscal != '') {
+        fiscalIdtype = "FID";
+        fiscalId = vm.idFiscal;
+      }
+      
+      if (vm.cuit && vm.cuit != '' && vm.cuit.length >= 11) {
+        fiscalIdtype = "CUIT";
+        fiscalId = vm.cuit;
+      }
+
+      if (vm.dni) {
+        fiscalIdtype = "DNI";
+        fiscalId = vm.dni;
       }
 
       var agreement = {
@@ -191,11 +229,16 @@
         },
         billingInformation: {
           name: vm.name,
+          lastname: vm.lastname,
           companyName:vm.company,
           address: vm.address,
           city: vm.city,
           zipCode: vm.zCode,
-          countryCode: vm.country.code
+          consumerType: vm.consumerType.code,
+          fiscalId: fiscalId,
+          fiscalIdType: fiscalIdtype,
+          countryCode: vm.country.code,
+          provinceCode: vm.province.code
         }
      };
 
@@ -254,6 +297,72 @@
         return;
       }
       redirectToPlanSelection();
+    }
+
+    function getConsumerTypes(countryCode) {
+      vm.filteredConsumerTypes = vm.resources.consumerType.slice();
+
+      if (countryCode && countryCode != 'AR') {   
+        vm.filteredConsumerTypes = vm.resources.consumerType.filter(function(obj) {
+          if (obj.code == 'IN' || obj.code == 'EM') {
+            return true;
+          }
+        });
+      }
+
+      if (countryCode && countryCode == 'AR') {
+        vm.filteredConsumerTypes = vm.resources.consumerType.filter(function(obj) {
+          if (obj.code != 'IN' && obj.code != 'EM') {
+            return true;
+          }
+        });
+      }
+    }
+
+    function getCountryByCode(countryCode) {
+      return vm.resources.countries.find(function(obj){
+        return obj.code == countryCode;
+      });
+    }
+
+    function getConsumerTypeByCode(consumerTypeCode)
+    {
+      return vm.resources.consumerType.find(function(obj){
+        return obj.code == consumerTypeCode;
+      });
+    }
+
+    function getProvinceByCode(provinceCode) {
+      return vm.resources.provinces.find(function(obj){
+        return obj.code == provinceCode;
+      });
+    }
+
+    function fillFiscalInformationByType(fiscalIdType, fiscalId)
+    {
+      switch (fiscalIdType) {
+        case "FID":
+          vm.idFiscal = fiscalId;
+          break;
+        case "DNI":
+          vm.dni = fiscalId;
+          break;
+        case "CUIT":
+          vm.cuit = fiscalId;
+      }
+    }
+
+    function resetInputs() {
+      vm.idFiscal = '';
+      vm.dni = '';
+      vm.cuit = '';
+      vm.name = '';
+      vm.lastname = '';
+      vm.company = '';
+      vm.province = '';
+      vm.address = '';
+      vm.city = '';
+      vm.zCode = '';
     }
   }
 

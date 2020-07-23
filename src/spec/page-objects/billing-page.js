@@ -6,7 +6,11 @@ class BillingPage {
     this._planPrice = $('.billing--plan-name-container .plan-price');
     this._ccNumber = element(by.id('cc.number'));
     this._nameInput = $('.billing--first-container #name');
+    this._lastnameInput = $('.billing--first-container #lastname');
     this._companyInput = $('.billing--first-container #company');
+    this._cuitInput = $('.billing--first-container #cuit');
+    this._dniInput = $('.billing--first-container #dni');
+    this._idFiscalInput = $('.billing--first-container #idFiscal');
     this._addressInput = $('.billing--first-container #address');
     this._cityInput = $('.billing--first-container #city');
     this._zCodeInput = $('.billing--first-container #zCode');
@@ -30,6 +34,8 @@ class BillingPage {
     this._secCodeConfirmationLabel = $('.billing--plan-confirmation #secCodeConfirmation');
     this._modifyButton = $('.billing--plan-confirmation .modify-button');
     this._countrySelect =  element(by.id('country'));
+    this._provinceSelect =  element(by.id('province'));
+    this._consumerTypeSelect =  element(by.id('consumerType'));
     this._creditCardContainer = $('.credit-card');
     this._creditCardErrorContainer = $('.credit-card .validation-error-fluid');
     this._detachedError = $('.billing--plan-confirmation .detached--error-container');
@@ -73,11 +79,70 @@ class BillingPage {
   setName(name) {
     return this._nameInput.sendKeys(name);
   }
+  waitAndGetName() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._nameInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._nameInput.getAttribute('value');
+  }
   getName() {
     return this._nameInput.getAttribute('value')
   }
+  setLastname(lastname) {
+    return this._lastnameInput.sendKeys(lastname);
+  }
+  waitAndGetLastname() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._lastnameInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._lastnameInput.getAttribute('value');
+  }
+  getLastname() {
+    return this._lastnameInput.getAttribute('value')
+  }
+  setCuit(cuit) {
+    return this._cuitInput.sendKeys(cuit);
+  }
+  waitAndGetCuit() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._cuitInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._cuitInput.getAttribute('value');
+  }
+  getCuit() {
+    return this._cuitInput.getAttribute('value')
+  }
+  setDni(Dni) {
+    return this._dniInput.sendKeys(Dni);
+  }
+  waitAndSetDni(Dni) {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._dniInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._dniInput.sendKeys(Dni);
+  }
+  waitAndGetDni() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._dniInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._dniInput.getAttribute('value');
+  }
+  getDni() {
+    return this._dniInput.getAttribute('value')
+  }
+  setIdFiscal(idFiscal) {
+    return this._idFiscalInput.sendKeys(idFiscal);
+  }
+  waitAndGetIdFiscal() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._idFiscalInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._idFiscalInput.getAttribute('value');
+  }
+  getIdFiscal() {
+    return this._idFiscalInput.getAttribute('value')
+  }
   setCompany(company) {
     return this._companyInput.sendKeys(company);
+  }
+  waitAndGetCompany() {
+    var until = protractor.ExpectedConditions;
+    browser.wait(until.visibilityOf(this._companyInput), this._waitTimeout, 'Element taking too long to appear in the DOM');
+    return this._companyInput.getAttribute('value');
   }
   getCompany() {
     return this._companyInput.getAttribute('value')
@@ -102,6 +167,12 @@ class BillingPage {
   }
   setCountry(country) {
     return this.clickFirstSelectOptionText(this._countrySelect);
+  }
+  setProvince(province) {
+    return this.clickFirstSelectOptionText(this._provinceSelect);
+  }
+  setConsumerType(consumerType) {
+    return this.clickFirstSelectOptionText(this._consumerTypeSelect);
   }
   setCardHolder(cardHolder) {
     return this._cardHolderInput.sendKeys(cardHolder);

@@ -78,7 +78,13 @@ describe('Billing Page', () => {
               "name": "PLAN-80K" }
           ]
         });
-       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [{"code": "BV","en": "Bolivia, Plurinational State Of","es": "Bolivia"}]);
+       $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [
+        {"code": "BV", "en": "Bolivia, Plurinational State Of", "es": "Bolivia"}, 
+        {"code": "AR", "en": "Argentina", "es": "Argentina"}]);
+       $httpBackend.whenGET(/\/resources\/consumerType\.json/).respond(200, [
+        {"code": "CF", "en": "Final Consumer", "es": "Consumidor Final"},
+        {"code": "EM", "en": "Company", "es": "Empresa"}]);
+       $httpBackend.whenGET(/\/resources\/provinces\.json/).respond(200, [{"code": "BS","en": "Buenos Aires","es": "Buenos Aires"}]);
        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
          "data" : ""
       });
@@ -263,11 +269,15 @@ describe('Billing Page', () => {
               "paymentMethod": null,
               "billingInformation": {
                 "name": "Test",
-                "companyName": "Test Upgrade",
+                "lastname": "Unit",
                 "address": "Address 1234",
                 "city": "Rosario",
                 "zipCode": "2000",
-                "countryCode": "AR"
+                "countryCode": "AR",
+                "consumerType": "CF",
+                "fiscalId": "99999999",
+                "fiscalIdType": "DNI",
+                "provinceCode": "01"
               },
               "startDate": "2017-07-01T00:00:00Z",
               "currency": "USD",
@@ -291,8 +301,13 @@ describe('Billing Page', () => {
     // Assert
     var billingPage = new BillingPage();
 
-    expect(billingPage.getName()).toBe('Test');
-    expect(billingPage.getCompany()).toBe('Test Upgrade');
+    var name = billingPage.waitAndGetName();
+    var lastname = billingPage.waitAndGetLastname();
+    var fiscalId = billingPage.waitAndGetDni();
+
+    expect(name).toBe('Test');
+    expect(lastname).toBe('Unit');
+    expect(fiscalId).toBe('99999999');
     expect(billingPage.getAddress()).toBe('Address 1234');
     expect(billingPage.getCity()).toBe('Rosario');
     expect(billingPage.getZCode()).toBe('2000');
@@ -309,7 +324,8 @@ describe('Billing Page', () => {
     setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
-    var name = 'TestName TestLastName';
+    var consumerType = 'Company';
+    var idFiscal = '99999999';
     var company = 'Company Test';
     var address = 'Address 123';
     var city = 'CityTest';
@@ -321,12 +337,13 @@ describe('Billing Page', () => {
     var secCode = '123'
 
     // Act
-    billingPage.setName(name);
+    billingPage.setCountry(country);
+    billingPage.setConsumerType(consumerType);
+    billingPage.setIdFiscal(idFiscal);
     billingPage.setCompany(company);
     billingPage.setAddress(address);
     billingPage.setCity(city);
     billingPage.setZCode(zCode);
-    billingPage.setCountry(country);
     billingPage.setCardHolder(cardHolder);
     billingPage.setCreditCardNumber(creditCardNumber);
     billingPage.setExpDate(expDate);
@@ -336,7 +353,6 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.isConfirmationDisplayed()).toBeTruthy();
-    expect(billingPage.isNameDisplayed()).toBe(name);
     expect(billingPage.isCompanyDisplayed()).toBe(company);
     expect(billingPage.isCityDisplayed()).toBe(city);
     expect(billingPage.isZCodeDisplayed()).toBe(zCode);
@@ -359,8 +375,9 @@ describe('Billing Page', () => {
     setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
-    var name = '';
-    var company = 'Company Test';
+    var consumerType = 'Company';
+    var idFiscal = '99999999';
+    var company = '';
     var address = 'Address 123';
     var city = 'CityTest';
     var zCode = '1234';
@@ -371,12 +388,13 @@ describe('Billing Page', () => {
     var secCode = '123'
 
     // Act
-    billingPage.setName(name);
+    billingPage.setCountry(country);
+    billingPage.setConsumerType(consumerType);
+    billingPage.setIdFiscal(idFiscal);
     billingPage.setCompany(company);
     billingPage.setAddress(address);
     billingPage.setCity(city);
     billingPage.setZCode(zCode);
-    billingPage.setCountry(country);
     billingPage.setCardHolder(cardHolder);
     billingPage.setCreditCardNumber(creditCardNumber);
     billingPage.setExpDate(expDate);
@@ -400,7 +418,8 @@ describe('Billing Page', () => {
     setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
-    var name = 'TestName TestLastName';
+    var consumerType = 'Company';
+    var idFiscal = '99999999';
     var company = 'Company Test';
     var address = 'Address 123';
     var city = 'CityTest';
@@ -411,12 +430,13 @@ describe('Billing Page', () => {
     var expDate = '0999';
     var secCode = '123'
 
-    billingPage.setName(name);
+    billingPage.setCountry(country);
+    billingPage.setConsumerType(consumerType);
+    billingPage.setIdFiscal(idFiscal);
     billingPage.setCompany(company);
     billingPage.setAddress(address);
     billingPage.setCity(city);
     billingPage.setZCode(zCode);
-    billingPage.setCountry(country);
     billingPage.setCardHolder(cardHolder);
     billingPage.setCreditCardNumber(creditCardNumber);
     billingPage.setExpDate(expDate);
@@ -445,7 +465,8 @@ describe('Billing Page', () => {
     setupSamplePlanInfoResponse();
 
     var billingPage = new BillingPage();
-    var name = 'TestName TestLastName';
+    var consumerType = 'Company';
+    var idFiscal = '99999999';
     var company = 'Company Test';
     var address = 'Address 123';
     var city = 'CityTest';
@@ -456,12 +477,13 @@ describe('Billing Page', () => {
     var expDate = '0999';
     var secCode = '123'
 
-    billingPage.setName(name);
+    billingPage.setCountry(country);
+    billingPage.setConsumerType(consumerType);
+    billingPage.setIdFiscal(idFiscal);
     billingPage.setCompany(company);
     billingPage.setAddress(address);
     billingPage.setCity(city);
     billingPage.setZCode(zCode);
-    billingPage.setCountry(country);
     billingPage.setCardHolder(cardHolder);
     billingPage.setCreditCardNumber(creditCardNumber);
     billingPage.setExpDate(expDate);
@@ -494,7 +516,8 @@ describe('Billing Page', () => {
 
 
     var billingPage = new BillingPage();
-    var name = 'TestName TestLastName';
+    var consumerType = 'Company';
+    var idFiscal = '99999999';
     var company = 'Company Test';
     var address = 'Address 123';
     var city = 'CityTest';
@@ -506,12 +529,13 @@ describe('Billing Page', () => {
     var secCode = '123'
 
     // Act
-    billingPage.setName(name);
+    billingPage.setCountry(country);
+    billingPage.setConsumerType(consumerType);
+    billingPage.setIdFiscal(idFiscal);
     billingPage.setCompany(company);
     billingPage.setAddress(address);
     billingPage.setCity(city);
     billingPage.setZCode(zCode);
-    billingPage.setCountry(country);
     billingPage.setCardHolder(cardHolder);
     billingPage.setCreditCardNumber(creditCardNumber);
     billingPage.setExpDate(expDate);
