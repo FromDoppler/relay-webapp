@@ -91,6 +91,7 @@
     vm.checkExpDate = checkExpDate;
     vm.submitBilling = submitBilling;
     vm.submitBillingPayment = submitBillingPayment;
+    vm.resetInputs = resetInputs;
 
     vm.cc = {number: '', brand: {}, mask: ''};
     vm.secCode = {number: '', mask: ''};
@@ -144,7 +145,7 @@
     }
 
     function fillCustomerData(cuit) {
-      if (cuit && checkCuitLenght(cuit)) {
+      if (cuit && cuit.length >= 11) {
         settings.getCustomerDataByCuit(cuit).then(function(result) {
           vm.company = result.data.RazonSocial,
           vm.address = result.data.DomicilioDireccion,
@@ -204,8 +205,8 @@
         fiscalIdtype = "FID";
         fiscalId = vm.idFiscal;
       }
-
-      if (vm.cuit && checkCuitLenght(vm.cuit.length)) {
+      
+      if (vm.cuit && vm.cuit != '' && vm.cuit.length >= 11) {
         fiscalIdtype = "CUIT";
         fiscalId = vm.cuit;
       }
@@ -264,10 +265,6 @@
       });
     }
 
-    function checkCuitLenght(cuit) {
-      return cuit.length >= 11
-    }
-
     function downgrade() {
       ModalService.showModal({
         templateUrl: 'partials/modals/confirm-input-template.html',
@@ -303,7 +300,7 @@
     }
 
     function getConsumerTypes(countryCode) {
-      vm.filteredConsumerTypes = [...vm.resources.consumerType];
+      vm.filteredConsumerTypes = vm.resources.consumerType.slice();
 
       if (countryCode && countryCode != 'AR') {   
         vm.filteredConsumerTypes = vm.resources.consumerType.filter(function(obj) {
@@ -353,6 +350,19 @@
         case "CUIT":
           vm.cuit = fiscalId;
       }
+    }
+
+    function resetInputs() {
+      vm.idFiscal = '';
+      vm.dni = '';
+      vm.cuit = '';
+      vm.name = '';
+      vm.lastname = '';
+      vm.company = '';
+      vm.province = '';
+      vm.address = '';
+      vm.city = '';
+      vm.zCode = '';
     }
   }
 

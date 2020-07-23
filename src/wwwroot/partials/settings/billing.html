@@ -41,7 +41,7 @@
               <label class="special uppercase" for="consumerType">{{'consumerType_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-            <ui-select id="consumerType" name="consumerType" ng-model="vm.consumerType" on-select="form.consumerType.$modelValue = $model" validation-errors-fluid required>
+            <ui-select id="consumerType" name="consumerType" ng-model="vm.consumerType" on-select="form.consumerType.$modelValue = $model; vm.resetInputs()" validation-errors-fluid required>
               <ui-select-match placeholder="{{ 'select_choose_consumerType' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
@@ -75,7 +75,7 @@
               <input id="cuit" name="cuit" ng-model="vm.cuit" class="input input--large" ui-mask="99-99999999-9" validation-errors-fluid required/>              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
+          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IN')">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="name">{{'downloads_grid_name_header' | translate}}</label>
             </div>
@@ -83,7 +83,7 @@
               <input id="name" name="name" ng-model="vm.name" class="input input--large" validation-errors-fluid required/>              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
+          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IN')">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="lastname">{{'downloads_grid_lastname_header' | translate}}</label>
             </div>
@@ -91,7 +91,7 @@
               <input id="lastname" name="lastname" ng-model="vm.lastname" class="input input--large" validation-errors-fluid required/>              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code != 'CF' && vm.consumerType.code != 'IND' || vm.consumerType.code == 'EMP')">
+          <div class="item flex" ng-if="vm.consumerType && (vm.consumerType.code != 'CF' && vm.consumerType.code != 'IN' || vm.consumerType.code == 'EM')">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="company">{{'company_text' | translate}}</label>
             </div>
@@ -210,15 +210,15 @@
       <h3>{{ 'billing_address_title' | translate }}</h3>
     </div>
     <div class="item flex flex--wrap first">
-      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
+      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IN')">
         <label class="width--full special uppercase">{{'downloads_grid_name_header' | translate}}</label>
         <p id="nameConfirmation" tooltips tooltip-template="{{vm.name}}" tooltip-hidden="{{vm.name.length < 20}}" ng-class="vm.name.length > 20 ? 'hide': 'show'">{{vm.name}}</p>
       </div>
-      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IND')">
+      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code == 'CF' || vm.consumerType.code == 'IN')">
         <label class="width--full special uppercase">{{'downloads_grid_lastname_header' | translate}}</label>
         <p id="lastnameConfirmation" tooltips tooltip-template="{{vm.lastname}}" tooltip-hidden="{{vm.lastname.length < 20}}" ng-class="vm.lastname.length > 20 ? 'hide': 'show'">{{vm.lastname}}</p>
       </div>
-      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code != 'CF' && vm.consumerType.code != 'IND' || vm.consumerType.code == 'EMP')">
+      <div class="flex one flex--wrap" ng-if="vm.consumerType && (vm.consumerType.code != 'CF' && vm.consumerType.code != 'IN' || vm.consumerType.code == 'EM')">
         <label class="width--full special uppercase">{{'company_text' | translate}}</label>
         <p id="companyConfirmation" tooltips tooltip-template="{{vm.company}}" tooltip-hidden="{{vm.company.length < 20}}" ng-class="vm.company.length > 20 ? 'hide': 'show'">{{vm.company}}</p>
       </div>
