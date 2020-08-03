@@ -25,7 +25,8 @@
       getStatusPlanInfo: getStatusPlanInfo,
       downgrade: downgrade,
       getNextPlan: getNextPlan,
-      requestEmailChange: requestEmailChange
+      requestEmailChange: requestEmailChange,
+      getCustomerDataByCuit: getCustomerDataByCuit
     };
 
     var plansCache = null;
@@ -220,6 +221,14 @@
           'user_email': email
         },
         url: url
+      });
+    }
+
+    function getCustomerDataByCuit(cuit) {
+      return $http({
+        actionDescription: 'action_getting_customer_data',
+        method: 'GET',
+        url: RELAY_CONFIG.cuitServiceBaseUrl + '/taxinfo/by-cuit/' + cuit
       });
     }
 }
