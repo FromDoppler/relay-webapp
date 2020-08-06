@@ -200,6 +200,7 @@
 
       var fiscalIdtype;
       var fiscalId;
+      var provinceCode;
 
       if (vm.idFiscal && vm.idFiscal != '') {
         fiscalIdtype = "FID";
@@ -215,6 +216,8 @@
         fiscalIdtype = "DNI";
         fiscalId = vm.dni;
       }
+
+      provinceCode = vm.province ? vm.province.code : "99";
 
       var agreement = {
         planName: planName,
@@ -238,7 +241,7 @@
           fiscalId: fiscalId,
           fiscalIdType: fiscalIdtype,
           countryCode: vm.country.code,
-          provinceCode: vm.province.code
+          provinceCode: provinceCode
         }
      };
 
