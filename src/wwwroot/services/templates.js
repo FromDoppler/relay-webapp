@@ -38,13 +38,16 @@
     }
 
     function deleteTemplate(id) {
-      var accountId = auth.getAccountId();
+      var profile = auth.getProfile();
+      if (profile == null || profile == "templates") {
+        var accountId = auth.getAccountId();
 
-      return $http({
-        actionDescription: 'action_templates_deleting',
-        method: 'DELETE',
-        url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + id
-      });
+        return $http({
+          actionDescription: 'action_templates_deleting',
+          method: 'DELETE',
+          url: RELAY_CONFIG.baseUrl + '/accounts/' + accountId + '/templates/' + id
+        });
+      }
     }
 
     function getTemplate(id) {
