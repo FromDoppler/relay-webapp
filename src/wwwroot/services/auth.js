@@ -104,6 +104,10 @@
           acceptedUrlsPattern: /^#?\/templates(\/.*)?$/,
           defaultUrl: "/templates"
         };
+        case "read-only-templates": return {
+          acceptedUrlsPattern: /^#?\/templates$/,
+          defaultUrl: "/templates"
+        };
         case "settings": return {
           acceptedUrlsPattern: /^#?\/settings\//,
           defaultUrl: "/settings/connection-settings"
