@@ -24,6 +24,7 @@
       getAccountName: getAccountName,
       // deprecated
       getAccountId: getAccountId,
+      getProfile: getProfile,
       getUserName: getUserName,
       getFullName: getFullName,
       forgotPassword: forgotPassword,
@@ -86,7 +87,8 @@
         username: decodedToken.unique_name,
         expiration: decodedToken.exp,
         temporaryToken: decodedToken.relay_temporal_token,
-        forceMsEditor: decodedToken.force_mseditor
+        forceMsEditor: decodedToken.force_mseditor,
+        profile: decodedToken.profile
       };
     }
 
@@ -227,6 +229,10 @@
 
     function getAccountId() {
       return loginSession && loginSession.accountId;
+    }
+
+    function getProfile() {
+      return loginSession && loginSession.profile;
     }
 
     function getUserName() {
