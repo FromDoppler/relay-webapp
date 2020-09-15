@@ -12,6 +12,11 @@
   background: #F5F1F1;
 }
 
+.disable--div {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .templates--waiting {
   position: absolute;
   top: 50%;
