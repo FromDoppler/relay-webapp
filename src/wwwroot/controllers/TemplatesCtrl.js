@@ -20,9 +20,13 @@
     $scope.toggleDeleteDialog = toggleDeleteDialog;
     $scope.hideDeleteDialog = hideDeleteDialog;
     $scope.previewTemplate = previewTemplate;
+    $scope.getUserProfile = getUserProfile;
 
     initialize();
 
+    function getUserProfile() {
+      return templates.getUserProfile();
+    }
 
     function hideDeleteDialog(id) {
       $scope.deleteDialogs[id] = false;

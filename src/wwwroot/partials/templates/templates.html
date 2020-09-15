@@ -50,7 +50,7 @@
                     <svg class="icon m-glass"><use xlink:href="/images/sprite.svg#doppler-icon-subir-01"></use></svg>-->
                     <svg class="icon m-glass" ng-click="previewTemplate(template.thumbnail)"><use xlink:href="/images/sprite.svg#doppler-icon-preview"></use></svg>
                   </div>
-                  <div>
+                  <div ng-class="{true : 'disable--div'}[getUserProfile() == 'read-only-templates']">
                     <svg class="icon m-glass" ng-show="!deleteDialogs[template.id]" ng-click="toggleDeleteDialog(template.id)"><use xlink:href="/images/sprite.svg#doppler-icon-borrar-01"></use></svg>
                   </div>
                 </div>

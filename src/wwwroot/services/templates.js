@@ -23,6 +23,7 @@
       editTemplate: editTemplate,
       editTemplateBody: editTemplateBody,
       deleteTemplate: deleteTemplate,
+      getUserProfile: getUserProfile
     };
 
     return templatesService;
@@ -118,6 +119,10 @@
 
     function extractData(response) {
       return response.data;
+    }
+
+    function getUserProfile() {
+      return auth.getProfile();
     }
   }
 
