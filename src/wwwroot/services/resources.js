@@ -19,7 +19,6 @@
       ensureCountries: ensureCountries,
       ensureIndustries: ensureIndustries,
       ensureConsumerType: ensureConsumerType,
-      ensureProvinces: ensureProvinces,
       data: []
     };
 
@@ -38,10 +37,6 @@
 
     function ensureConsumerType() {
       return ensure("consumerType");
-    }
-
-    function ensureProvinces() {
-      return ensure("provinces");
     }
 
     function ensure(resource) {
@@ -71,11 +66,21 @@
     }
 
     function translate(resource) {
-      
       var lang = $translate.use();
       resourcesService.data[resource] = responses[resource].map(function(val){
         return { code: val.code, name: val[lang] };
       });
+
+      if(resource == 'countries'){
+        resourcesService.data[resource].forEach(element => {
+          var country = responses[resource].filter(c=>c.code==element.code);
+          if (typeof country[0].provinces !== 'undefined' && country[0].provinces.length > 0) {
+            element.provinces = country[0].provinces.map(function(val){
+              return { code: val.code, name: val[lang] };
+            });        
+          }        
+        });
+      }
 
       return resourcesService.data[resource];
     }
