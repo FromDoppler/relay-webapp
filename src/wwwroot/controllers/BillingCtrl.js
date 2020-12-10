@@ -91,6 +91,7 @@
     vm.submitBilling = submitBilling;
     vm.submitBillingPayment = submitBillingPayment;
     vm.resetInputs = resetInputs;
+    vm.changeCountry = changeCountry;
 
     vm.cc = {number: '', brand: {}, mask: ''};
     vm.secCode = {number: '', mask: ''};
@@ -366,6 +367,10 @@
       vm.city = '';
       vm.zCode = '';
     }
-  }
 
+    function changeCountry(form, country) {
+      form.country.$modelValue = country;
+      vm.province = '';
+    }
+  }
 })();

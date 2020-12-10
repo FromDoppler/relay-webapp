@@ -26,7 +26,7 @@
               <label class="special uppercase" for="country">{{'country_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-            <ui-select id="country" name="country" ng-model="vm.country" on-select="form.country.$modelValue = $model; vm.province=''" validation-errors-fluid required>
+            <ui-select id="country" name="country" ng-model="vm.country" on-select="vm.changeCountry(form, $model);" validation-errors-fluid required>
               <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
