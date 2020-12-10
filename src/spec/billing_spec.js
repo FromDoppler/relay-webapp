@@ -80,11 +80,10 @@ describe('Billing Page', () => {
         });
        $httpBackend.whenGET(/\/resources\/countries\.json/).respond(200, [
         {"code": "BV", "en": "Bolivia, Plurinational State Of", "es": "Bolivia"}, 
-        {"code": "AR", "en": "Argentina", "es": "Argentina"}]);
+        {"code": "AR", "en": "Argentina", "es": "Argentina", "provinces": [{"code": "01","en": "Buenos Aires","es": "Buenos Aires"}]}]);
        $httpBackend.whenGET(/\/resources\/consumerType\.json/).respond(200, [
         {"code": "CF", "en": "Final Consumer", "es": "Consumidor Final"},
         {"code": "EM", "en": "Company", "es": "Empresa"}]);
-       $httpBackend.whenGET(/\/resources\/provinces\.json/).respond(200, [{"code": "BS","en": "Buenos Aires","es": "Buenos Aires"}]);
        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
          "data" : ""
       });
