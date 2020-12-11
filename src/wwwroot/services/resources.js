@@ -19,7 +19,6 @@
       ensureCountries: ensureCountries,
       ensureIndustries: ensureIndustries,
       ensureConsumerType: ensureConsumerType,
-      ensureProvinces: ensureProvinces,
       data: []
     };
 
@@ -38,10 +37,6 @@
 
     function ensureConsumerType() {
       return ensure("consumerType");
-    }
-
-    function ensureProvinces() {
-      return ensure("provinces");
     }
 
     function ensure(resource) {
@@ -71,10 +66,16 @@
     }
 
     function translate(resource) {
-      
       var lang = $translate.use();
-      resourcesService.data[resource] = responses[resource].map(function(val){
-        return { code: val.code, name: val[lang] };
+      resourcesService.data[resource] = responses[resource].map(function(val) {
+        var result = { code: val.code, name: val[lang] };
+        if (val.provinces && val.provinces.length > 0) {
+          result.provinces = val.provinces.map(function(val) {
+            return { code: val.code, name: val[lang] };
+          });                  
+        }
+
+        return result;
       });
 
       return resourcesService.data[resource];
