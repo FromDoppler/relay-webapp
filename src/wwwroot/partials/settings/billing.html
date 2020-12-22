@@ -26,7 +26,7 @@
               <label class="special uppercase" for="country">{{'country_text' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-            <ui-select id="country" name="country" ng-model="vm.country" on-select="form.country.$modelValue = $model" validation-errors-fluid required>
+            <ui-select id="country" name="country" ng-model="vm.country" on-select="vm.changeCountry(form, $model);" validation-errors-fluid required>
               <ui-select-match placeholder="{{ 'select_choose_country' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
@@ -107,7 +107,7 @@
               <input id="address" name="address" ng-model="vm.address" class="input input--large" validation-errors-fluid required />              
             </div>
           </div>
-          <div class="item flex" ng-if="vm.country.code == 'AR'">
+          <div class="item flex" ng-if="vm.country.provinces">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="province">{{'province_text' | translate}}</label>
             </div>
@@ -116,7 +116,7 @@
               <ui-select-match placeholder="{{ 'select_choose_province' | translate }}">
                 <span ng-bind-html="$select.selected.name"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in (vm.resources.provinces | filter: $select.search)">
+              <ui-select-choices repeat="item in (vm.country.provinces | filter: $select.search)">
                 <span class="select-option" ng-bind-html="item.name | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>
@@ -240,7 +240,7 @@
         <label class="width--full special uppercase">{{'country_text' | translate}}</label>
         <p id="countryConfirmation" tooltips tooltip-template="{{vm.country.name}}" tooltip-hidden="{{vm.country.name.length < 20}}" ng-class="vm.country.name.length > 20 ? 'hide': 'show'">{{vm.country.name}}</p>
       </div>
-      <div class="flex one flex--wrap" ng-if="vm.country.code == 'AR'">
+      <div class="flex one flex--wrap" ng-if="vm.country.provinces">
         <label class="width--full special uppercase">{{'province_text' | translate}}</label>
         <p id="provinceConfirmation" tooltips tooltip-template="{{vm.province.name}}" tooltip-hidden="{{vm.province.name.length < 20}}" ng-class="vm.province.name.length > 20 ? 'hide': 'show'">{{vm.province.name}}</p>
       </div>

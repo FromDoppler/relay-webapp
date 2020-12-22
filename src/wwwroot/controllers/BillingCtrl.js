@@ -45,7 +45,6 @@
     function activate() {
       resources.ensureCountries();
       resources.ensureConsumerType();
-      resources.ensureProvinces();
       vm.resources = resources.data;
 
       if (!planName) {
@@ -76,7 +75,7 @@
             vm.company = response.data.billingInformation.companyName;
             vm.address = response.data.billingInformation.address;
             vm.city = response.data.billingInformation.city;
-            vm.zCode = response.data.billingInformation.zipCode;   
+            vm.zCode = response.data.billingInformation.zipCode;
             vm.country = getCountryByCode(response.data.billingInformation.countryCode);
             vm.consumerType = getConsumerTypeByCode(response.data.billingInformation.consumerType);
             vm.province = getProvinceByCode(response.data.billingInformation.provinceCode);
@@ -92,6 +91,7 @@
     vm.submitBilling = submitBilling;
     vm.submitBillingPayment = submitBillingPayment;
     vm.resetInputs = resetInputs;
+    vm.changeCountry = changeCountry;
 
     vm.cc = {number: '', brand: {}, mask: ''};
     vm.secCode = {number: '', mask: ''};
@@ -336,7 +336,7 @@
     }
 
     function getProvinceByCode(provinceCode) {
-      return vm.resources.provinces.find(function(obj){
+      return vm.country.provinces.find(function(obj){
         return obj.code == provinceCode;
       });
     }
@@ -367,6 +367,10 @@
       vm.city = '';
       vm.zCode = '';
     }
-  }
 
+    function changeCountry(form, country) {
+      form.country.$modelValue = country;
+      vm.province = '';
+    }
+  }
 })();
