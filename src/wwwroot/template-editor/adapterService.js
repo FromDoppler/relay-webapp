@@ -493,7 +493,8 @@
         sharedSocialNetworks: [],
         stores: [],
         rssCampaign: false,
-        rssShowPreview: false
+        rssShowPreview: false,
+        fileServerImagesURL: "https://app2.dopplerfiles.com"
       };
       return $q.resolve(msEditorSettings);
     }
