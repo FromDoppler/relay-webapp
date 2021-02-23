@@ -397,9 +397,9 @@
   .plan--box-container{
     padding-top: 5em;
     ul {
-      padding: 0; 
-      margin: auto; 
-      display: inline-block;
+      padding: 0;
+      margin: auto;
+      display: block;
       @extend .transition--default;
       width: 47.4%;
       .special{
@@ -437,7 +437,6 @@
         }
       }
     }
-    ul:first-of-type { margin-right: 4%;}
     li.special {
       color: $suit-background-default;
       width: 100%;
