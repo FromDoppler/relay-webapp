@@ -552,7 +552,7 @@ describe('Settings Page', () => {
       expect(myPlanPage.isPricingChartContainerDisplayed()).toBeTruthy();
   });
 
-  it('should show change plan buttons enabled', () => {
+  it('should show change plan button enabled', () => {
     //Arrange
     beginAuthenticatedSession();
     browser.addMockModule('descartableModule2', ()=> angular
@@ -576,10 +576,10 @@ describe('Settings Page', () => {
 
       //Assert
       expect(myPlanPage.isDisabledBasicPlanChangeButton()).not.toMatch('button--disabled');
-      expect(myPlanPage.isDisabledProPlanChangeButton()).not.toMatch('button--disabled');
+
   });
 
-  it('should show change plan buttons disabled', () => {
+  it('should show change plan button disabled', () => {
     //Arrange
     beginAuthenticatedSessionForUpgradePlan();
     browser.addMockModule('descartableModule2', ()=> angular
@@ -603,10 +603,10 @@ describe('Settings Page', () => {
 
       //Assert
       expect(myPlanPage.isDisabledBasicPlanChangeButton()).toMatch('button--disabled');
-      expect(myPlanPage.isDisabledProPlanChangeButton()).toMatch('button--disabled');
+
   });
 
-  it('should show only one change plan button on each plan\'s side with require domain validation passed', () => {
+  it('should show only one change plan button with require domain validation passed', () => {
     //Arrange
     beginAuthenticatedSessionForUpgradePlan();
     browser.addMockModule('descartableModule2', ()=> angular
@@ -630,7 +630,7 @@ describe('Settings Page', () => {
 
       //Assert
       expect(myPlanPage.isOnlyOneButtonInBasicPlanContainer()).toEqual(1);
-      expect(myPlanPage.isOnlyOneButtonInProPlanContainer()).toEqual(1);
+
   });
 
   it('should show all the validation messages to upgrade the plan', () => {

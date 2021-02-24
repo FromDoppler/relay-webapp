@@ -85,17 +85,17 @@
       </svg></div>
     </div>
     <div class="section--wrapper plan--box-container">
-      <ul ng-class="!vm.showPremiumPlanBox ? 'basic':'pro'">
+      <ul ng-class="!vm.includesIp ? 'basic':'pro'">
         <li class="special">
-          <span ng-if="!vm.showPremiumPlanBox">{{ 'basic_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
-          <span ng-if="vm.showPremiumPlanBox">{{ 'pro_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
+          <span>{{ vm.PlanName | translate }}</span>
         </li>
-        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.leftCostEmail | number:5}}</li>
+        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.CostEmail | number:5}}</li>
         <li>{{'attr_api' | translate}}</li>
         <li>{{'attr_dkim' | translate}}</li>
         <li>{{'attr_metrics_and_reports' | translate}}</li>
         <li class="strong">
-          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">{{'attr_dedicated_ip' | translate}} {{vm.ipsPlanCount}}</span>
+          <span class="hidden-feature" ng-class="vm.includesIp ? 'show':''">{{'attr_dedicated_ip' | translate}}
+            {{vm.ipsPlanCount}}</span>
         </li>
         <li>
           <span class="hidden-feature">
@@ -112,47 +112,15 @@
           </span>
         </li>
         <li class="strong">
-          <h2 id="planPriceBig" class="special plan--price-big">{{vm.currency | translate}} {{vm.leftPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.disableLeftPlan  && vm.isValidUpgradeablePlan() ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.leftPlanName}}">{{'change_plan' | translate}}</a>
-          <a ng-class="vm.disableLeftPlan && vm.isValidUpgradeablePlan()? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
-          <a ng-class="vm.isValidUpgradeablePlan() ? '':'show'" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
-        </li>
-      </ul>
-      <ul ng-class="!vm.showPremiumPlanBox ? 'pro':'premium'">
-        <li class="special">
-          <span ng-if="!vm.showPremiumPlanBox">{{ 'pro_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
-          <span ng-if="vm.showPremiumPlanBox">{{ 'premium_plan_text' | translate }} {{ vm.leftPlanName | translate }}</span>
-        </li>
-        <li>{{'cost_email' | translate}} {{vm.currency | translate}} {{vm.rightCostEmail | number:5}}</li>
-        <li>{{'attr_api' | translate}}</li>
-        <li>{{'attr_dkim' | translate}}</li>
-        <li>{{'attr_metrics_and_reports' | translate}}</li>
-        <li class="strong">
-          <span ng-if="!vm.showPremiumPlanBox">{{'attr_dedicated_ip' | translate}} {{vm.ipsPlanCount}}</span>
-          <span ng-if="vm.showPremiumPlanBox">{{'attr_dedicated_ip_premium' | translate}}</span>
-        </li>
-        <li class="strong">
-          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">
-            {{'account_manager_text' | translate}}
-            <svg class="icon star-icon">
-              <use xlink:href="/images/sprite.svg#doppler-icon-star-icon"></use>
-            </svg>
-          </span>
-        </li>
-        <li>
-          <span class="hidden-feature" ng-class="vm.showPremiumPlanBox ? 'show':''">
-            {{'vip_support_text' | translate}}
-            <svg class="icon star-icon">
-              <use xlink:href="/images/sprite.svg#doppler-icon-star-icon"></use>
-            </svg>
-          </span>
-        </li>
-        <li>
-          <h2 ng-class="!vm.showPremiumPlanBox ? 'show':''" class="hidden-feature special plan--price-big">{{vm.currency | translate}} {{vm.rightPlanPrice | number:2 | numberFormat}}</h2>
-          <a ng-class="!vm.disableRightPlan && !vm.showPremiumPlanBox && vm.isValidUpgradeablePlan() ? 'show':''" class="hidden-feature-by-display button button--small" href="#/settings/billing?plan={{vm.rightPlanName}}">{{'change_plan' | translate}}</a>
-          <a ng-class="!vm.disableRightPlan && vm.showPremiumPlanBox ? 'show':''" class="hidden-feature-by-display button button--small" target="_blank" href="https://www.dopplerrelay.com/contacto">{{'contact_us_text' | translate}}</a>
-          <a ng-class="vm.disableRightPlan ? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
-          <a ng-class="!vm.disableRightPlan && !vm.showPremiumPlanBox && !vm.isValidUpgradeablePlan() ? 'show':''" class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
+          <h2 id="planPriceBig" class="special plan--price-big">{{vm.currency | translate}} {{vm.PlanPrice |
+            number:2 | numberFormat}}</h2>
+          <a ng-class="!vm.disablePlan  && vm.isValidUpgradeablePlan() ? 'show':''"
+            class="hidden-feature-by-display button button--small"
+            href="#/settings/billing?plan={{vm.PlanName}}">{{'change_plan' | translate}}</a>
+          <a ng-class="vm.disablePlan && vm.isValidUpgradeablePlan()? 'show':''"
+            class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
+          <a ng-class="vm.isValidUpgradeablePlan() ? '':'show'"
+            class="button button--small button--disabled hidden-feature-by-display">{{'change_plan' | translate}}</a>
         </li>
       </ul>
       <div>
