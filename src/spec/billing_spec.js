@@ -736,27 +736,6 @@ describe('Billing Page', () => {
 
     // Assert
     expect(billingPage.getBasicButtonText()).toBe('CHANGE PLAN');
-    expect(billingPage.isProPlanButtonDisabled()).toBeTruthy();
-
-    done();
-  });
-
-  it('should show the new box for Pro and premium plan', (done) => {
-
-    // Arrange
-    beginAuthenticatedSession();
-    browser.get('/#/settings/my-plan?plan=PLAN-60K');
-    setupSamplePlanInfoResponse();
-    setupSamplePlansResponse();
-    var billingPage = new BillingPage();
-    billingPage.clickUpgradeButtonToDisplayPricingChart();
-    expect(billingPage.isSliderLoaded()).toBeTruthy();
-
-    //Act
-    billingPage.clickFirstSliderTick();
-
-    // Assert
-    expect(billingPage.isRightPlanBoxDisplayed()).toBe(true);
 
     done();
   });

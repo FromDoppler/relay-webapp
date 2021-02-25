@@ -108,32 +108,13 @@
       
       vm.ipsPlanCount = pro ? pro.ips_count : 0;
 
-      if (!basic) {
-        vm.showPremiumPlanBox = true;
+      vm.includesIp = false;        
 
-        vm.leftPlanName = pro.name;
-        vm.leftPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
-        vm.leftCostEmail = pro.extra_delivery_cost;
-        vm.disableLeftPlan = isCurrentPlan(pro);
-
-        vm.rightPlanName = 'Premium';
-        vm.rightCostEmail = pro.extra_delivery_cost;
-        vm.disableRightPlan = false;
-      } else {
-        vm.showPremiumPlanBox = false;        
-
-        vm.leftPlanName = basic.name;
-        vm.leftPlanPrice = basic.fee;
-        vm.leftCostEmail = basic.extra_delivery_cost;
-        vm.disableLeftPlan = isCurrentPlan(basic);
-
-        if (pro) {
-          vm.rightPlanName = pro.name;
-          vm.rightPlanPrice = pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
-          vm.rightCostEmail = pro.extra_delivery_cost;
-          vm.disableRightPlan = isCurrentPlan(pro);
-        }
-      }
+      vm.PlanName = basic ? basic.name : pro.name;
+      vm.PlanPrice = basic ? basic.fee : pro.fee + (pro.ips_count * pro.cost_by_ip || 0);
+      vm.CostEmail = basic ? basic.extra_delivery_cost : pro.extra_delivery_cost;
+      vm.disablePlan = basic ? isCurrentPlan(basic) : isCurrentPlan(pro);
+      vm.includesIp = !basic;
     }
 
     function loadSlider() {
