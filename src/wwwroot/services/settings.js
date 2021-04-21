@@ -26,7 +26,8 @@
       downgrade: downgrade,
       getNextPlan: getNextPlan,
       requestEmailChange: requestEmailChange,
-      getCustomerDataByCuit: getCustomerDataByCuit
+      getCustomerDataByCuit: getCustomerDataByCuit,
+      resubscribeEmailAddress: resubscribeEmailAddress
     };
 
     var plansCache = null;
@@ -231,5 +232,32 @@
         url: RELAY_CONFIG.cuitServiceBaseUrl + '/taxinfo/by-cuit/' + cuit
       });
     }
+
+    function resubscribeEmailAddress(subscriberEmail, reason, domainName, onExpectedError) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/accounts/' + auth.getAccountName()
+        + '/subscribers/'
+        + subscriberEmail
+        + '/resubscribe';
+
+      return $http({
+        actionDescription: 'action_requesting_resubscribe_email_address',
+        tryHandleError: function(rejection){ return tryHandleErrorOnResubscribe(rejection, onExpectedError); },
+        method: 'POST',
+        data: {
+          'reason': reason,
+          'domain': domainName
+        },
+        url: url
+      });
+    }
+
+    function tryHandleErrorOnResubscribe(rejection, onExpectedError) {
+      console.log(rejection);
+      if (rejection.status == 400 || rejection.status == 429) {
+        return onExpectedError(rejection.data);
+      }
+      return false; // not handled
+  }
 }
 })();
