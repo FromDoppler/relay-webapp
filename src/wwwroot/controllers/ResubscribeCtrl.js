@@ -9,10 +9,11 @@
     '$scope',
     '$location',
     'settings',
-    '$rootScope'
+    '$rootScope',
+    'ModalService'
   ];
 
-  function ResubscribeCtrl($scope, $location, settings, $rootScope) {
+  function ResubscribeCtrl($scope, $location, settings, $rootScope, ModalService) {
     $rootScope.setSubmenues([        
       { text: 'domains_text', url: 'settings/domain-manager', active: true },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: false }
@@ -31,7 +32,20 @@
       return;
     }
 
-    settings.resubscribeEmailAddress(vm.email, vm.reason, vm.domain, onExpectedError);
+    settings.resubscribeEmailAddress(vm.email, vm.reason, vm.domain, onExpectedError)
+    .then(function() {
+      return ModalService.showModal({
+      templateUrl: 'partials/modals/general-template.html',
+      controller: 'GeneralTemplateCtrl',
+      controllerAs: 'vm',
+      inputs: {
+        title: "resubscribe_success",
+        mainText: "resubscribe_success_text",
+        buttonText: "resubscribe_success_button",
+        action: null
+      }
+      })
+    });
   }
 
   function onExpectedError(rejectionData) {
