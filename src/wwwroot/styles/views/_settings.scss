@@ -74,6 +74,9 @@
     table {
       border-bottom: 1px solid #D5D2CF;
     }
+    a {
+      text-decoration: none;
+    }
   }
   h3 {
     margin-bottom:1rem;
@@ -133,6 +136,39 @@
   @extend .transition--default;
 }
 .domain--input-container {
+  &.active {
+    margin-bottom: 0;
+    margin-top: 2rem;
+    height: 140px;
+    .error-container{
+      width: 100%;
+    }
+    button {
+      font-size: 2rem;
+    }
+  }
+}
+
+.resubscribe--input-container {
+  flex-wrap: wrap;
+  height: 0;
+  align-items: flex-start;
+  margin-bottom: 16rem;
+  div.flex--wrap:first-of-type{
+    width: 100%;
+  }
+  div.button-container{
+    margin-top: 1rem;
+  }
+  label{
+    display: inline-block;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  @extend .transition--default;
+}
+.resubscribe--input-container {
   &.active {
     margin-bottom: 0;
     margin-top: 2rem;

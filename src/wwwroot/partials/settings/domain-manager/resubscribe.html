@@ -1,0 +1,30 @@
+<section class="dkmin-config--container">
+    <breadcrumb></breadcrumb>
+    <div class="item section--wrapper flex">
+        <h2>
+        {{ 'resubscribe' | translate }}
+        </h2>
+    </div>
+    <div class="item section--wrapper">
+        <p class="resubscribe--subtitle">{{ 'resubscribe_subtitle' | translate }} <a class="domain-selected dkim--subtitle" target="_blank" href="https://{{ vm.domain }}">{{ vm.domain }}</a> </p> 
+        <p class="resubscribe--subtitle">{{ 'resubscribe_sub_subtitle' | translate }}  </p> 
+        <hr class="default" />
+    </div>
+    
+    <div class="item section--wrapper">
+        <form method="post" id="form" name="form" ng-submit="vm.sendResubscribe(form)" novalidate>
+            <div class="item flex resubscribe--input-container width--full">
+                <div class="item flex flex--wrap">
+                    <label for="email">{{'resubscribe_label_email_input' | translate}}</label>
+                    <input class="input input--large" ng-class="vm.submitted && form.email.$invalid ? 'error' : ''" id="email" type="email" name="email" ng-model="vm.email" maxlength="100" ng-maxlength="100" email-format-validation validation-errors-fluid required />
+                    <label for="reason">{{'resubscribe_label_reason_input' | translate}}</label>
+                    <input class="input input--large" ng-class="vm.submitted && form.email.$invalid ? 'error' : ''" id="reason" type="text" name="reason" ng-model="vm.reason" validation-errors-fluid required />
+                    <div class="item flex flex--content-start button-container">
+                        <button class="button button--small" type="submit">{{'resubscribe_input_button' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+        

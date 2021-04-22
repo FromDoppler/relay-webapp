@@ -123,6 +123,11 @@
           controller: 'DomainManagerCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/domain-manager/resubscribe', {
+          templateUrl: 'partials/settings/domain-manager/resubscribe.html',
+          controller: 'ResubscribeCtrl',
+          controllerAs: 'vm'
+        })
         .when('/settings/domain-manager/dkim-configuration-help', {
           templateUrl: 'partials/settings/domain-manager/dkim-configuration-help.html',
           controller: 'dKimConfigCtrl',
