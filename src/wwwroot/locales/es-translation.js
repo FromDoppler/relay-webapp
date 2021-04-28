@@ -278,8 +278,8 @@ window['relay-translation-es'] = {
   "dkim_configuration_help_spf_subtitle_link_href": "es/como-configurar-tu-dkim-paso-a-paso#spf",
   "resubscribe": "Reactivación de Suscriptores",
   "resubscribe_title": "Resubscribir dirección de correo",
-  "resubscribe_subtitle": "Completa el formulario para reactivar a un Suscriptor del Dominio ",
-  "resubscribe_sub_subtitle": "Recuerda que puedes reactivar hasta 15 Suscriptores diarios",
+  "resubscribe_subtitle": "Ingresa el Email del Suscriptor que quieres reactivar para el dominio ",
+  "resubscribe_sub_subtitle": "Recuerda que puedes reactivar hasta 15 Suscriptores diarios.",
   "resubscribe_help_field": "Aquí puede remover una dirección de correo electrónico del estado 'Dropped'",
   "resubscribe_success": "¡Reactivación exitosa!",
   "resubscribe_success_text": "El Suscriptor ha sido reactivado.",
@@ -519,8 +519,8 @@ window['relay-translation-es'] = {
   "registration_gdpr_details_3": "<strong>Legitimación:</strong> Consentimiento del interesado.",
   "registration_gdpr_details_4": "<strong>Destinatarios:</strong> Tus datos serán guardados por Doppler, Zoho como CRM, Digital Ocean, Cogeco Peer1 y Rackspace como empresas de hosting.",
   "registration_gdpr_details_5": "<strong>Información adicional:</strong> En la <a target='_blank' href='https://www.dopplerrelay.com/privacidad'>Política de Privacidad</a> de Doppler encontrarás información adicional sobre la recopilación y el uso de su información personal por parte de Doppler, incluida información sobre acceso, conservación, rectificación, eliminación, seguridad, transferencias transfronterizas y otros temas.",
-  "resubscribe_internal_policies_error": "No es posible volver a suscribir la dirección de correo debido a conflictos con las políticas internas, comuníquese con nuestro servicio de soporte.",
+  "resubscribe_internal_policies_error": "Ponte en contacto con el equipo de Atención al Cliente.",
   "resubscribe_domain_error": "Verifique que el dominio está correctamente escrito y esté configurado en su cuenta.",
-  "resubscribe_unsubscription_error": "La dirección de correo electrónico no está desubscripta para el dominio especificado.",
-  "resubscribe_too_many_request_error": "Se superó la cantidad de solicitudes permitidas; consulte los _headers_ de respuesta para obtener más detalles."
+  "resubscribe_unsubscription_error": "No es posible reactivar este Suscriptor porque no se encuentra inactivo.",
+  "resubscribe_too_many_request_error": "Has alcanzado el límite diario de reactivaciones."
 };

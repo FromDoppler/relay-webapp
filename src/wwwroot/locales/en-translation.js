@@ -181,7 +181,7 @@
   "resubscribe_label_reason_input": "Reason:",
   "resubscribe_input_button": "Send",
   "resubscribe_success": "Successful reactivation!",
-  "resubscribe_success_text": "The Subscriber has been reactivated.",
+  "resubscribe_success_text": "The Subscriber has been succesfully reactivated.",
   "resubscribe_success_button": "OK",
   "connection-settings_title": "SMTP & API Key Credentials",
   "connection-settings_subtitle": "Start sending emails using our API or get started quickly with SMTP using the information below:",
@@ -269,8 +269,8 @@
   "dkim_configuration_help_spf_subtitle_link": "Find here some help to configure the SPF.",
   "dkim_configuration_help_spf_subtitle_link_href": "en/how-to-configure-your-dkim-step-by-step#spf",  
   "resubscribe_title": "Resubscribe E-Mail Address",
-  "resubscribe_subtitle": "Complete the form to reactivate a Subscriber of the Domain ",
-  "resubscribe_sub_subtitle": "Remember that you can reactivate up to 15 daily Subscribers",
+  "resubscribe_subtitle": "Fill in the Email address you want to reactivate for the domain ",
+  "resubscribe_sub_subtitle": "Remember you are able to reactivate up to 15 Subscribers a daily.",
   "resubscribe_help_field": "Here you can remove an email address from dropped status",
   "domain_manager_settings_domain": "Domain Settings",
   "domain_manager_resubscribe": "Reactivate Subscribers",
@@ -507,6 +507,6 @@
   "registration_gdpr_details_5": "<strong>Additional information:</strong> In the Doppler <a target='_blank' href='https://www.dopplerrelay.com/en/privacy'>Privacy Policy</a> you’ll find additional information about the collection and use of your personal information by Doppler, including information on access, conservation, rectification, deletion, security, cross-border data transfers and other issues.",
   "resubscribe_internal_policies_error": "It is not possible to re-subscribe the email address due to conflicts with internal policies, please contact our support service.",
   "resubscribe_domain_error": "Verify that the domain is entered correctly and is configured in your account.",
-  "resubscribe_unsubscription_error": "The email address is not unsubscribed for the specified domain.",
-  "resubscribe_too_many_request_error": "The number of requests allowed has been exceeded, check the response headers for more details."
+  "resubscribe_unsubscription_error": "We cannot reactivate the Subscriber because it’s not inactive.",
+  "resubscribe_too_many_request_error": "You have reached your daily reactivation limit."
 };
