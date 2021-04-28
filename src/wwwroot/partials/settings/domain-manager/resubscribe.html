@@ -18,7 +18,7 @@
                     <label for="email">{{'resubscribe_label_email_input' | translate}}</label>
                     <input class="input input--large" ng-class="vm.submitted && form.email.$invalid ? 'error' : ''" id="email" type="email" name="email" ng-model="vm.email" maxlength="100" ng-maxlength="100" email-format-validation validation-errors-fluid required />
                     <label for="reason">{{'resubscribe_label_reason_input' | translate}}</label>
-                    <input class="input input--large" ng-class="vm.submitted && form.email.$invalid ? 'error' : ''" id="reason" type="text" name="reason" ng-model="vm.reason" validation-errors-fluid required />
+                    <input class="input input--large" ng-class="vm.submitted && form.reason.$invalid ? 'error' : ''" id="reason" type="text" name="reason" ng-model="vm.reason" validation-errors-fluid required />
                     <div class="item flex flex--content-start button-container">
                         <button class="button button--small" type="submit">{{'resubscribe_input_button' | translate}}</button>
                     </div>

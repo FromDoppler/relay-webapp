@@ -50,23 +50,29 @@
 
   function onExpectedError(rejectionData) {
     var errorMessage = '';
+    var errorButton = '';
+    
     if (rejectionData.status == 400 && rejectionData.errorCode == 12) {
       errorMessage = 'resubscribe_internal_policies_error';
+      errorButton = 'resubscribe_internal_policies_error_button';
     }
 
     if (rejectionData.status == 400 && rejectionData.errorCode == 13) {
       errorMessage = 'resubscribe_domain_error';
+      errorButton = 'resubscribe_unsubscription_error_button';
     }
 
     if (rejectionData.status == 400 && rejectionData.errorCode == 14) {
       errorMessage = 'resubscribe_unsubscription_error';
+      errorButton = 'resubscribe_unsubscription_error_button';
     }
 
     if (rejectionData.status == 429 && rejectionData.errorCode == 1) {
       errorMessage = 'resubscribe_too_many_request_error';
+      errorButton = 'resubscribe_too_many_request_error_button';
     }
 
-    $rootScope.addError(errorMessage, rejectionData.detail, rejectionData.title, rejectionData.status, rejectionData.errorCode);
+    $rootScope.addError(errorMessage, rejectionData.detail, rejectionData.title, rejectionData.status, rejectionData.errorCode, null, errorButton);
     
     return true;
   }
