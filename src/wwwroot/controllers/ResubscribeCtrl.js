@@ -10,10 +10,11 @@
     '$location',
     'settings',
     '$rootScope',
-    'ModalService'
+    'ModalService',
+    'utils',
   ];
 
-  function ResubscribeCtrl($scope, $location, settings, $rootScope, ModalService) {
+  function ResubscribeCtrl($scope, $location, settings, $rootScope, ModalService, utils) {
     $rootScope.setSubmenues([        
       { text: 'domains_text', url: 'settings/domain-manager', active: true },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: false }
@@ -45,6 +46,9 @@
         action: null
       }
       })
+    }).then(function(){          
+      utils.resetForm(vm, form);
+      vm.submitted = false;
     });
   }
 
