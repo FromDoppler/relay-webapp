@@ -179,7 +179,7 @@
   "resubscribe": "Subscriber Reactivation",
   "resubscribe_label_email_input": "E-Mail Address:",
   "resubscribe_label_reason_input": "Reason:",
-  "resubscribe_input_button": "Send",
+  "resubscribe_input_button": "REACTIVATE",
   "resubscribe_success": "Successful reactivation!",
   "resubscribe_success_text": "The Subscriber has been succesfully reactivated.",
   "resubscribe_success_button": "OK",
