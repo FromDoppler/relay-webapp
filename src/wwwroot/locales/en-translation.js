@@ -184,7 +184,7 @@
   "resubscribe_success_text": "The Subscriber has been succesfully reactivated.",
   "resubscribe_success_button": "OK",
   "resubscribe_unsubscription_error_button": "VOLVER",
-  "resubscribe_internal_policies_error_button": "<a href=\"mailto:soporte@fromdoppler.com\">CONTACTAR</a>",
+  "resubscribe_internal_policies_error_button": "<a href=\"mailto:soporte@fromdoppler.com\">CONTACT</a>",
   "resubscribe_too_many_request_error_button": "TRY IT LATER",
   "connection-settings_title": "SMTP & API Key Credentials",
   "connection-settings_subtitle": "Start sending emails using our API or get started quickly with SMTP using the information below:",

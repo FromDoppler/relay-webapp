@@ -285,7 +285,7 @@ window['relay-translation-es'] = {
   "resubscribe_success_text": "El Suscriptor ha sido reactivado.",
   "resubscribe_success_button": "OK",
   "resubscribe_unsubscription_error_button": "GO BACK",
-  "resubscribe_internal_policies_error_button": "<a href=\"mailto:soporte@fromdoppler.com\">CONTACT</a>",
+  "resubscribe_internal_policies_error_button": "<a href=\"mailto:soporte@fromdoppler.com\">CONTACTAR</a>",
   "resubscribe_too_many_request_error_button": "INTENTARLO MÁS TARDE",
   "domain_manager_delete_domain": "Eliminar Dominio",
   "domain_manager_settings_domain": "Configuración de dominio",
