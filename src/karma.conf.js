@@ -60,6 +60,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/controllers/SettingsCtrl.js',
       __dirname + '/wwwroot/controllers/RegistrationCtrl.js',
       __dirname + '/wwwroot/controllers/BillingCtrl.js',
+      __dirname + '/wwwroot/controllers/MyBillingInformationCtrl.js',
       __dirname + '/wwwroot/interceptors/errorHandlerInterceptor.js',
       __dirname + '/wwwroot/directives/c3chart.js',
       __dirname + '/wwwroot/directives/dropdown.js',

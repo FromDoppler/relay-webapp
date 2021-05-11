@@ -148,6 +148,11 @@
           controller: 'PlanCtrl',
           controllerAs: 'vm'
         })
+        .when('/settings/my-billing-information', {
+          templateUrl: 'partials/settings/my-billing-information.html',
+          controller: 'MyBillingInformationCtrl',
+          controllerAs: 'vm'
+        })
         .when('/settings/billing', {
           templateUrl: 'partials/settings/billing.html',
           controller: 'BillingCtrl',
