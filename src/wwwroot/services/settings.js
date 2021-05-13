@@ -27,7 +27,8 @@
       getNextPlan: getNextPlan,
       requestEmailChange: requestEmailChange,
       getCustomerDataByCuit: getCustomerDataByCuit,
-      resubscribeEmailAddress: resubscribeEmailAddress
+      resubscribeEmailAddress: resubscribeEmailAddress,
+      updatePaymentMethod: updatePaymentMethod
     };
 
     var plansCache = null;
@@ -230,6 +231,17 @@
         actionDescription: 'action_getting_customer_data',
         method: 'GET',
         url: RELAY_CONFIG.cuitServiceBaseUrl + '/taxinfo/by-cuit/' + cuit
+      });
+    }
+
+    function updatePaymentMethod(paymentMethod, onExpectedError) {
+      var url = RELAY_CONFIG.baseUrl + '/accounts/' + auth.getAccountName() + '/agreements/current/paymentmethod?updateScheduledAgreements=true';
+      return $http({
+        actionDescription: 'action_updating_payment_method',
+        tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
+        method: 'PUT',
+        data: paymentMethod,
+        url: url
       });
     }
 

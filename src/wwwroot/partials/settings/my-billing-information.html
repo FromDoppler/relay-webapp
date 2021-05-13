@@ -1,0 +1,135 @@
+<section class="my-billing-information-page--container">
+  <div class="section--wrapper">
+    <h2>
+      {{ 'my_billing_information_text' | translate }}
+    </h2>
+    <p id="subtitleMessage" ng-if="!vm.paymentMethodLoader && !vm.isFreeTrial && !vm.transferPayment" ng-bind-html="'my_billing_information_subtitle' | translate"></p>
+    <p id="transferMessage" ng-if="!vm.paymentMethodLoader && vm.transferPayment" ng-bind-html="'my_billing_information_transfer_payment_text' | translate"></p>
+    <p id="freePlanMessage" ng-if="!vm.paymentMethodLoader && vm.isFreeTrial" ng-bind-html="'my_billing_information_freeplan_text' | translate"></p>
+  </div>
+  <div ng-if="!vm.changePaymentMethod" class="my-billing-information--container">
+    <div class="section--wrapper credit-card--container">
+      <h3 class="special">{{ 'my_billing_information_payment_method_title' | translate }}</h3>
+      <div class="item flex">
+        <div class="flex two flex--vertically-start">
+          <label class="special uppercase" for="creditCardRadio">{{'my_billing_information_credit_card_option' | translate}}</label>
+        </div>
+        <div class="flex one flex--wrap button--container">
+          <button class="button button--small check-button" ng-class="!vm.isFreeTrial && !vm.transferPayment ? 'default':'disabled'"
+                  ng-disabled="vm.isFreeTrial || vm.transferPayment" ng-click="vm.showChangePaymentMethod();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'my_billing_information_change_credit_card' | translate }}</button>
+        </div>
+      </div>
+      <div class="item flex flex--wrap first">
+        <div class="flex one flex--wrap">
+          <label class="width--full special uppercase" for="cardHolder">{{'my_billing_information_card_holder_label' | translate}}</label>
+          <p id="cardHolderInformation">{{vm.paymentMetodInfo.cardHolder}}</p>
+          <spinner class="spinner" ng-class="vm.paymentMethodLoader ?  'show':'hide'"></spinner> 
+        </div>
+        <div class="flex one credit-card flex--wrap flex--vertically-start" ng-class="vm.paymentMetodInfo.cc.brand">
+          <label class="width--full special uppercase" for="cardNumber">{{'my_billing_information_card_number_label' | translate}}</label>
+          <p id="creditCardNumberInformation">{{vm.paymentMetodInfo.cc.number}}</p>
+          <div class="cards-icons--container" ng-if="!vm.paymentMethodLoader && !vm.isFreeTrial">
+            <svg class="icon icon-visa" ng-if="vm.paymentMetodInfo.cc.brand === 'visa'">
+              <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
+            </svg>
+            <svg class="icon icon-master" ng-if="vm.paymentMetodInfo.cc.brand === 'mastercard'">
+              <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
+            </svg>
+            <svg class="icon icon-amex" ng-if="vm.paymentMetodInfo.cc.brand === 'amex'">
+              <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
+            </svg>   
+          </div>   
+          <spinner class="spinner" ng-class="vm.paymentMethodLoader ?  'show':'hide'"></spinner> 
+        </div>
+      </div>
+      <div class="item flex flex--wrap">
+        <div class="flex one flex--wrap">
+          <label class="width--full special uppercase" for="cardHolder">{{'my_billing_information_exp_date_label' | translate}}</label>
+          <p id="expiryDateInformation">{{vm.paymentMetodInfo.expDate}}</p>
+          <spinner class="spinner" ng-class="vm.paymentMethodLoader ?  'show':'hide'"></spinner> 
+        </div>
+        <div class="flex one flex--wrap">
+          <label class="width--full special uppercase" for="cardHolder">{{'my_billing_information_sec_code_label' | translate}}</label>
+          <p id="verificationCodeInformation">{{vm.paymentMetodInfo.secCode.number}}</p>
+          <spinner class="spinner" ng-class="vm.paymentMethodLoader ?  'show':'hide'"></spinner>
+        </div>
+      </div>
+      <div  class="flex flex--wrap success" ng-if="vm.paymentMethodSaved && vm.paymentMethodLoader">
+        <svg class="icon ok-icon">
+          <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+        </svg>
+        <p class="success-text">{{'my_billing_information_success_text' | translate}}</p>
+      </div>
+    </div>
+    
+  </div>
+  <div ng-if="vm.changePaymentMethod" class="my-billing-information--container">
+    <form id="form" name="form" novalidate>
+      <div class="section--wrapper credit-card--container">
+          <h3 class="special">{{ 'my_billing_information_payment_method_title' | translate }}</h3>
+          <div class="item flex">
+            <div class="flex flex--vertically-start">
+              <label class="special uppercase" for="creditCardRadio">{{'my_billing_information_credit_card_option' | translate}}</label>
+            </div>
+          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="cardHolder">{{'my_billing_information_card_holder_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap card-holder-container">
+              <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" class="input input--large" validation-errors-fluid  required />
+            </div>
+          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="cardNumber">{{'my_billing_information_card_number_label' | translate}}</label>
+            </div>
+          <div class="flex three credit-card flex--wrap flex--vertically-start" ng-class="vm.cc.brand">
+            <div class="flex one flex--wrap credit-card-container">
+              <input id="creditCardNumber" ng-model="vm.cc.number" name="cardNumber" autocomplete="off" ui-mask="{{vm.cc.mask}}" ui-options="vm.maskOptions" 
+                     class="input input--large" validation-errors-fluid required />
+            </div>
+            <div class="flex three flex--vertically-center cards-icons--container">
+              <svg class="icon icon-visa">
+                <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
+              </svg>
+              <svg class="icon icon-master">
+                <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
+              </svg>
+              <svg class="icon icon-amex">
+                <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
+              </svg>   
+            </div>           
+            </div>
+          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="expDate">{{'my_billing_information_exp_date_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap expDate-container">
+              <input id="expDate" name="expDate" autocomplete="off" ui-mask="99/99" ng-change="vm.checkExpDate(form.expDate)" 
+                     ui-mask-placeholder ui-options="vm.maskOptions" ng-model="vm.expDate" class="input input--large" validation-errors-fluid required />              
+            </div>
+          </div>
+          <div class="item flex">
+            <div class="flex one flex--vertically-start">
+              <label class="special uppercase" for="securityCode">{{'my_billing_information_sec_code_label' | translate}}</label>
+            </div>
+            <div class="flex three flex--wrap secCode-container">
+              <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" 
+                     class="input input--extra-small" validation-errors-fluid  required />              
+            </div>
+          </div>
+      </div>
+      <div class="section--wrapper error-message-container" ng-if="vm.validationPaymentFailure">
+        <div class="detached--error-container" ng-class="vm.validationPaymentFailure ? 'show':'hide'">
+          <span class="detached--error" ng-bind-html="'my_billing_information_validation_error_payment_failure' | translate"></span>
+        </div>
+      </div>
+      <div class="section--wrapper button--container flex--wrap">
+        <button class="button button--small button--white modify-button" ng-click="vm.cancelAction()"><span >{{'my_billing_information_back_button' | translate}}</span></button>
+        <button class="button button--small save-button" ng-click="vm.submitPaymentMethod(form);">{{'my_billing_information_save_button' | translate}}</button>
+      </div>
+    </form>
+  </div>
+</section>

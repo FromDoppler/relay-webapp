@@ -734,6 +734,89 @@
     }
   }
 }
+
+.my-billing-information-page--container {
+  .my-billing-information--container {
+    margin-top: 4rem;
+    
+    .credit-card--container {
+      .item {
+        border-bottom: $suit-border-default;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        padding-right: 2rem;
+        &:first-of-type {
+          div:last-of-type { justify-content: flex-end;}
+        }
+        &:last-of-type { margin-bottom: 4rem; }
+      }
+    }
+
+    .error-message-container{ 
+      padding-bottom: 15px;
+      display: flex;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+    }
+
+    .success {
+      color: rgb(109, 202, 173);
+      margin-top: 40px;
+      .success-text {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 16px;
+        margin-left: 10px;
+        margin-top: 4px;
+      }
+    }
+
+    .spinner{
+      opacity: 1;
+      margin-left: 10px;
+      margin-top: 15px;
+      @extend .transition--default;
+      .sk-fading-circle {
+        width: 1rem;
+        height: 1.5rem;
+        .sk-circle:before{ background-color: $suit-main-color; }
+      }
+      &.hide{
+        opacity: 0;
+      }
+    }
+
+    .button--white{
+      margin-right: 2%;
+    }
+    
+    .button--container{
+      display: flex;
+      justify-content: flex-end;
+      .detached--error-container{ margin-right: 1em; align-items: center; padding-bottom: 15px;}
+  
+      .disabled{
+        background: lightgray;
+        border-color: lightgray;
+        &:hover{
+          cursor:default;
+        }
+      }
+    }
+  }
+
+  a.upgrade--link{
+    color:$suit-accent-color; 
+    &:hover{
+      color: #EB9A4F;
+   }
+  }
+
+  .selectize-input{
+    min-width: torem(350px);
+  }
+}
+
 /******* Media-Queries *****/
 
 @media screen and (max-width: 1450px) {
@@ -919,6 +1002,20 @@
       &:before{
         left: 50%;
       }
+    }
+  }
+
+  .my-billing-information-page--container{
+    .button--white{
+        margin-right: 0;
+        margin-bottom: 5%;
+    }
+    .billing--first-container{
+      margin-bottom: 1rem;
+      max-height: 132rem;
+    }
+    .button--container{
+      .detached--error-container{ margin-right: 0; margin-bottom: 1em;}
     }
   }
 }

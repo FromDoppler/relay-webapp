@@ -19,7 +19,8 @@
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
-      { text: 'submenu_my_plan', url: 'settings/my-plan', active: false }
+      { text: 'submenu_my_plan', url: 'settings/my-plan', active: false },
+      { text: 'submenu_my_billing_information', url: 'settings/my-billing-information', active: false }
     ]);
     vm.changePassword = changePassword;
     vm.updateValidation = updateValidation;
