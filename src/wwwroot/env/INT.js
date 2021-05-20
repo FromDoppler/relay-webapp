@@ -1,6 +1,6 @@
 ﻿angular.module("dopplerRelay").constant("RELAY_CONFIG", {
-  baseUrl: "https://dopplerrelayint.makingsense.com:4443",
+  baseUrl: "https://int-api-relay.fromdoppler.net",
   cuitServiceBaseUrl: "https://apisint.fromdoppler.net/cuit",
-  hostSmtp: "dopplerrelayint.makingsense.com",
+  hostSmtp: "int-smtp-relay.fromdoppler.net",
   portSmtp: "2525",
 });
