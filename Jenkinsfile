@@ -44,6 +44,7 @@ pipeline {
                     branch 'main'
                     branch 'develop'
                     branch 'qa'
+                    branch 'INT'
                     buildingTag()
                 }
             }            
