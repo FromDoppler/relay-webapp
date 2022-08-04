@@ -125,7 +125,7 @@ def String defineEnvironmentByBranchName() {
     case ["main", "master", readCurrentTag()]:
         environment = "PROD"
         break
-    case "qa":
+    case ["qa", "develop"]:
         environment = "QA"
         break
     case "INT":
