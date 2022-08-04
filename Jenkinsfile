@@ -128,7 +128,7 @@ def String defineEnvironmentByBranchName() {
     case "qa":
         environment = "QA"
         break
-    case "int":
+    case "INT":
         environment = "INT"
         break
     default:
