@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        APP_NAME = "relay-webapp"
+        APP_NAME = "relay-webapp${PACKAGE_SUFFIX}"
         ENVIRONMENT = defineEnvironmentByBranchName()
     }
     stages {
@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build and test') {
             steps {
-                sh 'src/build-w-docker.sh'
+                sh './test-w-docker.sh'
             }
         }
         stage('Build docker image') {
