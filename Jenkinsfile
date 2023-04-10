@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Build and test') {
             steps {
-                sh 'src/build-w-docker.sh'
+                sh './test-w-docker.sh'
             }
         }
         stage('Build docker image') {
