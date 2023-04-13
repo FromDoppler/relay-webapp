@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        APP_NAME = "relay-webapp${PACKAGE_SUFFIX}"
+        APP_NAME = "relay-webapp"
         ENVIRONMENT = defineEnvironmentByBranchName()
     }
     stages {
