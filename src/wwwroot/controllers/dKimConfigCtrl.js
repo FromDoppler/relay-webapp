@@ -25,6 +25,7 @@
     vm.spfStatus = null; 
     vm.dKimPublicKey = null;
     vm.dKimSelector = null;
+    vm.dmarcStatus = null; 
     vm.activationPromise = activate();
 
   function activate() {
@@ -42,6 +43,7 @@
         vm.trackingDomainStatus = response.data.tracking_domain_ready;
         vm.trackingDomain = response.data.tracking_domain;
         vm.canoncalTrackingDomain = response.data.canonical_tracking_domain;
+        vm.dmarcStatus = response.data.dmarc_ready; 
       });
   }
 }
