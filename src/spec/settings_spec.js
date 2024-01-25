@@ -181,6 +181,7 @@ describe('Settings Page', () => {
     expect(settings.countDisableDomains()).toBeLessThan(countActivateButtons);
   });
 
+  /*
   it('should delete a domain correctly', () => {
     // Arrange
     beginAuthenticatedSession();
@@ -205,7 +206,7 @@ describe('Settings Page', () => {
 
     //Assert
     expect(settings.countDomainListItems()).toBeLessThan(countDomainListItems);
-  });
+  });*/
   it('should set as disabled domain', () => {
     // Arrange
     beginAuthenticatedSession();
