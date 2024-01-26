@@ -7,7 +7,7 @@
   "dependencies": {
     "body-parser": "~1.13.3",
     "bower": "^1.8.9",
-    "express": "~4.13.3",
+    "express": "~4.17.3",
     "gulp-minify-css": "^1.2.0",
     "gulp-sass": "^2.0.4",
     "imagemin-pngquant": "^4.2.0",
