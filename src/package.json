@@ -5,7 +5,7 @@
   "description": "Doppler Relay App",
   "repository": "https://github.com/DopplerRelay/relay-webapp",
   "dependencies": {
-    "body-parser": "~1.13.3",
+    "body-parser": "~1.20.3",
     "bower": "^1.8.9",
     "express": "~4.17.3",
     "gulp-minify-css": "^1.2.0",
