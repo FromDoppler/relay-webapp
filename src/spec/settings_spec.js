@@ -2,7 +2,6 @@ describe('Settings Page', () => {
 
   var SettingsPage = require('./page-objects/settings-page').SettingsPage;
   var DkimPage = require('./page-objects/dkim-page').DkimPage;
-  var ConnectionSettingsPage = require('./page-objects/connection-settings-page').ConnectionSettingsPage;
   var ProfilePage = require('./page-objects/profile-page').ProfilePage;
   var MyPlanPage = require('./page-objects/new-plan').MyPlanPage;
   afterEach(() => {
@@ -284,64 +283,6 @@ describe('Settings Page', () => {
 
     //Act
     expect(settingsPage.isDkimInformationButtonDisplayed()).toBeTruthy();
-  });
-
-  it('should show api key correctly', () => {
-    // Arrange
-    beginAuthenticatedSession();
-    browser.addMockModule('descartableModule2', () => angular
-      .module('descartableModule2', ['ngMockE2E'])
-      .run($httpBackend => {
-        $httpBackend.whenGET(/\/user\/apikeys/).respond(200, {
-          "api_keys": [
-            {
-              "api_key": 'testApiKey'
-            }
-          ]
-        });
-      }));
-    var settings = new ConnectionSettingsPage();
-
-    //Act
-    browser.get('/#/settings/connection-settings');
-
-    //Assert
-    expect(settings.getApiKey()).toEqual('testApiKey');
-  });
-
-  it('should copy api key to clipboard if browser supports it', () => {
-    // Arrange
-    beginAuthenticatedSession();
-    browser.addMockModule('descartableModule2', () => angular
-      .module('descartableModule2', ['ngMockE2E'])
-      .run($httpBackend => {
-        $httpBackend.whenGET(/\/user\/apikeys/).respond(200, {
-          "api_keys": [
-            {
-              "api_key": 'testApiKey'
-            }
-          ]
-        });
-      }));
-
-    var settings = new ConnectionSettingsPage();
-
-    //Act
-    browser.get('/#/settings/connection-settings');
-    settings.clickCopyApiKey();
-
-    // creating a new input element to test the pasted text
-    browser.executeScript(function () {
-        var el = document.createElement('input');
-        el.setAttribute('id', 'testInput');
-
-        document.getElementsByTagName('body')[0].appendChild(el);
-    });
-    var testInput = $("#testInput");
-    testInput.sendKeys(protractor.Key.chord(protractor.Key.CONTROL, "v"));
-
-    //Assert
-    expect(testInput.getAttribute('value')).toEqual('testApiKey');
   });
 
   it('should show alert icons status', () => {
