@@ -27,15 +27,27 @@
     vm.toggleShowPassword = function () {
       vm.inputType = vm.inputType != 'password' ? 'password' : 'text';
     }
-
-    vm.apiKey = '';
-    settings.getUserApiKeys()
-      .then(function (apiKeys) {
-        // Show the first api key (in the future a user will be able to handle more than one)
-        vm.apiKey = apiKeys[0].api_key;
+    
+    vm.apiKeySentSuccefully = false;
+    vm.apiKeySentFailed = false;
+    vm.requestApiKey == function () {
+      vm.loadInProgress = true;
+      vm.apiKeySentSuccefully = false;
+      vm.apiKeySentFailed = false;
+      settings.requestApiKey()
+      .then(function () {
+        vm.apiKeySentSuccefully = true;
+        vm.apiKeySentFailed = false;
+      })
+      .catch(function () {
+        vm.apiKeySentSuccefully = false;
+        vm.apiKeySentFailed = true;
       })
       .finally(function () {
         vm.loadInProgress = false;
-      });;
+      });
+    }
+
+    vm.loadInProgress = false;
   }
 })();

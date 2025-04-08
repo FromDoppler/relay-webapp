@@ -17,7 +17,7 @@
       createOrEditDomain: createOrEditDomain,
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain,
-      getUserApiKeys: getUserApiKeys,
+      requestUserApiKey: requestUserApiKey,
       getDomain: getDomain,
       getPlansAvailable: getPlansAvailable,
       billingPayment: billingPayment,
@@ -128,17 +128,18 @@
       });
     }
 
-    function getUserApiKeys() {
+    function requestUserApiKey(lang) {
       var url = RELAY_CONFIG.baseUrl
-        + '/user/apikeys';
+        + '/user/apikeys/request';
+        + '?lang='+ lang;
 
       return $http({
-        actionDescription: 'Getting API keys',
+        actionDescription: 'Requesting API key',
         method: 'GET',
         url: url
       })
       .then(function (response) {
-        return response.data.api_keys;
+        return response;
       });
     }
 
