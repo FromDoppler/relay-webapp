@@ -3,7 +3,7 @@ USER node
 RUN mkdir -p /home/node/src
 WORKDIR /home/node/src
 COPY src/package.json src/yarn.lock src/bower.json src/.bowerrc ./
-RUN yarn global add gulp && yarn
+RUN yarn global add gulp@3.9.0 && yarn
 
 FROM restore as build
 COPY --chown=node:node src .

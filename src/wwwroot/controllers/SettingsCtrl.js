@@ -9,10 +9,11 @@
     '$scope',
     '$rootScope',
     'RELAY_CONFIG',
-    'settings'
+    'settings',
+    '$translate',
   ];
 
-  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings) {
+  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate) {
     $rootScope.setSubmenues([
       { text: 'domains_text', url: 'settings/domain-manager', active: false },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }      
@@ -27,15 +28,28 @@
     vm.toggleShowPassword = function () {
       vm.inputType = vm.inputType != 'password' ? 'password' : 'text';
     }
+    
+    vm.apiKeySentSuccefully = false;
+    vm.apiKeySentFailed = false;
 
-    vm.apiKey = '';
-    settings.getUserApiKeys()
-      .then(function (apiKeys) {
-        // Show the first api key (in the future a user will be able to handle more than one)
-        vm.apiKey = apiKeys[0].api_key;
+    vm.requestApiKey = function () {
+      vm.loadInProgress = true;
+      vm.apiKeySentSuccefully = false;
+      vm.apiKeySentFailed = false;
+      settings.requestUserApiKey($translate.use())
+      .then(function () {
+        vm.apiKeySentSuccefully = true;
+        vm.apiKeySentFailed = false;
+      })
+      .catch(function () {
+        vm.apiKeySentSuccefully = false;
+        vm.apiKeySentFailed = true;
       })
       .finally(function () {
         vm.loadInProgress = false;
-      });;
+      });
+    }
+
+    vm.loadInProgress = false;
   }
 })();

@@ -34,6 +34,12 @@
       label{ text-transform: uppercase;font-weight: 600;}
       p {word-wrap: break-word;}
     }
+    div.api-key-request-result {
+      width: 65%;
+    }
+    div.api-key-request-result a{
+      color:#E78224;
+    }
   }
   .spinner{
     fill:$suit-accent-color; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:100%;transform: translate(-50%,-50%);position: absolute;
