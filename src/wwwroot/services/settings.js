@@ -130,7 +130,7 @@
 
     function requestUserApiKey(lang) {
       var url = RELAY_CONFIG.baseUrl
-        + '/user/apikeys/request';
+        + '/user/apikey/request';
         + '?lang='+ lang;
 
       return $http({

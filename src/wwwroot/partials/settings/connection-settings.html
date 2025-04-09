@@ -34,20 +34,21 @@
   </div>
   <div class="connection--settings-data-container" ng-if="!vm.loadInProgress">
     <div>
-      <label>{{'connection-settings_api_key_title' | translate}}</label>
-      <button class="button button--small" type="submit" ng-click="vm.requestApiKeys()">{{'connection-settings_request_api_key' | translate}}</button>
-      <div ng-if="vm.apiKeySentSuccefully">
-        <svg class="icon ok-icon">
-          <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
-        </svg>
-        <span>{{ 'connection-settings_api_key_sent_succefully' | translate }}</span>
-      </div>
-      <div ng-if="vm.apiKeySentFailed">
-        <svg class="icon alert-icon">
-            <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
-        </svg>
-        <span>{{ 'connection-settings_api_key_sent_failed' | translate }}</span>
-      </div>
+        <label>{{'connection-settings_api_key_title' | translate}}</label>
+        <button class="button button--small" type="submit" ng-click="vm.requestApiKey()">{{'connection-settings_request_api_key' | translate}}</button>
+       
+    </div>
+    <div ng-if="vm.apiKeySentSuccefully" class="api-key-request-result">
+      <svg class="icon ok-icon">
+        <use xlink:href="/images/sprite.svg#doppler-icon-ok-icon"></use>
+      </svg>
+      <span>{{ 'connection-settings_api_key_sent_succefully' | translate }}</span>
+    </div>
+    <div ng-if="vm.apiKeySentFailed" class="api-key-request-result">
+      <svg class="icon alert-icon">
+          <use xlink:href="/images/sprite.svg#doppler-icon-alert-icon"></use>
+      </svg>
+      <span>{{ 'connection-settings_api_key_sent_failed' | translate }}</span><a href="mailto:soporte@fromdoppler.com">{{ 'connection-settings_api_key_sent_failed_contact' | translate }}</a>
     </div>
   </div>
 </section>

@@ -9,10 +9,11 @@
     '$scope',
     '$rootScope',
     'RELAY_CONFIG',
-    'settings'
+    'settings',
+    '$translate',
   ];
 
-  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings) {
+  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate) {
     $rootScope.setSubmenues([
       { text: 'domains_text', url: 'settings/domain-manager', active: false },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }      
@@ -30,11 +31,12 @@
     
     vm.apiKeySentSuccefully = false;
     vm.apiKeySentFailed = false;
-    vm.requestApiKey == function () {
+
+    vm.requestApiKey = function () {
       vm.loadInProgress = true;
       vm.apiKeySentSuccefully = false;
       vm.apiKeySentFailed = false;
-      settings.requestApiKey()
+      settings.requestUserApiKey($translate.use())
       .then(function () {
         vm.apiKeySentSuccefully = true;
         vm.apiKeySentFailed = false;
