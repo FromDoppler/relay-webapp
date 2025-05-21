@@ -43,7 +43,16 @@
       if (form.$invalid) {
         return;
       }
-      vcRecaptchaService.execute(vm.widgetId);      
+      if (!vm.widgetId) {
+        console.error('reCAPTCHA widget ID is not set');
+        return;
+      }
+      try {
+        vcRecaptchaService.execute(vm.widgetId);
+      } catch (error) {
+        console.error('Error executing reCAPTCHA:', error);
+        reloadCaptcha();
+      }
     }
 
     var onExpectedError = function (rejectionData) {
@@ -71,6 +80,10 @@
     };
 
     function setWidgetId (widgetId) {
+      if (!widgetId) {
+        console.error('Invalid reCAPTCHA widget ID');
+        return;
+      }
       vm.widgetId = widgetId;
     };
 
