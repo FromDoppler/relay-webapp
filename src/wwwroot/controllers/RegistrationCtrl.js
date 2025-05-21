@@ -36,13 +36,22 @@
         vm.accountName = Slug.slugify(vm.company);
       }
     }
-    vm.recaptchaAvailable = !!vcRecaptchaService;
+    // Check if we're in production environment
+    vm.isProduction = RELAY_CONFIG.baseUrl === 'https://api.dopplerrelay.com';
+    vm.recaptchaAvailable = vm.isProduction && !!vcRecaptchaService;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
       if (form.$invalid) {
         return;
       }
+      
+      if (!vm.isProduction) {
+        // In non-production environments, directly call setCaptchaResponse with a mock response
+        setCaptchaResponse('mock-captcha-response');
+        return;
+      }
+
       if (!vm.widgetId) {
         console.error('reCAPTCHA widget ID is not set');
         return;
