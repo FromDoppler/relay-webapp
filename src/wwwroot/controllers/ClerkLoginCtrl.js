@@ -37,6 +37,7 @@
 
       clerkAuth.signIn()
         .then(function() {
+          console.log('Clerk sign in successful');
           $location.path('/');
         })
         .catch(function(error) {
