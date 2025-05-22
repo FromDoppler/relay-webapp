@@ -33,10 +33,12 @@
     </div>
   </div>
   <div class="connection--settings-data-container" ng-if="!vm.loadInProgress">
-    <div>
+    <div class="api-key-actions">
         <label>{{'connection-settings_api_key_title' | translate}}</label>
-        <button class="button button--small" type="submit" ng-click="vm.requestApiKey()">{{'connection-settings_request_api_key' | translate}}</button>
-       
+        <p>
+          <button class="button button--small" type="submit" ng-click="vm.requestApiKey()">{{'connection-settings_request_api_key' | translate}}</button>
+          <button class="button button--small" type="submit" ng-click="vm.resetApiKey()">{{'connection-settings_reset_api_key' | translate}}</button>
+        </p>
     </div>
     <div ng-if="vm.apiKeySentSuccefully" class="api-key-request-result">
       <svg class="icon ok-icon">
