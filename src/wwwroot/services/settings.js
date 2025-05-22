@@ -18,6 +18,7 @@
       setDefaultDomain: setDefaultDomain,
       deleteDomain: deleteDomain,
       requestUserApiKey: requestUserApiKey,
+      resetUserApiKey: resetUserApiKey,
       getDomain: getDomain,
       getPlansAvailable: getPlansAvailable,
       billingPayment: billingPayment,
@@ -135,6 +136,21 @@
 
       return $http({
         actionDescription: 'Requesting API key',
+        method: 'GET',
+        url: url
+      })
+      .then(function (response) {
+        return response;
+      });
+    }
+
+    function resetUserApiKey(lang) {
+      var url = RELAY_CONFIG.baseUrl
+        + '/user/apikey/reset';
+        + '?lang='+ lang;
+
+      return $http({
+        actionDescription: 'Resetting the API key',
         method: 'GET',
         url: url
       })
