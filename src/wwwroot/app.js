@@ -280,7 +280,7 @@
 
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin'];
+    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin', '/clerk-login'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
 
     // TODO: optimize it
