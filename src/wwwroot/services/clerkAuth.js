@@ -29,7 +29,7 @@
               reject(error);
             });
         } else {
-          reject(new Error('Clerk not loaded'));
+          reject(new Error('Initialize - Clerk not loaded'));
         }
       });
     }
@@ -53,7 +53,7 @@
               reject(error);
             });
         } else {
-          reject(new Error('Clerk not loaded'));
+          reject(new Error('SignIn - Clerk not loaded'));
         }
       });
     }
@@ -69,7 +69,7 @@
               reject(error);
             });
         } else {
-          reject(new Error('Clerk not loaded'));
+          reject(new Error('SignOut - Clerk not loaded'));
         }
       });
     }

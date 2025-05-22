@@ -34,16 +34,17 @@
 <script>
   window.addEventListener('load', async function () {
     if (window.Clerk) {
-          window.Clerk.load()
-            .then(function() {
-                const signInDiv = document.getElementById('sign-in');
-                window.Clerk.mountSignIn(signInDiv, {
-                    oauthFlow: 'popup'
-                });
-            })
-            .catch(function(error) {
-              console.error('Error loading Clerk:', error);
-            });
+        console.log('Clerk is loaded');
+        window.Clerk.load()
+          .then(function() {
+              const signInDiv = document.getElementById('sign-in');
+              window.Clerk.mountSignIn(signInDiv, {
+                  oauthFlow: 'popup'
+              });
+          })
+          .catch(function(error) {
+            console.error('Error loading Clerk:', error);
+          });
         }
   })
 </script>
