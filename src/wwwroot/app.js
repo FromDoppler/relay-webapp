@@ -73,6 +73,11 @@
           controller: 'LoginCtrl',
           controllerAs: 'vm'
         })
+        .when('/clerk-login', {
+          templateUrl: 'partials/login/clerk-login.html',
+          controller: 'ClerkLoginCtrl',
+          controllerAs: 'vm'
+        })
         .when('/dashboard', {
           templateUrl: 'partials/dashboard/dashboard.html',
           controller: 'DashboardCtrl'

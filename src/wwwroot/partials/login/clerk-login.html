@@ -1,0 +1,34 @@
+<div class="section--wrapper second-line--header login--link">
+  <p>{{ 'dont_have_account_text' | translate }} <a href="#/signup/registration?origin=login">{{ 'register_now' | translate }}</a></p>
+</div>
+<section class="login container ms-relay">
+  <div class="section--wrapper width--full text--center">
+    <h1 id="header-login">{{'login_title' | translate:{companyName:companyName} }}</h1>
+    <h4>{{'login_subtitle' | translate}}</h4>
+    <span>Clerk Login</span>
+    
+    <!-- Error message -->
+    <div class="section--wrapper-input" ng-if="vm.error">
+      <div class="input--error">
+        <i class="arrow--up"></i>{{ vm.error }}
+      </div>
+    </div>
+
+    <!-- Loading spinner -->
+    <div class="section--wrapper-input" ng-if="vm.isLoading">
+      <div class="spinner">
+        <div class="spinner__circle"></div>
+      </div>
+    </div>
+
+    <!-- Login button -->
+    <div class="section--wrapper-button">
+      <button 
+        class="button button--medium" 
+        ng-click="vm.submitLogin()"
+        ng-disabled="vm.isLoading">
+        {{'login_button' | translate}}
+      </button>
+    </div>
+  </div>
+</section> 
