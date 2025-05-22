@@ -33,8 +33,15 @@
 
 <script>
   window.addEventListener('load', async function () {
-    await Clerk.load();
-    const signInDiv = document.getElementById('sign-in');
-    Clerk.mountSignIn(signInDiv);
+    if (window.Clerk) {
+          window.Clerk.load()
+            .then(function() {
+                const signInDiv = document.getElementById('sign-in');
+                window.Clerk.mountSignIn(signInDiv);
+            })
+            .catch(function(error) {
+              console.error('Error loading Clerk:', error);
+            });
+        }
   })
 </script>
