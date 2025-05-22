@@ -23,8 +23,7 @@
         '720kb.tooltips',
         'rzModule',
         'ui.mask',
-        'vcRecaptcha',
-        'clerkAuth'
+        'vcRecaptcha'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
