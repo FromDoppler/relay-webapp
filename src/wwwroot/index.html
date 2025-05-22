@@ -34,6 +34,15 @@
   <link rel="stylesheet" href="lib/angular-tooltips/dist/angular-tooltips.min.css" type="text/css" />
   <link rel="stylesheet" href="lib/angularjs-slider/dist/rzslider.min.css" type="text/css"/>
 
+  <!-- Clerk Authentication -->
+  <script
+    async
+    crossorigin="anonymous"
+    data-clerk-publishable-key="pk_test_d29ya2luZy1yYXB0b3ItNTMuY2xlcmsuYWNjb3VudHMuZGV2JA"
+    src="https://working-raptor-53.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+    type="text/javascript"
+  ></script>
+
   <!-- endinject -->
 </head>
 <body ng-controller="MainCtrl">
@@ -128,6 +137,7 @@
   <script src="services/utils.js"></script>
   <script src="services/settings.js"></script>
   <script src="services/resources.js"></script>
+  <script src="services/clerkAuth.js"></script>
   <script src="env/development.js"></script>
   <script src="lib/svgxuse/svgxuse.js"></script>
   <script src="lib/autofill-directive/autofill-directive.js"></script>
@@ -136,14 +146,6 @@
   <script src="lib/angular-slugify/angular-slugify.js"></script>
   <script src="lib/angular-tooltips/dist/angular-tooltips.min.js"></script>
   <script src="lib\clipboard\dist\clipboard.min.js"></script>
-  <!-- Clerk Authentication -->
-  <script
-    async
-    crossorigin="anonymous"
-    data-clerk-publishable-key="pk_test_d29ya2luZy1yYXB0b3ItNTMuY2xlcmsuYWNjb3VudHMuZGV2JA"
-    src="https://working-raptor-53.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
-    type="text/javascript"
-  ></script>
   <!-- endinject -->
 </body>
 </html>

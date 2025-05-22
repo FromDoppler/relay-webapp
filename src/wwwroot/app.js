@@ -23,7 +23,8 @@
         '720kb.tooltips',
         'rzModule',
         'ui.mask',
-        'vcRecaptcha'
+        'vcRecaptcha',
+        'clerkAuth'
     ])
     .filter('escapeURI', function(){
       return window.encodeURIComponent;
@@ -204,6 +205,7 @@
     'jwtHelper', 
     '$locale',
     'utils',
+    'clerkAuth',
     function (
       $rootScope,
       auth,
@@ -212,7 +214,17 @@
       $translate, 
       jwtHelper,
       $locale,
-      utils) {
+      utils,
+      clerkAuth) {
+
+    // Initialize Clerk
+    clerkAuth.initialize()
+      .then(function() {
+        console.log('Clerk initialized successfully');
+      })
+      .catch(function(error) {
+        console.error('Error initializing Clerk:', error);
+      });
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
