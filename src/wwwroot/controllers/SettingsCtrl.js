@@ -11,9 +11,10 @@
     'RELAY_CONFIG',
     'settings',
     '$translate',
+    'ModalService'
   ];
 
-  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate) {
+  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate, ModalService) {
     $rootScope.setSubmenues([
       { text: 'domains_text', url: 'settings/domain-manager', active: false },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }      
@@ -50,6 +51,41 @@
       });
     }
 
+    vm.resetApiKey = function() {
+      ModalService.showModal({
+        templateUrl: 'partials/modals/confirm.html',
+        controller: 'Confirm',
+        controllerAs: 'vm',
+        inputs: {
+          title: "connection-settings_reset_api_key_popup_title",
+          mainText: "connection-settings_reset_api_key_popup_desc",
+          actionSuccess: requestResetApiKey,
+          cancelButtonText: "cancel_text",
+          buttonText: "confirm_text"
+        }
+      })
+      .then(function (modal) {
+        modal.close.then();
+      });
+    }
+
+    function requestResetApiKey() {
+      vm.loadInProgress = true;
+      vm.apiKeySentSuccefully = false;
+      vm.apiKeySentFailed = false;
+      settings.resetUserApiKey($translate.use())
+      .then(function () {
+        vm.apiKeySentSuccefully = true;
+        vm.apiKeySentFailed = false;
+      })
+      .catch(function () {
+        vm.apiKeySentSuccefully = false;
+        vm.apiKeySentFailed = true;
+      })
+      .finally(function () {
+        vm.loadInProgress = false;
+      });
+    }
     vm.loadInProgress = false;
   }
 })();

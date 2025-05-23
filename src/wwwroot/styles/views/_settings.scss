@@ -35,10 +35,18 @@
       p {word-wrap: break-word;}
     }
     div.api-key-request-result {
+      margin-top: 30px;
       width: 65%;
     }
     div.api-key-request-result a{
       color:#E78224;
+    }
+    div.api-key-actions p{
+      margin-top: 10px;
+    }
+
+    div.api-key-actions p button{
+      margin-right: 10px;
     }
   }
   .spinner{
