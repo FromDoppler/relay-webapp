@@ -131,7 +131,7 @@
 
     function requestUserApiKey(lang) {
       var url = RELAY_CONFIG.baseUrl
-        + '/user/apikey/request';
+        + '/user/apikey/request'
         + '?lang='+ lang;
 
       return $http({
@@ -146,7 +146,7 @@
 
     function resetUserApiKey(lang) {
       var url = RELAY_CONFIG.baseUrl
-        + '/user/apikey/reset';
+        + '/user/apikey/reset'
         + '?lang='+ lang;
 
       return $http({
