@@ -3,6 +3,7 @@
 pkgName="relay-webapp"
 pkgVersion=${1:-"v0.0.0-build0"}
 cdnBaseUrl=${2:-"//cdn.fromdoppler.com/$pkgName"}
+# shellcheck disable=SC2034
 cdnUrl="$cdnBaseUrl/$pkgVersion"
 
 # Exit immediately if a command exits with a non-zero status.
