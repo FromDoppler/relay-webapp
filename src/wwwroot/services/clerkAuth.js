@@ -26,13 +26,20 @@
       openSignIn: openSignIn
     };
 
+    var initializingPromise = null;
+
     init();
     return clerk;    
     
     function init() {
+      if (initializingPromise) {
+        return initializingPromise;
+      }
       var deferred = $q.defer();
+      initializingPromise = deferred.promise;
 
       if (!$window.Clerk) {
+        initializingPromise = null;
         deferred.reject('Clerk is not loaded');
         return deferred.promise;
       }
@@ -41,15 +48,14 @@
             afterSignInUrl : '/clerk-login',
         })
         .then(function() {
+          console.log("Clerk loaded", $window.Clerk);
           clerk.instance = $window.Clerk;
-          clerk.user = clerk.instance.user;
-          clerk.session = clerk.instance.session;
-          clerk.isInitialized = true;
 
           // Set up Clerk event listeners
-          clerk.instance.addListener(function(data) {
-            clerk.user = data.user;
-            clerk.session = data.session;
+          clerk.instance.addListener(function(payload) {
+            clerk.user = payload.user;
+            clerk.session = payload.session;
+            clerk.isInitialized = true;
             if (!$rootScope.$$phase) {
               $rootScope.$apply(); // Trigger Angular digest cycle
             }
@@ -58,6 +64,7 @@
           deferred.resolve(clerk);
         })
         .catch(function(error) {
+          initializingPromise = null;
           deferred.reject('Failed to load Clerk: ' + error);
         });
 
