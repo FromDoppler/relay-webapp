@@ -80,6 +80,10 @@
     }
 
     function isAuthenticated() {
+      console.log("isAuthenticated called");
+      console.log("clerk.session", clerk.session);
+      console.log("clerk status", !!clerk.session);
+      console.log("clerk", clerk);
       return !!clerk.session;
     }    
     
