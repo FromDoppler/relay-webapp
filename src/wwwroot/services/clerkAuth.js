@@ -13,12 +13,6 @@
 
   function clerkAuth($window, $q, $rootScope) {
     var clerk = {
-      instance: null,
-      user: null,
-      session: null,
-      isInitialized: false,
-      
-      // Methods
       getUser: getUser,
       getSession: getSession,
       signOut: signOut,
@@ -33,38 +27,28 @@
     
     function init() {
       if (initializingPromise) {
+        console.log("initializingPromise cached", initializingPromise);
         return initializingPromise;
       }
+      console.log("initializingPromise first time");
       var deferred = $q.defer();
       initializingPromise = deferred.promise;
 
-      if (!$window.Clerk) {
+      /*if (!$window.Clerk) {
         initializingPromise = null;
         deferred.reject('Clerk is not loaded');
         return deferred.promise;
-      }
+      }*/
       
       $window.Clerk.load({
             afterSignInUrl : '/clerk-login',
         })
         .then(function() {
-          console.log("Clerk loaded", $window.Clerk);
-          clerk.instance = $window.Clerk;
-
-          // Set up Clerk event listeners
-          clerk.instance.addListener(function(payload) {
-            clerk.user = payload.user;
-            clerk.session = payload.session;
-            clerk.isInitialized = true;
-            if (!$rootScope.$$phase) {
-              $rootScope.$apply(); // Trigger Angular digest cycle
-            }
-          });
-
-          deferred.resolve(clerk);
+          deferred.resolve($window.Clerk);
         })
         .catch(function(error) {
           initializingPromise = null;
+          console.error("Failed to load Clerk: " + error);
           deferred.reject('Failed to load Clerk: ' + error);
         });
 
@@ -72,35 +56,38 @@
     }
 
     function getUser() {
-      return clerk.user;
+      return init().then(function(clerk) {
+        return clerk.user;
+      });
     }
 
     function getSession() {
-      return clerk.session;
+      return init().then(function(clerk) {
+        return clerk.session;
+      });
     }
 
     function signOut() {
-      if (clerk.instance) {
-        return clerk.instance.signOut();
-      }
-      return $q.reject('Clerk is not initialized');
+      return init().then(function(clerk) {
+        return clerk.signOut();
+      });
     }
 
     function isAuthenticated() {
-      console.log("isAuthenticated called");
-      console.log("clerk.session", clerk.session);
-      console.log("clerk status", !!clerk.session);
-      console.log("clerk", clerk);
-      return !!clerk.session;
+      /*console.log("isAuthenticated called 1");
+      return init().then(function(clerk) {
+        console.log("isAuthenticated called 2", clerk);
+        console.log("isAuthenticated status", !!clerk.session);
+        return !!clerk.session;
+      });*/
+      console.log("isAuthenticated", $window.Clerk);
+      return !!($window.Clerk && $window.Clerk.session);
     }    
     
     function openSignIn() {
-      if (!clerk.instance) {
-        return init().then(function() {
-          return clerk.instance.openSignIn();
-        });
-      }
-      return $q.when(clerk.instance.openSignIn());
+      return init().then(function(clerk) {
+        return clerk.openSignIn();
+      });
     }
   }
 })();

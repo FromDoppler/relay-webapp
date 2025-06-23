@@ -284,6 +284,7 @@
     var pageRequireLogout = requireLogoutUrls.includes(currentPath);
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
 
+    console.log("step 1");
     if(RELAY_CONFIG.useClerkAuthentication && !clerkAuth.isAuthenticated()) {
       if (currentPath === '/clerk-login') {
         return;
@@ -293,26 +294,31 @@
       return;
     }
         
+    console.log("step 2");
     if(!auth.isUrlAllowed(currentPath)) {
       $location.path(auth.getDefaultUrl() || '/login');
     }
 
+    console.log("step 3");
     if (pageOpenForAll) {
       // Idea: it is possible to setup a flag on redirection, to avoid to enter to this page directly
       return;
     }
 
+    console.log("step 4");
     if (pageRequireLogout) {
       // It is not necessary to test if userIsAuthed
       auth.logOut();
       return;
     }
 
+    console.log("step 5");
     if (pageRequireTemporalAuth && !userIsAuthedTemporarily) {
       $location.path('/temporal-token-error');
       return;
     }
 
+    console.log("step 6");
     if (!userIsAuthed || (!pageRequireTemporalAuth && userIsAuthedTemporarily)) {
       $location.path('/login');
       return;
