@@ -73,6 +73,11 @@
           controller: 'LoginCtrl',
           controllerAs: 'vm'
         })
+        .when('/clerk-login', {
+          templateUrl: 'partials/login/clerk-login.html',
+          controller: 'ClerkLoginCtrl',
+          controllerAs: 'vm'
+        })
         .when('/dashboard', {
           templateUrl: 'partials/dashboard/dashboard.html',
           controller: 'DashboardCtrl'
@@ -199,6 +204,8 @@
     'jwtHelper', 
     '$locale',
     'utils',
+    'clerkAuth',
+    'RELAY_CONFIG',
     function (
       $rootScope,
       auth,
@@ -207,7 +214,9 @@
       $translate, 
       jwtHelper,
       $locale,
-      utils) {
+      utils,
+      clerkAuth,
+      RELAY_CONFIG) {
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
@@ -248,7 +257,7 @@
         }
       }
 
-      verifyAuthorization($location, auth);
+      verifyAuthorization($location, auth, clerkAuth, RELAY_CONFIG);
     });
   }]);
 
@@ -262,9 +271,9 @@
   //  });
   //}]);
 
-  function verifyAuthorization($location, auth) {
+  function verifyAuthorization($location, auth, clerkAuth, RELAY_CONFIG) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin'];
+    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin', '/clerk-login'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
 
     // TODO: optimize it
@@ -274,6 +283,15 @@
     var pageOpenForAll = openForAllUrls.includes(currentPath);
     var pageRequireLogout = requireLogoutUrls.includes(currentPath);
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
+
+    if(RELAY_CONFIG.useClerkAuthentication && !clerkAuth.isAuthenticated()) {
+      if (currentPath === '/clerk-login') {
+        return;
+      }
+
+      $location.path('/clerk-login');
+      return;
+    }
         
     if(!auth.isUrlAllowed(currentPath)) {
       $location.path(auth.getDefaultUrl() || '/login');
