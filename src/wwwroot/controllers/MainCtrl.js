@@ -16,10 +16,11 @@
     '$route',
     '$interval',
     '$translate',
-    'utils'
+    'utils',
+    'RELAY_CONFIG'
   ];
 
-  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval, $translate, utils) {
+  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval, $translate, utils, RELAY_CONFIG) {
      
     var key = utils.getPreferredLanguage();
     $translate.use(key);
@@ -27,6 +28,8 @@
     $rootScope.changeLanguage = function (key) {
       $translate.use(key);
       utils.setPreferredLanguage(key);
+      // Refresh the page to apply Clerk localization changes
+      $window.location.reload();
     };
 
     $rootScope.getLoggedUserEmail = function () {
@@ -179,7 +182,13 @@
     };
 
     var submenues = [];
+    var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     $rootScope.getSubmenues = function () {
+      if (useClerkAuth) {
+        return submenues.filter(function(item){
+          return item.text !== 'submenu_my_profile';
+        });
+      }
       return submenues;
     };
     $rootScope.setSubmenues = function (newItems) {

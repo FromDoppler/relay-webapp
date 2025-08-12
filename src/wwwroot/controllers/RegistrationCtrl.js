@@ -15,14 +15,16 @@
     '$timeout',
     "Slug",
     '$location',
-    'vcRecaptchaService'
+    'vcRecaptchaService',
+    'clerk'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService, clerk) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
     vm.regexAllowedAccountName = /^[a-z-0-9_-]*$/;
+    vm.registrationInProgress = false;
     vm.setCaptchaResponse = setCaptchaResponse;
     vm.setWidgetId = setWidgetId;
     vm.reloadCaptcha = reloadCaptcha;
@@ -36,14 +38,70 @@
         vm.accountName = Slug.slugify(vm.company);
       }
     }
-    vm.recaptchaAvailable = !!vcRecaptchaService;
+    var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
+    vm.recaptchaAvailable = !useClerkAuth && !!vcRecaptchaService;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
-      if (form.$invalid) {
-        return;
+
+      if (useClerkAuth) {
+        validatePasswordConfirmation();
+        if (form.$invalid) {
+          return;
+        }
+        vm.registrationInProgress = true;
+        registerWithClerk();
+      } else {
+        if (form.$invalid) {
+          return;
+        }
+        vcRecaptchaService.execute(vm.widgetId);
       }
-      vcRecaptchaService.execute(vm.widgetId);      
+    }
+
+    function registerWithClerk() {
+      var newUser = {
+        user_email: vm.email,
+        password: vm.password,
+        password_confirmation: vm.password_confirmation,
+        firstName: vm.firstName,
+        lastName: vm.lastName,
+        account_name: vm.accountName,
+        company: vm.company,
+        termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
+        origin: $location.search().origin
+      };
+
+      clerk.signUp(newUser)
+        .then(function (result) {
+          if (result.registered && result.needsVerification) {
+            $location
+              .path('/signup/otp-validation')
+              .search({ process: 'signup' });
+            return;
+          }
+
+          if (result.formIdentifierExists) {
+            if (result.paramName === 'email_address') {
+              utils.setServerValidationToField($scope, $scope.form.email, 'email_already_exist');
+            } else if (result.paramName === 'username') {
+              utils.setServerValidationToField($scope, $scope.form.accountName, 'accountname_already_taken');
+            }
+            return;
+          }
+          if (result.validationError) {
+            if (result.passwordInvalid) {
+              utils.setServerValidationToField($scope, $scope.form.password, 'strength');
+            }
+            return;
+          }
+        })
+        .catch(function (error) {
+          $rootScope.addError('error_handler_unexpected', 'action_register_user', error);
+        })
+        .finally(function () {
+          vm.registrationInProgress = false;
+        });
     }
 
     var onExpectedError = function (rejectionData) {
@@ -108,5 +166,19 @@
       vcRecaptchaService.reload(vm.widgetId);
       vm.response = null;
     };
+
+    function validatePasswordConfirmation() {
+      if (!$scope.form || !$scope.form.password_confirmation) {
+        return;
+      }
+
+      if (!vm.password || !vm.password_confirmation) {
+        $scope.form.password_confirmation.$setValidity('same', null);
+      } else if (vm.password !== vm.password_confirmation) {
+        $scope.form.password_confirmation.$setValidity('same', false);
+      } else {
+        $scope.form.password_confirmation.$setValidity('same', true);
+      }
+    }
   }
 })();

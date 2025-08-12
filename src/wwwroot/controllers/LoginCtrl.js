@@ -55,6 +55,12 @@
       auth.login(credentials).then(function (result) {
         if (result.authenticated) {
           $location.path('/');
+        } else if (result.needsSecondFactor) {
+          if (result.totp) {
+            $location
+              .path('/signup/otp-validation')
+              .search({ process: 'login' }); 
+          }
         } else {
           loginform.email.$setValidity('error', false);
           loginform.password.$setValidity('error', false);
