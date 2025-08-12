@@ -9,10 +9,11 @@
     '$translate',
     '$location',
     '$rootScope',
-    'utils'
+    'utils',
+    'RELAY_CONFIG'
   ];
 
-  function HeaderCtrl($scope, $translate, $location, $rootScope, utils) {
+  function HeaderCtrl($scope, $translate, $location, $rootScope, utils, RELAY_CONFIG) {
     $scope.arrowUp = false;
     $scope.toggleConfigDropDown = function () {
       $scope.arrowUp = !$scope.arrowUp;
@@ -22,6 +23,7 @@
         $scope.arrowUp = !$scope.arrowUp;
       }
     };
+    $scope.useClerkAuth = RELAY_CONFIG.useClerkAuthentication;
     $scope.getSubmenues = $rootScope.getSubmenues;
     $scope.isSubmenuVisible = $rootScope.isSubmenuVisible;
     $scope.initialsAvatar = function () {
