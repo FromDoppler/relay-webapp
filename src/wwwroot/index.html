@@ -25,6 +25,37 @@
     }
   </script>
 
+  <script type="text/javascript">
+    // TODO: improve this
+    (function(){
+      var host = window.location && window.location.hostname || '';
+      var clerkConfig;
+      // Defaults (INT & Dev)
+      clerkConfig = {
+        key: 'pk_live_Y2xlcmsuaW50LWFwcC1yZWxheS5mcm9tZG9wcGxlci5uZXQk',
+        src: 'https://clerk.int-app-relay.fromdoppler.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js'
+      };
+      // QA hosts
+      if (/(^|\.)qa[-\.]/i.test(host) || /qa-app-relay\.fromdoppler\.net$/i.test(host)) {
+        clerkConfig = {
+          key: 'pk_live_Y2xlcmsucWEtYXBwLXJlbGF5LmZyb21kb3BwbGVyLm5ldCQ',
+          src: 'https://clerk.qa-app-relay.fromdoppler.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js'
+        };
+      }
+      // PROD hosts
+      else if (/(^|\.)dopplerrelay\.com$/i.test(host)) {
+        clerkConfig = {
+          key: 'pk_live_Y2xlcmsuaW50LWFwcC1yZWxheS5mcm9tZG9wcGxlci5uZXQk',
+          src: 'https://clerk.int-app-relay.fromdoppler.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js'
+        };
+      }
+
+      var tag = '<script crossorigin="anonymous" data-clerk-publishable-key="' + clerkConfig.key + '" src="' + clerkConfig.src + '" type="text/javascript"><' + '/script>';
+      document.write(tag);
+    })();
+  </script>
+  
+
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <!-- inject:css -->
   <link rel="stylesheet" type="text/css" href="tmp/styles.css">
