@@ -66,7 +66,35 @@ var defaultsForCapability = {
 function onPrepare() {
   // TODO: We have to do this because in some e2e tests the screen size is required to work correctly.
   browser.driver.manage().window().setSize(1280, 960);
-  browser.addMockModule('commonModule', () => angular
+  browser.addMockModule('commonModule', () => {
+    window.Clerk = window.Clerk || {
+      localizations: { es: {} },
+      load: () => Promise.resolve(),
+      session: {
+        status: 'active',
+        getToken: () => Promise.resolve('e2e-fake-jwt-token'),
+        end: () => Promise.resolve()
+      },
+      client: {
+        signIn: {
+          create: () => Promise.resolve({ status: 'complete', createdSessionId: 'session_1' })
+        },
+        signUp: {
+          create: () => Promise.resolve({ status: 'complete' }),
+          prepareEmailAddressVerification: () => Promise.resolve()
+        }
+      },
+      setActive: () => Promise.resolve(),
+      mountUserButton: () => {}
+    };
+
+    // Force the Clerk flag off during E2E
+    angular
+    .module('dopplerRelay').config(['RELAY_CONFIG', function(RELAY_CONFIG) {
+      RELAY_CONFIG.useClerkAuthentication = false;
+    }]);
+
+    angular
     .module('commonModule', ['ngMockE2E'])
     .run(($httpBackend, jwtHelper, auth) => {
 
@@ -78,5 +106,6 @@ function onPrepare() {
 
       // To start the tests without an authenticated session
       auth.logOut();
-    }));
+    });
+  });
 }

@@ -37,6 +37,7 @@
       'uiSelectConfig', 
       'tooltipsConfProvider',
       '$provide',
+      'RELAY_CONFIG',
       function (
         $routeProvider,
         $translateProvider,
@@ -45,7 +46,8 @@
         jwtInterceptorProvider,
         uiSelectConfig,
         tooltipsConfProvider,
-        $provide) {
+        $provide,
+        RELAY_CONFIG) {
 
       function makeStateful($delegate) {
         $delegate.$stateful = true;
@@ -139,8 +141,13 @@
           controllerAs: 'vm'
         })
         .when('/signup/registration', {
-          templateUrl: 'partials/signup/registration.html',
+          templateUrl: RELAY_CONFIG.useClerkAuthentication ? 'partials/signup/registration-w-password.html' : 'partials/signup/registration.html',
           controller: 'RegistrationCtrl',
+          controllerAs: 'vm'
+        })
+        .when('/signup/otp-validation', {
+          templateUrl: 'partials/signup/otp-validation.html',
+          controller: 'OtpValidationCtrl',
           controllerAs: 'vm'
         })
         .when('/settings/my-plan', {
@@ -182,7 +189,12 @@
         .preferredLanguage('en')
         .useSanitizeValueStrategy('sanitizeParameters');
 
-      jwtInterceptorProvider.tokenGetter = ['auth', function (auth) { return auth.getApiToken(); }];
+      jwtInterceptorProvider.tokenGetter = [
+        'auth', '$q',
+        function (auth, $q) {
+          return $q.when(auth.getAuthToken());
+        }
+      ];
 
       $httpProvider.interceptors.push('jwtInterceptor');
 
@@ -199,6 +211,8 @@
     'jwtHelper', 
     '$locale',
     'utils',
+    '$q',
+    '$route',
     function (
       $rootScope,
       auth,
@@ -207,7 +221,9 @@
       $translate, 
       jwtHelper,
       $locale,
-      utils) {
+      utils,
+      $q,
+      $route) {
 
     function applyCultureFormats() {
       var locale = getLocale($translate.use());
@@ -218,7 +234,46 @@
 
     $rootScope.$on('$translateChangeEnd', applyCultureFormats);
 
-    $rootScope.$on('$locationChangeStart', function () {
+    var _authReadyResolved = false;
+    auth.ready.finally(function () { _authReadyResolved = true; });
+
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+      var nextRelativeUrl = (next && next.split('#')[1]) || '/';
+      var forceLogoutUrls = [
+        '/login',
+        '/signup/registration',
+        '/signup/otp-validation',
+        '/signup/succeed',
+        '/signup/confirmation'
+      ];
+
+      if (forceLogoutUrls.indexOf(nextRelativeUrl) !== -1) {
+        auth.logOut();
+      }
+
+      var unauthenticatedAllowed = [
+        '/login',
+        '/signup/registration',
+        '/signup/otp-validation',
+        '/signup/confirmation',
+        '/signup/error',
+        '/signup/succeed',
+        '/temporal-token-error',
+        '/dkim-configuration-tutorial'
+      ];
+
+      if (!_authReadyResolved && unauthenticatedAllowed.indexOf(nextRelativeUrl) === -1) {
+        event.preventDefault();
+        auth.ready.finally(function () {
+          if ($location.url() === nextRelativeUrl) {
+            $route.reload();
+          } else {
+            $location.url(nextRelativeUrl);
+          }
+        });
+        return;
+      }
+
       if ($window.ga) {
         $window.ga('send', {
           'hitType': 'pageview',
@@ -264,7 +319,7 @@
 
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/succeed', '/loginAdmin'];
+    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/otp-validation', '/signup/succeed', '/loginAdmin'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
 
     // TODO: optimize it

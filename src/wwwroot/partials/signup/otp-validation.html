@@ -1,0 +1,30 @@
+<div class="section--wrapper second-line--header registration--link">
+    <p>{{ 'have_account_text' | translate }} <a href="#/login">{{ 'login_now' | translate }}</a></p>
+</div>
+<section class="login container ms-relay">
+    <form method="post" id="otpForm" ng-submit="vm.submitRegistration(form)" name="form" novalidate>
+        <div class="section--wrapper width--full text--center">
+            <h1 ng-if="vm.process === 'signup'">{{ 'otp_validation_title_signup' | translate }}</h1>
+            <h1 ng-if="vm.process === 'login'">{{ 'otp_validation_title_login' | translate }}</h1>
+            <h4 ng-if="vm.process === 'signup'">{{ 'otp_validation_subtitle_signup' | translate }}</h4>
+            <h4 ng-if="vm.process === 'login'">{{ 'otp_validation_subtitle_login' | translate }}</h4>
+            <div class="section--wrapper-input">
+                <label for="otp">{{ 'otp_validation_code_label' | translate }}</label>
+                <input class="input input--large" ng-class="{true: 'error'}[submitted && form.otp.$invalid]" id="otp" type="text" name="otp" ng-model="vm.otp" maxlength="6" ng-maxlength="6" minlength="6" ng-minlength="6" required />
+                <span class="input--error" ng-show="submitted && form.otp.$error.required"><i class="arrow--up"></i>{{'validation_error_required' | translate}}</span>
+                <span class="input--error" ng-show="submitted && (form.otp.$error.minlength || form.otp.$error.maxlength)"><i class="arrow--up"></i>{{'validation_error_pattern' | translate}}</span>
+                <span class="input--error" ng-show="form.otp.$error.code_incorrect"><i class="arrow--up"></i>{{ 'otp_error_code_incorrect' | translate }}</span>
+                <span class="input--error" ng-show="form.otp.$error.code_expired"><i class="arrow--up"></i>{{ 'otp_error_code_expired' | translate }}</span>
+                <span class="input--error" ng-show="form.otp.$error.code_general_error"><i class="arrow--up"></i>{{ 'otp_error_code_general' | translate }}</span>
+            </div>
+            <div class="submit section--wrapper-button">
+                <input class="button button--small" type="submit" value="{{ 'otp_verify_button' | translate }}" ng-click="submitted=true">
+                <div ng-if="vm.process === 'signup'">
+                    <a class="resend--link section--wrapper-link" ng-click="vm.resendCode()">{{ 'otp_resend_code' | translate }}</a>
+                    <span class="input--error green" ng-show="vm.resendSuccess"><i class="arrow--up"></i>{{ 'otp_resend_succeed' | translate }}</span>
+                    <span class="input--error" ng-show="form.otp.$error.code_resend_error"><i class="arrow--up"></i>{{ 'otp_error_code_resend_error' | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

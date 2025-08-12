@@ -3,5 +3,5 @@
     cuitServiceBaseUrl: 'https://apisint.fromdoppler.net/cuit',
     hostSmtp: '127.0.0.1',
     portSmtp: '2525',
-    useClerkAuthentication: true,
+    useClerkAuthentication: false,
 });

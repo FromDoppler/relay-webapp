@@ -11,9 +11,10 @@
     '$q',
     'jwtHelper',
     'RELAY_CONFIG',
-    '$rootScope'
+    '$rootScope',
+    'clerk'
   ];
-  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope) {
+  function auth($http, $window, $q, jwtHelper, RELAY_CONFIG, $rootScope, clerk) {
 
     var authService = {
       loginByToken: loginByToken,
@@ -22,6 +23,7 @@
       isAuthed: isAuthed,
       isTemporarilyAuthed: isTemporarilyAuthed,
       getAccountName: getAccountName,
+      getAuthToken: getAuthToken,
       // deprecated
       getAccountId: getAccountId,
       getProfile: getProfile,
@@ -39,23 +41,53 @@
       getDefaultUrl: getDefaultUrl
     };
     var loginSession = null;
+    // Flag to skip restoring session while navigating to routes that require logout
+    var _skipRestore = false;
+    // Deferred to signal when initialization (localStorage + optional Clerk validation) is completed
+    var _ready = $q.defer();
+    authService.ready = _ready.promise;
+
+    var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     
     init();
     return authService;
 
     function init() {
-      var encodedToken = $window.localStorage.getItem('jwtToken');
-      if (encodedToken) {
+      var storedToken = $window.localStorage.getItem('jwtToken');
+      if (storedToken) {
         try {
-          loginSession = decodeLoginSession(encodedToken);
-          // To ensure having relayLogin item in legacy sessions
+          loginSession = decodeLoginSession(storedToken);
           $rootScope.forceMsEditor = loginSession.forceMsEditor || false;
           var storedSession = $window.localStorage.getItem('relayLogin');
           !storedSession && saveStoredSession(loginSession);
         } catch (error) {
+          console.log('Error decoding stored token during init:', error);
           logOut();
-          return;
         }
+      }
+
+      if (useClerkAuth) {
+        clerk.isAuthenticated().then(function(isAuthenticated) {
+          if (_skipRestore) {
+            return;
+          }
+          if (isAuthenticated) {
+            return clerk.getToken().then(function(jwtToken) {
+              if (_skipRestore) { return; }
+              loginSession = decodeLoginSession(jwtToken);
+              $rootScope.forceMsEditor = loginSession.forceMsEditor || false;
+              saveStoredSession(loginSession);
+            });
+          } else {
+            logOut();
+          }
+        }).catch(function(error) {
+          console.error('Error checking Clerk authentication during init:', error);
+        }).finally(function() {
+          _ready.resolve();
+        });
+      } else {
+        _ready.resolve();
       }
     }
 
@@ -81,7 +113,7 @@
       return {
         token: jwtToken,
         permissions: permissions,
-        accountId: decodedToken.sub,
+        accountId: useClerkAuth ? decodedToken.user_id : decodedToken.sub,
         accountName: accountName,
         accounts: decodedToken.relay_accounts,
         username: decodedToken.unique_name,
@@ -126,9 +158,25 @@
       return loginSession && loginSession.permissions && loginSession.permissions.defaultUrl || null;
     }
 
-    // Login - Make a request to the api for authenticating
     function login(credentials) {
       var actionDescription = 'action_login';
+
+      if (useClerkAuth) {
+        var clerkCredentials = {
+          username: credentials.userToImpersonate || credentials.username,
+          password: credentials.password
+        };
+
+        return clerk.login(clerkCredentials).then(function (result) {
+          if (result.authenticated && result.token) {
+            loginByToken(result.token);
+            $rootScope.loadLimits();
+          }
+          return result;
+        });
+      }
+
+      // Legacy authentication flow (Relay API)
       var url = RELAY_CONFIG.baseUrl;
       if (!credentials.userToImpersonate) {
         url = url + '/tokens';
@@ -188,6 +236,26 @@
       });
     }
 
+    function getAuthToken() {
+      if (!loginSession) {
+        return null;
+      }
+
+      if (useClerkAuth) {
+        return clerk.getToken()
+          .then(function (token) {
+            loginByToken(token);
+            return token;
+          })
+          .catch(function(error) {
+            console.error("Error at getToken");
+          });
+      }
+
+      ensureToken();
+      return loginSession && loginSession.token;
+    }
+
     function getApiToken() {
       if (!loginSession) {
         return null;
@@ -213,9 +281,14 @@
     }
 
     function logOut() {
+      _skipRestore = true;
       loginSession = null;
       $window.localStorage.removeItem('jwtToken');
       $window.localStorage.removeItem('relayLogin');
+
+      if (useClerkAuth) {
+        clerk.logout();
+      }
     }
 
     // Check if the user is authenticated
