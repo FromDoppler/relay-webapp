@@ -51,14 +51,16 @@
     </nav>
     <nav class="right--container" ng-if="isPermanentAuthed()">
       <a class="upgrade--link" href="#/settings/my-plan" link-toggler>{{'upgrade_link' | translate}}</a>
-      <div click-outside="hideConfigDropDown()" class="right-container">
+      <div click-outside="hideConfigDropDown()" class="right-container" ng-if="!useClerkAuth">
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
-          <div class="first-container">
-            <div class="header--config-avatar"><span>{{initialsAvatar()}}</span></div>
-            <div>
-              <p>{{getFullName()}}</p>
-              <a href="#/settings/my-profile" ng-click="toggleConfigDropDown()" link-toggler><strong>{{'submenu_my_profile' | translate}}</strong></a>
+          <div>
+            <div class="first-container">
+              <div class="header--config-avatar"><span>{{initialsAvatar()}}</span></div>
+              <div>
+                <p>{{getFullName()}}</p>
+                <a href="#/settings/my-profile" ng-click="toggleConfigDropDown()" link-toggler><strong>{{'submenu_my_profile' | translate}}</strong></a>
+              </div>
             </div>
           </div>
           <div class="second-container">
@@ -71,6 +73,9 @@
             </ul>
           </div>
         </div>
+      </div>
+      <div ng-if="useClerkAuth">
+        <div style="margin-left: 1rem;" clerk-user-button></div>
       </div>
       <a class="en_flag flag" ng-click="changeLanguage('en')">
         <svg viewBox="0 0 18 18" style="background-color:#ffffff00" xmlns="http://www.w3.org/2000/svg" width="18" height="18"><g><path d="M3.345 2H14.66C13.114.75 11.143 0 9 0 6.857 0 4.89.75 3.345 2zM.51 6h16.98c-.252-.712-.592-1.383-1.005-2H1.515C1.102 4.617.762 5.288.51 6zm-.455 4h17.89c.036-.328.055-.662.055-1 0-.338-.02-.672-.055-1H.055C.02 8.328 0 8.662 0 9c0 .338.02.672.055 1zm1.46 4h14.97c.413-.617.753-1.288 1.005-2H.51c.252.712.592 1.383 1.005 2zm13.14 2H3.345C4.89 17.25 6.857 18 9 18c2.143 0 4.11-.75 5.655-2z" fill="#df3434"></path><path d="M1.515 4h14.97c-.506-.755-1.12-1.43-1.825-2H3.345c-.705.57-1.324 1.245-1.83 2zM.055 8h17.89c-.077-.694-.23-1.363-.455-2H.51C.285 6.637.132 7.306.055 8zm.455 4h16.98c.225-.637.38-1.306.455-2H.055c.076.694.23 1.363.455 2zm2.835 4h11.31c.705-.57 1.324-1.245 1.83-2H1.515c.506.755 1.125 1.43 1.83 2z" fill="#fff"></path><path d="M9 10V0C4.03 0 0 4.03 0 9c0 .338.018.672.055 1H9z" fill="#4376a7"></path><path fill="#fff" d="M7 2h1v1H7zM5 3h1v1H5zM7 4h1v1H7zM5 5h1v1H5zM7 6h1v1H7zM5 7h1v1H5zM7 8h1v1H7zM3 2h1v1H3zM3 4h1v1H3zM3 6h1v1H3zM3 8h1v1H3z"></path><g fill="#fff"><path d="M1 5h1v1H1zM1 7h1v1H1z"></path></g></g></svg>
