@@ -38,6 +38,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/lib//angular-recaptcha/release/angular-recaptcha.min.js',
       __dirname + '/wwwroot/locales/en-translation.js',
       __dirname + '/wwwroot/locales/es-translation.js',
+      __dirname + '/wwwroot/locales/clerk.es-ES.js',
       __dirname + '/wwwroot/polyfills/array.prototype.filter.js',
       __dirname + '/wwwroot/polyfills/array.prototype.find.js',
       __dirname + '/wwwroot/polyfills/array.prototype.map.js',
