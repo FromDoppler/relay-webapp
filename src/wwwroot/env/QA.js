@@ -3,5 +3,5 @@
   cuitServiceBaseUrl: "https://apisqa.fromdoppler.net/cuit",
   hostSmtp: "qa-smtp-relay.fromdoppler.net",
   portSmtp: "2525",
-  useClerkAuthentication: false,
+  useClerkAuthentication: true,
 });
