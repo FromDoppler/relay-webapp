@@ -259,10 +259,12 @@
         '/signup/error',
         '/signup/succeed',
         '/temporal-token-error',
-        '/dkim-configuration-tutorial'
+        '/dkim-configuration-tutorial',
+        '/reset-password'
       ];
 
-      if (!_authReadyResolved && unauthenticatedAllowed.indexOf(nextRelativeUrl) === -1) {
+      var nextPath = nextRelativeUrl.split('?')[0];
+      if (!_authReadyResolved && unauthenticatedAllowed.indexOf(nextPath) === -1) {
         event.preventDefault();
         auth.ready.finally(function () {
           if ($location.url() === nextRelativeUrl) {

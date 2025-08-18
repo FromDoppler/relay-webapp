@@ -66,6 +66,11 @@
         }
       }
 
+      if (isTemporarilyAuthed()) {
+        _ready.resolve();
+        return;
+      }
+
       if (useClerkAuth) {
         clerk.isAuthenticated().then(function(isAuthenticated) {
           if (_skipRestore) {
@@ -79,7 +84,12 @@
               saveStoredSession(loginSession);
             });
           } else {
-            logOut();
+            if (isTemporarilyAuthed()) {
+              _ready.resolve();
+              return;
+            } else {
+              logOut();
+            }
           }
         }).catch(function(error) {
           console.error('Error checking Clerk authentication during init:', error);
@@ -239,6 +249,10 @@
     function getAuthToken() {
       if (!loginSession) {
         return null;
+      }
+
+      if (loginSession.temporaryToken) {
+        return loginSession.token
       }
 
       if (useClerkAuth) {
