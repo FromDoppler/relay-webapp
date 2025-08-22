@@ -200,6 +200,12 @@
               case 'password':
                 result.passwordInvalid = true;
                 break;
+              case 'account_name':
+                result.accountNameAlreadyTaken = true;
+                break;
+              case 'user_email':
+                result.emailAlreadyExists = true;
+                break;
             }
           });
         } else {

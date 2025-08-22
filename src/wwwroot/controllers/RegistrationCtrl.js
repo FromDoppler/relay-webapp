@@ -92,6 +92,10 @@
           if (result.validationError) {
             if (result.passwordInvalid) {
               utils.setServerValidationToField($scope, $scope.form.password, 'strength');
+            } else if (result.accountNameAlreadyTaken) {
+              utils.setServerValidationToField($scope, $scope.form.accountName, 'accountname_already_taken');
+            } else if (result.emailAlreadyExists) {
+              utils.setServerValidationToField($scope, $scope.form.email, 'email_already_exist');
             }
             return;
           }
