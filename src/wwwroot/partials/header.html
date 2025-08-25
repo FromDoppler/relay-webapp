@@ -51,7 +51,7 @@
     </nav>
     <nav class="right--container" ng-if="isPermanentAuthed()">
       <a class="upgrade--link" href="#/settings/my-plan" link-toggler>{{'upgrade_link' | translate}}</a>
-      <div click-outside="hideConfigDropDown()" class="right-container" ng-if="!useClerkAuth">
+      <div click-outside="hideConfigDropDown()" class="right-container" ng-if="!useClerkAuth || isImpersonating()">
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
           <div>
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-      <div ng-if="useClerkAuth">
+      <div ng-if="useClerkAuth && !isImpersonating()">
         <div style="margin-left: 1rem;" clerk-user-button></div>
       </div>
       <a class="en_flag flag" ng-click="changeLanguage('en')">
