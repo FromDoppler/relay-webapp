@@ -10,10 +10,11 @@
     '$location',
     '$rootScope',
     'utils',
-    'RELAY_CONFIG'
+    'RELAY_CONFIG',
+    'auth'
   ];
 
-  function HeaderCtrl($scope, $translate, $location, $rootScope, utils, RELAY_CONFIG) {
+  function HeaderCtrl($scope, $translate, $location, $rootScope, utils, RELAY_CONFIG, auth) {
     $scope.arrowUp = false;
     $scope.toggleConfigDropDown = function () {
       $scope.arrowUp = !$scope.arrowUp;
@@ -37,6 +38,10 @@
       }
       return match.join('');
     }
+
+    $scope.isImpersonating = function () {
+      return auth.isImpersonating();
+    };
   }
 })();
 

@@ -38,7 +38,8 @@
       addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
       changeEmail: changeEmail,
       isUrlAllowed: isUrlAllowed,
-      getDefaultUrl: getDefaultUrl
+      getDefaultUrl: getDefaultUrl,
+      isImpersonating: isImpersonating
     };
     var loginSession = null;
     // Flag to skip restoring session while navigating to routes that require logout
@@ -48,6 +49,8 @@
     authService.ready = _ready.promise;
 
     var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
+
+    var _isImpersonating = false;
     
     init();
     return authService;
@@ -56,6 +59,7 @@
       var storedToken = $window.localStorage.getItem('jwtToken');
       if (storedToken) {
         try {
+          _isImpersonating = $window.localStorage.getItem('isImpersonating') === 'true';
           loginSession = decodeLoginSession(storedToken);
           $rootScope.forceMsEditor = loginSession.forceMsEditor || false;
           var storedSession = $window.localStorage.getItem('relayLogin');
@@ -71,7 +75,7 @@
         return;
       }
 
-      if (useClerkAuth) {
+      if (useClerkAuth && !_isImpersonating) {
         clerk.isAuthenticated().then(function(isAuthenticated) {
           if (_skipRestore) {
             return;
@@ -114,16 +118,18 @@
         accountId: loginSession.accountId,
         accountName: loginSession.accountName
       }));
+      $window.localStorage.setItem('isImpersonating', _isImpersonating.toString());
     }
 
     function decodeLoginSession(jwtToken) {
       var decodedToken = jwtHelper.decodeToken(jwtToken);
       var permissions = expandPermissions(decodedToken.profile);
       var accountName = decodedToken.relay_accounts && decodedToken.relay_accounts[0] || decodedToken.unique_name.replace("@", "-").replace(".com.ar", "").replace(".com", "");
+      var accountId = (useClerkAuth && !_isImpersonating) ? decodedToken.user_id : decodedToken.sub;
       return {
         token: jwtToken,
         permissions: permissions,
-        accountId: useClerkAuth ? decodedToken.user_id : decodedToken.sub,
+        accountId: accountId,
         accountName: accountName,
         accounts: decodedToken.relay_accounts,
         username: decodedToken.unique_name,
@@ -171,7 +177,9 @@
     function login(credentials) {
       var actionDescription = 'action_login';
 
-      if (useClerkAuth) {
+      _isImpersonating = !!credentials.userToImpersonate;
+
+      if (useClerkAuth && !_isImpersonating) {
         var clerkCredentials = {
           username: credentials.userToImpersonate || credentials.username,
           password: credentials.password
@@ -255,7 +263,7 @@
         return loginSession.token
       }
 
-      if (useClerkAuth) {
+      if (useClerkAuth && !_isImpersonating) {
         return clerk.getToken()
           .then(function (token) {
             loginByToken(token);
@@ -296,9 +304,11 @@
 
     function logOut() {
       _skipRestore = true;
+      _isImpersonating = false;
       loginSession = null;
       $window.localStorage.removeItem('jwtToken');
       $window.localStorage.removeItem('relayLogin');
+      $window.localStorage.removeItem('isImpersonating');
 
       if (useClerkAuth) {
         clerk.logout();
@@ -461,6 +471,10 @@
       .catch(function (reason) {
         return $q.reject(reason);
       });
+    }
+
+    function isImpersonating() {
+      return _isImpersonating;
     }
   }
 })();
