@@ -135,6 +135,7 @@
   "validation_error_email": "Please enter a valid email.",
   "validation_error_maxlength": "Text is too long.",
   "validation_error_accountname_already_taken": "Account name already taken.",
+  "validation_error_accountname_invalid": "Username can only contain letters (A–Z, a–z), numbers (0–9), hyphens (-) and underscores (_), and must include at least one letter.",
   "validation_error_email_already_exist": "There is already an user with that email address.",
   "validation_error_ilegal_date": "Invalid Expiration Date.",
   "validation_error_mask": "Invalid Format.",
