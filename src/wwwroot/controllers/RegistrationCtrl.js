@@ -23,7 +23,7 @@
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
-    vm.regexAllowedAccountName = /^[a-z-0-9_-]*$/;
+    vm.regexAllowedAccountName = /^(?=.*[A-Za-z])[\w\d\-_]*$/;
     vm.registrationInProgress = false;
     vm.setCaptchaResponse = setCaptchaResponse;
     vm.setWidgetId = setWidgetId;
