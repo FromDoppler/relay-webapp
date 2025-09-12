@@ -23,7 +23,7 @@
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
-    vm.regexAllowedAccountName = /^[a-z-0-9_-]*$/;
+    vm.regexAllowedAccountName = /^(?=.*[a-z])[a-z0-9_-]*$/;
     vm.registrationInProgress = false;
     vm.setCaptchaResponse = setCaptchaResponse;
     vm.setWidgetId = setWidgetId;
@@ -94,6 +94,8 @@
               utils.setServerValidationToField($scope, $scope.form.password, 'strength');
             } else if (result.accountNameAlreadyTaken) {
               utils.setServerValidationToField($scope, $scope.form.accountName, 'accountname_already_taken');
+            } else if (result.accountNameInvalid) {
+              utils.setServerValidationToField($scope, $scope.form.accountName, 'accountname_invalid');
             } else if (result.emailAlreadyExists) {
               utils.setServerValidationToField($scope, $scope.form.email, 'email_already_exist');
             }

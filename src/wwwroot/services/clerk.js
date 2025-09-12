@@ -201,7 +201,12 @@
                 result.passwordInvalid = true;
                 break;
               case 'account_name':
-                result.accountNameAlreadyTaken = true;
+                var detail = (error.detail || '').toLowerCase();
+                if (detail.indexOf('already taken') !== -1) {
+                  result.accountNameAlreadyTaken = true;
+                } else {
+                  result.accountNameInvalid = true;
+                }
                 break;
               case 'user_email':
                 result.emailAlreadyExists = true;

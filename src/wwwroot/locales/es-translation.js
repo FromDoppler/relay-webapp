@@ -147,6 +147,7 @@ window['relay-translation-es'] = {
   "validation_error_email": "Escribe un Email válido.",
   "validation_error_maxlength": "Texto demasiado largo.",
   "validation_error_accountname_already_taken": "El nombre de la cuenta ya está en uso.",
+  "validation_error_accountname_invalid": "Usa solo letras minúsculas, números, guiones (-) o guiones bajos (_), e incluye al menos una letra.",
   "validation_error_email_already_exist": "Ya existe un usuario con esa dirección de email.",
   "validation_error_ilegal_date": "Escribe una fecha de expiración válida.",
   "validation_error_mask": "Escribe un formato válido.",
