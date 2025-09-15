@@ -16,10 +16,11 @@
     "Slug",
     '$location',
     'vcRecaptchaService',
-    'clerk'
+    'clerk',
+    'resources'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService, clerk) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService, clerk, resources) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
@@ -28,6 +29,7 @@
     vm.setCaptchaResponse = setCaptchaResponse;
     vm.setWidgetId = setWidgetId;
     vm.reloadCaptcha = reloadCaptcha;
+    vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
 
     var customAccountName = false;
     vm.accountNameUpdated = function () {
@@ -40,6 +42,11 @@
     }
     var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     vm.recaptchaAvailable = !useClerkAuth && !!vcRecaptchaService;
+
+    // Load shared resources for Industry/Country selects
+    resources.ensureIndustries();
+    resources.ensureCountries();
+    vm.resources = resources.data;
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
@@ -71,6 +78,17 @@
         termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
         origin: $location.search().origin
       };
+
+      // Add required extra fields mirroring confirmation flow
+      var selectedCountry = $scope.form && $scope.form.country ? $scope.form.country.$modelValue : null;
+      var selectedIndustry = $scope.form && $scope.form.industry ? $scope.form.industry.$modelValue : null;
+      var countryCodePart = $scope.form && $scope.form.countryPhoneNumber ? ($scope.form.countryPhoneNumber.$modelValue || '') : '';
+      var areaCodePart = $scope.form && $scope.form.areaPhoneNumber ? ($scope.form.areaPhoneNumber.$modelValue || '') : '';
+      var phonePart = $scope.form && $scope.form.phoneNumber ? ($scope.form.phoneNumber.$modelValue || '') : '';
+
+      newUser.country_code = selectedCountry ? selectedCountry.code : null;
+      newUser.industry_code = selectedIndustry ? selectedIndustry.code : null;
+      newUser.phone_number = countryCodePart + '-' + areaCodePart + '-' + phonePart;
 
       clerk.signUp(newUser)
         .then(function (result) {
