@@ -249,6 +249,29 @@
       });
     }
 
+    function _notifyUserRegistration(token, clerkUserId) {
+      return $http({
+        actionDescription: 'action_notify_user_registration',
+        method: 'POST',
+        url: RELAY_CONFIG.baseUrl + '/user/notify',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        data: {
+          'user_email': _pendingUserRegistration.user_email,
+          'firstName': _pendingUserRegistration.firstName,
+          'lastName': _pendingUserRegistration.lastName,
+          'password': _pendingUserRegistration.password,
+          'account_name': _pendingUserRegistration.account_name,
+          'company_name': _pendingUserRegistration.company || null,
+          'terms_and_conditions_version': _pendingUserRegistration.termsAndConditions,
+          'origin': _pendingUserRegistration.origin || null,
+          'clerk_user_id': clerkUserId
+        }
+      });
+    }
+
     function verifyOtp(otp, process) {
       if (process === 'login') {
         return _verifyOtpLogin(otp);
@@ -305,7 +328,9 @@
             return _registerUserInRelay(emailVerifiedResponse.createdUserId).then(function() {
               return clerk.setActive({ session: emailVerifiedResponse.createdSessionId }).then(function () {
                 return clerk.session.getToken({ template: 'legacy-api' }).then(function (token) {
-                  return { verified: true, token: token };
+                  return _notifyUserRegistration(token, emailVerifiedResponse.createdUserId).then(function() {
+                    return { verified: true, token: token };
+                  });
                 });
               });
             });
