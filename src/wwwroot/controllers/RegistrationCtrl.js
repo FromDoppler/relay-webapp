@@ -30,6 +30,10 @@
     vm.setWidgetId = setWidgetId;
     vm.reloadCaptcha = reloadCaptcha;
     vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
+    // New separate phone validation regexes
+    vm.regexCountryCode = "^\\+?\\d{1,3}\\s?$";
+    vm.regexAreaCode = "^\\(?0?\\d{1,4}\\)?\\s?$";
+    vm.regexLocalPhone = "^[\\d]+(?:\\s?[\\d]+){1,5}$";
 
     var customAccountName = false;
     vm.accountNameUpdated = function () {
@@ -47,28 +51,38 @@
     resources.ensureCountries();
     vm.resources = resources.data;
 
-    function validateCombinedPhoneNumber() {
-      if (!$scope.form || !$scope.form.phoneNumber) {
+    function validatePhoneFields() {
+      if (!$scope.form) {
         return true;
       }
 
-      var countryCodePart = $scope.form && $scope.form.countryPhoneNumber ? ($scope.form.countryPhoneNumber.$modelValue || '') : '';
-      var areaCodePart = $scope.form && $scope.form.areaPhoneNumber ? ($scope.form.areaPhoneNumber.$modelValue || '') : '';
-      var phonePart = $scope.form && $scope.form.phoneNumber ? ($scope.form.phoneNumber.$modelValue || '') : '';
+      var countryModelCtrl = $scope.form.countryPhoneNumber;
+      var areaModelCtrl = $scope.form.areaPhoneNumber;
+      var phoneModelCtrl = $scope.form.phoneNumber;
 
-      var combinedPhone = countryCodePart + '-' + areaCodePart + '-' + phonePart;
-      var phoneRegex = new RegExp(vm.regexPhoneNumber);
+      var countryVal = countryModelCtrl ? (countryModelCtrl.$modelValue || '') : '';
+      var areaVal = areaModelCtrl ? (areaModelCtrl.$modelValue || '') : '';
+      var phoneVal = phoneModelCtrl ? (phoneModelCtrl.$modelValue || '') : '';
 
-      var isValid = phoneRegex.test(combinedPhone);
-      $scope.form.phoneNumber.$setValidity('mask', isValid);
-      return isValid;
+      var countryRegex = new RegExp(vm.regexCountryCode);
+      var areaRegex = new RegExp(vm.regexAreaCode);
+      var phoneRegex = new RegExp(vm.regexLocalPhone);
+
+      var isCountryValid = countryRegex.test(countryVal);
+      var isAreaValid = areaRegex.test(areaVal);
+      var isPhoneValid = phoneRegex.test(phoneVal);
+
+      if (countryModelCtrl) { countryModelCtrl.$setValidity('mask', isCountryValid); }
+      if (areaModelCtrl) { areaModelCtrl.$setValidity('mask', isAreaValid); }
+      if (phoneModelCtrl) { phoneModelCtrl.$setValidity('mask', isPhoneValid); }
+
+      return isCountryValid && isAreaValid && isPhoneValid;
     }
 
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
 
-      // Validate combined phone number (country-area-number) before submitting
-      if (!validateCombinedPhoneNumber()) {
+      if (!validatePhoneFields()) {
         return;
       }
 
