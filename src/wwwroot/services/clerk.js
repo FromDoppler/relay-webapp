@@ -126,6 +126,9 @@
           'password': newUser.password,
           'account_name': newUser.account_name,
           'company_name': newUser.company || null,
+          'country_code': newUser.country_code || null,
+          'industry_code': newUser.industry_code || null,
+          'phone_number': newUser.phone_number || null,
           'terms_and_conditions_version': newUser.termsAndConditions,
           'origin': newUser.origin || null
         }
@@ -242,6 +245,9 @@
           'password': _pendingUserRegistration.password,
           'account_name': _pendingUserRegistration.account_name,
           'company_name': _pendingUserRegistration.company || null,
+          'country_code': _pendingUserRegistration.country_code || null,
+          'industry_code': _pendingUserRegistration.industry_code || null,
+          'phone_number': _pendingUserRegistration.phone_number || null,
           'terms_and_conditions_version': _pendingUserRegistration.termsAndConditions,
           'origin': _pendingUserRegistration.origin || null,
           'clerk_user_id': clerkUserId
@@ -265,6 +271,9 @@
           'password': _pendingUserRegistration.password,
           'account_name': _pendingUserRegistration.account_name,
           'company_name': _pendingUserRegistration.company || null,
+          'country_code': _pendingUserRegistration.country_code || null,
+          'industry_code': _pendingUserRegistration.industry_code || null,
+          'phone_number': _pendingUserRegistration.phone_number || null,
           'terms_and_conditions_version': _pendingUserRegistration.termsAndConditions,
           'origin': _pendingUserRegistration.origin || null,
           'clerk_user_id': clerkUserId

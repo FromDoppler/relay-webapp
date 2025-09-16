@@ -43,7 +43,6 @@
     var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     vm.recaptchaAvailable = !useClerkAuth && !!vcRecaptchaService;
 
-    // Load shared resources for Industry/Country selects
     resources.ensureIndustries();
     resources.ensureCountries();
     vm.resources = resources.data;
@@ -79,7 +78,6 @@
         origin: $location.search().origin
       };
 
-      // Add required extra fields mirroring confirmation flow
       var selectedCountry = $scope.form && $scope.form.country ? $scope.form.country.$modelValue : null;
       var selectedIndustry = $scope.form && $scope.form.industry ? $scope.form.industry.$modelValue : null;
       var countryCodePart = $scope.form && $scope.form.countryPhoneNumber ? ($scope.form.countryPhoneNumber.$modelValue || '') : '';
