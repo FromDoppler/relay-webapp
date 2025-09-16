@@ -64,17 +64,30 @@
       var areaVal = areaModelCtrl ? (areaModelCtrl.$modelValue || '') : '';
       var phoneVal = phoneModelCtrl ? (phoneModelCtrl.$modelValue || '') : '';
 
+      var isEmpty = function (value) {
+        return !value || !value.toString().trim();
+      };
+
       var countryRegex = new RegExp(vm.regexCountryCode);
       var areaRegex = new RegExp(vm.regexAreaCode);
       var phoneRegex = new RegExp(vm.regexLocalPhone);
 
-      var isCountryValid = countryRegex.test(countryVal);
-      var isAreaValid = areaRegex.test(areaVal);
-      var isPhoneValid = phoneRegex.test(phoneVal);
+      var isCountryValid = isEmpty(countryVal) ? true : countryRegex.test(countryVal);
+      var isAreaValid = isEmpty(areaVal) ? true : areaRegex.test(areaVal);
+      var isPhoneValid = isEmpty(phoneVal) ? true : phoneRegex.test(phoneVal);
 
-      if (countryModelCtrl) { countryModelCtrl.$setValidity('mask', isCountryValid); }
-      if (areaModelCtrl) { areaModelCtrl.$setValidity('mask', isAreaValid); }
-      if (phoneModelCtrl) { phoneModelCtrl.$setValidity('mask', isPhoneValid); }
+      if (countryModelCtrl) {
+        countryModelCtrl.$setValidity('mask', true);
+        countryModelCtrl.$setValidity('country_code', isCountryValid);
+      }
+      if (areaModelCtrl) {
+        areaModelCtrl.$setValidity('mask', true);
+        areaModelCtrl.$setValidity('area_code', isAreaValid);
+      }
+      if (phoneModelCtrl) {
+        phoneModelCtrl.$setValidity('mask', true);
+        phoneModelCtrl.$setValidity('phone_number_field', isPhoneValid);
+      }
 
       return isCountryValid && isAreaValid && isPhoneValid;
     }
