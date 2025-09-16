@@ -47,8 +47,30 @@
     resources.ensureCountries();
     vm.resources = resources.data;
 
+    function validateCombinedPhoneNumber() {
+      if (!$scope.form || !$scope.form.phoneNumber) {
+        return true;
+      }
+
+      var countryCodePart = $scope.form && $scope.form.countryPhoneNumber ? ($scope.form.countryPhoneNumber.$modelValue || '') : '';
+      var areaCodePart = $scope.form && $scope.form.areaPhoneNumber ? ($scope.form.areaPhoneNumber.$modelValue || '') : '';
+      var phonePart = $scope.form && $scope.form.phoneNumber ? ($scope.form.phoneNumber.$modelValue || '') : '';
+
+      var combinedPhone = countryCodePart + '-' + areaCodePart + '-' + phonePart;
+      var phoneRegex = new RegExp(vm.regexPhoneNumber);
+
+      var isValid = phoneRegex.test(combinedPhone);
+      $scope.form.phoneNumber.$setValidity('mask', isValid);
+      return isValid;
+    }
+
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
+
+      // Validate combined phone number (country-area-number) before submitting
+      if (!validateCombinedPhoneNumber()) {
+        return;
+      }
 
       if (useClerkAuth) {
         validatePasswordConfirmation();
