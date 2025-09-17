@@ -268,7 +268,6 @@
     }
 
     function _notifyUserRegistration(apiKey, clerkUserId) {
-      console.log('_notifyUserRegistration apiKey', apiKey);
       return $http({
         actionDescription: 'action_notify_user_registration',
         method: 'POST',
