@@ -67,6 +67,18 @@
       return deferred.promise;
     }
 
+    function _getApiKey(token) {
+      return $http({
+        actionDescription: 'action_get_temp_api_key',
+        method: 'POST',
+        url: RELAY_CONFIG.baseUrl + '/user/apikeys',
+        headers: {
+          'Content-Type': 'text/plain',
+          'Authorization': 'token ' + token
+        }
+      })
+    }
+
     function login(credentials) {
       return _instance().then(function(clerk) {
         return clerk.client.signIn
@@ -255,14 +267,15 @@
       });
     }
 
-    function _notifyUserRegistration(token, clerkUserId) {
+    function _notifyUserRegistration(apiKey, clerkUserId) {
+      console.log('_notifyUserRegistration apiKey', apiKey);
       return $http({
         actionDescription: 'action_notify_user_registration',
         method: 'POST',
         url: RELAY_CONFIG.baseUrl + '/user/notify',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
+          'Authorization': 'token ' + apiKey
         },
         data: {
           'user_email': _pendingUserRegistration.user_email,
@@ -337,8 +350,10 @@
             return _registerUserInRelay(emailVerifiedResponse.createdUserId).then(function() {
               return clerk.setActive({ session: emailVerifiedResponse.createdSessionId }).then(function () {
                 return clerk.session.getToken({ template: 'legacy-api' }).then(function (token) {
-                  return _notifyUserRegistration(token, emailVerifiedResponse.createdUserId).then(function() {
-                    return { verified: true, token: token };
+                  return _getApiKey(token).then(function(apiKeyResponse) {
+                    return _notifyUserRegistration(apiKeyResponse.data.api_key, emailVerifiedResponse.createdUserId).then(function() {
+                      return { verified: true, token: token };
+                    });
                   });
                 });
               });

@@ -30,7 +30,6 @@
     vm.setWidgetId = setWidgetId;
     vm.reloadCaptcha = reloadCaptcha;
     vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
-    // New separate phone validation regexes
     vm.regexCountryCode = "^\\+?\\d{1,3}\\s?$";
     vm.regexAreaCode = "^\\(?0?\\d{1,4}\\)?\\s?$";
     vm.regexLocalPhone = "^[\\d]+(?:\\s?[\\d]+){1,5}$";
