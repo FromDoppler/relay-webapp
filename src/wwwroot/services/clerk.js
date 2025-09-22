@@ -67,6 +67,18 @@
       return deferred.promise;
     }
 
+    function _getApiKey(token) {
+      return $http({
+        actionDescription: 'action_get_temp_api_key',
+        method: 'POST',
+        url: RELAY_CONFIG.baseUrl + '/user/apikeys',
+        headers: {
+          'Content-Type': 'text/plain',
+          'Authorization': 'token ' + token
+        }
+      })
+    }
+
     function login(credentials) {
       return _instance().then(function(clerk) {
         return clerk.client.signIn
@@ -126,6 +138,9 @@
           'password': newUser.password,
           'account_name': newUser.account_name,
           'company_name': newUser.company || null,
+          'country_code': newUser.country_code || null,
+          'industry_code': newUser.industry_code || null,
+          'phone_number': newUser.phone_number || null,
           'terms_and_conditions_version': newUser.termsAndConditions,
           'origin': newUser.origin || null
         }
@@ -242,6 +257,35 @@
           'password': _pendingUserRegistration.password,
           'account_name': _pendingUserRegistration.account_name,
           'company_name': _pendingUserRegistration.company || null,
+          'country_code': _pendingUserRegistration.country_code || null,
+          'industry_code': _pendingUserRegistration.industry_code || null,
+          'phone_number': _pendingUserRegistration.phone_number || null,
+          'terms_and_conditions_version': _pendingUserRegistration.termsAndConditions,
+          'origin': _pendingUserRegistration.origin || null,
+          'clerk_user_id': clerkUserId
+        }
+      });
+    }
+
+    function _notifyUserRegistration(apiKey, clerkUserId) {
+      return $http({
+        actionDescription: 'action_notify_user_registration',
+        method: 'POST',
+        url: RELAY_CONFIG.baseUrl + '/user/notify',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'token ' + apiKey
+        },
+        data: {
+          'user_email': _pendingUserRegistration.user_email,
+          'firstName': _pendingUserRegistration.firstName,
+          'lastName': _pendingUserRegistration.lastName,
+          'password': _pendingUserRegistration.password,
+          'account_name': _pendingUserRegistration.account_name,
+          'company_name': _pendingUserRegistration.company || null,
+          'country_code': _pendingUserRegistration.country_code || null,
+          'industry_code': _pendingUserRegistration.industry_code || null,
+          'phone_number': _pendingUserRegistration.phone_number || null,
           'terms_and_conditions_version': _pendingUserRegistration.termsAndConditions,
           'origin': _pendingUserRegistration.origin || null,
           'clerk_user_id': clerkUserId
@@ -305,7 +349,11 @@
             return _registerUserInRelay(emailVerifiedResponse.createdUserId).then(function() {
               return clerk.setActive({ session: emailVerifiedResponse.createdSessionId }).then(function () {
                 return clerk.session.getToken({ template: 'legacy-api' }).then(function (token) {
-                  return { verified: true, token: token };
+                  return _getApiKey(token).then(function(apiKeyResponse) {
+                    return _notifyUserRegistration(apiKeyResponse.data.api_key, emailVerifiedResponse.createdUserId).then(function() {
+                      return { verified: true, token: token };
+                    });
+                  });
                 });
               });
             });

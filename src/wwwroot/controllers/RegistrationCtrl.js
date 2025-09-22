@@ -16,10 +16,11 @@
     "Slug",
     '$location',
     'vcRecaptchaService',
-    'clerk'
+    'clerk',
+    'resources'
   ];
 
-  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService, clerk) {
+  function RegistrationCtrl($scope, $rootScope, RELAY_CONFIG, signup, utils, $translate, $timeout, Slug, $location, vcRecaptchaService, clerk, resources) {
     var vm = this;
     vm.submitRegistration = submitRegistration;
     vm.emailRegistered = null;
@@ -28,6 +29,10 @@
     vm.setCaptchaResponse = setCaptchaResponse;
     vm.setWidgetId = setWidgetId;
     vm.reloadCaptcha = reloadCaptcha;
+    vm.regexPhoneNumber = "^\\+?([0-9][\\s-]?(\\([0-9]+\\))*)+[0-9]$";
+    vm.regexCountryCode = "^\\+?\\d{1,3}\\s?$";
+    vm.regexAreaCode = "^\\(?0?\\d{1,4}\\)?\\s?$";
+    vm.regexLocalPhone = "^[\\d]+(?:\\s?[\\d]+){1,5}$";
 
     var customAccountName = false;
     vm.accountNameUpdated = function () {
@@ -41,8 +46,57 @@
     var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     vm.recaptchaAvailable = !useClerkAuth && !!vcRecaptchaService;
 
+    resources.ensureIndustries();
+    resources.ensureCountries();
+    vm.resources = resources.data;
+
+    function validatePhoneFields() {
+      if (!$scope.form) {
+        return true;
+      }
+
+      var countryModelCtrl = $scope.form.countryPhoneNumber;
+      var areaModelCtrl = $scope.form.areaPhoneNumber;
+      var phoneModelCtrl = $scope.form.phoneNumber;
+
+      var countryVal = countryModelCtrl ? (countryModelCtrl.$modelValue || '') : '';
+      var areaVal = areaModelCtrl ? (areaModelCtrl.$modelValue || '') : '';
+      var phoneVal = phoneModelCtrl ? (phoneModelCtrl.$modelValue || '') : '';
+
+      var isEmpty = function (value) {
+        return !value || !value.toString().trim();
+      };
+
+      var countryRegex = new RegExp(vm.regexCountryCode);
+      var areaRegex = new RegExp(vm.regexAreaCode);
+      var phoneRegex = new RegExp(vm.regexLocalPhone);
+
+      var isCountryValid = isEmpty(countryVal) ? true : countryRegex.test(countryVal);
+      var isAreaValid = isEmpty(areaVal) ? true : areaRegex.test(areaVal);
+      var isPhoneValid = isEmpty(phoneVal) ? true : phoneRegex.test(phoneVal);
+
+      if (countryModelCtrl) {
+        countryModelCtrl.$setValidity('mask', true);
+        countryModelCtrl.$setValidity('country_code', isCountryValid);
+      }
+      if (areaModelCtrl) {
+        areaModelCtrl.$setValidity('mask', true);
+        areaModelCtrl.$setValidity('area_code', isAreaValid);
+      }
+      if (phoneModelCtrl) {
+        phoneModelCtrl.$setValidity('mask', true);
+        phoneModelCtrl.$setValidity('phone_number_field', isPhoneValid);
+      }
+
+      return isCountryValid && isAreaValid && isPhoneValid;
+    }
+
     function submitRegistration(form) {
       vm.submitted = true; // To show error messages
+
+      if (!validatePhoneFields()) {
+        return;
+      }
 
       if (useClerkAuth) {
         validatePasswordConfirmation();
@@ -71,6 +125,16 @@
         termsAndConditions: vm.checkTerms ? $rootScope.getTermsAndConditionsVersion() : null,
         origin: $location.search().origin
       };
+
+      var selectedCountry = $scope.form && $scope.form.country ? $scope.form.country.$modelValue : null;
+      var selectedIndustry = $scope.form && $scope.form.industry ? $scope.form.industry.$modelValue : null;
+      var countryCodePart = $scope.form && $scope.form.countryPhoneNumber ? ($scope.form.countryPhoneNumber.$modelValue || '') : '';
+      var areaCodePart = $scope.form && $scope.form.areaPhoneNumber ? ($scope.form.areaPhoneNumber.$modelValue || '') : '';
+      var phonePart = $scope.form && $scope.form.phoneNumber ? ($scope.form.phoneNumber.$modelValue || '') : '';
+
+      newUser.country_code = selectedCountry ? selectedCountry.code : null;
+      newUser.industry_code = selectedIndustry ? selectedIndustry.code : null;
+      newUser.phone_number = countryCodePart + '-' + areaCodePart + '-' + phonePart;
 
       clerk.signUp(newUser)
         .then(function (result) {
