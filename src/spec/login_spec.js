@@ -20,18 +20,39 @@ describe('Login page', () => {
     // Assert
     expect(loginPage.getSwitchLanguageMessage()).toBe(inEnglish);
 
-    // Act
+    // Act - Test English page shows Spanish message
+    browser.addMockModule('descartableModule', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run($httpBackend => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+    }));
     loginPage.get('lang=en');
     // Assert
     expect(loginPage.getSwitchLanguageMessage()).toBe(inSpanish);
 
-    // Act
-    loginPage.clickEsFlag();
+    // Act - Test switching back to Spanish
+    browser.addMockModule('descartableModule', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run($httpBackend => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+    }));
+    loginPage.get('lang=es');
     // Assert
     expect(loginPage.getSwitchLanguageMessage()).toBe(inEnglish);
 
-    // Act
-    loginPage.clickEnFlag();
+    // Act - Test switching back to English
+    browser.addMockModule('descartableModule', () => angular
+    .module('descartableModule', ['ngMockE2E'])
+    .run($httpBackend => {
+      $httpBackend.whenGET(/\/accounts\/[\w|-]*\/status\/limits/).respond(200, {
+        "data" : ""
+     });
+    }));
+    loginPage.get('lang=en');
     // Assert
     expect(loginPage.getSwitchLanguageMessage()).toBe(inSpanish);
 

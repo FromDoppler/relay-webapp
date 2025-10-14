@@ -4,6 +4,12 @@ describe('utilsService', () => {
 
   beforeEach(() => {
     module('dopplerRelay');
+
+    var mockClerkService = window.ClerkTestHelpers.createClerkMock();
+
+    module(function($provide) {
+      $provide.value('clerk', mockClerkService);
+    });
   });
   var utilsService;
 

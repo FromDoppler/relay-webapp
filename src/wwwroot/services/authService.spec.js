@@ -1,13 +1,21 @@
 'use strict';
 
 describe('authService', () => {
+  var authService;
+  var mockClerkService;
 
   beforeEach(() => {
     // Ugly patch, localStorage should be cleaned before initialize module
     localStorage.clear();
+
+    mockClerkService = window.ClerkTestHelpers.createClerkMock();
+
     module('dopplerRelay');
+
+    module(function($provide) {
+      $provide.value('clerk', mockClerkService);
+    });
   });
-  var authService;
 
   beforeEach(() => {
     inject((_auth_) => {

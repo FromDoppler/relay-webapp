@@ -385,22 +385,23 @@ describe('Settings Page', () => {
 
   it('should change the language correctly', () => {
     // Arrange
-    beginAuthenticatedSession();
     var profilePage = new ProfilePage();
-
-    //Act
-    browser.get('/#/settings/my-profile?lang=es');
     var userTextInSpanish = "LENGUAJE";
     var userTextInEnglish = "LANGUAGE";
-    profilePage.clickChangeLangToEn();
 
-    //Assert
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-profile?lang=es');
+
+    expect(profilePage.getLanguageLabelMessage()).toBe(userTextInSpanish);
+
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-profile?lang=en');
+
     expect(profilePage.getLanguageLabelMessage()).toBe(userTextInEnglish);
 
-    //Act
-    profilePage.clickChangeLangToEs();
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-profile?lang=es');
 
-    //Assert
     expect(profilePage.getLanguageLabelMessage()).toBe(userTextInSpanish);
   });
 

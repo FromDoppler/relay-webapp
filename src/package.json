@@ -50,6 +50,6 @@
     "postinstall": "bower --allow-root install && webdriver-manager update",
     "start": "gulp",
     "build": "gulp build",
-    "test": "exit 0"
+    "test": "gulp test"
   }
 }
