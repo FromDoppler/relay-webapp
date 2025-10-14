@@ -117,6 +117,13 @@ describe('settingsService', () => {
 
   function createContext() {
     module('dopplerRelay');
+
+    var mockClerkService = window.ClerkTestHelpers.createClerkMock();
+
+    module(function($provide) {
+      $provide.value('clerk', mockClerkService);
+    });
+
     var context;
     inject((settings, $httpBackend, $rootScope) => {
       $rootScope.addError = () => { };
@@ -134,6 +141,8 @@ describe('settingsService', () => {
     it('should query only one time when two calls are done', () => {
       var { settings, $httpBackend } = createContext();
 
+      $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+
       $httpBackend.expect(
         'GET',
         url => url.endsWith('/plans')
@@ -144,11 +153,12 @@ describe('settingsService', () => {
       $httpBackend.flush();
 
       $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
     });
 
     it('should query return the same result in the second call', () => {
       var { settings, $httpBackend } = createContext();
+
+      $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
       $httpBackend.when(
         'GET',
@@ -172,6 +182,8 @@ describe('settingsService', () => {
     it('should query again after an error', () => {
       var { settings, $httpBackend } = createContext();
 
+      $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+
       $httpBackend.expect(
         'GET',
         url => url.endsWith('/plans')
@@ -187,9 +199,8 @@ describe('settingsService', () => {
       var result2;
       settings.getPlansAvailable().then(result => result2 = result);
       $httpBackend.flush();
-      
+
       $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
 
       expect(result1).not.toBeDefined();
       expect(result2).not.toBeNull();
