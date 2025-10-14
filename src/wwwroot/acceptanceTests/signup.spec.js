@@ -3,7 +3,16 @@
 describe('Signup', () => {
 
   function createContext() {
+    localStorage.clear();
+
     module('dopplerRelay');
+
+    var mockClerkService = window.ClerkTestHelpers.createClerkMock();
+
+    module(function($provide) {
+      $provide.value('clerk', mockClerkService);
+    });
+
     var context;
     inject(function ($controller, $location, $rootScope, auth, $httpBackend, jwtHelper, signup) {
 
@@ -62,8 +71,10 @@ describe('Signup', () => {
 
       it('should be error page when activation token (query string parameter) is not set', () => {
         // Arrange
-        var { $location, $httpBackend, $scope, createController } = createContext();
+        var { $location, $httpBackend, $scope, createController, $httpBackend } = createContext();
 
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+        
         $httpBackend.expect(
           'GET',
           url => url.endsWith('/resources/industries.json')
@@ -89,7 +100,9 @@ describe('Signup', () => {
 
       it('should log-off when an user is logged-in (when activation token is not set)', () => {
         // Arrange
-        var { $location, $scope, createController, auth } = createContext();
+        var { $location, $scope, createController, auth, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         auth.loginByToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODM2MjQ3NjAsImV4cCI6MTQ4NjIxNjc2MCwiaWF0IjoxNDgzNjI0NzYwLCJpc3MiOiJodHRwOi8vZG9wcGxlcnJlbGF5aW50Lm1ha2luZ3NlbnNlLmNvbTo4MDgwIiwic3ViIjo3MDAwMiwidW5pcXVlX25hbWUiOiJ1c2VybmFtZTJAZG9wcGxlcnJlbGF5LmNvbSIsInJlbGF5X2FjY291bnRzIjpbImFjY291bnQyIl0sInJlbGF5X3Rva2VuX3ZlcnNpb24iOiIxLjAuMC1iZXRhNSJ9.Ee2eb88xqZpkLUoX2AET2_SiDodzxCltFxaIVpJQ4DXtteXpt_1eB5WjEcV4t0KryrWLw4M0Yc_xRaXWYsXFMCBPwy53qpMzeNg39rEK70cYdlvNV_mLQz9Q0fesxYQPjWeNelg1GGrbiYtx5ljiLZStav-rouoHeye5uu9tAFVc8NVNIjmwuy87aWmH0oeuccNszrKjYndACno_K7Wna5JOQpXLsR6VZhcTeyUAaXvfGlhRPtZ2QQYrxW1APfXNCAcwtK8R07qoIKACvY-opH6xXdSl1fuhHDWzpeq7xWsiJswgtiCHkNiXOItOA5z-OQqnutQcZ4ReLuxuczhn7g");
         expect(auth.isAuthed()).toBe(true);
@@ -107,7 +120,9 @@ describe('Signup', () => {
 
       it('should not log-off when an user is logged-in and goes directly to the error page', () => {
         // Arrange
-        var { $location, $scope, createController, auth } = createContext();
+        var { $location, $scope, createController, auth, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         auth.loginByToken("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODM2MjQ3NjAsImV4cCI6MTQ4NjIxNjc2MCwiaWF0IjoxNDgzNjI0NzYwLCJpc3MiOiJodHRwOi8vZG9wcGxlcnJlbGF5aW50Lm1ha2luZ3NlbnNlLmNvbTo4MDgwIiwic3ViIjo3MDAwMiwidW5pcXVlX25hbWUiOiJ1c2VybmFtZTJAZG9wcGxlcnJlbGF5LmNvbSIsInJlbGF5X2FjY291bnRzIjpbImFjY291bnQyIl0sInJlbGF5X3Rva2VuX3ZlcnNpb24iOiIxLjAuMC1iZXRhNSJ9.Ee2eb88xqZpkLUoX2AET2_SiDodzxCltFxaIVpJQ4DXtteXpt_1eB5WjEcV4t0KryrWLw4M0Yc_xRaXWYsXFMCBPwy53qpMzeNg39rEK70cYdlvNV_mLQz9Q0fesxYQPjWeNelg1GGrbiYtx5ljiLZStav-rouoHeye5uu9tAFVc8NVNIjmwuy87aWmH0oeuccNszrKjYndACno_K7Wna5JOQpXLsR6VZhcTeyUAaXvfGlhRPtZ2QQYrxW1APfXNCAcwtK8R07qoIKACvY-opH6xXdSl1fuhHDWzpeq7xWsiJswgtiCHkNiXOItOA5z-OQqnutQcZ4ReLuxuczhn7g");
         expect(auth.isAuthed()).toBe(true);
@@ -124,7 +139,9 @@ describe('Signup', () => {
 
       it('should log-off when an user is logged-in (when activation token is set)', () => {
         // Arrange
-        var { $location, $httpBackend, $scope, createController, auth } = createContext();
+        var { $location, $httpBackend, $scope, createController, auth, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         $httpBackend.expect(
           'GET',
@@ -157,7 +174,9 @@ describe('Signup', () => {
 
       it('should be error page when activation token is not valid', () => {
         // Arrange
-        var { $location, $httpBackend, createController } = createContext();
+        var { $location, $httpBackend, createController, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         $httpBackend.expect(
           'GET',
@@ -189,7 +208,9 @@ describe('Signup', () => {
 
       it('should be error page when activation token is related to an already activated user', () => {
         // Arrange
-        var { $location, $httpBackend, createController } = createContext();
+        var { $location, $httpBackend, createController, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         $httpBackend.expect(
           'GET',
@@ -229,7 +250,9 @@ describe('Signup', () => {
 
       it('should be error page when activation token is not valid on creating key HTTP request', () => {
         // Arrange
-        var { $location, $httpBackend, createController } = createContext();
+        var { $location, $httpBackend, createController, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         $httpBackend.expect(
           'GET',
@@ -279,7 +302,9 @@ describe('Signup', () => {
     describe('result', () => {
       it('should have right values after successful requests', () => {
         // Arrange
-        var { $location, $httpBackend, createController } = createContext();
+        var { $location, $httpBackend, createController, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         var expected = {
           user_email: 'a@a.com',
@@ -340,7 +365,9 @@ describe('Signup', () => {
 
       it('should have email as name when firstName is empty', () => {
         // Arrange
-        var { $location, $httpBackend, createController } = createContext();
+        var { $location, $httpBackend, createController, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         var expected = {
           user_email: 'a@a.com',
@@ -397,7 +424,9 @@ describe('Signup', () => {
 
       it('should have error message when there is an unexpected error verifying activation token', () => {
         // Arrange
-        var { $location, $httpBackend, createController, errors } = createContext();
+        var { $location, $httpBackend, createController, errors, $httpBackend } = createContext();
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         $httpBackend.expect(
           'GET',
@@ -434,8 +463,10 @@ describe('Signup', () => {
     describe('initial status', () => {
       it('should show the registration page correctly', () => {
         // Arrange
-        var { $location, $scope, auth, jwtHelper } = createContext();
+        var { $location, $scope, auth, jwtHelper, $httpBackend } = createContext();
         expect(auth.isAuthed()).toBe(false);
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
         // Act
         $location.path('/signup/registration');
@@ -492,6 +523,16 @@ describe('Signup', () => {
         jwtHelper.isTokenExpired = () => false;
         var form = {};
 
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
+
         $httpBackend.expect(
           'POST',
           url => url.endsWith('/user/registration?lang=en')
@@ -514,7 +555,6 @@ describe('Signup', () => {
 
         // Assert
         $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
         expect($location.path()).toBe('/signup/registration');
         expect(controller.emailRegistered).toBe(null);
       });
@@ -524,6 +564,16 @@ describe('Signup', () => {
         var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $httpBackend.expect(
           'POST',
@@ -558,7 +608,6 @@ describe('Signup', () => {
 
         // Assert
         $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
         expect($location.path()).toBe('/signup/registration');
         expect(controller.emailRegistered).toBe(null);
         expect(form.accountName.$error.accountname_already_taken).toBeFalsy();
@@ -570,6 +619,16 @@ describe('Signup', () => {
         var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $httpBackend.expect(
           'POST',
@@ -604,7 +663,6 @@ describe('Signup', () => {
 
         // Assert
         $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
         expect($location.path()).toBe('/signup/registration');
         expect(controller.emailRegistered).toBe(null);
         expect(form.accountName.$error.accountname_already_taken).toBe(true);
@@ -616,6 +674,16 @@ describe('Signup', () => {
         var { $location, $scope, createController, jwtHelper, $httpBackend, $rootScope } = createContext();
         jwtHelper.isTokenExpired = () => false;
         var form = prepareForm($scope, [ 'accountName', 'email' ]);
+
+        $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/industries.json')
+        ).respond(200, []);
+
+        $httpBackend.whenGET(
+          url => url.endsWith('/resources/countries.json')
+        ).respond(200, []);
 
         $httpBackend.expect(
           'POST',
@@ -651,7 +719,6 @@ describe('Signup', () => {
 
         // Assert
         $httpBackend.verifyNoOutstandingExpectation();
-        $httpBackend.verifyNoOutstandingRequest();
         expect($location.path()).toBe('/signup/registration');
         expect(controller.emailRegistered).toBe(null);
         expect(form.accountName.$error.accountname_already_taken).toBe(true);

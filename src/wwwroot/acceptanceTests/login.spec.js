@@ -7,6 +7,13 @@ describe('Login', () => {
     localStorage.clear();
 
     module('dopplerRelay');
+
+    var mockClerkService = window.ClerkTestHelpers.createClerkMock();
+
+    module(function($provide) {
+      $provide.value('clerk', mockClerkService);
+    });
+
     var context;
     inject(function ($controller, $location, $rootScope, auth, $httpBackend) {
 
@@ -14,6 +21,7 @@ describe('Login', () => {
       $rootScope.addError = err => errors.push(err);
       $rootScope.addAuthorizationError = $rootScope.addError;
       $rootScope.loadLimits = () => {};
+      $httpBackend.whenGET(/partials\/.*\.html/).respond(200, '');
 
       context = {
         errors: errors,
@@ -60,7 +68,7 @@ describe('Login', () => {
       $httpBackend.flush();
 
       // Assert
-      expect($location.path()).toBe('/'); // then it will redirect to `/reports` because of _otherwise_ route, I do not know how to test it
+      expect($location.path()).toBe('/reports');
       expect(auth.isAuthed()).toBe(true);
       expect(auth.isTemporarilyAuthed()).toBe(false);
       expect(auth.getUserName()).toBe('amoschini@makingsense.com');
