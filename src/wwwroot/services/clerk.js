@@ -22,7 +22,8 @@
       getToken: getToken,
       logout: logout,
       mountUserButton: mountUserButton,
-      isAuthenticated: isAuthenticated
+      isAuthenticated: isAuthenticated,
+      updatePassword: updatePassword
     };
     
     function init() {
@@ -428,6 +429,14 @@
             showName: false,
             customMenuItems: [
               {
+                label: $translate.instant('submenu_my_profile'),
+                href: '#/settings/my-profile',
+                mountIcon: function(el) {
+                  el.innerHTML = '' //'👤'
+                },
+                unmountIcon: function() {},
+              },
+              {
                 label: $translate.instant('submenu_con_settings'),
                 href: '#/settings/connection-settings',
                 mountIcon: function(el) {
@@ -476,6 +485,82 @@
             ]
           });
       });
+    }
+
+    function updatePassword(currentPassword, newPassword) {
+      return _instance()
+        .then(function (clerk) {
+          if (!clerk.user) {
+            return $q.reject('No user session found');
+          }
+
+          return clerk.user.updatePassword({
+            currentPassword: currentPassword,
+            newPassword: newPassword
+          })
+          .then(function () {
+            return { success: true };
+          })
+          .catch(function (err) {
+            var result = { success: false };
+            if (err && err.clerkError && Array.isArray(err.errors) && err.errors.length > 0) {
+              var first = err.errors[0];
+              // Clerk erros codes documentation: https://clerk.com/docs/guides/development/errors/frontend-api
+              switch (first.code) {
+                case 'form_password_validation_failed':
+                  result.currentPasswordIncorrect = true;
+                  break;
+                case 'form_password_incorrect':
+                  result.currentPasswordIncorrect = true;
+                  break;
+                case 'form_password_pwned':
+                  result.passwordPwned = true;
+                  break;
+                case 'form_password_compromised':
+                  result.passwordPwned = true;
+                  break;
+                case 'form_password_size_in_bytes_exceeded':
+                  result.passwordTooLong = true;
+                  break;
+                case 'form_password_length_too_long':
+                  result.passwordTooLong = true;
+                  break;
+                case 'form_password_not_strong_enough':
+                  result.passwordNotStrongEnough = true;
+                  break;
+                case 'form_password_length_too_short':
+                  result.passwordTooShort = true;
+                  break;
+                case 'form_password_no_lowercase':
+                  result.passwordMissingLowercase = true;
+                  break;
+                case 'form_password_no_uppercase':
+                  result.passwordMissingUppercase = true;
+                  break;
+                case 'form_password_no_number':
+                  result.passwordMissingNumber = true;
+                  break;
+                case 'form_password_no_special_char':
+                  result.passwordMissingSpecialChar = true;
+                  break;
+                case 'form_new_password_matches_current':
+                  result.newPasswordMatchesCurrent = true;
+                  break;
+                case 'form_param_format_invalid':
+                  result.newPasswordInvalid = true;
+                  break;
+                default:
+                  result.error = first.message || 'Unknown error';
+                  break;
+              }
+            }
+            $rootScope.$applyAsync();
+            return result;
+          });
+        })
+        .catch(function (error) {
+          return $q.reject('Failed to update password: ' + error);
+        });
     }
 
     function isAuthenticated() {

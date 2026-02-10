@@ -32,7 +32,8 @@
       forgotPassword: forgotPassword,
       resetPassword: resetPassword,
       getApiToken: getApiToken,
-      changePassword: changePassword,  
+      changePassword: changePassword,
+      syncPassword: syncPassword,
       getLimitsByAccount: getLimitsByAccount,
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
       addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
@@ -384,6 +385,39 @@
         data: {
           "username": getUserName(),
           "old_password": old_pass,
+          "password": newPass
+        }
+      });
+    }
+
+    /**
+     * Synchronizes the password with the backend database without any validation or side effects.
+     *
+     * This function is intended to be used AFTER the password has already been updated in Clerk. 
+     * It performs a simple sync operation to
+     * keep the local database in sync with the external provider.
+     *
+     * IMPORTANT: This function does NOT:
+     * - Validate the old password
+     * - Validate the new password format
+     * - Update any external authentication provider
+     * - Send confirmation emails
+     * - Perform any other side effects
+     *
+     * @param {string} newPass - The new password to sync (already validated and updated externally)
+     * @returns {Promise} HTTP promise
+     */
+    function syncPassword(newPass) {
+      console.log("sync password");
+      return $http({
+        actionDescription: 'action_syncing_password',
+        method: 'PUT',
+        url: RELAY_CONFIG.baseUrl + '/user/password/sync',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          "user_email": getUserName(),
           "password": newPass
         }
       });
