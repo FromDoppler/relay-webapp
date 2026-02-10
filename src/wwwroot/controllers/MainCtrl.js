@@ -182,13 +182,7 @@
     };
 
     var submenues = [];
-    var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     $rootScope.getSubmenues = function () {
-      if (useClerkAuth) {
-        return submenues.filter(function(item){
-          return item.text !== 'submenu_my_profile';
-        });
-      }
       return submenues;
     };
     $rootScope.setSubmenues = function (newItems) {
