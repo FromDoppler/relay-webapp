@@ -59,3 +59,10 @@ form.ng-submitted .ng-invalid-required {
     margin-top: .35em;
   }
 }
+
+/* Hide Clerk's "Manage Account" button when user has a restricted profile */
+body.profile-restricted {
+  .cl-userButtonPopoverActionButton__manageAccount {
+    display: none !important;
+  }
+}
