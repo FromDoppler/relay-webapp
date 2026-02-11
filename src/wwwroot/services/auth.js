@@ -408,7 +408,6 @@
      * @returns {Promise} HTTP promise
      */
     function syncPassword(newPass) {
-      console.log("sync password");
       return $http({
         actionDescription: 'action_syncing_password',
         method: 'PUT',
