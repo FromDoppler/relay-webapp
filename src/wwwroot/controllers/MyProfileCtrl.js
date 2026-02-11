@@ -60,13 +60,11 @@
             if (!result.success) {
               console.log('Password update in Clerk failed');
 
-              // Handle current password incorrect
               if (result.currentPasswordIncorrect) {
                 vm.wrongOldPassword = true;
                 return;
               }
 
-              // Handle specific password validation errors with translated messages
               if (result.passwordPwned) {
                 vm.passwordValidationError = $translate.instant('change_password_pwned');
               } else if (result.passwordTooLong) {

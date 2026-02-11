@@ -396,13 +396,7 @@
      * This function is intended to be used AFTER the password has already been updated in Clerk. 
      * It performs a simple sync operation to
      * keep the local database in sync with the external provider.
-     *
-     * IMPORTANT: This function does NOT:
-     * - Validate the old password
-     * - Validate the new password format
-     * - Update any external authentication provider
-     * - Send confirmation emails
-     * - Perform any other side effects
+     * does not perform any other side effects such as sending email, or validating the password
      *
      * @param {string} newPass - The new password to sync (already validated and updated externally)
      * @returns {Promise} HTTP promise
