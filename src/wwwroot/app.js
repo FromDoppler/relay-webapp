@@ -203,12 +203,12 @@
     }]);
 
   dopplerRelayModule.run([
-    '$rootScope', 
-    'auth', 
-    '$location', 
-    '$window', 
-    '$translate', 
-    'jwtHelper', 
+    '$rootScope',
+    'auth',
+    '$location',
+    '$window',
+    '$translate',
+    'jwtHelper',
     '$locale',
     'utils',
     '$q',
@@ -216,9 +216,9 @@
     function (
       $rootScope,
       auth,
-      $location, 
-      $window, 
-      $translate, 
+      $location,
+      $window,
+      $translate,
       jwtHelper,
       $locale,
       utils,
@@ -233,6 +233,25 @@
     applyCultureFormats();
 
     $rootScope.$on('$translateChangeEnd', applyCultureFormats);
+
+    function updateProfileClass() {
+      var profile = auth.getProfile();
+      var body = angular.element(document.body);
+
+      body.removeClass('profile-restricted');
+
+      if (profile) {
+        body.addClass('profile-restricted');
+      }
+    }
+
+    auth.ready.finally(function() {
+      updateProfileClass();
+    });
+
+    $rootScope.$on('$locationChangeSuccess', function() {
+      updateProfileClass();
+    });
 
     var _authReadyResolved = false;
     auth.ready.finally(function () { _authReadyResolved = true; });

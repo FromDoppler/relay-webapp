@@ -16,17 +16,18 @@
       <div class="flex one flex--vertically-start">
         <label class="special uppercase" for="name">{{'user_text' | translate}}</label>
       </div>
-      <div class="flex three flex--wrap">      
+      <div class="flex three flex--wrap">
         <form method="post" id="form_username" name="form_username" novalidate class="flex flex--wrap">
             <div class="input--wrapper">
               <input id="username" name="username" ng-model="vm.username" type="email" class="input input--large" ng-class="(vm.usernameSubmitted ||form_username.username.$dirty) && vm.existingEmail && !form_username.username.$error.required && !form_username.username.$error.email ? 'error': '' " maxlength="100" ng-maxlength="100"
+                ng-readonly="vm.useClerkAuth"
                 required email-format-validation validation-errors-fluid />
               <div>
                 <span class="input--error" ng-show="(vm.usernameSubmitted ||form_username.username.$dirty) && vm.existingEmail && !form_username.username.$error.required && !form_username.username.$error.email">
                   <i class="arrow--up"></i>{{'validation_error_email_already_exist' | translate}}</span>
               </div>
             </div>
-          <div class="confirm-icons--container flex">
+          <div class="confirm-icons--container flex" ng-if="!vm.useClerkAuth">
             <div class="flex" ng-class="!vm.showUserNameContainer ? 'show' : ''">
               <svg class="icon edit-icon" ng-click="vm.showUserNameContainer=true;">
                   <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
@@ -57,22 +58,28 @@
             <div class="input--wrapper">
               <input id="oldPass" name="oldPass" ng-model="vm.oldPass" ng-change="vm.wrongOldPassword = false;" ng-class="vm.wrongOldPassword ? 'error' : ''"
                 type="password" placeholder="{{ 'my_profile_old_password' | translate }}" pass="vm.oldPass" maxlength="100"
-                ng-maxlength="100" class="input input--large" required password-complex-validation validation-errors-fluid
+                ng-maxlength="100" class="input input--large" required
               />
               <div>
-                <span class="input--error" ng-show="(vm.passSubmitted ||form_pass.oldPass.$dirty) && vm.wrongOldPassword && !form_pass.oldPass.$error.strength && !form_pass.oldPass.$error.required">
+                <span class="input--error" ng-show="vm.passSubmitted && vm.wrongOldPassword && !form_pass.oldPass.$error.required">
                   <i class="arrow--up"></i>{{'my_profile_old_password_error' | translate}}</span>
               </div>
             </div>
             <div class="input--wrapper">
               <input id="pass" name="pass" ng-model="vm.pass" type="password" pass="vm.pass" placeholder="{{ 'my_profile_new_password' | translate }}"
-                maxlength="100" ng-maxlength="100" class="input input--large" ng-change="vm.updateValidation(form_pass)" required password-complex-validation
+                maxlength="100" ng-maxlength="100" class="input input--large" ng-change="vm.updateValidation(form_pass); vm.passwordValidationError = null;"
+                ng-class="vm.passwordValidationError ? 'error' : ''" required password-complex-validation
                 validation-errors-fluid />
             </div>
             <div class="input--wrapper">
               <input id="confPassword" name="confPass" ng-model="vm.confPass" pass="vm.confPass" placeholder="{{ 'my_profile_confirm_new_password' | translate }}"
-                type="password" ng-change="vm.updateValidation(form_pass)" maxlength="100" ng-maxlength="100" class="input input--large"
+                type="password" ng-change="vm.updateValidation(form_pass); vm.passwordValidationError = null;" maxlength="100" ng-maxlength="100"
+                class="input input--large" ng-class="vm.passwordValidationError ? 'error' : ''"
                 required validation-errors-fluid />
+              <div>
+                <span class="input--error" ng-show="vm.passwordValidationError">
+                  <i class="arrow--up"></i>{{vm.passwordValidationError}}</span>
+              </div>
             </div>
           </div>
           <div class="confirm-icons--container flex" ng-show="vm.showChangePassContainer">
