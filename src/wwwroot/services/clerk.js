@@ -5,9 +5,9 @@
     .module('dopplerRelay')
     .factory('clerk', clerk);
 
-  clerk.$inject = ['$window', '$q', '$rootScope', '$http', 'RELAY_CONFIG', 'utils', '$translate', 'auth'];
+  clerk.$inject = ['$window', '$q', '$rootScope', '$http', 'RELAY_CONFIG', 'utils', '$translate'];
 
-  function clerk($window, $q, $rootScope, $http, RELAY_CONFIG, utils, $translate, auth) {
+  function clerk($window, $q, $rootScope, $http, RELAY_CONFIG, utils, $translate) {
     var _clerkInstancePromise = null;
     var _pendingUserRegistration = null;
     var _currentLanguageLoaded = null;
@@ -417,15 +417,17 @@
       });
     }
 
-      function mountUserButton(target) {
+      function mountUserButton(target, options) {
       var component = (typeof target === 'string') ? document.querySelector(target) : target;
 
       if (!component) {
         return $q.reject('mountUserButton: target not found');
       }
 
+      options = options || {};
+      var profile = options.profile;
+
       return _instance().then(function (clerk) {
-          var profile = auth.getProfile();
           var customMenuItems = [];
 
           if (!profile) {
