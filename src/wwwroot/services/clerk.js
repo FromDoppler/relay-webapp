@@ -5,9 +5,9 @@
     .module('dopplerRelay')
     .factory('clerk', clerk);
 
-  clerk.$inject = ['$window', '$q', '$rootScope', '$http', 'RELAY_CONFIG', 'utils', '$translate'];
+  clerk.$inject = ['$window', '$q', '$rootScope', '$http', 'RELAY_CONFIG', 'utils', '$translate', 'auth'];
 
-  function clerk($window, $q, $rootScope, $http, RELAY_CONFIG, utils, $translate) {
+  function clerk($window, $q, $rootScope, $http, RELAY_CONFIG, utils, $translate, auth) {
     var _clerkInstancePromise = null;
     var _pendingUserRegistration = null;
     var _currentLanguageLoaded = null;
@@ -425,9 +425,11 @@
       }
 
       return _instance().then(function (clerk) {
-          return clerk.mountUserButton(component, {
-            showName: false,
-            customMenuItems: [
+          var profile = auth.getProfile();
+          var customMenuItems = [];
+
+          if (!profile) {
+            customMenuItems = [
               {
                 label: $translate.instant('submenu_my_profile'),
                 href: '#/settings/my-profile',
@@ -467,22 +469,28 @@
                   el.innerHTML = '' //'💳'
                 },
                 unmountIcon: function() {},
-              },
-              {
-                label: $translate.instant('log_out'),
-                onClick: function () {
-                  if ($rootScope && typeof $rootScope.logOut === 'function') {
-                    $rootScope.$applyAsync(function(){ $rootScope.logOut(); });
-                  } else {
-                    logout();
-                  }
-                },
-                mountIcon: function(el) {
-                  el.innerHTML = '' //'🚪'
-                },
-                unmountIcon: function() {},
               }
-            ]
+            ];
+          }
+
+          customMenuItems.push({
+            label: $translate.instant('log_out'),
+            onClick: function () {
+              if ($rootScope && typeof $rootScope.logOut === 'function') {
+                $rootScope.$applyAsync(function(){ $rootScope.logOut(); });
+              } else {
+                logout();
+              }
+            },
+            mountIcon: function(el) {
+              el.innerHTML = '' //'🚪'
+            },
+            unmountIcon: function() {},
+          });
+
+          return clerk.mountUserButton(component, {
+            showName: false,
+            customMenuItems: customMenuItems
           });
       });
     }
