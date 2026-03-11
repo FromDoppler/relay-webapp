@@ -219,6 +219,7 @@
               auth.loginByToken(newToken);
               resetUsernameContainer();
               vm.username = newEmail;
+              $rootScope.$broadcast('emailChanged', newEmail);
               vm.emailChangeSuccess = true;
               $timeout(function() {
                 vm.emailChangeSuccess = false;
