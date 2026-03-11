@@ -27,11 +27,20 @@
     vm.changePassword = changePassword;
     vm.updateValidation = updateValidation;
     vm.changeUsername = changeUsername;
+    vm.verifyEmailOtp = verifyEmailOtp;
+    vm.resendEmailOtp = resendEmailOtp;
     vm.resetPasswordContainer = resetPasswordContainer;
     vm.resetUsernameContainer = resetUsernameContainer;
     vm.username = auth.getUserName();
     vm.useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     vm.passwordValidationError = null;
+    vm.emailChangeStep = null;
+    vm.emailOtp = null;
+    vm.emailChangeError = null;
+    vm.emailOtpError = null;
+    vm.emailChangeSuccess = false;
+    vm.emailResendSuccess = false;
+    vm.pendingNewEmail = null;
 
     function updateValidation(form) {
       if (!form.pass.$modelValue || !form.confPass.$modelValue) {
@@ -132,30 +141,122 @@
     function changeUsername(form) {
       vm.usernameSubmitted = true;
       vm.existingEmail = false;
+      vm.emailChangeError = null;
 
       if (!form.$valid) {
         return;
       }
-      
-       settings.requestEmailChange(form.username.$modelValue, $translate.use())
-        .then(function() {
-          vm.emailActivationPending = true;
-          resetUsernameContainer();
-       })
-       .catch(function(rejectionData){
-         var data = rejectionData.data || { };
-         if (data.errorCode == 7 && data.status == 400) {
-           vm.existingEmail = true;
-         } else {
-           $rootScope.addError('action_updating_email', data.detail, data.title, data.status, data.errorCode);
-         }
-       });
-      
+
+      var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
+
+      if (useClerkAuth) {
+        clerk.createEmailAddress(form.username.$modelValue)
+          .then(function(result) {
+            if (!result.success) {
+              if (result.emailAlreadyExists) {
+                vm.existingEmail = true;
+                return;
+              }
+              if (result.invalidFormat) {
+                vm.emailChangeError = $translate.instant('change_email_invalid_format');
+                return;
+              }
+              vm.emailChangeError = result.error || $translate.instant('change_email_error');
+              return;
+            }
+
+            vm.emailChangeStep = 'otp';
+            vm.pendingNewEmail = form.username.$modelValue;
+          })
+          .catch(function(error) {
+            vm.emailChangeError = $translate.instant('change_email_error');
+          });
+      } else {
+        settings.requestEmailChange(form.username.$modelValue, $translate.use())
+          .then(function() {
+            vm.emailActivationPending = true;
+            resetUsernameContainer();
+          })
+          .catch(function(rejectionData) {
+            var data = rejectionData.data || {};
+            if (data.errorCode == 7 && data.status == 400) {
+              vm.existingEmail = true;
+            } else {
+              $rootScope.addError('action_updating_email', data.detail, data.title, data.status, data.errorCode);
+            }
+          });
+      }
+    }
+
+    function verifyEmailOtp() {
+      vm.emailOtpError = null;
+
+      if (!vm.emailOtp || vm.emailOtp.length !== 6) {
+        return;
+      }
+
+      clerk.verifyEmailChange(vm.emailOtp)
+        .then(function(result) {
+          if (!result.verified) {
+            if (result.codeIncorrect) {
+              vm.emailOtpError = $translate.instant('otp_error_code_incorrect');
+              return;
+            }
+            if (result.verificationExpired) {
+              vm.emailOtpError = $translate.instant('otp_error_code_expired');
+              return;
+            }
+            vm.emailOtpError = result.error || $translate.instant('otp_error_code_general');
+            return;
+          }
+
+          var oldEmail = auth.getUserName();
+          return auth.syncEmail(oldEmail, vm.pendingNewEmail)
+            .then(function() {
+              return clerk.getToken();
+            })
+            .then(function(newToken) {
+              auth.loginByToken(newToken);
+              resetUsernameContainer();
+              vm.username = auth.getUserName();
+              vm.emailChangeSuccess = true;
+              $timeout(function() {
+                vm.emailChangeSuccess = false;
+              }, 3000);
+            })
+            .catch(function(error) {
+              vm.emailOtpError = $translate.instant('change_email_db_error');
+            });
+        })
+        .catch(function(error) {
+          vm.emailOtpError = $translate.instant('change_email_error');
+        });
+    }
+
+    function resendEmailOtp() {
+      vm.emailResendSuccess = false;
+      clerk.resendEmailChangeOtp()
+        .then(function(result) {
+          if (result.sent) {
+            vm.emailResendSuccess = true;
+            return;
+          }
+          vm.emailOtpError = $translate.instant('otp_error_code_resend_error');
+        })
+        .catch(function(error) {
+          vm.emailOtpError = $translate.instant('otp_error_code_resend_error');
+        });
     }
 
     function resetUsernameContainer(){
       vm.showUserNameContainer = false;
       vm.existingEmail = false;
+      vm.emailChangeStep = null;
+      vm.emailOtp = null;
+      vm.emailChangeError = null;
+      vm.emailOtpError = null;
+      vm.emailResendSuccess = false;
+      vm.pendingNewEmail = null;
       vm.username = auth.getUserName();
     }
 
