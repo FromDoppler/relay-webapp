@@ -210,14 +210,15 @@
             return;
           }
 
-          return auth.syncEmail(vm.pendingNewEmail)
+          var newEmail = vm.pendingNewEmail;
+          return auth.syncEmail(newEmail)
             .then(function() {
               return clerk.getToken();
             })
             .then(function(newToken) {
               auth.loginByToken(newToken);
               resetUsernameContainer();
-              vm.username = auth.getUserName();
+              vm.username = newEmail;
               vm.emailChangeSuccess = true;
               $timeout(function() {
                 vm.emailChangeSuccess = false;
