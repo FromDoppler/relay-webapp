@@ -210,8 +210,7 @@
             return;
           }
 
-          var oldEmail = auth.getUserName();
-          return auth.syncEmail(oldEmail, vm.pendingNewEmail)
+          return auth.syncEmail(vm.pendingNewEmail)
             .then(function() {
               return clerk.getToken();
             })

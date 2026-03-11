@@ -423,11 +423,10 @@
      * This function is intended to be used AFTER the email has already been updated in Clerk.
      * It performs a simple sync operation to keep the local database in sync with the external provider.
      *
-     * @param {string} oldEmail - The previous email address
      * @param {string} newEmail - The new email address (already verified externally)
      * @returns {Promise} HTTP promise
      */
-    function syncEmail(oldEmail, newEmail) {
+    function syncEmail(newEmail) {
       return $http({
         actionDescription: 'action_syncing_email',
         method: 'PUT',
@@ -436,7 +435,7 @@
           'Content-Type': 'application/json'
         },
         data: {
-          "old_email": oldEmail,
+          "old_email": getUserName(),
           "new_email": newEmail
         }
       });
