@@ -11,6 +11,8 @@
     var _clerkInstancePromise = null;
     var _pendingUserRegistration = null;
     var _currentLanguageLoaded = null;
+    var _pendingEmailAddress = null;
+    var _oldPrimaryEmailAddressId = null;
 
     init();
     
@@ -23,7 +25,10 @@
       logout: logout,
       mountUserButton: mountUserButton,
       isAuthenticated: isAuthenticated,
-      updatePassword: updatePassword
+      updatePassword: updatePassword,
+      createEmailAddress: createEmailAddress,
+      verifyEmailChange: verifyEmailChange,
+      resendEmailChangeOtp: resendEmailChangeOtp
     };
     
     function init() {
@@ -570,6 +575,115 @@
         })
         .catch(function (error) {
           return $q.reject('Failed to update password: ' + error);
+        });
+    }
+
+    function createEmailAddress(newEmail) {
+      return _instance()
+        .then(function (clerk) {
+          if (!clerk.user) {
+            return $q.reject('No user session found');
+          }
+
+          _oldPrimaryEmailAddressId = clerk.user.primaryEmailAddressId;
+
+          return clerk.user.createEmailAddress({ email: newEmail })
+            .then(function (emailAddress) {
+              _pendingEmailAddress = emailAddress;
+              return emailAddress.prepareVerification({ strategy: 'email_code' });
+            })
+            .then(function () {
+              return { success: true };
+            })
+            .catch(function (err) {
+              var result = { success: false };
+              if (err && err.clerkError && Array.isArray(err.errors) && err.errors.length > 0) {
+                var first = err.errors[0];
+                switch (first.code) {
+                  case 'form_identifier_exists':
+                    result.emailAlreadyExists = true;
+                    break;
+                  case 'form_param_format_invalid':
+                    result.invalidFormat = true;
+                    break;
+                  default:
+                    result.error = first.message || 'Unknown error';
+                    break;
+                }
+              }
+              $rootScope.$applyAsync();
+              return result;
+            });
+        })
+        .catch(function (error) {
+          return $q.reject('Failed to create email address: ' + error);
+        });
+    }
+
+    function verifyEmailChange(otpCode) {
+      if (!_pendingEmailAddress) {
+        return $q.reject('No pending email address to verify');
+      }
+
+      return _instance()
+        .then(function (clerk) {
+          return _pendingEmailAddress.attemptVerification({ code: otpCode })
+            .then(function (verifiedEmail) {
+              if (verifiedEmail.verification && verifiedEmail.verification.status === 'verified') {
+                return clerk.user.update({ primaryEmailAddressId: _pendingEmailAddress.id })
+                  .then(function () {
+                    var oldEmail = clerk.user.emailAddresses.find(function (ea) {
+                      return ea.id === _oldPrimaryEmailAddressId;
+                    });
+
+                    var destroyPromise = oldEmail ? oldEmail.destroy().catch(function () { }) : $q.resolve();
+
+                    return destroyPromise.then(function () {
+                      _pendingEmailAddress = null;
+                      _oldPrimaryEmailAddressId = null;
+                      return { verified: true };
+                    });
+                  });
+              }
+              return { verified: false, error: 'Verification not complete' };
+            })
+            .catch(function (err) {
+              var result = { verified: false };
+              if (err && err.clerkError && Array.isArray(err.errors) && err.errors.length > 0) {
+                var first = err.errors[0];
+                switch (first.code) {
+                  case 'form_code_incorrect':
+                    result.codeIncorrect = true;
+                    break;
+                  case 'verification_expired':
+                    result.verificationExpired = true;
+                    break;
+                  default:
+                    result.error = first.message || 'Unknown error';
+                    break;
+                }
+              }
+              $rootScope.$applyAsync();
+              return result;
+            });
+        })
+        .catch(function (error) {
+          return $q.reject('Failed to verify email change: ' + error);
+        });
+    }
+
+    function resendEmailChangeOtp() {
+      if (!_pendingEmailAddress) {
+        return $q.reject('No pending email address to resend OTP');
+      }
+
+      return _pendingEmailAddress.prepareVerification({ strategy: 'email_code' })
+        .then(function () {
+          return { sent: true };
+        })
+        .catch(function (err) {
+          $rootScope.$applyAsync();
+          return { sent: false };
         });
     }
 

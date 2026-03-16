@@ -5,6 +5,9 @@
 <div class="my-profile--banner flex flex--center green" ng-show="vm.changePasswordSuccess">
   <span class="special">{{ 'my_profile_change_password_success' | translate}}</span>
 </div>
+<div class="my-profile--banner flex flex--center green" ng-show="vm.emailChangeSuccess">
+  <span class="special">{{ 'my_profile_change_email_success' | translate}}</span>
+</div>
 <section class="my-profile--container">
   <div class="section--wrapper flex">
     <h2>
@@ -12,7 +15,7 @@
     </h2>
   </div>
   <div class="section--wrapper">
-    <div class="item flex user" ng-class="vm.showUserNameContainer ? 'expanded' : ''">
+    <div class="item flex user" ng-class="vm.showUserNameContainer || vm.emailChangeStep ? 'expanded' : ''">
       <div class="flex one flex--vertically-start">
         <label class="special uppercase" for="name">{{'user_text' | translate}}</label>
       </div>
@@ -20,14 +23,16 @@
         <form method="post" id="form_username" name="form_username" novalidate class="flex flex--wrap">
             <div class="input--wrapper">
               <input id="username" name="username" ng-model="vm.username" type="email" class="input input--large" ng-class="(vm.usernameSubmitted ||form_username.username.$dirty) && vm.existingEmail && !form_username.username.$error.required && !form_username.username.$error.email ? 'error': '' " maxlength="100" ng-maxlength="100"
-                ng-readonly="vm.useClerkAuth"
+                ng-readonly="vm.useClerkAuth && !vm.showUserNameContainer"
                 required email-format-validation validation-errors-fluid />
               <div>
                 <span class="input--error" ng-show="(vm.usernameSubmitted ||form_username.username.$dirty) && vm.existingEmail && !form_username.username.$error.required && !form_username.username.$error.email">
                   <i class="arrow--up"></i>{{'validation_error_email_already_exist' | translate}}</span>
+                <span class="input--error" ng-show="vm.emailChangeError">
+                  <i class="arrow--up"></i>{{ vm.emailChangeError }}</span>
               </div>
             </div>
-          <div class="confirm-icons--container flex" ng-if="!vm.useClerkAuth">
+          <div class="confirm-icons--container flex" ng-show="!vm.emailChangeStep">
             <div class="flex" ng-class="!vm.showUserNameContainer ? 'show' : ''">
               <svg class="icon edit-icon" ng-click="vm.showUserNameContainer=true;">
                   <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
@@ -39,6 +44,32 @@
                 <div class="tick_kick"></div>
               </button>
               <a class="cross" ng-click="vm.resetUsernameContainer()"></a>
+            </div>
+          </div>
+          <div class="email-otp--container" ng-show="vm.emailChangeStep === 'otp'">
+            <p class="email-otp--subtitle">{{ 'change_email_otp_subtitle' | translate }}</p>
+            <div class="input--wrapper">
+              <input id="emailOtp" name="emailOtp" ng-model="vm.emailOtp" type="text"
+                placeholder="{{ 'otp_validation_code_label' | translate }}"
+                class="input input--large"
+                ng-class="vm.emailOtpError ? 'error' : ''"
+                ng-change="vm.emailOtpError = null; vm.emailResendSuccess = false;"
+                maxlength="6" ng-maxlength="6" />
+              <div>
+                <span class="input--error" ng-show="vm.emailOtpError">
+                  <i class="arrow--up"></i>{{ vm.emailOtpError }}</span>
+              </div>
+            </div>
+            <div class="confirm-icons--container flex">
+              <button class="tick-icon" debounced-ng-click="vm.verifyEmailOtp();">
+                <div class="tick_stem"></div>
+                <div class="tick_kick"></div>
+              </button>
+              <a class="cross" ng-click="vm.resetUsernameContainer()"></a>
+            </div>
+            <div class="email-otp--resend">
+              <a class="resend--link" ng-click="vm.resendEmailOtp()">{{ 'otp_resend_code' | translate }}</a>
+              <span class="input--error green" ng-show="vm.emailResendSuccess">{{ 'otp_resend_succeed' | translate }}</span>
             </div>
           </div>
         </form>

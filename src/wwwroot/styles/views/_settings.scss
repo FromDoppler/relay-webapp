@@ -322,6 +322,13 @@
         cursor: pointer;
       }
     }
+    .item.user{
+      transition: all .3s ease;
+      overflow: hidden;
+      &.expanded{
+        max-height: toem(400px);
+      }
+    }
     .item.password{
       transition: all .3s ease;
       max-height: toem(130px);
@@ -350,6 +357,23 @@
     &.disabled{
       opacity: 0.5;
       cursor: auto;
+    }
+  }
+  .email-otp--container{
+    width: 100%;
+    margin-top: 1em;
+    .email-otp--subtitle{
+      font-size: 0.875rem;
+      color: #666;
+      margin-bottom: 0.5em;
+    }
+    .email-otp--resend{
+      margin-top: 0.5em;
+      .resend--link{
+        cursor: pointer;
+        font-size: 0.875rem;
+        text-decoration: underline;
+      }
     }
   }
   .inputs--container{
@@ -991,17 +1015,17 @@
       width: 100%;
       padding: 0.7rem 0;
     }
-    .input { 
+    .input {
       padding: 0.875em 0;
     }
-    
+
     max-height: toem(180px);
     min-height: toem(160px);
     &.expanded{
       .input{
         padding: 0.875em;
       }
-      max-height: toem(310px);
+      max-height: toem(500px);
       min-height: toem(170px);
     }
   }

@@ -34,6 +34,7 @@
       getApiToken: getApiToken,
       changePassword: changePassword,
       syncPassword: syncPassword,
+      syncEmail: syncEmail,
       getLimitsByAccount: getLimitsByAccount,
       getFreeTrialNotificationFromStorage: getFreeTrialNotificationFromStorage,
       addFreeTrialNotificationToStorage: addFreeTrialNotificationToStorage,
@@ -412,6 +413,30 @@
         data: {
           "user_email": getUserName(),
           "password": newPass
+        }
+      });
+    }
+
+    /**
+     * Synchronizes the email with the backend database without sending verification emails.
+     *
+     * This function is intended to be used AFTER the email has already been updated in Clerk.
+     * It performs a simple sync operation to keep the local database in sync with the external provider.
+     *
+     * @param {string} newEmail - The new email address (already verified externally)
+     * @returns {Promise} HTTP promise
+     */
+    function syncEmail(newEmail) {
+      return $http({
+        actionDescription: 'action_syncing_email',
+        method: 'PUT',
+        url: RELAY_CONFIG.baseUrl + '/user/email/sync',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          "old_email": getUserName(),
+          "new_email": newEmail
         }
       });
     }

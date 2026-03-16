@@ -29,6 +29,10 @@
           element.empty();
           element.append(container);
 
+          scope.$on('emailChanged', function (event, newEmail) {
+            emailSpan.text(newEmail);
+          });
+
           // Make email clickable to open Clerk menu
           emailWrapper.attr('tabindex', '0');
           emailWrapper.attr('title', 'Open user menu');
