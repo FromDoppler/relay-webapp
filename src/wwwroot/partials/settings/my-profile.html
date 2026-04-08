@@ -30,11 +30,13 @@
                   <i class="arrow--up"></i>{{'validation_error_email_already_exist' | translate}}</span>
                 <span class="input--error" ng-show="vm.emailChangeError">
                   <i class="arrow--up"></i>{{ vm.emailChangeError }}</span>
+                <span class="input--error" ng-show="vm.twoFactorRequiredMessage">
+                  <i class="arrow--up"></i>{{ vm.twoFactorRequiredMessage }}</span>
               </div>
             </div>
           <div class="confirm-icons--container flex" ng-show="!vm.emailChangeStep">
             <div class="flex" ng-class="!vm.showUserNameContainer ? 'show' : ''">
-              <svg class="icon edit-icon" ng-click="vm.showUserNameContainer=true;">
+              <svg class="icon edit-icon" ng-click="vm.startEmailChange();">
                   <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
               </svg>
             </div>

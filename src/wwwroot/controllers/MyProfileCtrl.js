@@ -29,6 +29,7 @@
     vm.changeUsername = changeUsername;
     vm.verifyEmailOtp = verifyEmailOtp;
     vm.resendEmailOtp = resendEmailOtp;
+    vm.startEmailChange = startEmailChange;
     vm.resetPasswordContainer = resetPasswordContainer;
     vm.resetUsernameContainer = resetUsernameContainer;
     vm.username = auth.getUserName();
@@ -41,6 +42,7 @@
     vm.emailChangeSuccess = false;
     vm.emailResendSuccess = false;
     vm.pendingNewEmail = null;
+    vm.twoFactorRequiredMessage = null;
 
     function updateValidation(form) {
       if (!form.pass.$modelValue || !form.confPass.$modelValue) {
@@ -138,6 +140,24 @@
       }
     }
 
+    function startEmailChange() {
+      vm.twoFactorRequiredMessage = null;
+
+      if (!vm.useClerkAuth) {
+        vm.showUserNameContainer = true;
+        return;
+      }
+
+      clerk.hasTwoFactorEnabled()
+        .then(function(enabled) {
+          if (enabled) {
+            vm.showUserNameContainer = true;
+          } else {
+            vm.twoFactorRequiredMessage = $translate.instant('two_factor_required_for_action');
+          }
+        });
+    }
+
     function changeUsername(form) {
       vm.usernameSubmitted = true;
       vm.existingEmail = false;
@@ -150,23 +170,30 @@
       var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
 
       if (useClerkAuth) {
-        clerk.createEmailAddress(form.username.$modelValue)
-          .then(function(result) {
-            if (!result.success) {
-              if (result.emailAlreadyExists) {
-                vm.existingEmail = true;
-                return;
-              }
-              if (result.invalidFormat) {
-                vm.emailChangeError = $translate.instant('change_email_invalid_format');
-                return;
-              }
-              vm.emailChangeError = result.error || $translate.instant('change_email_error');
+        clerk.hasTwoFactorEnabled()
+          .then(function(enabled) {
+            if (!enabled) {
+              vm.emailChangeError = $translate.instant('two_factor_required_for_action');
               return;
             }
+            return clerk.createEmailAddress(form.username.$modelValue)
+              .then(function(result) {
+                if (!result.success) {
+                  if (result.emailAlreadyExists) {
+                    vm.existingEmail = true;
+                    return;
+                  }
+                  if (result.invalidFormat) {
+                    vm.emailChangeError = $translate.instant('change_email_invalid_format');
+                    return;
+                  }
+                  vm.emailChangeError = result.error || $translate.instant('change_email_error');
+                  return;
+                }
 
-            vm.emailChangeStep = 'otp';
-            vm.pendingNewEmail = form.username.$modelValue;
+                vm.emailChangeStep = 'otp';
+                vm.pendingNewEmail = form.username.$modelValue;
+              });
           })
           .catch(function(error) {
             vm.emailChangeError = $translate.instant('change_email_error');
@@ -258,6 +285,7 @@
       vm.emailOtpError = null;
       vm.emailResendSuccess = false;
       vm.pendingNewEmail = null;
+      vm.twoFactorRequiredMessage = null;
       vm.username = auth.getUserName();
     }
 
