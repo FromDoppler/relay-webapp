@@ -373,7 +373,7 @@ window['relay-translation-es'] = {
   "change_email_invalid_format": "Por favor ingresa una dirección de email válida.",
   "change_email_error": "Ocurrió un error al cambiar tu email. Por favor intenta nuevamente.",
   "change_email_db_error": "Email actualizado pero falló la sincronización con la base de datos. Por favor contacta a soporte.",
-  "two_factor_required_for_action": "Para realizar esta acción, es necesario que actives la autenticación de dos factores.",
+  "two_factor_required_for_action": "Para realizar esta acción, es necesario que actives la autenticación de dos factores. Podés activarla desde Administrar Cuenta > Seguridad.",
   "user_text": "Usuario",
   "plans_text": "Mi Plan",
   "billing_text": "Facturación",
