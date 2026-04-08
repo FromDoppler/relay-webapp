@@ -26,6 +26,7 @@
       mountUserButton: mountUserButton,
       isAuthenticated: isAuthenticated,
       updatePassword: updatePassword,
+      hasTwoFactorEnabled: hasTwoFactorEnabled,
       createEmailAddress: createEmailAddress,
       verifyEmailChange: verifyEmailChange,
       resendEmailChangeOtp: resendEmailChangeOtp
@@ -575,6 +576,19 @@
         })
         .catch(function (error) {
           return $q.reject('Failed to update password: ' + error);
+        });
+    }
+
+    function hasTwoFactorEnabled() {
+      return _instance()
+        .then(function (clerk) {
+          if (!clerk.user) {
+            return false;
+          }
+          return clerk.user.twoFactorEnabled || false;
+        })
+        .catch(function () {
+          return false;
         });
     }
 
