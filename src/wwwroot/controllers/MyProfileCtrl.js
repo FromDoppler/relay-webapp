@@ -29,6 +29,7 @@
     vm.changeUsername = changeUsername;
     vm.verifyEmailOtp = verifyEmailOtp;
     vm.resendEmailOtp = resendEmailOtp;
+    vm.startEmailChange = startEmailChange;
     vm.resetPasswordContainer = resetPasswordContainer;
     vm.resetUsernameContainer = resetUsernameContainer;
     vm.username = auth.getUserName();
@@ -41,6 +42,7 @@
     vm.emailChangeSuccess = false;
     vm.emailResendSuccess = false;
     vm.pendingNewEmail = null;
+    vm.twoFactorRequiredMessage = null;
 
     function updateValidation(form) {
       if (!form.pass.$modelValue || !form.confPass.$modelValue) {
@@ -136,6 +138,24 @@
           }
         });
       }
+    }
+
+    function startEmailChange() {
+      vm.twoFactorRequiredMessage = null;
+
+      if (!vm.useClerkAuth) {
+        vm.showUserNameContainer = true;
+        return;
+      }
+
+      clerk.hasTwoFactorEnabled()
+        .then(function(enabled) {
+          if (enabled) {
+            vm.showUserNameContainer = true;
+          } else {
+            vm.twoFactorRequiredMessage = $translate.instant('two_factor_required_for_action');
+          }
+        });
     }
 
     function changeUsername(form) {
@@ -258,6 +278,7 @@
       vm.emailOtpError = null;
       vm.emailResendSuccess = false;
       vm.pendingNewEmail = null;
+      vm.twoFactorRequiredMessage = null;
       vm.username = auth.getUserName();
     }
 
