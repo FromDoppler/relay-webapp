@@ -359,7 +359,7 @@
   "change_email_invalid_format": "Please enter a valid email address.",
   "change_email_error": "An error occurred while changing your email. Please try again.",
   "change_email_db_error": "Email updated but failed to sync with database. Please contact support.",
-  "two_factor_required_for_action": "To perform this action, you need to enable two-factor authentication. You can activate it from Manage Account > Security.",
+  "two_factor_required_for_action": "To perform this action securely, you first need to enable two-step authentication. You can do it from Manage Account > Security.",
   "user_text": "User",
   "plans_text": "My plan",
   "billing_text": "Billing",
