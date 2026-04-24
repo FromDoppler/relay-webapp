@@ -254,7 +254,12 @@
     });
 
     var _authReadyResolved = false;
-    auth.ready.finally(function () { _authReadyResolved = true; });
+    auth.ready.finally(function () {
+      _authReadyResolved = true;
+      if ($location.path() === '/login' && auth.isAuthed() && !auth.isTemporarilyAuthed()) {
+        $location.path(auth.getDefaultUrl() || '/reports');
+      }
+    });
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
       var nextRelativeUrl = (next && next.split('#')[1]) || '/';
@@ -270,6 +275,7 @@
       }
 
       var unauthenticatedAllowed = [
+        '/login',
         '/signup/registration',
         '/signup/otp-validation',
         '/signup/confirmation',
