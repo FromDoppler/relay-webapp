@@ -111,4 +111,40 @@ describe('Login', () => {
       expect(auth.isAuthed()).toBe(false);
     });
   });
+
+  describe('visiting /login with an existing session', () => {
+    it('should redirect an already-authenticated user to /reports and keep the session', () => {
+      // Arrange
+      var { $location, $scope, auth } = createContext();
+      auth.loginByToken('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE0ODQ2MzAzMTgsImV4cCI6MTQ4NzIyMjMxOCwiaWF0IjoxNDg0NjMwMzE4LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwic3ViIjoxMDAzLCJ1bmlxdWVfbmFtZSI6ImFtb3NjaGluaUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9hY2NvdW50cyI6WyJhbW9zY2hpbmktbWFraW5nc2Vuc2UiXSwicmVsYXlfdG9rZW5fdmVyc2lvbiI6IjEuMC4wLWJldGE1In0.dQh20ukVSCP0rNXMWBh2DlPQXbP0uTaYzadRDNPXECI9lvCsgDKNXc2bToXAUQDeXw90kbHliVF-kCueW4gQLPBtMJOcHQFv6LfgspsG2jue2iMwoBC1q6UB_4xFlGoyhkRjldnQUV0oqBTzhFdXuTvQz53kRPiqILCHkd4FLl4KliBgdaDRwWz-HIjJwinMpnv_7V38CNvHlHo-q2XU0MnE3CsGXmWGoAgzN7rbeQPgI9azHXpbaUPh9n_4zjCydOSBC5tx7MtEAx3ivfFYImBPp2T2vUM-F5AwRh7hl_lMUvyQLal0S_spoT0XMGy8YhnjxXLoZeVRisWbxBmucQ');
+      expect(auth.isAuthed()).toBe(true);
+      expect(auth.isTemporarilyAuthed()).toBe(false);
+
+      // Act
+      $location.path('/login');
+      $scope.$apply();
+
+      // Assert
+      expect($location.path()).toBe('/reports');
+      expect(auth.isAuthed()).toBe(true);
+      expect(auth.getUserName()).toBe('amoschini@makingsense.com');
+    });
+
+    it('should clear the temporal session and stay on /login when the user is only temporally authed', () => {
+      // Arrange
+      var { $location, $scope, auth } = createContext();
+      auth.loginByToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE0ODQ2MjAxMjEsImV4cCI6MTUyODIwNDQzNCwiaWF0IjoxNDg0NjIwMTIxLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjM0NzUxIiwidW5pcXVlX25hbWUiOiJhbW9zY2hpbmkrMUBtYWtpbmdzZW5zZS5jb20iLCJyZWxheV9vbl9wYXNzd29yZF9yZXNldCI6dHJ1ZSwicmVsYXlfdGVtcG9yYWxfdG9rZW4iOnRydWV9.gecKe6J6zQL7mHceq42fgjdpTUcVeQEBtSNp0mbI6Ig');
+      expect(auth.isAuthed()).toBe(true);
+      expect(auth.isTemporarilyAuthed()).toBe(true);
+
+      // Act
+      $location.path('/login');
+      $scope.$apply();
+
+      // Assert
+      expect($location.path()).toBe('/login');
+      expect(auth.isAuthed()).toBe(false);
+      expect(auth.isTemporarilyAuthed()).toBe(false);
+    });
+  });
 });

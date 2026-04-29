@@ -254,12 +254,16 @@
     });
 
     var _authReadyResolved = false;
-    auth.ready.finally(function () { _authReadyResolved = true; });
+    auth.ready.finally(function () {
+      _authReadyResolved = true;
+      if ($location.path() === '/login' && auth.isAuthed() && !auth.isTemporarilyAuthed()) {
+        $location.path(auth.getDefaultUrl() || '/reports');
+      }
+    });
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
       var nextRelativeUrl = (next && next.split('#')[1]) || '/';
       var forceLogoutUrls = [
-        '/login',
         '/signup/registration',
         '/signup/otp-validation',
         '/signup/succeed',
@@ -340,7 +344,8 @@
 
   function verifyAuthorization($location, auth) {
     var openForAllUrls = ['/signup/error', '/temporal-token-error', '/dkim-configuration-tutorial'];
-    var requireLogoutUrls = ['/signup/confirmation', '/login', '/signup/registration', '/signup/otp-validation', '/signup/succeed', '/loginAdmin'];
+    var requireLogoutUrls = ['/signup/confirmation', '/signup/registration', '/signup/otp-validation', '/signup/succeed', '/loginAdmin'];
+    var redirectIfAuthedUrls = ['/login'];
     var requireTemporalAuthUrls = ['/reset-password', '/change-email'];
 
     // TODO: optimize it
@@ -349,8 +354,9 @@
     var userIsAuthedTemporarily = userIsAuthed && auth.isTemporarilyAuthed();
     var pageOpenForAll = openForAllUrls.includes(currentPath);
     var pageRequireLogout = requireLogoutUrls.includes(currentPath);
+    var pageRedirectIfAuthed = redirectIfAuthedUrls.includes(currentPath);
     var pageRequireTemporalAuth = requireTemporalAuthUrls.includes(currentPath);
-        
+
     if(!auth.isUrlAllowed(currentPath)) {
       $location.path(auth.getDefaultUrl() || '/login');
     }
@@ -363,6 +369,18 @@
     if (pageRequireLogout) {
       // It is not necessary to test if userIsAuthed
       auth.logOut();
+      return;
+    }
+
+    if (pageRedirectIfAuthed) {
+      if (userIsAuthedTemporarily) {
+        auth.logOut();
+        return;
+      }
+      if (userIsAuthed) {
+        $location.path(auth.getDefaultUrl() || '/reports');
+        return;
+      }
       return;
     }
 
