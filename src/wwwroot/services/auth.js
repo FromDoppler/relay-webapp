@@ -27,6 +27,9 @@
       // deprecated
       getAccountId: getAccountId,
       getProfile: getProfile,
+      isFullAccessProfile: isFullAccessProfile,
+      canChangePassword: canChangePassword,
+      canManageApiKey: canManageApiKey,
       getUserName: getUserName,
       getFullName: getFullName,
       forgotPassword: forgotPassword,
@@ -162,6 +165,7 @@
           acceptedUrlsPattern: /^#?\/settings\//,
           defaultUrl: "/settings/connection-settings"
         };
+        case "member": return null;
         default: return null;
       }
     }
@@ -336,6 +340,19 @@
 
     function getProfile() {
       return loginSession && loginSession.profile;
+    }
+
+    function isFullAccessProfile() {
+      var profile = getProfile();
+      return !profile || profile === 'member';
+    }
+
+    function canChangePassword() {
+      return !getProfile();
+    }
+
+    function canManageApiKey() {
+      return !getProfile();
     }
 
     function getUserName() {

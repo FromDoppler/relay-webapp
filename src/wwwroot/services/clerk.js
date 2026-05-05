@@ -431,12 +431,12 @@
       }
 
       options = options || {};
-      var profile = options.profile;
+      var isFullAccess = options.isFullAccess;
 
       return _instance().then(function (clerk) {
           var customMenuItems = [];
 
-          if (!profile) {
+          if (isFullAccess) {
             customMenuItems = [
               {
                 label: $translate.instant('submenu_my_profile'),

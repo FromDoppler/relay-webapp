@@ -52,8 +52,7 @@
             openClerkMenu();
           });
 
-          var profile = auth.getProfile();
-          clerk.mountUserButton(buttonHost[0], { profile: profile });
+          clerk.mountUserButton(buttonHost[0], { isFullAccess: auth.isFullAccessProfile() });
         }
       }
     };

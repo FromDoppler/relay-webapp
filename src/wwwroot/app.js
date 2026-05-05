@@ -235,12 +235,11 @@
     $rootScope.$on('$translateChangeEnd', applyCultureFormats);
 
     function updateProfileClass() {
-      var profile = auth.getProfile();
       var body = angular.element(document.body);
 
       body.removeClass('profile-restricted');
 
-      if (profile) {
+      if (!auth.isFullAccessProfile()) {
         body.addClass('profile-restricted');
       }
     }

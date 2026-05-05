@@ -77,7 +77,7 @@
         </form>
       </div>
     </div>
-    <div class="item flex password" ng-class="vm.showChangePassContainer ? 'expanded' : 'collapsed'">
+    <div class="item flex password" ng-class="vm.showChangePassContainer ? 'expanded' : 'collapsed'" ng-if="vm.canChangePassword">
       <div class="flex one flex--vertically-start">
         <label class="special uppercase" for="name">{{'password_simple_placeholder' | translate}}</label>
       </div>
