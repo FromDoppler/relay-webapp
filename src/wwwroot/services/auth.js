@@ -28,10 +28,8 @@
       getAccountId: getAccountId,
       getProfile: getProfile,
       isFullAccessProfile: isFullAccessProfile,
-      canChangePassword: canChangePassword,
       canChangeEmail: canChangeEmail,
       canManageApiKey: canManageApiKey,
-      canManageAccount: canManageAccount,
       getUserName: getUserName,
       getFullName: getFullName,
       forgotPassword: forgotPassword,
@@ -349,19 +347,11 @@
       return !profile || profile === 'member';
     }
 
-    function canChangePassword() {
-      return !getProfile();
-    }
-
     function canChangeEmail() {
       return !getProfile();
     }
 
     function canManageApiKey() {
-      return !getProfile();
-    }
-
-    function canManageAccount() {
       return !getProfile();
     }
 

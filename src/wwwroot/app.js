@@ -239,7 +239,7 @@
 
       body.removeClass('profile-restricted');
 
-      if (!auth.canManageAccount()) {
+      if (!auth.isFullAccessProfile()) {
         body.addClass('profile-restricted');
       }
     }
