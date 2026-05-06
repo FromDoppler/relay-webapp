@@ -29,7 +29,9 @@
       getProfile: getProfile,
       isFullAccessProfile: isFullAccessProfile,
       canChangePassword: canChangePassword,
+      canChangeEmail: canChangeEmail,
       canManageApiKey: canManageApiKey,
+      canManageAccount: canManageAccount,
       getUserName: getUserName,
       getFullName: getFullName,
       forgotPassword: forgotPassword,
@@ -351,7 +353,15 @@
       return !getProfile();
     }
 
+    function canChangeEmail() {
+      return !getProfile();
+    }
+
     function canManageApiKey() {
+      return !getProfile();
+    }
+
+    function canManageAccount() {
       return !getProfile();
     }
 
