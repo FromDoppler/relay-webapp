@@ -17,10 +17,11 @@
     '$interval',
     '$translate',
     'utils',
-    'RELAY_CONFIG'
+    'RELAY_CONFIG',
+    'constants'
   ];
 
-  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval, $translate, utils, RELAY_CONFIG) {
+  function MainCtrl($rootScope, $scope, $window, $location, auth, $log, ModalService, $route, $interval, $translate, utils, RELAY_CONFIG, constants) {
      
     var key = utils.getPreferredLanguage();
     $translate.use(key);
@@ -191,7 +192,7 @@
     };
     $rootScope.setSubmenues = function (newItems) {
       submenues = (newItems || []).filter(function (item) {
-        if (item.url === 'settings/my-billing-information' && !auth.canViewBillingInformation()) {
+        if (item.url === constants.URLS.MY_BILLING_INFORMATION && !auth.canViewBillingInformation()) {
           return false;
         }
         return true;
