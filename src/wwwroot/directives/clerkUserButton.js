@@ -52,7 +52,10 @@
             openClerkMenu();
           });
 
-          clerk.mountUserButton(buttonHost[0], { isFullAccess: auth.isFullAccessProfile() });
+          clerk.mountUserButton(buttonHost[0], {
+            isFullAccess: auth.isFullAccessProfile(),
+            canViewBilling: auth.canViewBillingInformation()
+          });
         }
       }
     };

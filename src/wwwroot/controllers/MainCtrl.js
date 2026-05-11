@@ -36,6 +36,10 @@
       return auth.getUserName();
     };
 
+    $rootScope.canViewBillingInformation = function () {
+      return auth.canViewBillingInformation();
+    };
+
     $rootScope.getTermsAndConditionsVersion = function () {
       return 2;
     };
