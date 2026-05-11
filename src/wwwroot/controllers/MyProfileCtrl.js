@@ -33,6 +33,7 @@
     vm.resetPasswordContainer = resetPasswordContainer;
     vm.resetUsernameContainer = resetUsernameContainer;
     vm.username = auth.getUserName();
+    vm.canChangeEmail = auth.canChangeEmail();
     vm.useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
     vm.passwordValidationError = null;
     vm.emailChangeStep = null;

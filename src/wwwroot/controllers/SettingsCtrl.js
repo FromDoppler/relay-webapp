@@ -11,10 +11,11 @@
     'RELAY_CONFIG',
     'settings',
     '$translate',
-    'ModalService'
+    'ModalService',
+    'auth'
   ];
 
-  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate, ModalService) {
+  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate, ModalService, auth) {
     $rootScope.setSubmenues([
       { text: 'domains_text', url: 'settings/domain-manager', active: false },
       { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }      
@@ -32,6 +33,7 @@
     
     vm.apiKeySentSuccefully = false;
     vm.apiKeySentFailed = false;
+    vm.canManageApiKey = auth.canManageApiKey();
 
     vm.requestApiKey = function () {
       vm.loadInProgress = true;

@@ -27,6 +27,10 @@
       // deprecated
       getAccountId: getAccountId,
       getProfile: getProfile,
+      isFullAccessProfile: isFullAccessProfile,
+      canChangeEmail: canChangeEmail,
+      canManageApiKey: canManageApiKey,
+      canViewBillingInformation: canViewBillingInformation,
       getUserName: getUserName,
       getFullName: getFullName,
       forgotPassword: forgotPassword,
@@ -162,14 +166,26 @@
           acceptedUrlsPattern: /^#?\/settings\//,
           defaultUrl: "/settings/connection-settings"
         };
+        case "member": return {
+          deniedUrlsPattern: /^#?\/settings\/my-billing-information(\/.*)?$/,
+          defaultUrl: "/reports"
+        };
         default: return null;
       }
     }
 
     function isUrlAllowed(url) {
-      return !loginSession 
-        || !loginSession.permissions
-        || loginSession.permissions.acceptedUrlsPattern.test(url);
+      if (!loginSession || !loginSession.permissions) {
+        return true;
+      }
+      var p = loginSession.permissions;
+      if (p.deniedUrlsPattern && p.deniedUrlsPattern.test(url)) {
+        return false;
+      }
+      if (p.acceptedUrlsPattern && !p.acceptedUrlsPattern.test(url)) {
+        return false;
+      }
+      return true;
     }
 
     function getDefaultUrl() {
@@ -336,6 +352,23 @@
 
     function getProfile() {
       return loginSession && loginSession.profile;
+    }
+
+    function isFullAccessProfile() {
+      var profile = getProfile();
+      return !profile || profile === 'member';
+    }
+
+    function canChangeEmail() {
+      return !getProfile();
+    }
+
+    function canManageApiKey() {
+      return !getProfile();
+    }
+
+    function canViewBillingInformation() {
+      return !getProfile();
     }
 
     function getUserName() {

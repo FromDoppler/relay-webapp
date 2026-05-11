@@ -431,12 +431,13 @@
       }
 
       options = options || {};
-      var profile = options.profile;
+      var isFullAccess = options.isFullAccess;
+      var canViewBilling = options.canViewBilling;
 
       return _instance().then(function (clerk) {
           var customMenuItems = [];
 
-          if (!profile) {
+          if (isFullAccess) {
             customMenuItems = [
               {
                 label: $translate.instant('submenu_my_profile'),
@@ -469,16 +470,19 @@
                   el.innerHTML = '' //'📈'
                 },
                 unmountIcon: function() {},
-              },
-              {
+              }
+            ];
+
+            if (canViewBilling) {
+              customMenuItems.push({
                 label: $translate.instant('submenu_my_billing_information'),
                 href: '#/settings/my-billing-information',
                 mountIcon: function(el) {
                   el.innerHTML = '' //'💳'
                 },
                 unmountIcon: function() {},
-              }
-            ];
+              });
+            }
           }
 
           customMenuItems.push({

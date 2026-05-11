@@ -32,7 +32,7 @@
       <p>{{getAccountName()}}</p>
     </div>
   </div>
-  <div class="connection--settings-data-container" ng-if="!vm.loadInProgress">
+  <div class="connection--settings-data-container" ng-if="!vm.loadInProgress && vm.canManageApiKey">
     <div class="api-key-actions">
         <label>{{'connection-settings_api_key_title' | translate}}</label>
         <p>
