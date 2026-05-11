@@ -190,7 +190,12 @@
       return submenues;
     };
     $rootScope.setSubmenues = function (newItems) {
-      submenues = newItems;
+      submenues = (newItems || []).filter(function (item) {
+        if (item.url === 'settings/my-billing-information' && !auth.canViewBillingInformation()) {
+          return false;
+        }
+        return true;
+      });
     };
     $rootScope.isSubmenuVisible = function () {
       return submenues.length > 0;
