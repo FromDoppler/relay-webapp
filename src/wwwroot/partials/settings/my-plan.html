@@ -27,7 +27,7 @@
         <spinner class="spinner" ng-class="vm.planInfoLoader ?  'show':'hide'"></spinner>
       </div>
       <div class="flex one flex--wrap">
-        <button ng-show="vm.hasScheduledPlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'change_plan_text' | translate }}</button>
+        <button ng-if="vm.canChangePlan" ng-show="vm.hasScheduledPlan" class="button button--small" ng-class="vm.pricingChartDisplayed ? 'button--disabled' : 'active'" ng-click="vm.showPricingChart();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'change_plan_text' | translate }}</button>
       </div>
     </div>
     <div class="item flex flex--wrap">

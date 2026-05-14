@@ -41,6 +41,10 @@
       return auth.canViewBillingInformation();
     };
 
+    $rootScope.canChangePlan = function () {
+      return auth.canChangePlan();
+    };
+
     $rootScope.getTermsAndConditionsVersion = function () {
       return 2;
     };

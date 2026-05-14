@@ -27,6 +27,7 @@
       { text: 'submenu_my_billing_information', url: 'settings/my-billing-information', active: false }
     ]);
     vm.hideDragMe = false;
+    vm.canChangePlan = auth.canChangePlan();
     vm.activationPromise = activate();
     var defaultPlanDeliveries = '60000';
     var planItems;
