@@ -38,6 +38,7 @@
     ]);
     var queryParams = $location.search();
     var planName = queryParams['plan'];
+    vm.canChangePlan = auth.canChangePlan();
     vm.activationPromise = activate();
     vm.redirectToPlanSelection = redirectToPlanSelection;
     vm.cancelAction = cancelAction;

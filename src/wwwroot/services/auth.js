@@ -31,6 +31,7 @@
       canChangeEmail: canChangeEmail,
       canManageApiKey: canManageApiKey,
       canViewBillingInformation: canViewBillingInformation,
+      canChangePlan: canChangePlan,
       getUserName: getUserName,
       getFullName: getFullName,
       forgotPassword: forgotPassword,
@@ -167,7 +168,7 @@
           defaultUrl: "/settings/connection-settings"
         };
         case "member": return {
-          deniedUrlsPattern: /^#?\/settings\/my-billing-information(\/.*)?$/,
+          deniedUrlsPattern: /^#?\/settings\/(my-billing-information|billing)(\/.*)?$/,
           defaultUrl: "/reports"
         };
         default: return null;
@@ -368,6 +369,10 @@
     }
 
     function canViewBillingInformation() {
+      return !getProfile();
+    }
+
+    function canChangePlan() {
       return !getProfile();
     }
 

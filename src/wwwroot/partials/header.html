@@ -10,7 +10,7 @@
         <span ng-show="accountLimits.requiresDomainConfiguration">{{'domain_not_ready_header_text' | translate}}</span>
       </strong>
     </p>
-    <a ng-show="!accountLimits.requiresDomainConfiguration" class="button button--extra-small button--white" href="#/settings/my-plan" link-toggler>
+    <a ng-show="!accountLimits.requiresDomainConfiguration && canChangePlan()" class="button button--extra-small button--white" href="#/settings/my-plan" link-toggler>
       <strong>{{'upgrade_plan_exclamation' | translate}}</strong>
     </a>
     <a ng-show="accountLimits.requiresDomainConfiguration" class="button button--extra-small button--white" href="#/settings/domain-manager#highlighError" link-toggler>
@@ -50,7 +50,7 @@
       </a>
     </nav>
     <nav class="right--container" ng-if="isPermanentAuthed()">
-      <a class="upgrade--link" href="#/settings/my-plan" link-toggler>{{'upgrade_link' | translate}}</a>
+      <a class="upgrade--link" href="#/settings/my-plan" link-toggler ng-if="canChangePlan()">{{'upgrade_link' | translate}}</a>
       <div click-outside="hideConfigDropDown()" class="right-container" ng-if="!useClerkAuth || isImpersonating()">
         <p class="header--config-menu-trigger" ng-click="toggleConfigDropDown()"><span>{{getLoggedUserEmail()}}</span><span class="icon--config-menu shapped--arrow shapped--arrow-down" ng-class="{true: 'shapped--arrow-up',false:'shapped--arrow-down'}[arrowUp]"></span></p>
         <div class="header--config-menu" ng-class="{true: 'show'}[arrowUp]">
