@@ -14,10 +14,11 @@
     '$timeout',
     'settings',
     'clerk',
-    'RELAY_CONFIG'
+    'RELAY_CONFIG',
+    'featureGating'
   ];
 
-  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, clerk, RELAY_CONFIG, $http) {
+  function MyProfileCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, clerk, RELAY_CONFIG, featureGating, $http) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: true },
@@ -44,6 +45,15 @@
     vm.emailResendSuccess = false;
     vm.pendingNewEmail = null;
     vm.twoFactorRequiredMessage = null;
+    vm.emailChange2faStatus = 'allowed';
+
+    refreshEmailChange2faStatus();
+
+    function refreshEmailChange2faStatus() {
+      featureGating.evaluate('update_email').then(function (status) {
+        vm.emailChange2faStatus = status;
+      });
+    }
 
     function updateValidation(form) {
       if (!form.pass.$modelValue || !form.confPass.$modelValue) {

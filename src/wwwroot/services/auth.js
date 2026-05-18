@@ -46,7 +46,8 @@
       changeEmail: changeEmail,
       isUrlAllowed: isUrlAllowed,
       getDefaultUrl: getDefaultUrl,
-      isImpersonating: isImpersonating
+      isImpersonating: isImpersonating,
+      isFeatureGatedBy2Fa: isFeatureGatedBy2Fa
     };
     var loginSession = null;
     // Flag to skip restoring session while navigating to routes that require logout
@@ -143,7 +144,8 @@
         expiration: decodedToken.exp,
         temporaryToken: decodedToken.relay_temporal_token,
         forceMsEditor: decodedToken.force_mseditor,
-        profile: decodedToken.profile
+        profile: decodedToken.profile,
+        feat2FaBloq: decodedToken.feat_2fa_bloq || {}
       };
     }
 
@@ -565,6 +567,10 @@
 
     function isImpersonating() {
       return _isImpersonating;
+    }
+
+    function isFeatureGatedBy2Fa(featureName) {
+      return !!(loginSession && loginSession.feat2FaBloq && loginSession.feat2FaBloq[featureName] === true);
     }
   }
 })();
