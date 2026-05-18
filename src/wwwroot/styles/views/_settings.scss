@@ -321,6 +321,11 @@
         border-bottom: 1px solid $suit-accent-color;
         cursor: pointer;
       }
+      .edit-icon.is-disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        pointer-events: auto;
+      }
     }
     .item.user{
       transition: all .3s ease;
