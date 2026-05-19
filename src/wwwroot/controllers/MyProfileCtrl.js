@@ -159,14 +159,14 @@
         return;
       }
 
-      clerk.hasTwoFactorEnabled()
-        .then(function(enabled) {
-          if (enabled) {
-            vm.showUserNameContainer = true;
-          } else {
-            vm.twoFactorRequiredMessage = $translate.instant('two_factor_required_for_action');
-          }
-        });
+      featureGating.evaluate('update_email').then(function(status) {
+        vm.emailChange2faStatus = status;
+        if (status === featureGating.STATUS_BLOCKED_NEEDS_2FA) {
+          vm.twoFactorRequiredMessage = $translate.instant('two_factor_required_for_action');
+          return;
+        }
+        vm.showUserNameContainer = true;
+      });
     }
 
     function changeUsername(form) {
@@ -181,30 +181,23 @@
       var useClerkAuth = RELAY_CONFIG.useClerkAuthentication || false;
 
       if (useClerkAuth) {
-        clerk.hasTwoFactorEnabled()
-          .then(function(enabled) {
-            if (!enabled) {
-              vm.emailChangeError = $translate.instant('two_factor_required_for_action');
+        clerk.createEmailAddress(form.username.$modelValue)
+          .then(function(result) {
+            if (!result.success) {
+              if (result.emailAlreadyExists) {
+                vm.existingEmail = true;
+                return;
+              }
+              if (result.invalidFormat) {
+                vm.emailChangeError = $translate.instant('change_email_invalid_format');
+                return;
+              }
+              vm.emailChangeError = result.error || $translate.instant('change_email_error');
               return;
             }
-            return clerk.createEmailAddress(form.username.$modelValue)
-              .then(function(result) {
-                if (!result.success) {
-                  if (result.emailAlreadyExists) {
-                    vm.existingEmail = true;
-                    return;
-                  }
-                  if (result.invalidFormat) {
-                    vm.emailChangeError = $translate.instant('change_email_invalid_format');
-                    return;
-                  }
-                  vm.emailChangeError = result.error || $translate.instant('change_email_error');
-                  return;
-                }
 
-                vm.emailChangeStep = 'otp';
-                vm.pendingNewEmail = form.username.$modelValue;
-              });
+            vm.emailChangeStep = 'otp';
+            vm.pendingNewEmail = form.username.$modelValue;
           })
           .catch(function(error) {
             vm.emailChangeError = $translate.instant('change_email_error');

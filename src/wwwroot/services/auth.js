@@ -47,7 +47,7 @@
       isUrlAllowed: isUrlAllowed,
       getDefaultUrl: getDefaultUrl,
       isImpersonating: isImpersonating,
-      isFeatureGatedBy2Fa: isFeatureGatedBy2Fa
+      getFeature2FaOverride: getFeature2FaOverride
     };
     var loginSession = null;
     // Flag to skip restoring session while navigating to routes that require logout
@@ -569,8 +569,15 @@
       return _isImpersonating;
     }
 
-    function isFeatureGatedBy2Fa(featureName) {
-      return !!(loginSession && loginSession.feat2FaBloq && loginSession.feat2FaBloq[featureName] === true);
+    // Reads the `feat_2fa_bloq` claim for a feature. Returns the explicit
+    // override (true = gated behind 2FA, false = 2FA bypass) or undefined when
+    // the claim does not mention it, so callers fall back to the default.
+    function getFeature2FaOverride(featureName) {
+      if (!loginSession || !loginSession.feat2FaBloq) {
+        return undefined;
+      }
+      var value = loginSession.feat2FaBloq[featureName];
+      return value === true || value === false ? value : undefined;
     }
   }
 })();
