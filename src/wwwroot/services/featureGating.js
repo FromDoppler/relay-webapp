@@ -12,7 +12,8 @@
     var STATUS_BLOCKED_NEEDS_2FA = 'blocked-needs-2fa';
 
     var DEFAULT_2FA_GATED = {
-      update_email: true
+      update_email: true,
+      manage_apikeys: true
     };
 
     return {
