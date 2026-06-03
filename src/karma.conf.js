@@ -75,6 +75,7 @@ module.exports = function (config) {
       __dirname + '/wwwroot/filters/numberFormat.js',
       __dirname + '/wwwroot/services/auth.js',
       __dirname + '/wwwroot/services/clerk.js',
+      __dirname + '/wwwroot/services/featureGating.js',
       __dirname + '/wwwroot/services/linkUtilities.js',
       __dirname + '/wwwroot/services/reports.js',
       __dirname + '/wwwroot/services/templates.js',

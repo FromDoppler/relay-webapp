@@ -48,6 +48,13 @@
     div.api-key-actions p button{
       margin-right: 5px;
     }
+
+    div.api-key-actions p button.is-disabled,
+    div.api-key-actions p button.is-disabled:hover{
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: auto;
+    }
   }
   .spinner{
     fill:$suit-accent-color; padding:torem(15px);background-color:initial;height:torem(59px);width:torem(59px);border-radius:0 5px 5px 0;left: 50%;top:100%;transform: translate(-50%,-50%);position: absolute;
@@ -320,6 +327,11 @@
       .edit-item{
         border-bottom: 1px solid $suit-accent-color;
         cursor: pointer;
+      }
+      .edit-icon.is-disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        pointer-events: auto;
       }
     }
     .item.user{

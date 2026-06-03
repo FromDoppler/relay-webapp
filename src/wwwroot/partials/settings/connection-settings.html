@@ -36,8 +36,18 @@
     <div class="api-key-actions">
         <label>{{'connection-settings_api_key_title' | translate}}</label>
         <p>
-          <button class="button button--small" type="submit" ng-click="vm.requestApiKey()">{{'connection-settings_request_api_key' | translate}}</button>
-          <button class="button button--small button--white" type="submit" ng-click="vm.resetApiKey()">{{'connection-settings_reset_api_key' | translate}}</button>
+          <button class="button button--small" type="submit"
+            ng-class="{ 'is-disabled': vm.apiKey2faStatus === 'blocked-needs-2fa' }"
+            ng-click="vm.apiKey2faStatus === 'blocked-needs-2fa' ? null : vm.requestApiKey()"
+            tooltips
+            tooltip-template="{{ 'two_factor_required_for_action' | translate }}"
+            tooltip-hidden="{{ vm.apiKey2faStatus !== 'blocked-needs-2fa' }}">{{'connection-settings_request_api_key' | translate}}</button>
+          <button class="button button--small button--white" type="submit"
+            ng-class="{ 'is-disabled': vm.apiKey2faStatus === 'blocked-needs-2fa' }"
+            ng-click="vm.apiKey2faStatus === 'blocked-needs-2fa' ? null : vm.resetApiKey()"
+            tooltips
+            tooltip-template="{{ 'two_factor_required_for_action' | translate }}"
+            tooltip-hidden="{{ vm.apiKey2faStatus !== 'blocked-needs-2fa' }}">{{'connection-settings_reset_api_key' | translate}}</button>
         </p>
     </div>
     <div ng-if="vm.apiKeySentSuccefully" class="api-key-request-result">
