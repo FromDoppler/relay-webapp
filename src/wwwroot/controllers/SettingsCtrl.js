@@ -12,13 +12,14 @@
     'settings',
     '$translate',
     'ModalService',
-    'auth'
+    'auth',
+    'featureGating'
   ];
 
-  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate, ModalService, auth) {
+  function SettingsCtrl($scope, $rootScope, RELAY_CONFIG, settings, $translate, ModalService, auth, featureGating) {
     $rootScope.setSubmenues([
       { text: 'domains_text', url: 'settings/domain-manager', active: false },
-      { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }      
+      { text: 'submenu_smtp', url: 'settings/connection-settings', active: true }
     ]);
     var vm = this;
     vm.loadInProgress = true;
@@ -30,12 +31,31 @@
     vm.toggleShowPassword = function () {
       vm.inputType = vm.inputType != 'password' ? 'password' : 'text';
     }
-    
+
     vm.apiKeySentSuccefully = false;
     vm.apiKeySentFailed = false;
     vm.canManageApiKey = auth.canManageApiKey();
+    vm.apiKey2faStatus = 'allowed';
+
+    refreshApiKey2faStatus();
+
+    function refreshApiKey2faStatus() {
+      featureGating.evaluate('manage_apikeys').then(function (status) {
+        vm.apiKey2faStatus = status;
+      });
+    }
 
     vm.requestApiKey = function () {
+      featureGating.evaluate('manage_apikeys').then(function (status) {
+        vm.apiKey2faStatus = status;
+        if (status === featureGating.STATUS_BLOCKED_NEEDS_2FA) {
+          return;
+        }
+        doRequestApiKey();
+      });
+    }
+
+    function doRequestApiKey() {
       vm.loadInProgress = true;
       vm.apiKeySentSuccefully = false;
       vm.apiKeySentFailed = false;
@@ -54,6 +74,16 @@
     }
 
     vm.resetApiKey = function() {
+      featureGating.evaluate('manage_apikeys').then(function (status) {
+        vm.apiKey2faStatus = status;
+        if (status === featureGating.STATUS_BLOCKED_NEEDS_2FA) {
+          return;
+        }
+        showResetApiKeyConfirmation();
+      });
+    }
+
+    function showResetApiKeyConfirmation() {
       ModalService.showModal({
         templateUrl: 'partials/modals/confirm.html',
         controller: 'Confirm',

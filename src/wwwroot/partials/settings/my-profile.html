@@ -36,7 +36,12 @@
             </div>
           <div class="confirm-icons--container flex" ng-show="!vm.emailChangeStep" ng-if="vm.canChangeEmail">
             <div class="flex" ng-class="!vm.showUserNameContainer ? 'show' : ''">
-              <svg class="icon edit-icon" ng-click="vm.startEmailChange();">
+              <svg class="icon edit-icon"
+                   ng-class="{ 'is-disabled': vm.emailChange2faStatus === 'blocked-needs-2fa' }"
+                   ng-click="vm.emailChange2faStatus === 'blocked-needs-2fa' ? null : vm.startEmailChange();"
+                   tooltips
+                   tooltip-template="{{ 'two_factor_required_for_action' | translate }}"
+                   tooltip-hidden="{{ vm.emailChange2faStatus !== 'blocked-needs-2fa' }}">
                   <use xlink:href="/images/sprite.svg#doppler-icon-edit-icon"></use>
               </svg>
             </div>
