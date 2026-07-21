@@ -15,7 +15,10 @@
     'settings',
     'utils',
     'resources',
-    'ModalService'
+    'ModalService',
+    'RELAY_CONFIG',
+    'eprotect',
+    'paymentMethodApi'
   ];
 
   var secCodeMasksByBrand = {
@@ -30,7 +33,7 @@
      'amex': '9999 999999 99999',
      'unknown': '9999 9999 9999 9999'
   };
-  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService) {
+  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect, paymentMethodApi) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -101,6 +104,18 @@
       clearOnBlur: false
     };
     vm.processingPayment = false;
+
+    vm.useEprotect = RELAY_CONFIG.useEprotect;
+    vm.eprotectErrorKey = null;
+    vm.eprotectCardPreview = null;
+    vm.onEprotectReady = onEprotectReady;
+
+    var eprotectApi = null;
+
+    function onEprotectReady(result) {
+      eprotectApi = result.api;
+      vm.eprotectLoadError = !!result.error;
+    }
 
     function redirectToPlanSelection() {
       $location.path('/settings/my-plan');
@@ -180,7 +195,7 @@
 
     function submitBilling(form) {
       vm.submitted = true;
-      if (!utils.validateCreditCard(vm.cc.number)) {
+      if (!vm.useEprotect && !utils.validateCreditCard(vm.cc.number)) {
         utils.setServerValidationToField($scope, $scope.form.cardNumber, 'invalid_card_number');
       }
       if (!form.$valid) {
@@ -188,9 +203,11 @@
       }
 
       vm.showConfirmation = true;
-      vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
-      vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
-      vm.viewExpDate = form.expDate.$viewValue;
+      if (!vm.useEprotect) {
+        vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
+        vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
+        vm.viewExpDate = form.expDate.$viewValue;
+      }
     }
 
     function submitBillingPayment() {
@@ -199,6 +216,63 @@
         return;
       }
 
+      vm.eprotectErrorKey = null;
+
+      if (!vm.useEprotect) {
+        return sendAgreement({
+          cardNumber: vm.cc.number,
+          verificationCode: vm.secCode.number,
+          expiryDate: vm.expDate,
+          cardHoldersName: vm.cardHolder,
+          cardBrand: vm.cc.brand
+        });
+      }
+
+      if (!eprotectApi || !eprotectApi.isReady()) {
+        vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
+        return;
+      }
+
+      vm.processingPayment = true;
+
+      return eprotectApi.requestPaypageRegistrationId()
+        .then(function (response) {
+          if (response.response !== eprotect.EProtectError.success) {
+            vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
+            vm.processingPayment = false;
+            return;
+          }
+
+          var ccType = getCreditCardBrand(response.firstSix);
+          vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
+
+          return paymentMethodApi.submitPaymentMethod({
+            cardHolderName: vm.cardHolder,
+            worldPayLowValueToken: response.paypageRegistrationId,
+            lastFourDigitsCCNumber: response.lastFour,
+            firstSixDigitsCCNumber: response.firstSix,
+            ccExpMonth: response.expMonth,
+            ccExpYear: response.expYear,
+            ccType: ccType,
+            idSelectedPlan: planName
+          }).then(function () {
+            return sendAgreement({
+              cardHoldersName: vm.cardHolder,
+              worldPayLowValueToken: response.paypageRegistrationId,
+              lastFourDigitsCCNumber: response.lastFour,
+              firstSixDigitsCCNumber: response.firstSix,
+              expiryDate: response.expMonth + '/' + response.expYear,
+              cardBrand: ccType
+            });
+          });
+        })
+        .catch(function (error) {
+          vm.processingPayment = false;
+          vm.eprotectErrorKey = (error && eprotect.mapErrorCode(error.response)) || 'eprotect_error_generic';
+        });
+    }
+
+    function sendAgreement(creditCard) {
       var fiscalIdtype;
       var fiscalId;
       var provinceCode;
@@ -207,7 +281,7 @@
         fiscalIdtype = "FID";
         fiscalId = vm.idFiscal;
       }
-      
+
       if (vm.cuit && vm.cuit != '' && vm.cuit.length >= 11) {
         fiscalIdtype = "CUIT";
         fiscalId = vm.cuit;
@@ -223,13 +297,7 @@
       var agreement = {
         planName: planName,
         paymentMethod: {
-          creditCard: {
-            cardNumber: vm.cc.number,
-            verificationCode: vm.secCode.number,
-            expiryDate: vm.expDate,
-            cardHoldersName: vm.cardHolder,
-            cardBrand: vm.cc.brand
-          }
+          creditCard: creditCard
         },
         billingInformation: {
           name: vm.name,
