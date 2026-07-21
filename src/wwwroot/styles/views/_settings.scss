@@ -680,6 +680,14 @@
 }
 
 .credit-card--container {
+  eprotect-payframe {
+    display: block;
+    width: 100%;
+  }
+  .eprotect-payframe-container {
+    width: 100%;
+    max-width: 600px;
+  }
   .cards-icons--container {
     min-height: torem(50px);
   }
