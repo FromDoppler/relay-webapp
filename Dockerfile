@@ -10,7 +10,7 @@ COPY --chown=node:node src .
 ARG environment=development
 RUN NODE_ENV=$environment yarn run build
 
-FROM nginx:alpine AS final
+FROM nginx:1.27-alpine AS final
 COPY --from=build /home/node/src/build /usr/share/nginx/html
 ARG version=unknown
 RUN echo $version > /usr/share/nginx/html/version.txt
