@@ -247,7 +247,6 @@
           vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
 
           return paymentMethodApi.submitPaymentMethod({
-            cardHolderName: vm.cardHolder,
             worldPayLowValueToken: response.paypageRegistrationId,
             lastFourDigitsCCNumber: response.lastFour,
             firstSixDigitsCCNumber: response.firstSix,
@@ -257,7 +256,6 @@
             idSelectedPlan: planName
           }).then(function () {
             return sendAgreement({
-              cardHoldersName: vm.cardHolder,
               worldPayLowValueToken: response.paypageRegistrationId,
               lastFourDigitsCCNumber: response.lastFour,
               firstSixDigitsCCNumber: response.firstSix,
