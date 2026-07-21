@@ -687,6 +687,11 @@
   .eprotect-payframe-container {
     width: 100%;
     max-width: 600px;
+    box-sizing: border-box;
+    padding: 1.5em;
+    background-color: $suit-background-bright;
+    border: $suit-border-default;
+    border-radius: 4px;
   }
   .cards-icons--container {
     min-height: torem(50px);
