@@ -17,8 +17,7 @@
     'resources',
     'ModalService',
     'RELAY_CONFIG',
-    'eprotect',
-    'paymentMethodApi'
+    'eprotect'
   ];
 
   var secCodeMasksByBrand = {
@@ -33,7 +32,7 @@
      'amex': '9999 999999 99999',
      'unknown': '9999 9999 9999 9999'
   };
-  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect, paymentMethodApi) {
+  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -285,22 +284,15 @@
         return;
       }
 
-      vm.processingPayment = true;
-
-      return paymentMethodApi.submitPaymentMethod(angular.extend({}, eprotectTokenData, { idSelectedPlan: planName }))
-        .then(function () {
-          return sendAgreement({
-            worldPayLowValueToken: eprotectTokenData.worldPayLowValueToken,
-            lastFourDigitsCCNumber: eprotectTokenData.lastFourDigitsCCNumber,
-            firstSixDigitsCCNumber: eprotectTokenData.firstSixDigitsCCNumber,
-            expiryDate: eprotectTokenData.ccExpMonth + '/' + eprotectTokenData.ccExpYear,
-            cardBrand: eprotectTokenData.ccType
-          });
-        })
-        .catch(function (error) {
-          vm.processingPayment = false;
-          vm.eprotectErrorKey = (error && eprotect.mapErrorCode(error.response)) || 'eprotect_error_generic';
-        });
+      return sendAgreement({
+        worldPayLowValueToken: eprotectTokenData.worldPayLowValueToken,
+        worldPayToken: eprotectTokenData.tokenizedPan,
+        worldPayTransactionLinkID: eprotectTokenData.transactionLinkID,
+        lastFourDigitsCCNumber: eprotectTokenData.lastFourDigitsCCNumber,
+        firstSixDigitsCCNumber: eprotectTokenData.firstSixDigitsCCNumber,
+        expiryDate: eprotectTokenData.ccExpMonth + '/' + eprotectTokenData.ccExpYear,
+        cardBrand: eprotectTokenData.ccType
+      });
     }
 
     function sendAgreement(creditCard) {
