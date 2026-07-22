@@ -111,6 +111,7 @@
     vm.onEprotectReady = onEprotectReady;
 
     var eprotectApi = null;
+    var eprotectTokenData = null;
 
     function onEprotectReady(result) {
       eprotectApi = result.api;
@@ -202,12 +203,47 @@
         return;
       }
 
-      vm.showConfirmation = true;
       if (!vm.useEprotect) {
+        vm.showConfirmation = true;
         vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
         vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
         vm.viewExpDate = form.expDate.$viewValue;
+        return;
       }
+
+      vm.eprotectErrorKey = null;
+
+      if (!eprotectApi || !eprotectApi.isReady()) {
+        vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
+        return;
+      }
+
+      vm.processingPayment = true;
+
+      return eprotectApi.requestPaypageRegistrationId()
+        .then(function (response) {
+          if (response.response !== eprotect.EProtectError.success) {
+            vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
+            return;
+          }
+
+          eprotectTokenData = {
+            worldPayLowValueToken: response.paypageRegistrationId,
+            lastFourDigitsCCNumber: response.lastFour,
+            firstSixDigitsCCNumber: response.firstSix,
+            ccExpMonth: response.expMonth,
+            ccExpYear: response.expYear,
+            ccType: getCreditCardBrand(response.firstSix)
+          };
+          vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
+          vm.showConfirmation = true;
+        })
+        .catch(function (error) {
+          vm.eprotectErrorKey = (error && eprotect.mapErrorCode(error.response)) || 'eprotect_error_generic';
+        })
+        .finally(function () {
+          vm.processingPayment = false;
+        });
     }
 
     function submitBillingPayment() {
@@ -228,40 +264,21 @@
         });
       }
 
-      if (!eprotectApi || !eprotectApi.isReady()) {
+      if (!eprotectTokenData) {
         vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
         return;
       }
 
       vm.processingPayment = true;
 
-      return eprotectApi.requestPaypageRegistrationId()
-        .then(function (response) {
-          if (response.response !== eprotect.EProtectError.success) {
-            vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
-            vm.processingPayment = false;
-            return;
-          }
-
-          var ccType = getCreditCardBrand(response.firstSix);
-          vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
-
-          return paymentMethodApi.submitPaymentMethod({
-            worldPayLowValueToken: response.paypageRegistrationId,
-            lastFourDigitsCCNumber: response.lastFour,
-            firstSixDigitsCCNumber: response.firstSix,
-            ccExpMonth: response.expMonth,
-            ccExpYear: response.expYear,
-            ccType: ccType,
-            idSelectedPlan: planName
-          }).then(function () {
-            return sendAgreement({
-              worldPayLowValueToken: response.paypageRegistrationId,
-              lastFourDigitsCCNumber: response.lastFour,
-              firstSixDigitsCCNumber: response.firstSix,
-              expiryDate: response.expMonth + '/' + response.expYear,
-              cardBrand: ccType
-            });
+      return paymentMethodApi.submitPaymentMethod(angular.extend({}, eprotectTokenData, { idSelectedPlan: planName }))
+        .then(function () {
+          return sendAgreement({
+            worldPayLowValueToken: eprotectTokenData.worldPayLowValueToken,
+            lastFourDigitsCCNumber: eprotectTokenData.lastFourDigitsCCNumber,
+            firstSixDigitsCCNumber: eprotectTokenData.firstSixDigitsCCNumber,
+            expiryDate: eprotectTokenData.ccExpMonth + '/' + eprotectTokenData.ccExpYear,
+            cardBrand: eprotectTokenData.ccType
           });
         })
         .catch(function (error) {
@@ -364,6 +381,9 @@
       if (!vm.downgrade) {
         vm.showConfirmation = false;
         vm.paymentFailure = false;
+        vm.eprotectErrorKey = null;
+        vm.eprotectCardPreview = null;
+        eprotectTokenData = null;
         return;
       }
       redirectToPlanSelection();
