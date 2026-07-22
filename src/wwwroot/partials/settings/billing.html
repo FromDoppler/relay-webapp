@@ -192,7 +192,7 @@
           <div class="item flex" ng-if="vm.useEprotect">
             <eprotect-payframe on-ready="vm.onEprotectReady(result)"></eprotect-payframe>
           </div>
-          <div class="detached--error-container" ng-if="vm.useEprotect && vm.eprotectErrorKey">
+          <div class="detached--error-container show" ng-if="vm.useEprotect && vm.eprotectErrorKey">
             <span class="detached--error">{{ vm.eprotectErrorKey | translate }}</span>
           </div>
       </div>
