@@ -29,7 +29,8 @@
       requestEmailChange: requestEmailChange,
       getCustomerDataByCuit: getCustomerDataByCuit,
       resubscribeEmailAddress: resubscribeEmailAddress,
-      updatePaymentMethod: updatePaymentMethod
+      updatePaymentMethod: updatePaymentMethod,
+      authorizeCreditCard: authorizeCreditCard
     };
 
     var plansCache = null;
@@ -258,6 +259,17 @@
         tryHandleError: function(rejection){ return tryHandleErrorBilling(rejection, onExpectedError); },
         method: 'PUT',
         data: paymentMethod,
+        url: url
+      });
+    }
+
+    function authorizeCreditCard(payload) {
+      var url = RELAY_CONFIG.baseUrl + '/creditcard/authorization';
+      return $http({
+        actionDescription: 'action_authorizing_credit_card',
+        avoidStandarErrorHandling: true,
+        method: 'POST',
+        data: payload,
         url: url
       });
     }

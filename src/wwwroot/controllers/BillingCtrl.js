@@ -222,7 +222,6 @@
 
       return eprotectApi.requestPaypageRegistrationId()
         .then(function (response) {
-          console.log('EPRotect response:', response);
           if (response.response !== eprotect.EProtectError.success) {
             vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
             return;
@@ -236,8 +235,24 @@
             ccExpYear: response.expYear,
             ccType: getCreditCardBrand(response.firstSix)
           };
-          vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
-          vm.showConfirmation = true;
+
+          return settings.authorizeCreditCard({
+            worldPayLowValueToken: response.paypageRegistrationId,
+            expirationMonth: response.expMonth,
+            expirationYear: response.expYear,
+            cardType: 0 // TODO: confirm the cardType code per card brand with backend
+          }).then(function (authResponse) {
+            if (!authResponse.data || !authResponse.data.isSuccessful) {
+              vm.eprotectErrorKey = 'eprotect_error_generic';
+              eprotectTokenData = null;
+              return;
+            }
+
+            eprotectTokenData.tokenizedPan = authResponse.data.tokenizedPan;
+            eprotectTokenData.transactionLinkID = authResponse.data.transactionLinkID;
+            vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
+            vm.showConfirmation = true;
+          });
         })
         .catch(function (error) {
           vm.eprotectErrorKey = (error && eprotect.mapErrorCode(error.response)) || 'eprotect_error_generic';
