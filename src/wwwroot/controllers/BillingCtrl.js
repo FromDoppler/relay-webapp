@@ -222,6 +222,7 @@
 
       return eprotectApi.requestPaypageRegistrationId()
         .then(function (response) {
+          console.log('EPRotect response:', response);
           if (response.response !== eprotect.EProtectError.success) {
             vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
             return;
