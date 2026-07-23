@@ -189,7 +189,7 @@
               <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" class="input input--extra-small" validation-errors-fluid  required />
             </div>
           </div>
-          <div class="item flex" ng-if="vm.useEprotect && vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm">
+          <div class="item flex flex--vertically-center" ng-if="vm.useEprotect && vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm">
             <div class="flex one credit-card flex--wrap flex--vertically-start" ng-class="vm.savedCreditCard.cardBrand">
               <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
               <p id="savedCreditCardNumber">{{vm.savedCreditCard.cardNumber}}</p>
