@@ -227,7 +227,6 @@
           }
 
           return paymentMethodApi.submitPaymentMethod({
-            cardHolderName: vm.cardHolder,
             worldPayLowValueToken: response.paypageRegistrationId,
             lastFourDigitsCCNumber: response.lastFour,
             firstSixDigitsCCNumber: response.firstSix,

@@ -72,7 +72,7 @@
               <label class="special uppercase" for="creditCardRadio">{{'my_billing_information_credit_card_option' | translate}}</label>
             </div>
           </div>
-          <div class="item flex">
+          <div class="item flex" ng-if="!vm.useEprotect">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="cardHolder">{{'my_billing_information_card_holder_label' | translate}}</label>
             </div>
