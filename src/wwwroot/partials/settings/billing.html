@@ -189,7 +189,16 @@
               <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" class="input input--extra-small" validation-errors-fluid  required />
             </div>
           </div>
-          <div class="item flex" ng-if="vm.useEprotect">
+          <div class="item flex" ng-if="vm.useEprotect && vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm">
+            <div class="flex one flex--wrap">
+              <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
+              <p id="savedCreditCardNumber">{{vm.savedCreditCard.cardNumber}}</p>
+            </div>
+            <div class="flex one flex--wrap button--container">
+              <button type="button" class="button button--small" ng-click="vm.showChangeCreditCard()">{{'my_billing_information_change_credit_card' | translate}}</button>
+            </div>
+          </div>
+          <div class="item flex" ng-if="vm.useEprotect && vm.showCreditCardCaptureForm">
             <eprotect-payframe on-ready="vm.onEprotectReady(result)"></eprotect-payframe>
           </div>
           <div class="detached--error-container show" ng-if="vm.useEprotect && vm.eprotectErrorKey">

@@ -86,6 +86,25 @@
               response.data.billingInformation.fiscalIdType,
               response.data.billingInformation.fiscalId);
           }
+
+          var savedCard = response.data.paymentMethod && response.data.paymentMethod.creditCard;
+          if (vm.useEprotect && savedCard && savedCard.worldPayToken) {
+            vm.savedCreditCard = {
+              cardNumber: savedCard.cardNumber,
+              cardBrand: savedCard.cardBrand
+            };
+            existingCreditCardTokenData = {
+              tokenizedPan: savedCard.worldPayToken,
+              transactionLinkID: savedCard.worldPayTransactionLinkID,
+              lastFourDigitsCCNumber: savedCard.cardNumber.slice(-4),
+              firstSixDigitsCCNumber: savedCard.cardNumber.slice(0, 6),
+              ccExpMonth: savedCard.expiryDate.slice(0, 2),
+              ccExpYear: savedCard.expiryDate.slice(2, 4),
+              ccType: savedCard.cardBrand
+            };
+            vm.hasSavedCreditCard = true;
+            vm.showCreditCardCaptureForm = false;
+          }
         });
 
       });
@@ -108,13 +127,22 @@
     vm.eprotectErrorKey = null;
     vm.eprotectCardPreview = null;
     vm.onEprotectReady = onEprotectReady;
+    vm.hasSavedCreditCard = false;
+    vm.savedCreditCard = null;
+    vm.showCreditCardCaptureForm = true;
+    vm.showChangeCreditCard = showChangeCreditCard;
 
     var eprotectApi = null;
     var eprotectTokenData = null;
+    var existingCreditCardTokenData = null;
 
     function onEprotectReady(result) {
       eprotectApi = result.api;
       vm.eprotectLoadError = !!result.error;
+    }
+
+    function showChangeCreditCard() {
+      vm.showCreditCardCaptureForm = true;
     }
 
     function redirectToPlanSelection() {
@@ -211,6 +239,18 @@
       }
 
       vm.eprotectErrorKey = null;
+
+      if (vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm) {
+        // Reuse the non-expiring token from a previous purchase instead of
+        // tokenizing again through the iframe.
+        eprotectTokenData = angular.copy(existingCreditCardTokenData);
+        vm.eprotectCardPreview = {
+          firstSix: existingCreditCardTokenData.firstSixDigitsCCNumber,
+          lastFour: existingCreditCardTokenData.lastFourDigitsCCNumber
+        };
+        vm.showConfirmation = true;
+        return;
+      }
 
       if (!eprotectApi || !eprotectApi.isReady()) {
         vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
