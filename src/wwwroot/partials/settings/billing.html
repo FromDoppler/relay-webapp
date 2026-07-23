@@ -209,11 +209,11 @@
               <button type="button" class="button button--small" ng-click="vm.showChangeCreditCard()">{{'my_billing_information_change_credit_card' | translate}}</button>
             </div>
           </div>
-          <div class="item flex" ng-if="vm.useEprotect && vm.showCreditCardCaptureForm">
+          <div class="item flex flex--direction-column" ng-if="vm.useEprotect && vm.showCreditCardCaptureForm">
             <eprotect-payframe on-ready="vm.onEprotectReady(result)"></eprotect-payframe>
-          </div>
-          <div class="item flex flex--content-end" ng-if="vm.useEprotect && vm.showCreditCardCaptureForm && vm.hasSavedCreditCard">
-            <button type="button" class="button button--small button--white" ng-click="vm.cancelChangeCreditCard()">{{'dialog_cancel' | translate}}</button>
+            <div class="flex flex--content-end" ng-if="vm.hasSavedCreditCard">
+              <button type="button" class="button button--small button--white" ng-click="vm.cancelChangeCreditCard()">{{'dialog_cancel' | translate}}</button>
+            </div>
           </div>
           <div class="detached--error-container show" ng-if="vm.useEprotect && vm.eprotectErrorKey">
             <span class="detached--error">{{ vm.eprotectErrorKey | translate }}</span>
