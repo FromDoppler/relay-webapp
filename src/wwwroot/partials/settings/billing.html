@@ -190,9 +190,20 @@
             </div>
           </div>
           <div class="item flex" ng-if="vm.useEprotect && vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm">
-            <div class="flex one flex--wrap">
+            <div class="flex one credit-card flex--wrap flex--vertically-start" ng-class="vm.savedCreditCard.cardBrand">
               <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
               <p id="savedCreditCardNumber">{{vm.savedCreditCard.cardNumber}}</p>
+              <div class="cards-icons--container">
+                <svg class="icon icon-visa" ng-if="vm.savedCreditCard.cardBrand === 'visa'">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
+                </svg>
+                <svg class="icon icon-master" ng-if="vm.savedCreditCard.cardBrand === 'mastercard'">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
+                </svg>
+                <svg class="icon icon-amex" ng-if="vm.savedCreditCard.cardBrand === 'amex'">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
+                </svg>
+              </div>
             </div>
             <div class="flex one flex--wrap button--container">
               <button type="button" class="button button--small" ng-click="vm.showChangeCreditCard()">{{'my_billing_information_change_credit_card' | translate}}</button>
