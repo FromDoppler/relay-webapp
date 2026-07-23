@@ -121,12 +121,7 @@
             </div>
           </div>
           <div class="item flex" ng-if="vm.useEprotect">
-            <div class="flex one flex--vertically-start">
-              <label class="special uppercase">{{'my_billing_information_card_number_label' | translate}}</label>
-            </div>
-            <div class="flex three flex--wrap credit-card-container">
-              <eprotect-payframe on-ready="vm.onEprotectReady(result)"></eprotect-payframe>
-            </div>
+            <eprotect-payframe on-ready="vm.onEprotectReady(result)"></eprotect-payframe>
           </div>
           <div class="detached--error-container show" ng-if="vm.useEprotect && vm.eprotectErrorKey">
             <span class="detached--error">{{ vm.eprotectErrorKey | translate }}</span>
