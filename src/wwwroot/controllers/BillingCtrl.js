@@ -131,6 +131,7 @@
     vm.savedCreditCard = null;
     vm.showCreditCardCaptureForm = true;
     vm.showChangeCreditCard = showChangeCreditCard;
+    vm.cancelChangeCreditCard = cancelChangeCreditCard;
 
     var eprotectApi = null;
     var eprotectTokenData = null;
@@ -143,6 +144,11 @@
 
     function showChangeCreditCard() {
       vm.showCreditCardCaptureForm = true;
+    }
+
+    function cancelChangeCreditCard() {
+      vm.showCreditCardCaptureForm = false;
+      vm.eprotectErrorKey = null;
     }
 
     function redirectToPlanSelection() {
