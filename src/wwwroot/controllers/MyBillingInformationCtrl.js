@@ -17,8 +17,7 @@
     'resources',
     'ModalService',
     'RELAY_CONFIG',
-    'eprotect',
-    'paymentMethodApi'
+    'eprotect'
   ];
 
   var secCodeMasksByBrand = {
@@ -35,7 +34,7 @@
      'unknown': '9999 9999 9999 9999'
   };
 
-  function MyBillingInformationCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect, paymentMethodApi) {
+  function MyBillingInformationCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -226,16 +225,35 @@
             return;
           }
 
-          return paymentMethodApi.submitPaymentMethod({
+          var ccType = getCreditCardBrand(response.firstSix);
+
+          return settings.authorizeCreditCard({
             worldPayLowValueToken: response.paypageRegistrationId,
-            lastFourDigitsCCNumber: response.lastFour,
-            firstSixDigitsCCNumber: response.firstSix,
-            ccExpMonth: response.expMonth,
-            ccExpYear: response.expYear,
-            ccType: getCreditCardBrand(response.firstSix)
-          }).then(function () {
-            vm.paymentMethodSaved = true;
-            activate();
+            expirationMonth: response.expMonth,
+            expirationYear: response.expYear,
+            cardType: 0 // TODO: confirm the cardType code per card brand with backend
+          }).then(function (authResponse) {
+            if (!authResponse.data || !authResponse.data.isSuccessful) {
+              vm.eprotectErrorKey = 'eprotect_error_generic';
+              return;
+            }
+
+            var paymentMethod = {
+              creditCard: {
+                worldPayLowValueToken: response.paypageRegistrationId,
+                worldPayToken: authResponse.data.tokenizedPan,
+                worldPayTransactionLinkID: authResponse.data.transactionLinkID,
+                lastFourDigitsCCNumber: response.lastFour,
+                firstSixDigitsCCNumber: response.firstSix,
+                expiryDate: response.expMonth + '/' + response.expYear,
+                cardBrand: ccType
+              }
+            };
+
+            return settings.updatePaymentMethod(paymentMethod, onExpectedError).then(function () {
+              vm.paymentMethodSaved = true;
+              activate();
+            });
           });
         })
         .catch(function (error) {

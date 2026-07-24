@@ -85,7 +85,6 @@ module.exports = function (config) {
       __dirname + '/wwwroot/services/settings.js',
 	  __dirname + '/wwwroot/services/resources.js',
       __dirname + '/wwwroot/services/eprotect.js',
-      __dirname + '/wwwroot/services/paymentMethodApi.js',
       __dirname + '/wwwroot/env/development.js',
       __dirname + '/wwwroot/lib/svgxuse/svgxuse.js',
       __dirname + '/wwwroot/lib/autofill-directive/autofill-directive.js',
