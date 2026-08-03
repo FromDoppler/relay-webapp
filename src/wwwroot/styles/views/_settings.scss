@@ -849,7 +849,7 @@
       }
     }
 
-    .spinner{
+    .spinner:not(.spinner--button){
       opacity: 1;
       margin-left: 10px;
       margin-top: 15px;
