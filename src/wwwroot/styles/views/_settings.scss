@@ -679,6 +679,12 @@
   }
 }
 
+.buy-button {
+  .spinner--button .sk-fading-circle {
+    width: 1em;
+    height: 1em;
+  }
+}
 .credit-card--container {
   eprotect-payframe {
     display: block;
