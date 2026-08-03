@@ -680,6 +680,9 @@
 }
 
 .buy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   .spinner--button .sk-fading-circle {
     width: 1em;
     height: 1em;
