@@ -134,7 +134,7 @@
       </div>
       <div class="section--wrapper button--container flex--wrap">
         <button class="button button--small button--white modify-button" ng-click="vm.cancelAction()"><span >{{'my_billing_information_back_button' | translate}}</span></button>
-        <button class="button button--small save-button" ng-click="vm.submitPaymentMethod(form);" ng-disabled="vm.processingPayment">{{'my_billing_information_save_button' | translate}}</button>
+        <button class="button button--small save-button" ng-click="vm.submitPaymentMethod(form);" ng-disabled="vm.processingPayment" ng-class="vm.processingPayment ? 'button--disabled' : ''">{{'my_billing_information_save_button' | translate}}<spinner class="spinner spinner--button" ng-show="vm.processingPayment"></spinner></button>
       </div>
     </form>
   </div>
