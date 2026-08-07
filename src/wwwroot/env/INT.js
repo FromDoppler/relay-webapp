@@ -4,4 +4,8 @@
   hostSmtp: "int-smtp-relay.fromdoppler.net",
   portSmtp: "2525",
   useClerkAuthentication: true,
+  useEprotect: true,
+  eprotectScriptUrl: "https://request.eprotect.vantivprelive.com/eProtect/js/eProtect-iframe-client4.min.js",
+  eprotectPaypageId: "ASEot2ojNRKS3vVG",
+  eprotectReportGroup: "DopplerGroup_INT",
 });

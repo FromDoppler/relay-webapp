@@ -15,7 +15,9 @@
     'settings',
     'utils',
     'resources',
-    'ModalService'
+    'ModalService',
+    'RELAY_CONFIG',
+    'eprotect'
   ];
 
   var secCodeMasksByBrand = {
@@ -32,7 +34,7 @@
      'unknown': '9999 9999 9999 9999'
   };
 
-  function MyBillingInformationCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService) {
+  function MyBillingInformationCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -77,6 +79,17 @@
       clearOnBlur: false
     };
 
+    vm.useEprotect = RELAY_CONFIG.useEprotect;
+    vm.eprotectErrorKey = null;
+    vm.onEprotectReady = onEprotectReady;
+
+    var eprotectApi = null;
+
+    function onEprotectReady(result) {
+      eprotectApi = result.api;
+      vm.eprotectLoadError = !!result.error;
+    }
+
     $scope.$watch('vm.cc.number', fillCreditCardProperties);
 
     function showChangePaymentMethod(){
@@ -85,6 +98,7 @@
       vm.secCode.number = '';
       vm.cardHolder = '';
       vm.expDate = '';
+      vm.eprotectErrorKey = null;
     }
 
     function initializeCreditCardProperties(data) {
@@ -163,30 +177,91 @@
     };
 
     function submitPaymentMethod(form) {
-      if (!utils.validateCreditCard(vm.cc.number)) {
-        utils.setServerValidationToField($scope, form.cardNumber, 'invalid_card_number');
+      vm.eprotectErrorKey = null;
+
+      if (!vm.useEprotect) {
+        if (!utils.validateCreditCard(vm.cc.number)) {
+          utils.setServerValidationToField($scope, form.cardNumber, 'invalid_card_number');
+        }
+        if (!form.$valid) {
+          return;
+        }
+        vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
+        vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
+        vm.viewExpDate = form.expDate.$viewValue;
+
+        var paymentMethod = {
+          creditCard: {
+            cardNumber: vm.cc.number,
+            verificationCode: vm.secCode.number,
+            expiryDate: vm.expDate,
+            cardHoldersName: vm.cardHolder
+          }
+        };
+
+        settings.updatePaymentMethod(paymentMethod, onExpectedError)
+        .then(function() {
+          vm.paymentMethodSaved = true;
+          activate();
+        });
+        return;
       }
+
       if (!form.$valid) {
         return;
       }
-      vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
-      vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
-      vm.viewExpDate = form.expDate.$viewValue;
 
-      var paymentMethod = {
-        creditCard: {
-          cardNumber: vm.cc.number,
-          verificationCode: vm.secCode.number,
-          expiryDate: vm.expDate,
-          cardHoldersName: vm.cardHolder
-        }
-      };
+      if (!eprotectApi || !eprotectApi.isReady()) {
+        vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
+        return;
+      }
 
-      settings.updatePaymentMethod(paymentMethod, onExpectedError)
-      .then(function() {
-        vm.paymentMethodSaved = true;
-        activate();
-      });
+      vm.processingPayment = true;
+
+      eprotectApi.requestPaypageRegistrationId()
+        .then(function (response) {
+          if (response.response !== eprotect.EProtectError.success) {
+            vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
+            return;
+          }
+
+          var ccType = getCreditCardBrand(response.firstSix);
+
+          return settings.authorizeCreditCard({
+            worldPayLowValueToken: response.paypageRegistrationId,
+            expirationMonth: response.expMonth,
+            expirationYear: response.expYear,
+            cardType: 0 // TODO: confirm the cardType code per card brand with backend
+          }).then(function (authResponse) {
+            if (!authResponse.data || !authResponse.data.isSuccessful) {
+              vm.eprotectErrorKey = 'eprotect_error_generic';
+              return;
+            }
+
+            var paymentMethod = {
+              creditCard: {
+                worldPayLowValueToken: response.paypageRegistrationId,
+                worldPayToken: authResponse.data.tokenizedPan,
+                worldPayTransactionLinkID: authResponse.data.transactionLinkID,
+                lastFourDigitsCCNumber: response.lastFour,
+                firstSixDigitsCCNumber: response.firstSix,
+                expiryDate: response.expMonth + '/' + response.expYear,
+                cardBrand: ccType
+              }
+            };
+
+            return settings.updatePaymentMethod(paymentMethod, onExpectedError).then(function () {
+              vm.paymentMethodSaved = true;
+              activate();
+            });
+          });
+        })
+        .catch(function (error) {
+          vm.eprotectErrorKey = (error && eprotect.mapErrorCode(error.response)) || 'eprotect_error_generic';
+        })
+        .finally(function () {
+          vm.processingPayment = false;
+        });
     }
 
     function cancelAction() {

@@ -152,15 +152,7 @@
             <input id="creditCardRadio" type="radio" name="creditCardRadio" ng-model="vm.creditCardRadio" ng-class="(vm.submitted || form.creditCardRadio.$dirty) && form.creditCardRadio.$invalid ? 'error' : ''" class="input input--large" required />
           </div> -->
           </div>
-          <div class="item flex">
-            <div class="flex one flex--vertically-start">
-              <label class="special uppercase" for="cardHolder">{{'card_holder_label' | translate}}</label>
-            </div>
-            <div class="flex three flex--wrap">
-              <input id="cardHolder" name="cardHolder" ng-model="vm.cardHolder" class="input input--large" validation-errors-fluid  required />              
-            </div>
-          </div>
-          <div class="item flex">
+          <div class="item flex" ng-if="!vm.useEprotect">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="cardNumber">{{'card_number_label' | translate}}</label>
             </div>
@@ -177,30 +169,59 @@
               </svg>
               <svg class="icon icon-amex">
                 <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
-              </svg>   
-            </div>           
+              </svg>
+            </div>
             </div>
           </div>
-          <div class="item flex">
+          <div class="item flex" ng-if="!vm.useEprotect">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="expDate">{{'exp_date_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="expDate" name="expDate" autocomplete="off" ui-mask="99/99" ng-change="vm.checkExpDate(form.expDate)" ui-mask-placeholder ui-options="vm.maskOptions" ng-model="vm.expDate" class="input input--large" validation-errors-fluid required />              
+              <input id="expDate" name="expDate" autocomplete="off" ui-mask="99/99" ng-change="vm.checkExpDate(form.expDate)" ui-mask-placeholder ui-options="vm.maskOptions" ng-model="vm.expDate" class="input input--large" validation-errors-fluid required />
             </div>
           </div>
-          <div class="item flex">
+          <div class="item flex" ng-if="!vm.useEprotect">
             <div class="flex one flex--vertically-start">
               <label class="special uppercase" for="securityCode">{{'sec_code_label' | translate}}</label>
             </div>
             <div class="flex three flex--wrap">
-              <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" class="input input--extra-small" validation-errors-fluid  required />              
+              <input id="secCode" ng-model="vm.secCode.number" name="secCode" autocomplete="off" ui-mask="{{vm.secCode.mask}}" ui-options="vm.maskOptions" class="input input--extra-small" validation-errors-fluid  required />
             </div>
+          </div>
+          <div class="item flex flex--vertically-center" ng-if="vm.useEprotect && vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm">
+            <div class="flex one credit-card flex--wrap flex--vertically-start" ng-class="vm.savedCreditCard.cardBrand">
+              <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
+              <p id="savedCreditCardNumber">{{vm.savedCreditCard.cardNumber}}</p>
+              <div class="cards-icons--container">
+                <svg class="icon icon-visa" ng-if="vm.savedCreditCard.cardBrand === 'visa'">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
+                </svg>
+                <svg class="icon icon-master" ng-if="vm.savedCreditCard.cardBrand === 'mastercard'">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-master-card"></use>
+                </svg>
+                <svg class="icon icon-amex" ng-if="vm.savedCreditCard.cardBrand === 'amex'">
+                  <use xlink:href="/images/sprite.svg#doppler-icon-american-card"></use>
+                </svg>
+              </div>
+            </div>
+            <div class="flex one flex--wrap button--container">
+              <button type="button" class="button button--small" ng-click="vm.showChangeCreditCard()">{{'my_billing_information_change_credit_card' | translate}}</button>
+            </div>
+          </div>
+          <div class="item flex flex--direction-column" ng-if="vm.useEprotect && vm.showCreditCardCaptureForm">
+            <eprotect-payframe on-ready="vm.onEprotectReady(result)"></eprotect-payframe>
+            <div class="flex flex--content-end cancel-change-credit-card--container" ng-if="vm.hasSavedCreditCard">
+              <button type="button" class="button button--small button--white" ng-click="vm.cancelChangeCreditCard()">{{'dialog_cancel' | translate}}</button>
+            </div>
+          </div>
+          <div class="detached--error-container show" ng-if="vm.useEprotect && vm.eprotectErrorKey">
+            <span class="detached--error">{{ vm.eprotectErrorKey | translate }}</span>
           </div>
       </div>
       <div class="section--wrapper button--container flex--wrap">
         <button class="button button--small button--white" ng-click="vm.redirectToPlanSelection();" ng-if="vm.canChangePlan">{{'billing_change_plan_button' | translate}}</button>
-        <button class="button button--small check-button" ng-click="vm.submitBilling(form);">{{'billing_check_button' | translate}}</button>
+        <button class="button button--small check-button" ng-click="vm.submitBilling(form);" ng-disabled="vm.processingPayment">{{'billing_check_button' | translate}}</button>
       </div>
     </form>
   </div>
@@ -265,29 +286,36 @@
       <h3>{{ 'payment_method_title' | translate }}</h3>
     </div>
     <div class="item flex flex--wrap" ng-if="!vm.downgrade">
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap" ng-if="!vm.useEprotect">
         <label class="width--full special uppercase">{{'card_holder_label' | translate}}</label>
         <p id="cardHolderConfirmation" tooltips tooltip-template="{{vm.cardHolder}}" tooltip-hidden="{{vm.cardHolder.length < 20}}" ng-class="vm.cardHolder.length > 20 ? 'hide': 'show'">{{vm.cardHolder}}</p>
       </div>
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap" ng-if="!vm.useEprotect">
         <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
         <p id="ccNumberConfirmation">{{vm.cc.parsedCcNumber}}</p>
       </div>
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap" ng-if="!vm.useEprotect">
         <label class="width--full special uppercase">{{'exp_date_label' | translate}}</label>
         <p id="expDateConfirmation">{{vm.viewExpDate}}</p>
       </div>
-      <div class="flex one flex--wrap">
+      <div class="flex one flex--wrap" ng-if="!vm.useEprotect">
         <label class="width--full special uppercase">{{'sec_code_label' | translate}}</label>
         <p id="secCodeConfirmation">{{vm.secCode.ParsedNumber}}</p>
+      </div>
+      <div class="flex one flex--wrap" ng-if="vm.useEprotect && vm.eprotectCardPreview">
+        <label class="width--full special uppercase">{{'card_number_label' | translate}}</label>
+        <p id="ccNumberConfirmation">{{vm.eprotectCardPreview.firstSix}}******{{vm.eprotectCardPreview.lastFour}}</p>
       </div>
     </div>
     <div class="button--container flex--wrap">
       <div class="detached--error-container" ng-class="vm.submitted && vm.paymentFailure ? 'show':'hide'">
         <span class="detached--error">{{'validation_error_payment_failure' | translate}}</span>
       </div>
+      <div class="detached--error-container" ng-if="vm.useEprotect && vm.eprotectErrorKey">
+        <span class="detached--error">{{ vm.eprotectErrorKey | translate }}</span>
+      </div>
       <button class="button button--small button--white modify-button" ng-click="vm.cancelAction()"><span ng-if="!vm.downgrade">{{'billing_change_info_button' | translate}}</span><span ng-if="vm.downgrade">{{'downgrade_confirmation_cancel_button' | translate}}</span></button>
-      <button class="button button--small buy-button" ng-click="vm.submitBillingPayment()" ng-disabled="vm.processingPayment"><span ng-if="!vm.downgrade">{{'buy_text' | translate}}</span><span ng-if="vm.downgrade">Confirmar Downgrade</span></button>
+      <button class="button button--small buy-button" ng-click="vm.submitBillingPayment()" ng-disabled="vm.processingPayment" ng-class="vm.processingPayment ? 'button--disabled' : ''"><span ng-if="!vm.downgrade">{{'buy_text' | translate}}</span><span ng-if="vm.downgrade">Confirmar Downgrade</span><spinner class="spinner spinner--button" ng-show="vm.processingPayment"></spinner></button>
     </div>
   </div>
 </section>

@@ -15,7 +15,9 @@
     'settings',
     'utils',
     'resources',
-    'ModalService'
+    'ModalService',
+    'RELAY_CONFIG',
+    'eprotect'
   ];
 
   var secCodeMasksByBrand = {
@@ -30,7 +32,7 @@
      'amex': '9999 999999 99999',
      'unknown': '9999 9999 9999 9999'
   };
-  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService) {
+  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -84,6 +86,25 @@
               response.data.billingInformation.fiscalIdType,
               response.data.billingInformation.fiscalId);
           }
+
+          var savedCard = response.data.paymentMethod && response.data.paymentMethod.creditCard;
+          if (vm.useEprotect && savedCard && savedCard.worldPayToken) {
+            vm.savedCreditCard = {
+              cardNumber: savedCard.cardNumber,
+              cardBrand: savedCard.cardBrand
+            };
+            existingCreditCardTokenData = {
+              tokenizedPan: savedCard.worldPayToken,
+              transactionLinkID: savedCard.worldPayTransactionLinkID,
+              lastFourDigitsCCNumber: savedCard.cardNumber.slice(-4),
+              firstSixDigitsCCNumber: savedCard.cardNumber.slice(0, 6),
+              ccExpMonth: savedCard.expiryDate.slice(0, 2),
+              ccExpYear: savedCard.expiryDate.slice(2, 4),
+              ccType: savedCard.cardBrand
+            };
+            vm.hasSavedCreditCard = true;
+            vm.showCreditCardCaptureForm = false;
+          }
         });
 
       });
@@ -101,6 +122,34 @@
       clearOnBlur: false
     };
     vm.processingPayment = false;
+
+    vm.useEprotect = RELAY_CONFIG.useEprotect;
+    vm.eprotectErrorKey = null;
+    vm.eprotectCardPreview = null;
+    vm.onEprotectReady = onEprotectReady;
+    vm.hasSavedCreditCard = false;
+    vm.savedCreditCard = null;
+    vm.showCreditCardCaptureForm = true;
+    vm.showChangeCreditCard = showChangeCreditCard;
+    vm.cancelChangeCreditCard = cancelChangeCreditCard;
+
+    var eprotectApi = null;
+    var eprotectTokenData = null;
+    var existingCreditCardTokenData = null;
+
+    function onEprotectReady(result) {
+      eprotectApi = result.api;
+      vm.eprotectLoadError = !!result.error;
+    }
+
+    function showChangeCreditCard() {
+      vm.showCreditCardCaptureForm = true;
+    }
+
+    function cancelChangeCreditCard() {
+      vm.showCreditCardCaptureForm = false;
+      vm.eprotectErrorKey = null;
+    }
 
     function redirectToPlanSelection() {
       $location.path('/settings/my-plan');
@@ -180,17 +229,82 @@
 
     function submitBilling(form) {
       vm.submitted = true;
-      if (!utils.validateCreditCard(vm.cc.number)) {
+      if (!vm.useEprotect && !utils.validateCreditCard(vm.cc.number)) {
         utils.setServerValidationToField($scope, $scope.form.cardNumber, 'invalid_card_number');
       }
       if (!form.$valid) {
         return;
       }
 
-      vm.showConfirmation = true;
-      vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
-      vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
-      vm.viewExpDate = form.expDate.$viewValue;
+      if (!vm.useEprotect) {
+        vm.showConfirmation = true;
+        vm.cc.parsedCcNumber = utils.replaceAllCharsExceptLast4(vm.cc.number);
+        vm.secCode.ParsedNumber = utils.replaceAllCharsExceptLast4(vm.secCode.number);
+        vm.viewExpDate = form.expDate.$viewValue;
+        return;
+      }
+
+      vm.eprotectErrorKey = null;
+
+      if (vm.hasSavedCreditCard && !vm.showCreditCardCaptureForm) {
+        // Reuse the non-expiring token from a previous purchase instead of
+        // tokenizing again through the iframe.
+        eprotectTokenData = angular.copy(existingCreditCardTokenData);
+        vm.eprotectCardPreview = {
+          firstSix: existingCreditCardTokenData.firstSixDigitsCCNumber,
+          lastFour: existingCreditCardTokenData.lastFourDigitsCCNumber
+        };
+        vm.showConfirmation = true;
+        return;
+      }
+
+      if (!eprotectApi || !eprotectApi.isReady()) {
+        vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
+        return;
+      }
+
+      vm.processingPayment = true;
+
+      return eprotectApi.requestPaypageRegistrationId()
+        .then(function (response) {
+          if (response.response !== eprotect.EProtectError.success) {
+            vm.eprotectErrorKey = eprotect.mapErrorCode(response.response);
+            return;
+          }
+
+          eprotectTokenData = {
+            worldPayLowValueToken: response.paypageRegistrationId,
+            lastFourDigitsCCNumber: response.lastFour,
+            firstSixDigitsCCNumber: response.firstSix,
+            ccExpMonth: response.expMonth,
+            ccExpYear: response.expYear,
+            ccType: getCreditCardBrand(response.firstSix)
+          };
+
+          return settings.authorizeCreditCard({
+            worldPayLowValueToken: response.paypageRegistrationId,
+            expirationMonth: response.expMonth,
+            expirationYear: response.expYear,
+            cardType: 0 // TODO: confirm the cardType code per card brand with backend
+          }).then(function (authResponse) {
+            if (!authResponse.data || !authResponse.data.isSuccessful) {
+              vm.eprotectErrorKey = 'eprotect_error_generic';
+              eprotectTokenData = null;
+              return;
+            }
+
+            eprotectTokenData.tokenizedPan = authResponse.data.tokenizedPan;
+            eprotectTokenData.transactionLinkID = authResponse.data.transactionLinkID;
+            vm.eprotectCardPreview = { firstSix: response.firstSix, lastFour: response.lastFour };
+            vm.showConfirmation = true;
+          });
+        })
+        .catch(function (error) {
+          vm.eprotectErrorKey = (error && eprotect.mapErrorCode(error.response)) || 'eprotect_error_generic';
+        })
+        .finally(function () {
+          vm.processingPayment = false;
+        });
     }
 
     function submitBillingPayment() {
@@ -199,6 +313,35 @@
         return;
       }
 
+      vm.eprotectErrorKey = null;
+
+      if (!vm.useEprotect) {
+        return sendAgreement({
+          cardNumber: vm.cc.number,
+          verificationCode: vm.secCode.number,
+          expiryDate: vm.expDate,
+          cardHoldersName: vm.cardHolder,
+          cardBrand: vm.cc.brand
+        });
+      }
+
+      if (!eprotectTokenData) {
+        vm.eprotectErrorKey = 'eprotect_error_payframe_failed_to_load';
+        return;
+      }
+
+      return sendAgreement({
+        worldPayLowValueToken: eprotectTokenData.worldPayLowValueToken,
+        worldPayToken: eprotectTokenData.tokenizedPan,
+        worldPayTransactionLinkID: eprotectTokenData.transactionLinkID,
+        lastFourDigitsCCNumber: eprotectTokenData.lastFourDigitsCCNumber,
+        firstSixDigitsCCNumber: eprotectTokenData.firstSixDigitsCCNumber,
+        expiryDate: eprotectTokenData.ccExpMonth + '/' + eprotectTokenData.ccExpYear,
+        cardBrand: eprotectTokenData.ccType
+      });
+    }
+
+    function sendAgreement(creditCard) {
       var fiscalIdtype;
       var fiscalId;
       var provinceCode;
@@ -207,7 +350,7 @@
         fiscalIdtype = "FID";
         fiscalId = vm.idFiscal;
       }
-      
+
       if (vm.cuit && vm.cuit != '' && vm.cuit.length >= 11) {
         fiscalIdtype = "CUIT";
         fiscalId = vm.cuit;
@@ -223,13 +366,7 @@
       var agreement = {
         planName: planName,
         paymentMethod: {
-          creditCard: {
-            cardNumber: vm.cc.number,
-            verificationCode: vm.secCode.number,
-            expiryDate: vm.expDate,
-            cardHoldersName: vm.cardHolder,
-            cardBrand: vm.cc.brand
-          }
+          creditCard: creditCard
         },
         billingInformation: {
           name: vm.name,
@@ -298,6 +435,9 @@
       if (!vm.downgrade) {
         vm.showConfirmation = false;
         vm.paymentFailure = false;
+        vm.eprotectErrorKey = null;
+        vm.eprotectCardPreview = null;
+        eprotectTokenData = null;
         return;
       }
       redirectToPlanSelection();
