@@ -494,7 +494,8 @@
         stores: [],
         rssCampaign: false,
         rssShowPreview: false,
-        fileServerImagesURL: "https://app2.dopplerfiles.com"
+        fileServerImagesURL: "https://app2.dopplerfiles.com",
+        socialImagesURL: "https://cdn.fromdoppler.com/unlayer-editor/assets/socialNetworkIcons/"
       };
       return $q.resolve(msEditorSettings);
     }
