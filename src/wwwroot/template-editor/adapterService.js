@@ -494,7 +494,17 @@
         stores: [],
         rssCampaign: false,
         rssShowPreview: false,
-        fileServerImagesURL: "https://app2.dopplerfiles.com"
+        fileServerImagesURL: "https://app2.dopplerfiles.com",
+        socialImagesURL: "https://cdn.fromdoppler.com/unlayer-editor/assets/socialNetworkIcons/",
+        abandonedCartCampaign: false,
+        visitedProductsCampaign: false,
+        bestSellingEnabled: false,
+        newProductsEnabled: false,
+        crossSellingEnabled: false,
+        pendingOrderCampaign: false,
+        confirmationOrderCampaign: false,
+        promotionCodeEnabled: false,
+        textTool: null
       };
       return $q.resolve(msEditorSettings);
     }
