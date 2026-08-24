@@ -11,7 +11,7 @@
     "gulp-minify-css": "^1.2.0",
     "gulp-sass": "^2.0.4",
     "imagemin-pngquant": "^4.2.0",
-    "jsonwebtoken": "5.0.2",
+    "jsonwebtoken": "9.0.0",
     "lodash": "^4.17.21",
     "morgan": "~1.6.1",
     "multer": "~1.0.1",
