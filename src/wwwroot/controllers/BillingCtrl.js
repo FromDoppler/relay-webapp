@@ -17,7 +17,8 @@
     'resources',
     'ModalService',
     'RELAY_CONFIG',
-    'eprotect'
+    'eprotect',
+    '$log'
   ];
 
   var secCodeMasksByBrand = {
@@ -32,7 +33,7 @@
      'amex': '9999 999999 99999',
      'unknown': '9999 9999 9999 9999'
   };
-  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect) {
+  function BillingCtrl($scope, $location, $rootScope, auth, $translate, $timeout, settings, utils, resources, ModalService, RELAY_CONFIG, eprotect, $log) {
     var vm = this;
     $rootScope.setSubmenues([
       { text: 'submenu_my_profile', url: 'settings/my-profile', active: false },
@@ -73,18 +74,22 @@
           }
 
           if(response.data.billingInformation){
-            vm.name = response.data.billingInformation.name;
-            vm.lastname = response.data.billingInformation.lastname;
-            vm.company = response.data.billingInformation.companyName;
-            vm.address = response.data.billingInformation.address;
-            vm.city = response.data.billingInformation.city;
-            vm.zCode = response.data.billingInformation.zipCode;
-            vm.country = getCountryByCode(response.data.billingInformation.countryCode);
-            vm.consumerType = getConsumerTypeByCode(response.data.billingInformation.consumerType);
-            vm.province = getProvinceByCode(response.data.billingInformation.provinceCode);
-            fillFiscalInformationByType(
-              response.data.billingInformation.fiscalIdType,
-              response.data.billingInformation.fiscalId);
+            try {
+              vm.name = response.data.billingInformation.name;
+              vm.lastname = response.data.billingInformation.lastname;
+              vm.company = response.data.billingInformation.companyName;
+              vm.address = response.data.billingInformation.address;
+              vm.city = response.data.billingInformation.city;
+              vm.zCode = response.data.billingInformation.zipCode;
+              vm.country = getCountryByCode(response.data.billingInformation.countryCode);
+              vm.consumerType = getConsumerTypeByCode(response.data.billingInformation.consumerType);
+              vm.province = getProvinceByCode(response.data.billingInformation.provinceCode);
+              fillFiscalInformationByType(
+                response.data.billingInformation.fiscalIdType,
+                response.data.billingInformation.fiscalId);
+            } catch (billingInformationError) {
+              $log.error(billingInformationError);
+            }
           }
 
           var savedCard = response.data.paymentMethod && response.data.paymentMethod.creditCard;
@@ -464,20 +469,20 @@
     }
 
     function getCountryByCode(countryCode) {
-      return vm.resources.countries.find(function(obj){
+      return vm.resources.countries && vm.resources.countries.find(function(obj){
         return obj.code == countryCode;
       });
     }
 
     function getConsumerTypeByCode(consumerTypeCode)
     {
-      return vm.resources.consumerType.find(function(obj){
+      return vm.resources.consumerType && vm.resources.consumerType.find(function(obj){
         return obj.code == consumerTypeCode;
       });
     }
 
     function getProvinceByCode(provinceCode) {
-      return vm.country.provinces.find(function(obj){
+      return vm.country && vm.country.provinces && vm.country.provinces.find(function(obj){
         return obj.code == provinceCode;
       });
     }
