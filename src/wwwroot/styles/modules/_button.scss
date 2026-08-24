@@ -237,7 +237,7 @@ $input--error--color: #FFF;
 		vertical-align: top;
 		text-align: left;
 		font-size: $p-font-size-normal;
-		background-color: $suit-color-input;
+		// background-color: $suit-color-input;
 		@extend .transition--default;
 		@include placeholder{
 			color: $suit-font-color-placeholder;

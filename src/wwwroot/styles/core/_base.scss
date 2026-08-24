@@ -56,7 +56,7 @@ p.main--subtitle{
 }
 
 .main-container{
-  background-color: $suit-background-default;
+  // background-color: $suit-background-default;
   min-height: calc(100vh - 220px);
   &.with-submenu{
     min-height: calc(100vh - 247px);
@@ -73,7 +73,7 @@ p.main--subtitle{
   }
   .selectize-input {
     background-image: none !important;
-    background-color: $suit-color-input !important;
+    background-color: #fff !important;
     box-shadow: none !important;
   }
   .ui-select-container.open .selectize-input {

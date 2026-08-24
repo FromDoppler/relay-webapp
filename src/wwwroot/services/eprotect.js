@@ -92,7 +92,7 @@
         reportGroup: RELAY_CONFIG.eprotectReportGroup,
         timeout: '5000',
         div: divId,
-        height: '350',
+        height: '300',
         callback: callback,
         showCvv: true,
         months: months,

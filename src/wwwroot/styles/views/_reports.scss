@@ -95,7 +95,7 @@
 }
 
 .reports--grid{
-  background: #F5F1F1;
+  // background: #F5F1F1;
   padding:  torem(40px) 0;
   min-height: calc(100vh - 303px);
   input.input { width: calc(100% - 347px);padding:torem(19px) 0 torem(19px) torem(19px);}
@@ -116,7 +116,7 @@
 }
 
 .downloads--grid {
-  background: $suit-color-bright;
+  // background: $suit-color-bright;
   .activity--title-container{
     margin: 0 0 torem(30px) 0;
     display:inline-block;
