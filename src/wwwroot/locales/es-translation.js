@@ -610,6 +610,7 @@ window['relay-translation-es'] = {
   "my_billing_information_success_title": "",
   "my_billing_information_success_text": "Los cambios se han guardado correctamente.",
   "my_billing_information_freeplan_text": "Actualmente tienes una cuenta gratuita. <a class='upgrade--link' href='#/settings/my-plan'>CONTRATAR PLAN</a>.",
+  "my_billing_information_freeplan_with_card_text": "Actualmente tienes una cuenta gratuita. Guardamos tu tarjeta para cuando quieras <a class='upgrade--link' href='#/settings/my-plan'>CONTRATAR PLAN</a>.",
   "my_billing_information_transfer_payment_text": "Actualmente abonas el servicio por <b>transferencia bancaria</b>, por lo que no puedes editar la información de esta pantalla.",
   "my_billing_information_validation_error_payment_failure": "¡Ouch! Esta tarjeta de crédito no permite realizar pagos a Doppler LLC. Comunícate con la entidad emisora para autorizarlos y vuelve a intentarlo, o ingresa otra tarjeta."
 };

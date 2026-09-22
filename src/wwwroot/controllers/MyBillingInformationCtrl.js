@@ -50,6 +50,7 @@
     vm.paymentMetodInfo = { cc: {number: '', brand: {}, mask: ''}, secCode: {number: '', mask: ''}, expDate: ''};
     vm.paymentMethodSaved = false;
     vm.validationPaymentFailure = false;
+    vm.hasSavedCard = false;
 
     function activate() {
       vm.resources = resources.data;
@@ -57,14 +58,11 @@
       vm.paymentMetodInfo = { cc: {number: '', brand: {}, mask: ''}, secCode: {number: '', mask: ''}, carHolder: '', expDate: ''};
       vm.changePaymentMethod = false;
       vm.validationPaymentFailure = false;
-      
+      vm.hasSavedCard = false;
+
       settings.getCurrentPlanInfo().then(function(response) {
         vm.isFreeTrial = !(response.data.fee && response.data.includedDeliveries);
-        if (!vm.isFreeTrial) {
-          initializeCreditCardProperties(response.data);
-        } else {
-          vm.paymentMethodLoader = false;
-        }
+        initializeCreditCardProperties(response.data);
       })
     }
 
@@ -102,7 +100,10 @@
     }
 
     function initializeCreditCardProperties(data) {
-      vm.transferPayment = !data.paymentMethod;
+      // A free-trial account without a saved card is not a "transfer" payer,
+      // it simply never set up a payment method yet.
+      vm.transferPayment = !vm.isFreeTrial && !data.paymentMethod;
+      vm.hasSavedCard = !!(data.paymentMethod && data.paymentMethod.creditCard);
       if (data.paymentMethod && data.paymentMethod.creditCard) {
         vm.paymentMetodInfo.cardHolder = data.paymentMethod.creditCard.cardHoldersName;
 

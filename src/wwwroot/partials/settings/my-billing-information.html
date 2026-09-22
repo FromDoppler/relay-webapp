@@ -5,7 +5,8 @@
     </h2>
     <p id="subtitleMessage" ng-if="!vm.paymentMethodLoader && !vm.isFreeTrial && !vm.transferPayment" ng-bind-html="'my_billing_information_subtitle' | translate"></p>
     <p id="transferMessage" ng-if="!vm.paymentMethodLoader && vm.transferPayment" ng-bind-html="'my_billing_information_transfer_payment_text' | translate"></p>
-    <p id="freePlanMessage" ng-if="!vm.paymentMethodLoader && vm.isFreeTrial" ng-bind-html="'my_billing_information_freeplan_text' | translate"></p>
+    <p id="freePlanMessage" ng-if="!vm.paymentMethodLoader && vm.isFreeTrial && !vm.hasSavedCard" ng-bind-html="'my_billing_information_freeplan_text' | translate"></p>
+    <p id="freePlanWithCardMessage" ng-if="!vm.paymentMethodLoader && vm.isFreeTrial && vm.hasSavedCard" ng-bind-html="'my_billing_information_freeplan_with_card_text' | translate"></p>
   </div>
   <div ng-if="!vm.changePaymentMethod" class="my-billing-information--container">
     <div class="section--wrapper credit-card--container">
@@ -15,8 +16,8 @@
           <label class="special uppercase" for="creditCardRadio">{{'my_billing_information_credit_card_option' | translate}}</label>
         </div>
         <div class="flex one flex--wrap button--container">
-          <button class="button button--small check-button" ng-class="!vm.isFreeTrial && !vm.transferPayment ? 'default':'disabled'"
-                  ng-disabled="vm.isFreeTrial || vm.transferPayment" ng-click="vm.showChangePaymentMethod();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'my_billing_information_change_credit_card' | translate }}</button>
+          <button class="button button--small check-button" ng-class="!vm.transferPayment && (vm.useEprotect || !vm.isFreeTrial) ? 'default':'disabled'"
+                  ng-disabled="vm.transferPayment || (!vm.useEprotect && vm.isFreeTrial)" ng-click="vm.showChangePaymentMethod();" du-smooth-scroll="pricing-chart--container" offset="20">{{ 'my_billing_information_change_credit_card' | translate }}</button>
         </div>
       </div>
       <div class="item flex flex--wrap first">
@@ -28,7 +29,7 @@
         <div class="flex one credit-card flex--wrap flex--vertically-start" ng-class="vm.paymentMetodInfo.cc.brand">
           <label class="width--full special uppercase" for="cardNumber">{{'my_billing_information_card_number_label' | translate}}</label>
           <p id="creditCardNumberInformation">{{vm.paymentMetodInfo.cc.number}}</p>
-          <div class="cards-icons--container" ng-if="!vm.paymentMethodLoader && !vm.isFreeTrial">
+          <div class="cards-icons--container" ng-if="!vm.paymentMethodLoader && vm.hasSavedCard">
             <svg class="icon icon-visa" ng-if="vm.paymentMetodInfo.cc.brand === 'visa'">
               <use xlink:href="/images/sprite.svg#doppler-icon-visa-card"></use>
             </svg>

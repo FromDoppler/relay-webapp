@@ -51,8 +51,8 @@ describe('My Billing Information Page', () => {
       }));
   }
 
-  //Free Account 
-  it('should show the credit card information when the user has free account', (done) => {
+  //Free Account
+  it('should show the credit card information when the user has free account with a saved card', (done) => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/my-billing-information');
@@ -79,20 +79,16 @@ describe('My Billing Information Page', () => {
 
     // Act
     var cardHolder = myBillingInformationPage.waitAndGetCardHolder();
-    var creditCardNumber = myBillingInformationPage.waitAndGetCreditCardNumber();
     var expiryDate = myBillingInformationPage.waitAndGetExpiryDate();
-    var verificationCode = myBillingInformationPage.waitAndGetVerificationCode();
 
     // Assert
-    expect(cardHolder).toBe('');
-    expect(creditCardNumber).toBe('');
-    expect(expiryDate).toBe('');
-    expect(verificationCode).toBe('');
+    expect(cardHolder).toBe('Juan Test');
+    expect(expiryDate).toBe('12/25');
 
     done();
   });
 
-  it('should show the buy a plan when the user has free account', (done) => {
+  it('should show the buy a plan message when the user has free account without a saved card', (done) => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/my-billing-information');
@@ -105,7 +101,7 @@ describe('My Billing Information Page', () => {
       .run($httpBackend => {
         $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
               "planName": null,
-              "paymentMethod": {"creditCard": {"cardNumber": "############4444","expiryDate": "1225","cardHoldersName": "Juan Test", "cardBrand": 'visa'}},
+              "paymentMethod": null,
               "billingInformation": null,
               "startDate": "2017-07-01T00:00:00Z",
               "currency": "USD",
@@ -123,7 +119,7 @@ describe('My Billing Information Page', () => {
     done();
   });
 
-  it('should show a disabled the "change card" button when the user has free account', (done) => {
+  it('should show the freeplan-with-card message when the user has free account with a saved card', (done) => {
     // Arrange
     beginAuthenticatedSession();
     browser.get('/#/settings/my-billing-information');
@@ -149,7 +145,38 @@ describe('My Billing Information Page', () => {
     var myBillingInformationPage = new MyBillingInformationPage();
 
     // Assert
-    expect(myBillingInformationPage.isChangeCardButtonDisabled()).toBe(true);
+    expect(myBillingInformationPage.isFreePlanWithCardMessageDisplayed()).toBe(true);
+
+    done();
+  });
+
+  it('should show an enabled "change card" button when the user has free account, regardless of a saved card', (done) => {
+    // Arrange
+    beginAuthenticatedSession();
+    browser.get('/#/settings/my-billing-information');
+    setupSampleStatusLimitResponse();
+
+    browser.addMockModule('descartableModule4', () => angular
+      // This code will be executed in the browser context,
+      // so it cannot access variables from outside its scope
+      .module('descartableModule4', ['ngMockE2E'])
+      .run($httpBackend => {
+        $httpBackend.whenGET(/\/accounts\/[\w|-]*\/agreements\/current/).respond(200, {
+              "planName": null,
+              "paymentMethod": null,
+              "billingInformation": null,
+              "startDate": "2017-07-01T00:00:00Z",
+              "currency": "USD",
+              "ips_count": 0,
+              "cost_by_ip": 0,
+              "extraDeliveryCost": 0,
+        });
+    }));
+
+    var myBillingInformationPage = new MyBillingInformationPage();
+
+    // Assert
+    expect(myBillingInformationPage.isChangeCardButtonDisabled()).toBe(false);
 
     done();
   });

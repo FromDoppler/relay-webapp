@@ -596,6 +596,7 @@
   "my_billing_information_success_title": "",
   "my_billing_information_success_text": "Changes have been successfully saved.",
   "my_billing_information_freeplan_text": "You currently have a free account. <a class='upgrade--link' href='#/settings/my-plan'>BUY A PLAN</a>.",
+  "my_billing_information_freeplan_with_card_text": "You currently have a free account. We saved your card for whenever you want to <a class='upgrade--link' href='#/settings/my-plan'>BUY A PLAN</a>.",
   "my_billing_information_transfer_payment_text": "You currently pay the service by <b>bank transfer</b>, so you can’t edit the information below.",
   "my_billing_information_validation_error_payment_failure": "Ouch! This credit card doesn’t allow payments to Doppler LLC. Please contact the issuing company to authorize them and try it later, or add another credit card."
 };

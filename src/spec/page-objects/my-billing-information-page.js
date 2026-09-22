@@ -15,6 +15,7 @@ class MyBillingInformationPage {
     this._verificationCodeLabel = $('.credit-card--container #verificationCodeInformation');
     this._subtitleMessage = $('#subtitleMessage');
     this._freePlanMessage = $('#freePlanMessage');
+    this._freePlanWithCardMessage = $('#freePlanWithCardMessage');
     this._transferMessage = $('#transferMessage');
     this._cardHolderErrorContainer = $('.card-holder-container .validation-error-fluid');
     this._creditCardErrorContainer = $('.credit-card-container .validation-error-fluid');
@@ -80,8 +81,12 @@ class MyBillingInformationPage {
     return this._saveButton.click();
   }
 
-  isFreePlanMessageDisplayed() {    
+  isFreePlanMessageDisplayed() {
     return this._freePlanMessage.isDisplayed();
+  }
+
+  isFreePlanWithCardMessageDisplayed() {
+    return this._freePlanWithCardMessage.isDisplayed();
   }
 
   isTransferMessageDisplayed() {    
